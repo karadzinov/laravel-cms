@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/UsersManagementController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/Auth/SocialController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/AdminDetailsController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/home.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Models/User.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/config/settings.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/welcome.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/database/migrations/2014_10_12_000000_create_users_table.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Models/Social.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/auth/register.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/routes/web.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/database/migrations/2017_03_09_082449_create_social_logins_table.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/UserController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/usersmanagement/create-user.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/.env</file>
+        </group>
+    </open-files>
+</project-private>
