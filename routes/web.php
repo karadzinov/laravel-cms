@@ -135,7 +135,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         ]);
     
     Route::get('meta/settings/show','SettingsController@show' );
-    Route::get('meta/settings/edit','SettingsController@edit' );
+    Route::get('meta/settings/1/edit','SettingsController@edit' );
+    Route::get('meta/settings/create','SettingsController@create' );
     
     });
 

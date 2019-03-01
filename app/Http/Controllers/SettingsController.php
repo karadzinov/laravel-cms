@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-
 use App\Models\Settings;
 use Illuminate\Http\Request;
 
@@ -75,11 +73,12 @@ class SettingsController extends Controller
     {
         //
         if (Settings::count()==0){
-           return view('settings.create');
+           $msg ="NO SETTINGS";
+           return view('settings.edit', compact('msg'));
         }
         
         $settings = Settings::findOrFail(1);
-        dd($settings);
+        //dd($settings);
         return view('settings.edit', compact('settings'));
  
     }
