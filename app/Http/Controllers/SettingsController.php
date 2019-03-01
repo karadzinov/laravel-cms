@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
+use App\Models\Settings;
 use Illuminate\Http\Request;
 
-class SetingsController extends Controller
+class SettingsController extends Controller
 {
     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +19,15 @@ class SetingsController extends Controller
     public function index()
     {
         //
+        if (Settings::count()==0){
+           $msg = 'No settings';
+           return view('settings.index', compact('msg'));
+        }
+        
+        $settings = Settings::firstOrFail();
+        dd($settings);
+       // return view('settings.index', compact('settings'));
+        
     }
 
     /**
@@ -29,6 +38,8 @@ class SetingsController extends Controller
     public function create()
     {
         //
+        return view('settings.create');
+        
     }
 
     /**
@@ -48,9 +59,10 @@ class SetingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        // 
+        return redirect('/meta/settings');
     }
 
     /**
@@ -59,9 +71,17 @@ class SetingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
+        if (Settings::count()==0){
+           return view('settings.create');
+        }
+        
+        $settings = Settings::findOrFail(1);
+        dd($settings);
+        return view('settings.edit', compact('settings'));
+ 
     }
 
     /**
@@ -71,7 +91,7 @@ class SetingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }
@@ -82,7 +102,7 @@ class SetingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         //
     }

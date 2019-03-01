@@ -1,16 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Settings extends Model
 {
-    //
-        protected $table = 'settings';
-        
-    //  
-        protected $fillable = [
+    protected $table = 'settings';
+
+    /**
+     * Fillable fields for a Profile.
+     *
+     * @var array
+     */
+    protected $fillable = [
         'main_url',
         'title',
         'email',
@@ -26,7 +29,5 @@ class Settings extends Model
         'ios_app',
         'android_app',
         'google_map'
-        ];
-
+    ];
 }
-

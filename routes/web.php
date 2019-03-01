@@ -120,10 +120,25 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
             'destroy' => 'themes.destroy',
         ],
     ]);
-
+    
+      
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
-});
+    
+//    Route::resource('site/settings','SettingsController')->middleware('can:update.App\Metods\Settings');
+    Route::resource('meta/settings','SettingsController', [
+        'names' => [
+            'index'   => 'meta/settings',
+            'destroy' => 'meta/settings.destroy',
+        ],
+        ]);
+    
+    Route::get('meta/settings/show','SettingsController@show' );
+    Route::get('meta/settings/edit','SettingsController@edit' );
+    
+    });
 
+   
+  
 Route::redirect('/php', '/phpinfo', 301);
