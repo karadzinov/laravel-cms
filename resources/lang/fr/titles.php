@@ -29,5 +29,7 @@ return [
     'adminLogs'   => 'Fichier Log',
     'adminPHP'    => 'Information PHP',
     'adminRoutes' => 'Details routage',
+    
+    'Settings'          => 'Settings',
 
 ];

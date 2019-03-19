@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/create.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/en/forms.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/partials/nav.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/scripts/delete-modal-script.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/en/titles.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/routes/web.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/index.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/en/settings.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/usersmanagement/show-users.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/SettingsController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/edit.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/.env</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/modals/modal-delete-settings.blade.php</file>
+        </group>
     </open-files>
 </project-private>
