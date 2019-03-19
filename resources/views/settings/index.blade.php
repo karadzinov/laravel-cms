@@ -121,7 +121,10 @@
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('google_map', $settings->google_map,  array( 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'readonly')) !!}
                     </div>
-                    
+                    <div class="col-md-12">
+                        <iframe src="{{$settings->google_map}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                   
                 </div>
         @endif
             </div>

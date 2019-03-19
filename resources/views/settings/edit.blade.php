@@ -123,6 +123,12 @@
                                 <div class="col-md-12"  style="font-size: 14px">
                                     {!! Form::text('google_map', $settings->google_map, array('id' => 'google_map', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-google-map-ph'))) !!}
                                 </div>
+                                <div class="col-md-12">
+<!--                                    
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.068141918174!2d23.283874615466544!3d42.68109887916669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8527e53c4877%3A0xca64a5614f853365!2sul.+%22Balchik%22+5%2C+1612+g.k.+Lagera%2C+Sofia!5e0!3m2!1sen!2sbg!4v1552986202106" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+-->                                    
+                                    <iframe src="{{$settings->google_map}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                </div>
                             
                         </div>
                                  {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}

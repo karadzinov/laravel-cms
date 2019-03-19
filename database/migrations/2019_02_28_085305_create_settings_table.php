@@ -20,7 +20,7 @@ class CreateSettingsTable extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('logo');
-            $table->string('meta_description')->nullable();
+            $table->text('meta_description')->nullable();
             $table->string('meta_image')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('instagram')->nullable();
@@ -29,7 +29,7 @@ class CreateSettingsTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('ios_app')->nullable();
             $table->string('android_app')->nullable();
-            $table->string('google_map')->nullable();
+            $table->text('google_map')->nullable();
             $table->timestamps();
         });
     }

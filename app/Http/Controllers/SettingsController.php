@@ -78,7 +78,6 @@ class SettingsController extends Controller
                 'main_url'              => 'required|max:255',
                 'address'               => 'required|max:255',
                 'logo'                  => 'required|max:255',
-                'meta_description'      => 'max:255',
             ],
             [
                
@@ -88,7 +87,6 @@ class SettingsController extends Controller
                 'address.required'      => trans('settings.addressRequired'),
                 'main_url.required'     => trans('settings.mainURLRequired'),
                 'logo.required'         => trans('settings.logoRequired'),
-                'meta_description.max'  => trans('settings.metaDescrptionMax'),   
             ]
         );
 
@@ -171,7 +169,6 @@ class SettingsController extends Controller
                 'email'                 => 'required|email|max:255',
                 'main_url'              => 'required|max:255',
                 'address'               => 'required|max:255',
-                'meta_description'      => 'max:255',
             ],
             [
                
@@ -180,7 +177,6 @@ class SettingsController extends Controller
                 'email.email'           => trans('settings.emailInvalid'),                
                 'address.required'      => trans('settings.addressRequired'),
                 'main_url.required'     => trans('settings.mainURLRequired'),
-                'meta_description.max'  => trans('settings.metaDescrptionMax'),   
             ]
         );
 
