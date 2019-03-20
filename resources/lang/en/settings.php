@@ -15,5 +15,4 @@ return [
     'addressRequired'       => 'Address is required',
     'mainURLRequired'       => 'Main URL is required',
     'logoRequired'          => 'Logo is required',
-    'metaDescrptionMax'     => 'Meta description maximum length is 255 characters',
     ];

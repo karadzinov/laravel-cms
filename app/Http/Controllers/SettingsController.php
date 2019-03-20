@@ -78,7 +78,15 @@ class SettingsController extends Controller
                 'main_url'              => 'required|max:255',
                 'address'               => 'required|max:255',
                 'logo'                  => 'required|max:255',
-            ],
+                'meta_image'            => 'max:255',
+                'meta_title'            => 'max:255',
+                'instagram'             => 'max:255',
+                'twitter'               => 'max:255',
+                'facebook'              => 'max:255',
+                'linkedin'              => 'max:255',
+                'ios_app'               => 'max:255',
+                'android_app'           => 'max:255',
+                        ],
             [
                
                 'title.required'        => trans('settings.titleRequired'),
@@ -169,6 +177,15 @@ class SettingsController extends Controller
                 'email'                 => 'required|email|max:255',
                 'main_url'              => 'required|max:255',
                 'address'               => 'required|max:255',
+                'logo'                  => 'max:255',
+                'meta_image'            => 'max:255',
+                'meta_title'            => 'max:255',
+                'instagram'             => 'max:255',
+                'twitter'               => 'max:255',
+                'facebook'              => 'max:255',
+                'linkedin'              => 'max:255',
+                'ios_app'               => 'max:255',
+                'android_app'           => 'max:255',
             ],
             [
                
@@ -177,7 +194,7 @@ class SettingsController extends Controller
                 'email.email'           => trans('settings.emailInvalid'),                
                 'address.required'      => trans('settings.addressRequired'),
                 'main_url.required'     => trans('settings.mainURLRequired'),
-            ]
+           ]
         );
 
         if ($validator->fails()) {
