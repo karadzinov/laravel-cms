@@ -122,8 +122,8 @@ return [
     'settings-ios-app-ph'       => 'iOS application',
     'settings-android-app'      => 'Android application:',
     'settings-android-app-ph'   => 'Android application',
-    'settings-google-map'       => 'Google map:',
-    'settings-google-map-ph'    => 'Google map',
+    'settings-google-map'       => 'Google map coordinates:',
+    'settings-google-map-ph'    => 'latitude,longitude',
     'create_settings_button_text'   => 'Save Settings',
     'edit_settings_button_text'     => 'Edit Settings',
    
