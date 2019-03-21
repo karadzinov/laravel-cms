@@ -9,6 +9,15 @@
         .pw-change-container {
             display: none;
         }
+
+         #map-canvas {
+             width: 100%;
+             height: 300px;
+         }
+        #searchmap {
+            width: 500px;
+        }
+
     </style>
 @endsection
 @section('head')
@@ -104,11 +113,17 @@
                                 
                                 {!! Form::label('google_map', trans('forms.settings-google-map'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                                 <div class="col-md-12"  style="font-size: 14px">
-                                    {!! Form::text('google_map', NULL, array('id' => 'title', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-google-map-ph'))) !!}
+                                    <div class="form-group">
+                                        <input type="text" id="searchmap" class="form-control">
+                                        <div id="map-canvas"></div>
+                                    </div>
                                 </div>
                             </div>
                                  {!! Form::button(trans('forms.create_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
-                        
+
+                    <input type="hidden" id="lat" class="form-control" name="lat">
+                    <input type="hidden" id="lng" class="form-control" name="lng">
+
                         {!! Form::close() !!}
                 </div>    
             </div>
@@ -117,3 +132,58 @@
     </div>    
 @endsection
 
+@section('footer_scripts')
+<script>
+    $(document).ready(function()
+    {
+// Google Maps
+
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+            center: {lat: 48.85, lng: 2.35},
+            zoom: 5
+        });
+
+        var marker = new google.maps.Marker({
+            position: {lat: 48.85, lng: 2.35},
+            map: map,
+            draggable: true
+        });
+
+        var input = document.getElementById('searchmap');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+        google.maps.event.addListener(searchBox,'places_changed',function() {
+            var places = searchBox.getPlaces();
+            var bounds = new google.maps.LatLngBounds();
+            var i, place;
+            for(i=0;place=places[i];i++) {
+                bounds.extend(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+            }
+            map.fitBounds(bounds);
+            map.setZoom(8);
+
+        });
+
+        google.maps.event.addListener(marker,'position_changed',function() {
+            var lat = marker.getPosition().lat();
+            var lng = marker.getPosition().lng();
+
+            $('#lat').val(lat);
+            $('#lng').val(lng);
+        });
+
+
+        $("form").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                $("#searchmap").attr('value');
+                //add more buttons here
+                return false;
+            }
+        });
+
+    });
+</script>
+@endsection

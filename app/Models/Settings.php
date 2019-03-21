@@ -28,6 +28,8 @@ class Settings extends Model
         'linkedin',
         'ios_app',
         'android_app',
-        'google_map'
+        'google_map',
+        'lat',
+        'lng'
     ];
 }

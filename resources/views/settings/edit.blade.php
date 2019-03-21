@@ -7,6 +7,20 @@
 @section('head')
 @endsection
 
+@section('template_linked_css')
+    <style type="text/css">
+        #map-canvas {
+            width: 100%;
+            height: 300px;
+        }
+
+        #searchmap {
+            width: 500px;
+        }
+    </style>
+@endsection
+
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -120,13 +134,19 @@
                                     {!! Form::text('android_app', $settings->android_app, array('id' => 'android_app', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-android-app-ph'))) !!}
                                 </div>
                                 {!! Form::label('google_map', trans('forms.settings-google-map'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
-                                <div class="col-md-12"  style="font-size: 14px">
-                                    {!! Form::text('google_map', $settings->google_map, array('id' => 'google_map', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-google-map-ph'))) !!}
-                                </div>
+
                                 <div class="col-md-12">
-                                    <iframe src="http://maps.google.com/maps?q={{$settings->google_map}}&z=15&output=embed" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                                        <input type="text" id="searchmap" class="form-control">
+                                        <div id="map-canvas"></div>
+
                                 </div>
 
+
+
+
+                            <input type="hidden" id="lat" class="form-control" name="lat" value="{{ $settings->lat }}">
+                            <input type="hidden" id="lng" class="form-control" name="lng" value="{{ $settings->lng }}">
                             
                         </div>
                                  {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
@@ -140,3 +160,62 @@
     </div>        
 @endsection
 
+
+@section('footer_scripts')
+    <!-- Google Maps -->
+
+    <script>
+
+        $(document).ready(function () {
+// Google Maps
+
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), {
+                center: {lat: {{ $settings->lat }}, lng: {{ $settings->lng }} },
+                zoom: 10
+            });
+
+            var marker = new google.maps.Marker({
+                position: {lat: {{ $settings->lat }}, lng: {{ $settings->lng }} },
+                map: map,
+                draggable: true
+            });
+
+            var input = document.getElementById('searchmap');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+            google.maps.event.addListener(searchBox, 'places_changed', function () {
+                var places = searchBox.getPlaces();
+                var bounds = new google.maps.LatLngBounds();
+                var i, place;
+                for (i = 0; place = places[i]; i++) {
+                    bounds.extend(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                }
+                map.fitBounds(bounds);
+                map.setZoom(8);
+
+            });
+
+            google.maps.event.addListener(marker, 'position_changed', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+
+                $('#lat').val(lat);
+                $('#lng').val(lng);
+            });
+
+
+            $("form").bind("keypress", function (e) {
+                if (e.keyCode == 13) {
+                    $("#searchmap").attr('value');
+                    //add more buttons here
+                    return false;
+                }
+            });
+
+        });
+
+    </script>
+@endsection
