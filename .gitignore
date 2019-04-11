@@ -48,6 +48,3 @@ npm-debug.log
 yarn-error.log
 
 /nbproject/
-/database/migrations/2019_03_21_093134_create_categories_table.php
-/app/Models/Category.php
-/app/Http/Controllers/CategoryController.php

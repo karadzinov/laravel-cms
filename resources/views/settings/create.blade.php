@@ -124,6 +124,7 @@
                     <input type="hidden" id="lat" class="form-control" name="lat">
                     <input type="hidden" id="lng" class="form-control" name="lng">
 
+
                         {!! Form::close() !!}
                 </div>    
             </div>

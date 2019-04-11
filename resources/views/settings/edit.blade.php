@@ -34,7 +34,7 @@
                                     <table class="table-sm">
                                         <tr>
                                             <td>
-                                                <a href='/meta/settings' class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.tooltips.back-users') }}">
+                                                <a href='/meta/settings' class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('settings.back-to-settings') }}">
                                                 <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                                                 {!! trans('settings.back-to-settings') !!}
                                                 </a>

@@ -52,6 +52,11 @@
                             <a class="dropdown-item {{ Request::is('settings') ? 'active' : null }}" href="{{ url('/meta/settings') }}">
                                 {!! trans('titles.Settings') !!}
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ Request::is('categories') ? 'active' : null }}" href="{{ url('/node/category') }}">
+                                {!! trans('titles.Categories') !!}
+                            </a>                    
+                                                
                         </div>
                     </li>
                 @endrole

@@ -34,4 +34,5 @@ return [
 
     'activeUsers'       => 'Active Users',
     'Settings'          => 'Settings',
+    'Categories'        => 'Categories',
 ];

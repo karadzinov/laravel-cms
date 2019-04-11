@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>routes/web.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>138</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>resources/views/categories/edit-cat.blade.php</url>
+            <bookmark id="2">
+                <name/>
+                <line>48</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/pt-br/usersmanagement.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/pt-br/socials.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/create.blade.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/partials/nav.blade.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/en/settings.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/SettingsController.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/edit.blade.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/config/app.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/.env</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/lang/fr/settings.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/database/migrations/2019_03_21_103807_update_settings_table.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Models/Category.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categoriesB/create-subcategory.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/partials/form.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/partials/tree.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/partials/path.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/partials/manageChild.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categoriesB/edit-subcategory.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/layout.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/index.blade.php</file>
             <file>file:/D:/wamp/www/laravel-cms-develop/routes/web.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/settings/index.blade.php</file>
-            <file>file:/D:/wamp/www/laravel-cms-develop/composer.json</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/CategoryController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/app/Http/Controllers/CategoryBController.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categoriesB/edit.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/.env</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/create.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/show.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categories/edit.blade.php</file>
+            <file>file:/D:/wamp/www/laravel-cms-develop/resources/views/categoriesB/index.blade.php</file>
         </group>
     </open-files>
 </project-private>

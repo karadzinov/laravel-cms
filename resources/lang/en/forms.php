@@ -126,5 +126,7 @@ return [
     'settings-google-map-ph'    => 'latitude,longitude',
     'create_settings_button_text'   => 'Save Settings',
     'edit_settings_button_text'     => 'Edit Settings',
-   
+    // categories
+    'create_categories_button_text' => 'Save Category',
+    'edit_categories_button_text'   => 'Edit Category',
 ];

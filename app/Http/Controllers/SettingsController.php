@@ -6,7 +6,7 @@ use App\Models\Settings;
 use Illuminate\Http\Request;
 use Auth;
 //use App\Models\User;
-use App\Models\Profile;
+//use App\Models\Profile;
 use Validator;
 
 class SettingsController extends Controller
@@ -86,6 +86,8 @@ class SettingsController extends Controller
                 'linkedin'              => 'max:255',
                 'ios_app'               => 'max:255',
                 'android_app'           => 'max:255',
+                'lat'                   => '',
+                'lng'                   => '',
                         ],
             [
                
@@ -95,6 +97,8 @@ class SettingsController extends Controller
                 'address.required'      => trans('settings.addressRequired'),
                 'main_url.required'     => trans('settings.mainURLRequired'),
                 'logo.required'         => trans('settings.logoRequired'),
+                'lat'                   => '', //'Latitude required',
+                'lng'                   => '', //'Longtitude required',
             ]
         );
 
@@ -111,7 +115,8 @@ class SettingsController extends Controller
                 $input['logo']=$name;
             }
   
-        
+//            $input['lat'] = 42.681351; for test
+//            $input['lng'] = 23.286031;
          
         Settings::create($input);
         
@@ -186,6 +191,9 @@ class SettingsController extends Controller
                 'linkedin'              => 'max:255',
                 'ios_app'               => 'max:255',
                 'android_app'           => 'max:255',
+                'lat'                   => '',
+                'lng'                   => '',
+
             ],
             [
                
@@ -194,6 +202,8 @@ class SettingsController extends Controller
                 'email.email'           => trans('settings.emailInvalid'),                
                 'address.required'      => trans('settings.addressRequired'),
                 'main_url.required'     => trans('settings.mainURLRequired'),
+                'lat'                   => '', //'Latitude required',
+                'lng'                   => '', //'Longtitude required',
            ]
         );
 

@@ -126,21 +126,19 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
     
-//    Route::resource('meta/settings/{id}','SettingsController')->middleware('can:update.App\Metods\Settings');
-//    Route::resource('meta/settings','SettingsController', [
-//        'names' => [
-//            'index'   => 'meta/settings',
-//            'destroy' => 'meta/settings',s
-//        ],
-//        ]);
-    
+
+    // settings
     Route::resource('meta/settings','SettingsController');
     
     Route::get('meta/settings/show','SettingsController@show' );
     Route::get('meta/settings/1/edit','SettingsController@edit' );
     Route::get('meta/settings/create','SettingsController@create' );
     
+    // category
+    Route::resource('node/category', 'CategoryController');
     
+  
+
     });
 
    
