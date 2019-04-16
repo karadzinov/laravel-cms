@@ -43,10 +43,9 @@ class CategoryController extends Controller
     {
         if($input['parent_id'] == 0) $input['parent_id'] = NULL;
         $category = Category::create($input->all());
-        
-        return redirect()->route('category.show', [ $category->getKey() ]);
-    //        ->with('success', 'Category successfully created!');
-      //  return redirect()->route('category.show');
+        return redirect('/node/category');
+    //    return redirect()->route('category.show', [ $category->getKey() ]);
+    
     }
 	/**
 	 * Display the specified resource.
@@ -88,7 +87,8 @@ class CategoryController extends Controller
     /** @var Category $category */
         $category = Category::findOrFail($id);
         $category->update($input->all());
-        return redirect()->route('category.show', [ $category->getKey() ]);
+        return redirect('/node/category');
+       // return redirect()->route('category.show', [ $category->getKey() ]);
     }
 
     /**
@@ -102,8 +102,12 @@ class CategoryController extends Controller
         
         $category= Category::findOrFail($id);
         $tree = $category->children;
-       
-        //dd($category);
+        //dd($tree);
+        foreach ($tree as  $child) $child->delete();
+        $category->delete();
+
+        
+        
         return redirect('/node/category');
     }
     

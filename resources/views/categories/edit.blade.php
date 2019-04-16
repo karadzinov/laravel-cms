@@ -47,10 +47,7 @@
                                 </span> 
                             {!! Form::close() !!}                                
                         </div>
-                                                    
-       
-                         
-                        @endif
+                    @endif
             </div>
         </div>
     </div>
