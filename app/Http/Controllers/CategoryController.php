@@ -18,8 +18,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all()->where('parent_id','=',NULL);
-        $childs = Category::select('parent_id','id')->whereNotNull('parent_id')->get();
-        return view('categories.index', compact('categories', 'childs'));
+//    dd($categories); 
+        return view('categories.index', compact('categories'));
     }
 	/**
 	 * Show the form for creating a new resource.
