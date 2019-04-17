@@ -129,7 +129,7 @@ class CategoryController extends Controller
     protected function getCategoryOptions($except = null)
     {
         /** @var \Kalnoy\Nestedset\QueryBuilder $query */
-        $query = Category::select('id', 'name')->withDepth();
+        $query = Category::select('id', 'name')->withDepth()->defaultOrder();
         if ($except)
         {
             $query->whereNotDescendantOf($except)->where('id', '<>', $except->id);
