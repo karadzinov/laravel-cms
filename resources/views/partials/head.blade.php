@@ -5,7 +5,6 @@
 {{-- CSRF Token --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>@if (trim($__env->yieldContent('template_title')))@yield('template_title') | @endif {{ config('app.name', Lang::get('titles.app')) }}</title>
 <meta name="description" content="">
 <meta name="author" content="Jeremy Kenedy">
 <link rel="shortcut icon" href="/favicon.ico">
@@ -22,15 +21,10 @@
   rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
-@yield('template_linked_fonts')
-
 {{-- Styles --}}
-<link href="{{ mix('css/mix.css') }}" rel="stylesheet">
-
-@yield('template_linked_css')
+<link href="{{ mix('/css/mix.css') }}" rel="stylesheet">
 
 <style type="text/css">
-    @yield('template_fastload_css')
 
     @if (Auth::User() && (Auth::User()->profile) && (Auth::User()->profile->avatar_status == 0))
         .user-avatar-nav {

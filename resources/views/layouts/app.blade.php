@@ -7,24 +7,19 @@
 
     </head>
     <body>
-        <div id="app">
-
-            @include('partials.nav')
-
-            <main class="py-4">
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            @include('partials.form-status')
-                        </div>
-                    </div>
+        <div class="loading-container loading-inactive">
+            <div class="loader"></div>
+        </div>
+        @include('partials.nav')
+        <div id="main-container container-fluid">
+            <div class="page-container">
+                @include('partials.sidebar')
+            
+                <div class="page-content">
+                    @include('partials.form-status')
+                    @yield('content')
                 </div>
-
-                @yield('content')
-
-            </main>
-
+            </div>
         </div>
 
         @include('partials.footer')

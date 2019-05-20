@@ -1,26 +1,5 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Welcome {{ Auth::user()->name }}
-@endsection
-
-@section('head')
-@endsection
-
-@section('template_linked_css')
-    <style type="text/css">
-        #map-canvas {
-            width: 100%;
-            height: 300px;
-        }
-
-        #searchmap {
-            width: 500px;
-        }
-    </style>
-@endsection
-
-
 @section('content')
     <div class="container">
         <div class="row">
