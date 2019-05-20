@@ -1,5 +1,4 @@
 {{-- Scripts --}}
-<script src="{{ mix('assets/js/app.js') }}"></script>
 <script src="{{mix('js/mix.js')}}"></script>
 
 @if(config('settings.googleMapsAPIStatus'))

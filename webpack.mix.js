@@ -11,9 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/assets/js')
-   .sass('resources/assets/sass/app.scss', 'public/assets/css')
-   .styles([
+mix.styles([
    		'public/assets/css/bootstrap.min.css',
    		'public/assets/css/font-awesome.min.css',
    		'public/assets/css/weather-icons.min.css',
@@ -27,6 +25,7 @@ mix.js('resources/assets/js/app.js', 'public/assets/js')
    		'public/assets/css/dataTables.bootstrap.css'
    		], 'public/css/mix.css')
    .babel([
+         'resources/assets/js/app.js',
 	   	'public/assets/js/jquery.min.js',
 	   	'public/assets/js/bootstrap.min.js',
 	   	'public/assets/js/slimscroll/jquery.slimscroll.min.js',
