@@ -5,9 +5,6 @@
         .widget-body{
             min-height: 200px;
         }
-        .widget-body .btn{
-            margin-left: 10px;
-        }
     </style>
 @endsection
 
@@ -27,7 +24,7 @@
                 <div class="card-body" style="font-size: 13px">
                     {!! Form::model($category, [ 'route' => [ 'category.update', $category->getKey() ], 'method' => 'PATCH' ]) !!}
                         @include('categories.partials.form')
-                        <span class="pull-right">    
+                        <span class="pull-left">    
                             {!! Form::button(trans('forms.edit_categories_button_text'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
                         </span>                        
                     {!! Form::close() !!}
