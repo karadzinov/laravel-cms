@@ -11,7 +11,7 @@
             <div class="loader"></div>
         </div>
         @include('partials.nav')
-        <div id="main-container container-fluid">
+        <div class="main-container container-fluid">
             <div class="page-container">
                 @include('partials.sidebar')
             
