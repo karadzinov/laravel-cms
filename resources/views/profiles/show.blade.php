@@ -95,7 +95,7 @@
 									<div class="row"> 
 										@if($user->profile->twitter_username)
 									        <div class="col-sm-6">
-									            <a href="{{'https://twitter.com/'.$user->profile->twitter_username}}" class="btn btn-default">
+									            <a href="{{'https://twitter.com/'.$user->profile->twitter_username}}" class="btn btn-lg btn-default">
 										            <i class="fa fa-twitter azure"></i>
 										             {{$user->profile->twitter_username}}
 									            </a>
@@ -103,7 +103,7 @@
 								        @endif
 								        @if($user->profile->github_username)
 									        <div class="col-sm-6">
-									            <a href="{{'https://github.com/'.$user->profile->github_username}}" class="btn btn-default">
+									            <a href="{{'https://github.com/'.$user->profile->github_username}}" class="btn btn-lg btn-default">
 										            <i class="fa fa-github black"></i>
 										             {{$user->profile->github_username}}
 									            </a>

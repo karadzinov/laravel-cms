@@ -10,7 +10,7 @@
 		var title = $(e.relatedTarget).attr('data-title');
 		var form = $(e.relatedTarget).closest('form');
 		var self = $(this);
-
+console.log(self);
 		self.alterClass('modal-*', modalClass)
 		self.find('.modal-body p').text(message);
 		self.find('.modal-title').text(title);
