@@ -120,10 +120,27 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
             'destroy' => 'themes.destroy',
         ],
     ]);
-
+    
+      
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
-});
+    
 
+    // settings
+    Route::resource('meta/settings','SettingsController');
+    
+    Route::get('meta/settings/show','SettingsController@show' );
+    Route::get('meta/settings/1/edit','SettingsController@edit' );
+    Route::get('meta/settings/create','SettingsController@create' );
+    
+    // category
+    Route::resource('node/category', 'CategoryController');
+    
+  
+
+    });
+
+   
+  
 Route::redirect('/php', '/phpinfo', 301);

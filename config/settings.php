@@ -65,12 +65,12 @@ return [
     /*
      * Google Maps API V3 Status
      */
-    'googleMapsAPIStatus' => env('GOOGLEMAPS_API_STATUS', false),
+    'googleMapsAPIStatus' => env('GOOGLEMAPS_API_STATUS', true),
 
     /*
      * Google Maps API Key
      */
-    'googleMapsAPIKey'    => env('GOOGLEMAPS_API_KEY', 'YOURGOOGLEMAPSkeyHERE'),
+    'googleMapsAPIKey'    => env('GOOGLEMAPS_API_KEY', 'AIzaSyD-KZkTth0c_QvJMm00E_MZMQ6uzI1ZwnI'),
 
     /*
      * DropZone CDN
