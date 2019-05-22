@@ -34,7 +34,7 @@
 @endif
 
 @if (session('errors') && count($errors) > 0)
-  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+  <div class="alert alert-danger alert-dismissable show" role="alert">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <h4>
       <i class="icon fa fa-warning fa-fw" aria-hidden="true"></i>

@@ -1,16 +1,25 @@
 @extends('layouts.app')
 
-@section('template_title')
- Categories
-@endsection
-
-@section('head')
-@endsection
-@section('template_linked_css')
-    
-@endsection
 @section('content')
-    <div class="container">
+    <div class="well">
+        <div>
+            <h5 class="row-title"><i class="fa fa-th-list"></i>{!! trans('categories.list-categories') !!}</h5>
+        </div>
+        <a href="{{ route('category.create') }}" class="btn btn-success btn-lg">
+            {!! trans('categories.create-category') !!}
+        </a>
+        @include('categories.partials.tree')
+
+    </div>
+    
+
+
+
+
+
+
+
+    {{-- <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
                 <div class="card">
@@ -33,9 +42,9 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> --}}
     @include('modals.modal-delete-settings')
+    
 @endsection
 
 @section('footer_scripts')
