@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth-layout')
 
 @section('template_title')
 	{{ trans('titles.activation') }}

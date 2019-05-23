@@ -10,7 +10,7 @@
 
     <div class="widget">
         <div class="widget-header bordered-bottom bordered-blue">
-            <span class="widget-caption">{!! trans('settings.list-settings') !!}</span>
+            <span class="widget-caption"><i class="fa fa-gear"></i> {!! trans('settings.list-settings') !!}</span>
                 @if ($msg)
                     <a href='settings/create' cdata-toggle="tooltip"  class="btn btn-success inline" data-placement="left">
                         {!! trans('settings.create-settings') !!}

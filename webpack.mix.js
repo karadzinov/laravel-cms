@@ -29,6 +29,8 @@ mix.styles([
 	   	'public/assets/js/ckeditor/ckeditor.js',
 	   	'public/assets/js/ckconf.js',
 	   	'public/assets/js/beyond.js',
-	   	'public/assets/js/bootbox/bootbox.js'
+	   	'public/assets/js/bootbox/bootbox.js',
+
 			], 'public/js/mix.js')
+   .js('resources/assets/js/app.js', 'public/js')
    .version();
