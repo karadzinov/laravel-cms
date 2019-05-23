@@ -60,8 +60,6 @@
                 {!! Form::text('location', old('location'), array('id' => 'location', 'class' => 'form-control', 'placeholder' => trans('profile.ph-location'))) !!}
                 <i class="fa fa-globe blue"></i>
             </span>
-            {{-- {!! Form::text('location', old('location'), array('id' => 'location', 'class' => 'form-control', 'placeholder' => trans('profile.ph-location'))) !!}
-            <span class="glyphicon {{ $errors->has('location') ? ' glyphicon-asterisk ' : ' glyphicon-pencil ' }} form-control-feedback" aria-hidden="true"></span> --}}
             @if ($errors->has('location'))
                 <span class="help-block">
                     <strong>{{ $errors->first('location') }}</strong>
@@ -76,8 +74,6 @@
                  {!! Form::textarea('bio', old('bio'), array('id' => 'bio', 'class' => 'form-control', 'placeholder' => trans('profile.ph-bio'))) !!}
                 <i class="fa fa-pencil darkorange"></i>
             </span>
-            {{-- {!! Form::textarea('bio', old('bio'), array('id' => 'bio', 'class' => 'form-control', 'placeholder' => trans('profile.ph-bio'))) !!}
-            <span class="glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true"></span> --}}
             @if ($errors->has('bio'))
                 <span class="help-block">
                     <strong>{{ $errors->first('bio') }}</strong>
@@ -92,8 +88,6 @@
                 {!! Form::text('twitter_username', old('twitter_username'), array('id' => 'twitter_username', 'class' => 'form-control', 'placeholder' => trans('profile.ph-twitter_username'))) !!}
                 <i class="fa fa-twitter azure"></i>
             </span>
-            {{-- {!! Form::text('twitter_username', old('twitter_username'), array('id' => 'twitter_username', 'class' => 'form-control', 'placeholder' => trans('profile.ph-twitter_username'))) !!}
-            <span class="glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true"></span> --}}
             @if ($errors->has('twitter_username'))
                 <span class="help-block">
                     <strong>{{ $errors->first('twitter_username') }}</strong>
@@ -108,8 +102,6 @@
                 {!! Form::text('github_username', old('github_username'), array('id' => 'github_username', 'class' => 'form-control', 'placeholder' => trans('profile.ph-github_username'))) !!}
                 <i class="fa fa-github darkblack"></i>
             </span>
-            {{-- {!! Form::text('github_username', old('github_username'), array('id' => 'github_username', 'class' => 'form-control', 'placeholder' => trans('profile.ph-github_username'))) !!}
-            <span class="glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true"></span> --}}
             @if ($errors->has('github_username'))
                 <span class="help-block">
                     <strong>{{ $errors->first('github_username') }}</strong>
