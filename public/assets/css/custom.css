@@ -109,3 +109,26 @@ textarea {
 .push-right {
 	margin-left: 10px;
 }
+
+.user-avatar{
+    width: 80px;
+    height: 80px;
+    margin: 2em auto;
+    display: block;
+    border-radius: 50%;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -ms-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.hideShowPassword-toggle{
+	height: 100%;
+	top:0 !important;
+}

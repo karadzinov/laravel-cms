@@ -570,7 +570,7 @@
     @include('scripts.user-avatar-dz')
 
     <script type="text/javascript">
-
+        $('#checked').hide();
         $('.dropdown-menu li a').click(function() {
             $('.dropdown-menu li').removeClass('active');
         });
@@ -611,12 +611,15 @@
         $('#checkConfirmDelete').change(function() {
             var submitDelete = $('#delete_account_trigger');
             var self = $(this);
-
             if (self.is(':checked')) {
                 submitDelete.attr('disabled', false);
+                $('#checked').show();
+                $('#unchecked').hide();
             }
             else {
                 submitDelete.attr('disabled', true);
+                $('#unchecked').show();
+                $('#checked').hide();
             }
         });
 

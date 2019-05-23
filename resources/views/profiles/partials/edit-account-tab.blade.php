@@ -83,12 +83,12 @@
             <div class="col-sm-6 offset-sm-3 margin-bottom-3 text-center">
 
                 {!! Form::model($user, array('action' => array('ProfilesController@deleteUserAccount', $user->id), 'method' => 'DELETE')) !!}
-
-                    <div class="btn-group btn-group-vertical margin-bottom-2 custom-checkbox-fa" data-toggle="buttons">
+                    
+                    <div class="btn-group btn-group-vertical margin-bottom-2 custom-checkbox-fa">
                         <label class="btn no-shadow" for="checkConfirmDelete" >
                             <input type="checkbox" name='checkConfirmDelete' id="checkConfirmDelete">
-                            <i class="fa fa-square-o fa-fw fa-2x"></i>
-                            <i class="fa fa-check-square-o fa-fw fa-2x"></i>
+                            <i id="unchecked" class="fa fa-square-o fa-fw fa-2x"></i>
+                            <i id="checked" class="fa fa-check-square-o fa-fw fa-2x"></i>
                             <span class="margin-left-2"> Confirm Account Deletion</span>
                         </label>
                     </div>
