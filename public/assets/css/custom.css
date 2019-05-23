@@ -132,3 +132,7 @@ textarea {
 	height: 100%;
 	top:0 !important;
 }
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area{
+	min-width: 190px;
+}

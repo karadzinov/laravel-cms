@@ -15,7 +15,7 @@
 	<div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                {{ $user->name }}'s Profile
+                <i class="fa fa-user"></i> {{ $user->name }}'s Profile
             </h1>
         </div>
         <!--Header Buttons-->
