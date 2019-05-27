@@ -74,14 +74,8 @@ class ProfilesController extends Controller
      */
     public function show($username)
     {
-        try {
 
-            $user = $this->getUserByUsername($username);
-
-        } catch (ModelNotFoundException $exception) {
-
-            abort(404);
-        }
+        $user = $this->getUserByUsername($username);
 
         $currentTheme = Theme::find($user->profile->theme_id);
 
@@ -161,21 +155,7 @@ class ProfilesController extends Controller
         return redirect('profile/'.$user->name.'/edit')->with('success', trans('profile.updateSuccess'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function updateUserAccount(Request $request, $id)
-    {
-        $currentUser = Auth::user();
-        $user = User::findOrFail($id);
-        $emailCheck = ($request->input('email') != '') && ($request->input('email') != $user->email);
-        $ipAddress = new CaptureIpTrait();
-        $rules = [];
+    public function makeUpdateUserAccountRules(Request $request, User $user, $emailCheck){
 
         if ($user->name != $request->input('name')) {
             $usernameRules = [
@@ -200,10 +180,28 @@ class ProfilesController extends Controller
             'last_name'  => 'nullable|string|max:255',
         ];
 
-        $rules = array_merge($usernameRules, $emailRules, $additionalRules);
-        $validator = Validator::make($request->all(), $rules);
+        return array_merge($usernameRules, $emailRules, $additionalRules);
+        
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUserAccount(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $ipAddress = new CaptureIpTrait();
+        $emailCheck = ($request->filled('email')) && ($request->input('email') != $user->email);
+
+        $rules = $this->makeUpdateUserAccountRules($request, $user, $emailCheck);
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+
             return back()->withErrors($validator)->withInput();
         }
 
@@ -232,13 +230,12 @@ class ProfilesController extends Controller
      */
     public function updateUserPassword(UpdateUserPasswordRequest $request, $id)
     {
-        $currentUser = Auth::user();//ovde
         $user = User::findOrFail($id);
         $ipAddress = new CaptureIpTrait();
 
-        if ($request->input('password') != null) {//ovde
+        if ($request->filled('password')) {
             $user->password = bcrypt($request->input('password'));
-        }//ovde
+        }
 
         $user->updated_ip_address = $ipAddress->getClientIp();
         $user->save();

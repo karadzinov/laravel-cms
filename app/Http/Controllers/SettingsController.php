@@ -18,16 +18,9 @@ class SettingsController extends Controller
     public function index()
     {
         
-        $settings ="";//ovde session()->flash('status', 'Task was successful!');
-        $msg ="";
-        if (Settings::count() == 0){
-           $msg = 'No settings';
-        }
-        else {
-            $settings = Settings::firstOrFail();
-        }
+        $settings = Settings::first();
         
-        return view('settings.index', compact('settings','msg'));
+        return view('settings.index', compact('settings'));
 
     }
 
@@ -38,7 +31,7 @@ class SettingsController extends Controller
      */
     public function create()
     {
-        if (Settings::count() == 0){
+        if (!Settings::count()){
 
             return view('settings.create');
         }
@@ -55,8 +48,16 @@ class SettingsController extends Controller
      */
     public function store(StoreSettnigsRequest $request)
     {
-        $input = $request->all();
+        $input = $this->updateLogoIfNecessary($request);
+
+        Settings::create($input);
         
+        return redirect('/meta/settings');
+    }
+
+    public function updateLogoIfNecessary(Request $request){
+        
+        $input = $request->all();
         $file = $request->logo;
         if (!is_null($file) ){
             $name = 'Logo_'.$file->getClientOriginalName();
@@ -64,9 +65,8 @@ class SettingsController extends Controller
             $input['logo']=$name;
         }
 
-        Settings::create($input);
+        return $input;
         
-        return redirect('/meta/settings');
     }
 
     /**
@@ -88,16 +88,9 @@ class SettingsController extends Controller
      */
     public function edit()
     {
-        $settings =""; //ovde isto kao gore
-        $msg ="";
-        if (Settings::count() == 0){
-           $msg = 'No settings';
-        }
-        else {
-            $settings = Settings::firstOrFail();
-        }
+        $settings = Settings::firstOrFail();
 
-        return view('settings.edit', compact('settings','msg'));
+        return view('settings.edit', compact('settings'));
  
     }
 
@@ -110,14 +103,7 @@ class SettingsController extends Controller
      */
     public function update(UpdateSettingsRequest $request, $id)
     {
-        $input = $request->all();
-
-        $file = $request->logo;
-        if (!is_null($file) ){
-            $name = 'Logo_'.$file->getClientOriginalName();
-            $file->move('images', $name);
-            $input['logo']=$name;
-        }
+        $input = $this->updateLogoIfNecessary($request);
           
         $settings = Settings::firstOrFail();
         $settings->update($input);

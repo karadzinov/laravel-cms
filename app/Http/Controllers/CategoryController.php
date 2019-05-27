@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Auth;
 use Validator;
 use App\Models\Category;
-
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
 use App\Http\Controllers\Controller;
@@ -42,7 +40,8 @@ class CategoryController extends Controller
      */
     public function store(PostCategoryRequest $input)
     {
-        if($input['parent_id'] == 0) $input['parent_id'] = NULL;
+        ($input['parent_id'] == 0) ? $input['parent_id'] = null : null;
+
         $category = Category::create($input->all());
 
         return redirect('/node/category');
