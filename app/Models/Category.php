@@ -14,7 +14,7 @@ class Category extends Model
     //protected $guarded =[];
     
     protected $fillable = [
-        'name', 'parent_id',
+        'name', 'parent_id', 'image', 'description', 'link'
     ];
     
     

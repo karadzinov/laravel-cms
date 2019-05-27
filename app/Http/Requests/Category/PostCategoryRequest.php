@@ -23,6 +23,7 @@ class PostCategoryRequest extends FormRequest {
 		return [
             'name' => 'required',
             'parent_id' => 'required', //'exists:categories,id',
+            'image' => 'image',
 		];
 	}
 }

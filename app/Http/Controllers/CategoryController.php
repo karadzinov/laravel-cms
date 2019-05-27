@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Category\PostCategoryRequest;
 
 class CategoryController extends Controller
@@ -26,10 +27,10 @@ class CategoryController extends Controller
 	 */
     public function create(Request $input)
     {
-    $data = $input->only('parent_id');
-    $categories = $this->getCategoryOptions();
+        $data = $input->only('parent_id');
+        $categories = $this->getCategoryOptions();
 
-    return view('categories.create', compact('data', 'categories'));
+        return view('categories.create', compact('data', 'categories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -38,11 +39,13 @@ class CategoryController extends Controller
      *
      * @return Response
      */
-    public function store(PostCategoryRequest $input)
+    public function store(PostCategoryRequest $request)
     {
+        $input = $this->updateImageIfNecessary($request);
+
         ($input['parent_id'] == 0) ? $input['parent_id'] = null : null;
 
-        $category = Category::create($input->all());
+        $category = Category::create($input);
 
         return redirect('/node/category');
     
@@ -81,14 +84,39 @@ class CategoryController extends Controller
 	 * @return Response
 	 */
  
-    public function update(PostCategoryRequest $input, $id)
+    public function update(PostCategoryRequest $request, $id)
     {
-
-    /** @var Category $category */
+        $input = $this->updateImageIfNecessary($request);
+        /** @var Category $category */
         $category = Category::findOrFail($id);
-        $category->update($input->all());
+        if(isset($input['image'])){
+            $this->deleteImage($category->image);
+         }
+        $category->update($input);
 
         return redirect('/node/category');
+    }
+
+    public function deleteImageIfNecessary($category){
+        if($category->image){
+            @unlink(public_path()."/images/categories/".$category->image);
+
+            return true;
+        }        
+    }
+
+    public function updateImageIfNecessary(Request $request){
+        $input = $request->all();
+
+        $file = $request->image;
+        if (!is_null($file) ){
+            $name = now()->format('d-m-y-h-i-s-u') .'-'.$file->getClientOriginalName();
+            $file->move('images/categories', $name);
+            $input['image']=$name;
+        }
+
+        return $input;
+        
     }
 
     /**
@@ -99,11 +127,18 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        
         $category= Category::findOrFail($id);
         $tree = $category->children;
 
-        foreach ($tree as  $child) $child->delete();
+        foreach ($tree as  $child){
+            if($child->children->isNotEmpty()){
+                $this->destroy($child->id);
+            }
+            $this->deleteImageIfNecessary($child);
+            $child->delete();
+        }
+        
+        $this->deleteImageIfNecessary($category);
         $category->delete();
 
         return redirect('/node/category');

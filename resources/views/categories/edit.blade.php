@@ -22,8 +22,9 @@
         <div class="widget-body">
             @if ($category)        
                 <div class="card-body" style="font-size: 13px">
-                    {!! Form::model($category, [ 'route' => [ 'category.update', $category->getKey() ], 'method' => 'PATCH' ]) !!}
-                        @include('categories.partials.form')
+                    {!! Form::open(array('route' => [ 'category.update', $category->getKey() ], 'method' => 'PATCH', 'role' => 'form', 'files'=> true)) !!}
+                    {!! csrf_field() !!}
+                        @include('categories.partials.edit-form')
                         <span class="pull-left">    
                             {!! Form::button(trans('forms.edit_categories_button_text'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
                         </span>                        
