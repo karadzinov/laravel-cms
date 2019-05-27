@@ -8,7 +8,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Category\PostCategoryRequest;
 
 class CategoryController extends Controller
@@ -90,7 +89,7 @@ class CategoryController extends Controller
         /** @var Category $category */
         $category = Category::findOrFail($id);
         if(isset($input['image'])){
-            $this->deleteImage($category->image);
+            $this->deleteImageIfNecessary($category);
          }
         $category->update($input);
 
@@ -137,7 +136,7 @@ class CategoryController extends Controller
             $this->deleteImageIfNecessary($child);
             $child->delete();
         }
-        
+
         $this->deleteImageIfNecessary($category);
         $category->delete();
 
