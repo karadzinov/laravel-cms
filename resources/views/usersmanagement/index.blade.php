@@ -21,6 +21,7 @@
         #dropdownList ul{
           list-style-type: none;
           padding-left: 0;
+          margin-bottom:0;
         }
         #dropdownList{
             margin: 0;
