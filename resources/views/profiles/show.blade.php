@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
-@section('template_fastload_css')
+@section('head')
 
-	#map-canvas{
-		min-height: 300px;
-		height: 100%;
-		width: 100%;
-	}
+	<style>
+		#map-canvas{
+			min-height: 300px;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 
 @endsection
 
@@ -39,10 +41,10 @@
     			<div class="profile-container">
     				<div class="profile-header row">
                         <div class="col-lg-2 col-md-4 col-sm-12 text-center">
-                            <img src="@if ($user->profile->avatar_status == 1) {{ $user->profile->avatar }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" alt="" class="header-avatar">
+                            <img src="@if ($user->profile && $user->profile->avatar_status == 1) {{ $user->profile->avatar }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" alt="" class="header-avatar">
                         </div>
                         <div class="col-lg-5 col-md-8 col-sm-12 profile-info">
-                            <div class="header-fullname">
+                            <div class="header-fullname text-center">
                             	{{ $user->name }}
                             	<br>
 								<div>
