@@ -51,7 +51,7 @@
                 <div class="header-fullname text-center">
                   {{ $user->name }}
                   <br>
-                  <div class="">
+                  <div>
                     ({{$user->first_name}}
                     {{$user->last_name}})
                   </div>

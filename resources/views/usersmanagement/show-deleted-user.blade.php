@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
-@section('template_title')
-    {!!trans('usersmanagement.showing-user-deleted')!!} {{ $user->name }}
+@section('head')
+  <style>
+    .larger-text{
+      font-size: 1.4em;
+    }
+  </style>
 @endsection
 
 @php
@@ -13,56 +17,107 @@
 
 @section('content')
 
-    <div class="container">
+      <div class="page-header position-relative text-white @if ($user->activated == 1) bg-success @else bg-danger @endif">
+        <div class="header-title">
+            <h1>
+                <i class="fa fa-user"></i> {!! trans('usersmanagement.showing-user-title', ['name' => $user->name]) !!}
+            </h1>
+        </div>
+        <!--Header Buttons-->
+        <div class="header-buttons">
+            <a class="sidebar-toggler" href="#">
+                <i class="fa fa-arrows-h"></i>
+            </a>
+            <a class="refresh" id="refresh-toggler" href="">
+                <i class="glyphicon glyphicon-refresh"></i>
+            </a>
+            <a class="fullscreen" id="fullscreen-toggler" href="#">
+                <i class="glyphicon glyphicon-fullscreen"></i>
+            </a>
+        </div>
+          <!--Header Buttons End-->
+      </div>
+      <div class="page-body">
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="card">
+          <div class="col-md-12">
+            <div class="profile-container">
+              <div class="profile-header row">
 
-                    <div class="card-header bg-danger text-white">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            {!! trans('usersmanagement.usersDeletedPanelTitle') !!}
-                            <div class="float-right">
-                                <a href="/users/deleted/" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.usersBackDelBtn') }}">
-                                    <i class="fa fa-fw fa-mail-reply" aria-hidden="true"></i>
-                                    <span class="sr-only">
-                                        {!! trans('usersmanagement.usersBackDelBtn') !!}
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
+                <div class="col-lg-2 col-md-4 col-sm-12 text-center">
+                  <img src="@if ($user->profile && $user->profile->avatar_status == 1) {{ $user->profile->avatar }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" alt="{{ $user->name }}" class="header-avatar">
+                </div>
+
+                <div class="col-lg-5 col-md-8 col-sm-12 profile-info larger-text">
+                  <div class="header-fullname text-center">
+                    {{ $user->name }}
+                    <br>
+                    <div>
+                      ({{$user->first_name}}
+                      {{$user->last_name}})
                     </div>
+                  </div>
+                  @if ($user->profile)
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4 offset-sm-2 col-md-2 offset-md-3">
-                                <img src="@if ($user->profile->avatar_status == 1) {{ $user->profile->avatar }} @else {{ Gravatar::get($user->email) }} @endif" alt="{{ $user->name }}" id="" class="rounded-circle center-block mb-3 mt-4 user-image">
-                            </div>
-                            <div class="col-sm-4 col-md-6">
-                                <h4 class="text-muted margin-top-sm-1 text-center text-left-tablet">
-                                    {{ $user->name }}
-                                </h4>
-                                <p class="text-center text-left-tablet">
-                                    <strong>
-                                    {{ $user->first_name }} {{ $user->last_name }}
-                                    </strong>
-                                    <br />
-                                    {{ HTML::mailto($user->email, $user->email) }}
-                                </p>
-                                @if ($user->profile)
-                                <div class="text-center text-left-tablet mb-4">
-                                    {!! Form::model($user, array('action' => array('SoftDeletesController@update', $user->id), 'method' => 'PUT', 'class' => 'form-inline')) !!}
-                                        {!! Form::button('<i class="fa fa-refresh fa-fw" aria-hidden="true"></i> Restore User', array('class' => 'btn btn-success btn-block btn-sm mt-1 mb-1', 'type' => 'submit', 'data-toggle' => 'tooltip', 'title' => 'Restore User')) !!}
-                                        {!! Form::close() !!}
-                                        {!! Form::model($user, array('action' => array('SoftDeletesController@destroy', $user->id), 'method' => 'DELETE', 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'title' => 'Permanently Delete User')) !!}
-                                        {!! Form::hidden('_method', 'DELETE') !!}
-                                        {!! Form::button('<i class="fa fa-user-times fa-fw" aria-hidden="true"></i> Delete User', array('class' => 'btn btn-danger btn-sm ','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Permanently Delete User', 'data-message' => 'Are you sure you want to permanently delete this user?')) !!}
-                                    {!! Form::close() !!}
-                                </div>
-                                @endif
+                    {!! Form::model($user, array('action' => array('SoftDeletesController@update', $user->id), 'method' => 'PUT', 'class' => 'form-inline')) !!}
+                        {!! Form::button('<i class="fa fa-refresh fa-fw" aria-hidden="true"></i> Restore User', array('class' => 'pull-right btn btn-success btn-sm mt-1 mb-1', 'type' => 'submit', 'data-toggle' => 'tooltip', 'title' => 'Restore User')) !!}
+                        {!! Form::close() !!}
+                        {!! Form::model($user, array('action' => array('SoftDeletesController@destroy', $user->id), 'method' => 'DELETE', 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'title' => 'Permanently Delete User')) !!}
+                        {!! Form::hidden('_method', 'DELETE') !!}
+                        {!! Form::button('<i class="fa fa-user-times fa-fw" aria-hidden="true"></i> Delete User', array('class' => 'pull-right btn btn-danger btn-sm ','type' => 'button' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Permanently Delete User', 'data-message' => 'Are you sure you want to permanently delete this user?')) !!}
+                    {!! Form::close() !!}
+                  @endif
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 profile-stats">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 stats-col">
+                            <div class="stats-value pink">{{ trans('usersmanagement.labelRole') }}</div>
+                            <div class="stats-title larger-text"> <br>
+                                @foreach ($user->roles as $user_role)
+
+                                  @if ($user_role->name == 'User')
+                                    @php $badgeClass = 'primary' @endphp
+
+                                  @elseif ($user_role->name == 'Admin')
+                                    @php $badgeClass = 'warning' @endphp
+
+                                  @elseif ($user_role->name == 'Unverified')
+                                    @php $badgeClass = 'danger' @endphp
+
+                                  @else
+                                    @php $badgeClass = 'default' @endphp
+
+                                  @endif
+
+                                  <span class="badge badge-{{$badgeClass}}">{{ $user_role->name }}</span>
+
+                                @endforeach  
+                                
                             </div>
                         </div>
+                        @if ($user->profile)
+                          <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 stats-col">
+                              <div class="stats-value pink">
+                                {{ trans('usersmanagement.labelDeletedAt') }}:
+                              </div>
+                              <div class="stats-title larger-text"> <br>
+                                {{ $user->deleted_at->format('d-m-Y, H:i') }}
+                              </div>
+                          </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-12">
 
-                        <div class="clearfix"></div>
+                  <div class="form-title">
+
+                      Details
+
+                  </div>
+
+                  <div class="row"> 
+
+                    <div class="col-sm-6 larger-text">
+                      <div class="clearfix"></div>
                         <div class="border-bottom"></div>
 
                         @if ($user->deleted_at)
@@ -72,7 +127,7 @@
                                 </strong>
                             </div>
                             <div class="col-sm-7 text-warning">
-                                {{ $user->deleted_at }}
+                                {{ $user->deleted_at->format('d-m-Y, H:i') }}
                             </div>
 
                             <div class="clearfix"></div>
@@ -263,7 +318,7 @@
                                 </strong>
                             </div>
                             <div class="col-sm-7">
-                                {{ $user->created_at }}
+                                {{ $user->created_at->format('d-m-Y, H:i') }}
                             </div>
 
                             <div class="clearfix"></div>
@@ -277,7 +332,7 @@
                                 </strong>
                             </div>
                             <div class="col-sm-7">
-                                {{ $user->updated_at }}
+                                {{ $user->updated_at->format('d-m-Y, H:i') }}
                             </div>
 
                             <div class="clearfix"></div>
@@ -365,11 +420,19 @@
                             <div class="border-bottom"></div>
 
                         @endif
+                      <br>
                     </div>
+                  </div>
                 </div>
-            </div>
+
+              </div>
+
+            </div> {{-- /profile-container --}}
+          </div>
         </div>
-    </div>
+      </div>
+      
+    @include('modals.modal-delete')
 
     @include('modals.modal-delete')
 
