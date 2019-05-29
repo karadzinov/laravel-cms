@@ -35,6 +35,9 @@ composer.lock
 /node_modules
 /public/hot
 /public/storage
+/public/categories/medium
+/public/categories/thumbnails
+/public/categories/originals
 /storage/*.key
 /vendor
 /storage/debugbar
