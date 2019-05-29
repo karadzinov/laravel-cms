@@ -23,11 +23,11 @@
         		<label for="active">Active:</label>
         		<div>
 	        		@if($script->active)
-						<span class="label label-success graded">
+						<span class="label label-success">
 	                        Active
 	                    </span>
 	        		@else
-						<span class="label label-danger graded">
+						<span class="label label-danger">
 		                    Not Active
 		                </span>
 	        		@endif

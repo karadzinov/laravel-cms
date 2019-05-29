@@ -25,9 +25,9 @@
 				                <th>Id</th>
 				                <th>Name</th>
 				                <th>Active</th>
-				                <th>Active</th>
 				                <th>Created At</th>
 				                <th>Updated At</th>
+				                <th>Actions</th>
 				                <th></th>
 				                <th></th> 
 				            </tr>

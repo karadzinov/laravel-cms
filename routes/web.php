@@ -143,7 +143,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
   
 Route::redirect('/php', '/phpinfo', 301);
 
-Route::group(["prefix"=>"scripts", "as"=>"scripts."], function(){
+Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'ScriptsController@index')->name('index');
     Route::get('show/{script}', 'ScriptsController@show')->name('show');
     Route::get('create', 'ScriptsController@create')->name('create');
