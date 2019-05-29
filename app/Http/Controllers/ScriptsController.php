@@ -26,14 +26,11 @@ class ScriptsController extends Controller
     }
 
     public function store(StoreScriptRequest $request){
-    	$script = new Script();
-    	$script->name = $request->get('name');
-    	$script->code = $request->get('code');
-    	$script->active = $request->has('active');
-    	$script->save();
+        $request->merge(['active'=>$request->has('active')]);
+    	$script = Script::create($request->all());
 
     	return redirect(route('scripts.index'))
-    					->with('success', 'Successifully Created Script.');
+    				->with('success', 'Successifully Created Script.');
     }
 
     public function edit(Script $script){
@@ -43,19 +40,18 @@ class ScriptsController extends Controller
 
     public function update(Script $script, StoreScriptRequest $request){
 
-    	$script->name = $request->get('name');
-    	$script->code = $request->get('code');
-    	$script->active = $request->has('active');
-    	$script->save();
+        $request->merge(['active'=>$request->has('active')]);
+        $script->update($request->all());
     	
     	return redirect(route('scripts.show', $script->id))
-    					->with('success', 'Script Successfully Updated');
+    			     ->with('success', 'Script Successfully Updated');
     }
 
     public function delete(Script $script){
 
     	$script->delete();
     	
-    	return redirect(route('scripts.index'))->with('success', 'Successfully Deleted Script');
+    	return redirect(route('scripts.index'))
+                    ->with('success', 'Successfully Deleted Script');
     }
 }

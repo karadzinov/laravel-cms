@@ -62,7 +62,7 @@
 				                        </a>
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-info btn-block" href="{{route('scripts.edit', [$script->id])}}}}" data-toggle="tooltip" title="Edit">
+				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('scripts.edit', [$script->id])}}}}" data-toggle="tooltip" title="Edit">
 				                            Edit
 				                        </a>
 				                    </td> 
