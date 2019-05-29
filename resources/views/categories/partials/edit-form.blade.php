@@ -13,7 +13,7 @@
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
     <div>
-        <img src="/images/categories/{{$category->image}}" style="max-width: 200px">
+        <img src="/images/categories/thumbnails/{{$category->image}}" style="max-width: 200px">
         <br>
         <br>
     </div>

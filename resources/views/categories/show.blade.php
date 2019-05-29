@@ -44,7 +44,7 @@
                             @if($category->image)
                                 <div class="col-md-8">
                                     <label for="image"><strong>Image:</strong></label> <br>
-                                    <img src="/images/categories/{{$category->image}}" alt="">
+                                    <img src="/images/categories/thumbnails/{{$category->image}}" alt="">
                                 </div>
                             @endif
 
