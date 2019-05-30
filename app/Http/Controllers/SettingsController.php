@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use File;
 use Validator;
 use App\Models\Settings;
 use Illuminate\Http\Request;
@@ -141,13 +142,14 @@ class SettingsController extends Controller
             $image = $request->file('logo');
             $imageName = 'Logo_'.$request->logo->getClientOriginalName();
 
-            $path = public_path() . '/images/settings/originals/';
-            $pathThumb = public_path() . '/images/settings/thumbnails/';
-            $pathMedium = public_path() . '/images/settings/medium/';
+            $paths = $this->makePaths();
+            File::makeDirectory($paths->original, $mode = 0755, true, true);
+            File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
+            File::makeDirectory($paths->medium, $mode = 0755, true, true);
 
-            $image->move($path, $imageName);
+            $image->move($paths->original, $imageName);
 
-            $findimage = $path . $imageName;
+            $findimage = $paths->original . $imageName;
             $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
@@ -156,13 +158,30 @@ class SettingsController extends Controller
                 $constraint->aspectRatio();
             });
 
-            $imagethumb->save($pathThumb . $imageName);
-            $imagemedium->save($pathMedium . $imageName);
+            $imagethumb->save($paths->thumbnail . $imageName);
+            $imagemedium->save($paths->medium . $imageName);
 
             return $imageName;
         }
 
         return null;
+    }
+
+    /**
+     * Make paths for storing images.
+     *
+     * @return object
+     */
+
+    public function makePaths(){
+        
+        $original = public_path() . '/images/settings/originals/';;
+        $thumbnail = public_path() . '/images/settings/thumbnails/';
+        $medium = public_path() . '/images/settings/medium/';
+
+        $paths = (object) compact('original', 'thumbnail', 'medium');
+
+        return $paths;
     }
 
     /**
@@ -172,11 +191,12 @@ class SettingsController extends Controller
      * @return bool
      */
     public function deleteImages(Settings $settings){
-        
+        $paths = $this->makePaths();
+        $logo = $settings->logo;
         try {
-            @unlink(public_path()."/images/settings/originals/".$settings->logo);
-            @unlink(public_path()."/images/settings/medium/".$settings->logo);
-            @unlink(public_path()."/images/settings/thumbnails/".$settings->logo);
+            @unlink($paths->original.$logo);
+            @unlink($paths->thumbnail.$logo);
+            @unlink($paths->medium.$logo);
 
             return true;
         } catch (Exception $e) {

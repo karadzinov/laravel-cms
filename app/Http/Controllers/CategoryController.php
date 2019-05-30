@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use File;
 use Validator;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -103,13 +104,20 @@ class CategoryController extends Controller
     }
 
     public function deleteImageIfNecessary($category){
-        if($category->image){
-            @unlink(public_path()."/images/categories/originals/".$category->image);
-            @unlink(public_path()."/images/categories/thumbnails/".$category->image);
-            @unlink(public_path()."/images/categories/medium/".$category->image);
+        try {
+               if($category->image){
+                   $paths = $this->makePaths();
+                   $image = $category->image;
+                   @unlink($paths->original . $image);
+                   @unlink($paths->thumbnail . $image);
+                   @unlink($paths->medium . $image);
 
-            return true;
-        }        
+                   return true;
+               }     
+           } catch (Exception $e) {
+               
+               return false;
+           }   
     }
 
     /**
@@ -128,16 +136,18 @@ class CategoryController extends Controller
             }
 
             $image = $request->file('image');
-            $path = public_path() . '/images/categories/originals/';
-            $pathThumb = public_path() . '/images/categories/thumbnails/';
-            $pathMedium = public_path() . '/images/categories/medium/';
+            $paths = $this->makePaths();
+            
             $ext = $image->getClientOriginalExtension();
-
             $imageName = $slugname . '.' . $ext;
 
-            $image->move($path, $imageName);
+            File::makeDirectory($paths->original, $mode = 0755, true, true);
+            File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
+            File::makeDirectory($paths->medium, $mode = 0755, true, true);
 
-            $findimage = public_path() . '/images/categories/originals/' . $imageName;
+            $image->move($paths->original, $imageName);
+
+            $findimage = $paths->original . $imageName;
             $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
@@ -146,13 +156,31 @@ class CategoryController extends Controller
                 $constraint->aspectRatio();
             });
 
-            $imagethumb->save($pathThumb . $imageName);
-            $imagemedium->save($pathMedium . $imageName);
+            $imagethumb->save($paths->thumbnail . $imageName);
+            $imagemedium->save($paths->medium . $imageName);
 
             return $imageName;
         }
 
         return null;
+    }
+
+
+    /**
+     * Make paths for storing images.
+     *
+     * @return object
+     */
+
+    public function makePaths(){
+        
+        $original = public_path() . '/images/categories/originals/';
+        $thumbnail = public_path() . '/images/categories/thumbnails/';
+        $medium = public_path() . '/images/categories/medium/';
+
+        $paths = (object) compact('original', 'thumbnail', 'medium');
+
+        return $paths;
     }
 
     /**

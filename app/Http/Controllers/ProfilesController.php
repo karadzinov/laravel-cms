@@ -289,13 +289,19 @@ class ProfilesController extends Controller
     }
 
     public function deleteImages(User $user){
-        $paths = $this->makePaths($user);
-        $avatar = $user->profile->avatar;
-        @unlink($paths->original_path.$avatar);
-        @unlink($paths->thumbnail_path.$avatar);
-        @unlink($paths->medium_path.$avatar);
+        try {
+            $paths = $this->makePaths($user);
+            $avatar = $user->profile->avatar;
+            
+            @unlink($paths->original_path.$avatar);
+            @unlink($paths->thumbnail_path.$avatar);
+            @unlink($paths->medium_path.$avatar);
 
-        return true;
+            return true;
+        } catch (Exception $e) {
+            
+            return false;
+        }
     }
 
     public function makePaths($currentUser){
