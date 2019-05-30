@@ -43,6 +43,13 @@
 
             </a>
         </li>
+        <li class="{{Request::is('scripts/*') ? 'active' : null}}">
+            <a href="{{ route('scripts.index')}}" class="menu">
+                <i class="menu-icon fa fa-code"></i>
+                <span class="menu-text"> Scripts </span>
+
+            </a>
+        </li>
     </ul>
     <!-- /Sidebar Menu -->
 </div>

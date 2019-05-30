@@ -140,7 +140,15 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
   
 
     });
-
-   
   
 Route::redirect('/php', '/phpinfo', 301);
+
+Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'ScriptsController@index')->name('index');
+    Route::get('show/{script}', 'ScriptsController@show')->name('show');
+    Route::get('create', 'ScriptsController@create')->name('create');
+    Route::post('store', 'ScriptsController@store')->name('store');
+    Route::get('edit/{script}', 'ScriptsController@edit')->name('edit');
+    Route::put('update/{script}', 'ScriptsController@update')->name('update');
+    Route::delete('delete/{script}', 'ScriptsController@delete')->name('delete');
+});
