@@ -5,7 +5,7 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">{!! trans('settings.edit-settings') !!}</span>
             <div class="pull-right">
-                @if (!$msg)
+                @if ($settings)
                     <span class="pull-right">
                         <a href='/meta/settings' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
                             <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>

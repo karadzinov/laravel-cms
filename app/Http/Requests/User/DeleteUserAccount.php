@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserPasswordRequest extends FormRequest
+class DeleteUserAccount extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UpdateUserPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password'              => 'required|min:6|max:20|confirmed',
-            'password_confirmation' => 'required|same:password',
+            'checkConfirmDelete' => 'required',
         ];
     }
 
@@ -37,9 +36,7 @@ class UpdateUserPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'password.required' => trans('auth.passwordRequired'),
-            'password.min'      => trans('auth.PasswordMin'),
-            'password.max'      => trans('auth.PasswordMax'),
+            'checkConfirmDelete.required' => trans('profile.confirmDeleteRequired'),
         ];
     }
 }

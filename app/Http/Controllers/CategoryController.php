@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Auth;
 use Validator;
 use App\Models\Category;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PostCategoryRequest;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\PostCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -18,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all()->where('parent_id','=',NULL);
-//    dd($categories); 
+
         return view('categories.index', compact('categories'));
     }
 	/**
@@ -30,6 +28,7 @@ class CategoryController extends Controller
     {
     $data = $input->only('parent_id');
     $categories = $this->getCategoryOptions();
+
     return view('categories.create', compact('data', 'categories'));
     }
     /**
@@ -41,10 +40,11 @@ class CategoryController extends Controller
      */
     public function store(PostCategoryRequest $input)
     {
-        if($input['parent_id'] == 0) $input['parent_id'] = NULL;
+        ($input['parent_id'] == 0) ? $input['parent_id'] = null : null;
+
         $category = Category::create($input->all());
+
         return redirect('/node/category');
-    //    return redirect()->route('category.show', [ $category->getKey() ]);
     
     }
 	/**
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $tree = $category->children;
-    //   dd($tree);
+
         return view('categories.show', compact('tree','category'));
     }
 	/**
@@ -71,7 +71,7 @@ class CategoryController extends Controller
         /** @var Category $category */
         $category = Category::findOrFail($id);
         $categories = $this->getCategoryOptions($category);
-    //    dd($category);
+
         return view('categories.edit', compact('category', 'categories','id'));
     }
 	/**
@@ -87,8 +87,8 @@ class CategoryController extends Controller
     /** @var Category $category */
         $category = Category::findOrFail($id);
         $category->update($input->all());
+
         return redirect('/node/category');
-       // return redirect()->route('category.show', [ $category->getKey() ]);
     }
 
     /**
@@ -102,12 +102,10 @@ class CategoryController extends Controller
         
         $category= Category::findOrFail($id);
         $tree = $category->children;
-        //dd($tree);
+
         foreach ($tree as  $child) $child->delete();
         $category->delete();
 
-        
-        
         return redirect('/node/category');
     }
     
