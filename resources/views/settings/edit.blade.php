@@ -3,7 +3,10 @@
 @section('content')
     <div class="widget">
         <div class="widget-header bordered-bottom bordered-blue">
-            <span class="widget-caption">{!! trans('settings.edit-settings') !!}</span>
+            <span class="widget-caption">
+                <i class="fa fa-gear"></i> 
+                {!! trans('settings.edit-settings') !!}
+            </span>
             <div class="pull-right">
                 @if ($settings)
                     <span class="pull-right">

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\User;
-use App\Traits\CaptureIpTrait;
 use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use jeremykenedy\LaravelRoles\Models\Role;
 use Validator;
+use App\Traits\CaptureIpTrait;
+use App\Models\{User, Profile};
+use Illuminate\Http\{Request, Response};
+use jeremykenedy\LaravelRoles\Models\Role;
+use App\Http\Requests\User\StoreUserRequest;
 
 class UsersManagementController extends Controller
 {
@@ -38,7 +37,7 @@ class UsersManagementController extends Controller
         }
         $roles = Role::all();
 
-        return View('usersmanagement.show-users', compact('users', 'roles'));
+        return view('usersmanagement.index', compact('users', 'roles'));
     }
 
     /**
@@ -50,11 +49,9 @@ class UsersManagementController extends Controller
     {
         $roles = Role::all();
 
-        $data = [
-            'roles' => $roles,
-        ];
+        $data = compact('roles');
 
-        return view('usersmanagement.create-user')->with($data);
+        return view('usersmanagement.create')->with($data);
     }
 
     /**
@@ -64,36 +61,8 @@ class UsersManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validator = Validator::make($request->all(),
-            [
-                'name'                  => 'required|max:255|unique:users',
-                'first_name'            => '',
-                'last_name'             => '',
-                'email'                 => 'required|email|max:255|unique:users',
-                'password'              => 'required|min:6|max:20|confirmed',
-                'password_confirmation' => 'required|same:password',
-                'role'                  => 'required',
-            ],
-            [
-                'name.unique'         => trans('auth.userNameTaken'),
-                'name.required'       => trans('auth.userNameRequired'),
-                'first_name.required' => trans('auth.fNameRequired'),
-                'last_name.required'  => trans('auth.lNameRequired'),
-                'email.required'      => trans('auth.emailRequired'),
-                'email.email'         => trans('auth.emailInvalid'),
-                'password.required'   => trans('auth.passwordRequired'),
-                'password.min'        => trans('auth.PasswordMin'),
-                'password.max'        => trans('auth.PasswordMax'),
-                'role.required'       => trans('auth.roleRequired'),
-            ]
-        );
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
         $ipAddress = new CaptureIpTrait();
         $profile = new Profile();
 
@@ -126,7 +95,7 @@ class UsersManagementController extends Controller
     {
         $user = User::find($id);
 
-        return view('usersmanagement.show-user')->withUser($user);
+        return view('usersmanagement.show')->withUser($user);
     }
 
     /**
@@ -140,18 +109,15 @@ class UsersManagementController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-
-        foreach ($user->roles as $user_role) {
-            $currentRole = $user_role;
-        }
-
+        $currentRole = $user->roles->first();
+        
         $data = [
             'user'        => $user,
             'roles'       => $roles,
             'currentRole' => $currentRole,
         ];
 
-        return view('usersmanagement.edit-user')->with($data);
+        return view('usersmanagement.edit')->with($data);
     }
 
     /**
@@ -164,35 +130,64 @@ class UsersManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $currentUser = Auth::user();
         $user = User::find($id);
-        $emailCheck = ($request->input('email') != '') && ($request->input('email') != $user->email);
-        $ipAddress = new CaptureIpTrait();
+        $emailCheck = ($request->filled('email')) && ($request->input('email') != $user->email);
+        
 
-        if ($emailCheck) {
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users',
-                'email'    => 'email|max:255|unique:users',
-                'password' => 'present|confirmed|min:6',
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255|unique:users,name,'.$id,
-                'password' => 'nullable|confirmed|min:6',
-            ]);
-        }
+        $rules = $this->createUpdateUserRules($emailCheck, $id);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
+        $user = $this->updateUser($user, $request, $emailCheck);
+
+        return back()->with('success', trans('usersmanagement.updateSuccess'));
+    }
+
+    /**
+     * Creates rules for update request.
+     * @param bool                     $emailCheck
+     * @param int                      $id
+     *
+     * @return array
+     */
+    public function createUpdateUserRules($emailCheck, $id){
+        if ($emailCheck){
+            $rules = [
+                'name'     => 'required|max:255|unique:users',
+                'email'    => 'email|max:255|unique:users',
+                'password' => 'present|confirmed|min:6',
+            ];
+        } else {
+            $rules = [
+                'name'     => 'required|max:255|unique:users,name,'.$id,
+                'password' => 'nullable|confirmed|min:6',
+            ];
+        }
+
+        return $rules;
+    }
+
+
+    /**
+     * Updates User model.
+     *
+     * @param App\Models\User $user
+     * @param \Illuminate\Http\Request $request
+     * @param bool                      $emailCheck
+     * 
+     * @return App\Models\User
+     */
+    public function updateUser(User $user, Request $request, $emailCheck){
+
+        $ipAddress = new CaptureIpTrait();
         $user->name = $request->input('name');
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
 
-        if ($emailCheck) {
-            $user->email = $request->input('email');
-        }
+        ($emailCheck) ? $user->email = $request->input('email') : null;
 
         if ($request->input('password') != null) {
             $user->password = bcrypt($request->input('password'));
@@ -206,19 +201,11 @@ class UsersManagementController extends Controller
 
         $user->updated_ip_address = $ipAddress->getClientIp();
 
-        switch ($userRole) {
-            case 3:
-                $user->activated = 0;
-                break;
-
-            default:
-                $user->activated = 1;
-                break;
-        }
-
+        ($userRole == 3) ? $user->activated = 0 : $user->activated = 1;
+        
         $user->save();
 
-        return back()->with('success', trans('usersmanagement.updateSuccess'));
+        return $user;
     }
 
     /**

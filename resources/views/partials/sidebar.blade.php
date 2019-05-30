@@ -31,8 +31,22 @@
         </li>
         <li class="{{Request::is('profile/'.Auth::user()->name) ? 'active' : null}}">
             <a href="{{ url('/profile/'.Auth::user()->name) }}" class="menu">
-                <i class="menu-icon fa fa-users"></i>
+                <i class="menu-icon fa fa-user"></i>
                 <span class="menu-text"> Profile </span>
+
+            </a>
+        </li>
+        <li class="{{Request::is('users') ? 'active' : null}}">
+            <a href="{{ url('/users')}}" class="menu">
+                <i class="menu-icon fa fa-users"></i>
+                <span class="menu-text"> Users </span>
+
+            </a>
+        </li>
+        <li class="{{Request::is('scripts/*') ? 'active' : null}}">
+            <a href="{{ route('scripts.index')}}" class="menu">
+                <i class="menu-icon fa fa-code"></i>
+                <span class="menu-text"> Scripts </span>
 
             </a>
         </li>

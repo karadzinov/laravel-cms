@@ -7,13 +7,13 @@
     $(this).find('span').toggleText('', 'Cancel');
   });
   $("input").keyup(function() {
-    checkChanged();
+    checkChanged(this);
   });
   $("select").change(function() {
-    checkChanged();
+    checkChanged(this);
   });
-  function checkChanged() {
-    if(!$('input').val()){
+  function checkChanged(el) {
+    if(!$(el).val()){
       $(".btn-save").hide();
     }
     else {
