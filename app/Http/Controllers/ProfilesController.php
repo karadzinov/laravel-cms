@@ -282,7 +282,7 @@ class ProfilesController extends Controller
             $currentUser->profile->avatar = $filename;
             $currentUser->profile->save();
 
-            return response()->json(['path' => $currentUser->profile->avatarPath], 200);
+            return response()->json(['path' => $currentUser->profile->avatarThumbnail], 200);
         } else {
             return response()->json(false, 200);
         } 
