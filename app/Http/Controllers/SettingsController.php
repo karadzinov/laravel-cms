@@ -144,8 +144,6 @@ class SettingsController extends Controller
             $path = public_path() . '/images/settings/originals/';
             $pathThumb = public_path() . '/images/settings/thumbnails/';
             $pathMedium = public_path() . '/images/settings/medium/';
-            $ext = $image->getClientOriginalExtension();
-
 
             $image->move($path, $imageName);
 
