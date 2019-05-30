@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Validator;
 use App\Models\Settings;
 use Illuminate\Http\Request;
-use Auth;
-//use App\Models\User;
-//use App\Models\Profile;
-use Validator;
+use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
 class SettingsController extends Controller
 {
-    
-    
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +18,9 @@ class SettingsController extends Controller
     public function index()
     {
         
-        $settings ="";
-        $msg ="";
-        if (Settings::count() == 0){
-           $msg = 'No settings';
-        }
-        else {
-        $settings = Settings::firstOrFail();
-//        dd($settings);
-        }
+        $settings = Settings::first();
         
-        return view('settings.index', compact('settings','msg'));
+        return view('settings.index', compact('settings'));
 
     }
 
@@ -42,18 +31,11 @@ class SettingsController extends Controller
      */
     public function create()
     {
-        //
-       
-//        $id = Auth::user()->id;
-//        $user = Profile::find($id);
-//     //   dd($user);
-              
-    //dd($location);   
-//        $location = ['google_map' => $user->location,
-//        return view('settings.create',  compact($location));
-        if (Settings::count() == 0){
+        if (!Settings::count()){
+
             return view('settings.create');
         }
+
         return redirect('/meta/settings');
         
     }
@@ -64,64 +46,27 @@ class SettingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSettnigsRequest $request)
     {
-        //
+        $input = $this->updateLogoIfNecessary($request);
 
-          
-       
-            $input = $request->all();
-            $validator = Validator::make($request->all(),
-            [
-                'title'                 => 'required|max:255',
-                'email'                 => 'required|email|max:255',
-                'main_url'              => 'required|max:255',
-                'address'               => 'required|max:255',
-                'logo'                  => 'required|max:255',
-                'meta_image'            => 'max:255',
-                'meta_title'            => 'max:255',
-                'instagram'             => 'max:255',
-                'twitter'               => 'max:255',
-                'facebook'              => 'max:255',
-                'linkedin'              => 'max:255',
-                'ios_app'               => 'max:255',
-                'android_app'           => 'max:255',
-                'lat'                   => '',
-                'lng'                   => '',
-                        ],
-            [
-               
-                'title.required'        => trans('settings.titleRequired'),
-                'email.required'        => trans('settings.emailRequired'),
-                'email.email'           => trans('settings.emailInvalid'),                
-                'address.required'      => trans('settings.addressRequired'),
-                'main_url.required'     => trans('settings.mainURLRequired'),
-                'logo.required'         => trans('settings.logoRequired'),
-                'lat'                   => '', //'Latitude required',
-                'lng'                   => '', //'Longtitude required',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-        
-// upload logo
- //       dd($request);
-            $file = $request->logo;
-            if (!is_null($file) ){
-                $name = 'Logo_'.$file->getClientOriginalName();
-                $file->move('images', $name);
-                $input['logo']=$name;
-            }
-  
-//            $input['lat'] = 42.681351; for test
-//            $input['lng'] = 23.286031;
-         
         Settings::create($input);
         
-  //  return $input;
         return redirect('/meta/settings');
+    }
+
+    public function updateLogoIfNecessary(Request $request){
+        
+        $input = $request->all();
+        $file = $request->logo;
+        if (!is_null($file) ){
+            $name = 'Logo_'.$file->getClientOriginalName();
+            $file->move('images', $name);
+            $input['logo']=$name;
+        }
+
+        return $input;
+        
     }
 
     /**
@@ -132,7 +77,6 @@ class SettingsController extends Controller
      */
     public function show()
     {
-        // 
         return redirect('/meta/settings');
     }
 
@@ -144,24 +88,9 @@ class SettingsController extends Controller
      */
     public function edit()
     {
-        $settings ="";
-        $msg ="";
-        if (Settings::count() == 0){
-           $msg = 'No settings';
-        }
-        else {
         $settings = Settings::firstOrFail();
-//        dd($settings);
-        }
-//        
-//        if (!$settings->google_map){
-//            $id = Auth::user()->id;
-//            $user = Profile::find($id);
-//            $settings['google_map']= $user->location;
-////            dd($settings->google_map);
-//        }
 
-        return view('settings.edit', compact('settings','msg'));
+        return view('settings.edit', compact('settings'));
  
     }
 
@@ -172,57 +101,13 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSettingsRequest $request, $id)
     {
-        //
-            $input = $request->all();
-            $validator = Validator::make($request->all(),
-            [
-                'title'                 => 'required|max:255',
-                'email'                 => 'required|email|max:255',
-                'main_url'              => 'required|max:255',
-                'address'               => 'required|max:255',
-                'logo'                  => 'max:255',
-                'meta_image'            => 'max:255',
-                'meta_title'            => 'max:255',
-                'instagram'             => 'max:255',
-                'twitter'               => 'max:255',
-                'facebook'              => 'max:255',
-                'linkedin'              => 'max:255',
-                'ios_app'               => 'max:255',
-                'android_app'           => 'max:255',
-                'lat'                   => '',
-                'lng'                   => '',
-
-            ],
-            [
-               
-                'title.required'        => trans('settings.titleRequired'),
-                'email.required'        => trans('settings.emailRequired'),
-                'email.email'           => trans('settings.emailInvalid'),                
-                'address.required'      => trans('settings.addressRequired'),
-                'main_url.required'     => trans('settings.mainURLRequired'),
-                'lat'                   => '', //'Latitude required',
-                'lng'                   => '', //'Longtitude required',
-           ]
-        );
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-            $file = $request->logo;
-            if (!is_null($file) ){
-                $name = 'Logo_'.$file->getClientOriginalName();
-                $file->move('images', $name);
-                $input['logo']=$name;
-            }
+        $input = $this->updateLogoIfNecessary($request);
           
-
         $settings = Settings::firstOrFail();
         $settings->update($input);
         
-  //  return $input;
          return redirect('/meta/settings');
     }
 
@@ -235,7 +120,6 @@ class SettingsController extends Controller
     public function destroy()
     {
         $settings = Settings::firstOrFail();
-    //    dd($settings);
         
         @unlink(public_path()."/images/".$settings->logo);
         
