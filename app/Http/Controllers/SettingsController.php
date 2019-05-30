@@ -6,6 +6,7 @@ use Auth;
 use Validator;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
 class SettingsController extends Controller
@@ -48,25 +49,13 @@ class SettingsController extends Controller
      */
     public function store(StoreSettnigsRequest $request)
     {
-        $input = $this->updateLogoIfNecessary($request);
+        $image = $this->updateImageIfNecessary($request);
+        $input = $request->all();
+        $input['logo'] = $image;
 
         Settings::create($input);
         
         return redirect('/meta/settings');
-    }
-
-    public function updateLogoIfNecessary(Request $request){
-        
-        $input = $request->all();
-        $file = $request->logo;
-        if (!is_null($file) ){
-            $name = 'Logo_'.$file->getClientOriginalName();
-            $file->move('images', $name);
-            $input['logo']=$name;
-        }
-
-        return $input;
-        
     }
 
     /**
@@ -103,9 +92,15 @@ class SettingsController extends Controller
      */
     public function update(UpdateSettingsRequest $request, $id)
     {
-        $input = $this->updateLogoIfNecessary($request);
-          
         $settings = Settings::firstOrFail();
+          
+        $input = $request->all(); 
+        
+        $image = $this->updateImageIfNecessary($request, $settings);
+
+        if($image){
+            $input['logo'] = $image;
+        }
         $settings->update($input);
         
          return redirect('/meta/settings');
@@ -121,10 +116,74 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
         
-        @unlink(public_path()."/images/".$settings->logo);
+        $this->deleteImages($settings);
         
         $settings->delete();
         
         return redirect('/meta/settings');
+    }
+
+    /**
+     * Uploads the logo if there is any, and deletes previous one.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Settings  $settings
+     * @return string or null
+     */
+
+    public function updateImageIfNecessary(Request $request, Settings $settings=null){
+        
+        if ($request->hasFile('logo')) {
+            if($settings){
+               $this->deleteImages($settings);
+            }
+
+            $image = $request->file('logo');
+            $imageName = 'Logo_'.$request->logo->getClientOriginalName();
+
+            $path = public_path() . '/images/settings/originals/';
+            $pathThumb = public_path() . '/images/settings/thumbnails/';
+            $pathMedium = public_path() . '/images/settings/medium/';
+            $ext = $image->getClientOriginalExtension();
+
+
+            $image->move($path, $imageName);
+
+            $findimage = $path . $imageName;
+            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $imagemedium = Image::make($findimage)->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $imagethumb->save($pathThumb . $imageName);
+            $imagemedium->save($pathMedium . $imageName);
+
+            return $imageName;
+        }
+
+        return null;
+    }
+
+    /**
+     * Deletes images.
+     *
+     * @param  Settings  $settings
+     * @return bool
+     */
+    public function deleteImages(Settings $settings){
+        
+        try {
+            @unlink(public_path()."/images/settings/originals/".$settings->logo);
+            @unlink(public_path()."/images/settings/medium/".$settings->logo);
+            @unlink(public_path()."/images/settings/thumbnails/".$settings->logo);
+
+            return true;
+        } catch (Exception $e) {
+            
+            return false;
+        }
     }
 }

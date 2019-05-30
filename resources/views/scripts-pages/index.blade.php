@@ -57,7 +57,7 @@
 				                        {!! Form::close() !!}
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-success btn-block" href="{{ route('scripts.show', [$script->id])}}" data-toggle="tooltip" title="Show">
+				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('scripts.show', [$script->id])}}" data-toggle="tooltip" title="Show">
 				                            Show
 				                        </a>
 				                    </td>

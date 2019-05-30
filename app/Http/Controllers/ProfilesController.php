@@ -253,6 +253,7 @@ class ProfilesController extends Controller
     public function upload()
     {
         if (Input::hasFile('file')) {
+            
             $currentUser = Auth::user();
             $avatar = Input::file('file');
             $filename = 'avatar.'.$avatar->getClientOriginalExtension();

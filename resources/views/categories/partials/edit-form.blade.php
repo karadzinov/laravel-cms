@@ -13,7 +13,7 @@
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
     <div>
-        <img src="/images/categories/{{$category->image}}" style="max-width: 200px">
+        <img src="/images/categories/thumbnails/{{$category->image}}" style="max-width: 200px">
         <br>
         <br>
     </div>
@@ -24,9 +24,9 @@
 <div class="form-group">
     {!! Form::label('description', 'Description:') !!}
     <span class="input-icon icon-right">
-    	{!! Form::textarea('description', $category->description, [ 'class' => 'form-control' ]) !!}
-	    <i class="fa fa-pencil darkorange"></i>
-	</span>
+        {!! Form::textarea('description', $category->description, [ 'class' => 'form-control' ]) !!}
+        <i class="fa fa-pencil darkorange"></i>
+    </span>
     {!! $errors->first('description') !!}
 </div>
 

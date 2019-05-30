@@ -60,7 +60,7 @@
                         
                         {!! Form::label('logo', trans('forms.settings-logo'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
-                            <img src="/images/{{$settings->logo}}" style="max-width: 200px">
+                            <img src="/images/settings/thumbnails/{{$settings->logo}}" style="max-width: 200px">
                             {!! Form::file('logo', null,['class'=>'form-control']) !!}
                         </div>
                         {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}

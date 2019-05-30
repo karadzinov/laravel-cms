@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Auth;
 use Validator;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\PostCategoryRequest;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -19,11 +21,11 @@ class CategoryController extends Controller
 
         return view('categories.index', compact('categories'));
     }
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create(Request $input)
     {
         $data = $input->only('parent_id');
@@ -40,7 +42,9 @@ class CategoryController extends Controller
      */
     public function store(PostCategoryRequest $request)
     {
-        $input = $this->updateImageIfNecessary($request);
+        $input = $request->all();
+        $image = $this->updateImageIfNecessary($request);
+        $image ? $input['image'] = $image : null;
 
         ($input['parent_id'] == 0) ? $input['parent_id'] = null : null;
 
@@ -49,12 +53,12 @@ class CategoryController extends Controller
         return redirect('/node/category');
     
     }
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
     public function show($id)
     {
         $category = Category::findOrFail($id);
@@ -62,12 +66,12 @@ class CategoryController extends Controller
 
         return view('categories.show', compact('tree','category'));
     }
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
     public function edit($id)
     {
         /** @var Category $category */
@@ -76,21 +80,23 @@ class CategoryController extends Controller
 
         return view('categories.edit', compact('category', 'categories','id'));
     }
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
  
     public function update(PostCategoryRequest $request, $id)
     {
-        $input = $this->updateImageIfNecessary($request);
-        /** @var Category $category */
         $category = Category::findOrFail($id);
-        if(isset($input['image'])){
-            $this->deleteImageIfNecessary($category);
-         }
+        $input = $request->all();
+        $image = $this->updateImageIfNecessary($request, $category);
+        if($image){
+            $input['image'] = $image;
+        }
+       
         $category->update($input);
 
         return redirect('/node/category');
@@ -98,24 +104,55 @@ class CategoryController extends Controller
 
     public function deleteImageIfNecessary($category){
         if($category->image){
-            @unlink(public_path()."/images/categories/".$category->image);
+            @unlink(public_path()."/images/categories/originals/".$category->image);
+            @unlink(public_path()."/images/categories/thumbnails/".$category->image);
+            @unlink(public_path()."/images/categories/medium/".$category->image);
 
             return true;
         }        
     }
 
-    public function updateImageIfNecessary(Request $request){
-        $input = $request->all();
+    /**
+     * Update image if uploaded.
+     *
+     * @param  Request  $request
+     * @return bool
+     */
 
-        $file = $request->image;
-        if (!is_null($file) ){
-            $name = now()->format('d-m-y-h-i-s-u') .'-'.$file->getClientOriginalName();
-            $file->move('images/categories', $name);
-            $input['image']=$name;
+    public function updateImageIfNecessary(Request $request, Category $category=null){
+        
+        $slugname = Str::slug($request->name);
+        if ($request->hasFile('image')) {
+            if($category){
+                $this->deleteImageIfNecessary($category);
+            }
+
+            $image = $request->file('image');
+            $path = public_path() . '/images/categories/originals/';
+            $pathThumb = public_path() . '/images/categories/thumbnails/';
+            $pathMedium = public_path() . '/images/categories/medium/';
+            $ext = $image->getClientOriginalExtension();
+
+            $imageName = $slugname . '.' . $ext;
+
+            $image->move($path, $imageName);
+
+            $findimage = public_path() . '/images/categories/originals/' . $imageName;
+            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $imagemedium = Image::make($findimage)->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $imagethumb->save($pathThumb . $imageName);
+            $imagemedium->save($pathMedium . $imageName);
+
+            return $imageName;
         }
 
-        return $input;
-        
+        return null;
     }
 
     /**
@@ -153,11 +190,11 @@ class CategoryController extends Controller
         
         return $options;
     }
-	/**
-	 * @param Category $except
-	 *
-	 * @return CategoriesController
-	 */
+    /**
+     * @param Category $except
+     *
+     * @return CategoriesController
+     */
     protected function getCategoryOptions($except = null)
     {
         /** @var \Kalnoy\Nestedset\QueryBuilder $query */
@@ -169,8 +206,4 @@ class CategoryController extends Controller
        
         return $this->makeOptions($query->get());
     }
-    
-        
 }
-
-
