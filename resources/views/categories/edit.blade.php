@@ -11,7 +11,10 @@
 @section('content')
     <div class="widget">
         <div class="widget-header bordered-bottom bordered-blue">
-            <span class="widget-caption">{!! trans('categories.create-category') !!}</span>
+            <span class="widget-caption">
+                <i class="fa fa-th-list"></i> 
+                {!! trans('categories.edit-category') !!}
+            </span>
             <span class="pull-right">
                 <a href='/node/category' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('categories.back-to-categories') }}">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
@@ -22,8 +25,9 @@
         <div class="widget-body">
             @if ($category)        
                 <div class="card-body" style="font-size: 13px">
-                    {!! Form::model($category, [ 'route' => [ 'category.update', $category->getKey() ], 'method' => 'PATCH' ]) !!}
-                        @include('categories.partials.form')
+                    {!! Form::open(array('route' => [ 'category.update', $category->getKey() ], 'method' => 'PATCH', 'role' => 'form', 'files'=> true)) !!}
+                    {!! csrf_field() !!}
+                        @include('categories.partials.edit-form')
                         <span class="pull-left">    
                             {!! Form::button(trans('forms.edit_categories_button_text'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
                         </span>                        

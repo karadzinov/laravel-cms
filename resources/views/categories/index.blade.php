@@ -4,7 +4,10 @@
     <div class="widget">
 
         <div class="widget-header bordered-bottom bordered-blue">
-            <span class="widget-caption"><i class="fa fa-th-list"></i> {!! trans('categories.list-categories') !!}</span>
+            <span class="widget-caption">
+                <i class="fa fa-th-list"></i> 
+                {!! trans('categories.list-categories') !!}
+            </span>
         </div>
         <div class="widget-body">
             <a href="{{ route('category.create') }}" class="btn btn-success btn-lg">

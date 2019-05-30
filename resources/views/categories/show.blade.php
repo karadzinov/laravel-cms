@@ -1,14 +1,5 @@
 @extends('layouts.app')
 
-@section('template_title')
-Categories  
-@endsection
-
-@section('head')
-@endsection
-@section('template_linked_css')
-    
-@endsection
 @section('content')
 <div class="container">
         <div class="row">
@@ -16,7 +7,7 @@ Categories
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            {!! trans('categories.show-category') !!}                         
+                            <strong>{!! trans('categories.show-category') !!}</strong>                         
                             <div class="pull-right"> 
                                 <table class="table-sm">
                                     <tr>
@@ -33,9 +24,32 @@ Categories
                     </div>
                     <div class="card-body">
                         <ul style="list-style-position: outside">
-                         <li class="active">{{ $category->name }}</li>
-                        @include('categories.partials.path')
-                    </ul>
+                             <li class="active">{{ $category->name }}</li>
+                            @include('categories.partials.path')
+                        </ul>
+                        <div class="row">
+                            @if($category->description)
+                                <div class="col-md-8">
+                                    <label for="description"><strong>Descritpion:</strong></label>
+                                    <p id="description">{{$category->description}}</p>
+                                </div>
+                            @endif
+                            @if($category->link)
+                                <div class="col-md-8">
+                                    <a href="{{$category->link}}" target="_blank">Link</a>
+                                    <br>
+                                    <br>
+                                </div>
+                            @endif
+                            @if($category->image)
+                                <div class="col-md-8">
+                                    <label for="image"><strong>Image:</strong></label> <br>
+                                    <img src="/images/categories/{{$category->image}}" alt="">
+                                </div>
+                            @endif
+
+                        </div>
+
                     </div>
   
             </div>

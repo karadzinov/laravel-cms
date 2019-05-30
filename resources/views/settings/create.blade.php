@@ -3,7 +3,10 @@
 @section('content')
     <div class="widget">
         <div class="widget-header bordered-bottom bordered-blue">
-            <span class="widget-caption">{!! trans('settings.create-settings') !!}</span>
+            <span class="widget-caption">
+                <i class="fa fa-gear"></i> 
+                {!! trans('settings.create-settings') !!}
+            </span>
             <span class="pull-right">
                 <a href='/meta/settings' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>

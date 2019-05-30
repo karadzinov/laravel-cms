@@ -136,3 +136,7 @@ textarea {
 .navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area{
 	min-width: 190px;
 }
+
+.page-content .my-alerts .alert{
+	margin-bottom: 0;
+}
