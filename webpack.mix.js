@@ -26,10 +26,10 @@ mix.styles([
 	   	'public/assets/js/jquery.min.js',
 	   	'public/assets/js/slimscroll/jquery.slimscroll.js',
          'public/assets/js/bootstrap.js',
-	   	'public/assets/js/ckeditor/ckeditor.js',
-	   	'public/assets/js/ckconf.js',
 	   	'public/assets/js/beyond.js',
 	   	'public/assets/js/bootbox/bootbox.js',
+	   	'public/assets/js/ckeditor/ckeditor.js',
+	   	'public/assets/js/ckconf.js',
 
 			], 'public/js/mix.js')
    .js('resources/assets/js/app.js', 'public/js')

@@ -152,3 +152,13 @@ Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'a
     Route::put('update/{script}', 'ScriptsController@update')->name('update');
     Route::delete('delete/{script}', 'ScriptsController@delete')->name('delete');
 });
+
+Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'PostsController@index')->name('index');
+    Route::get('show/{post}', 'PostsController@show')->name('show');
+    Route::get('create', 'PostsController@create')->name('create');
+    Route::post('store', 'PostsController@store')->name('store');
+    Route::get('edit/{post}', 'PostsController@edit')->name('edit');
+    Route::put('update/{post}', 'PostsController@update')->name('update');
+    Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
+});
