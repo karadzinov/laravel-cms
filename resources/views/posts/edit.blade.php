@@ -40,7 +40,12 @@
                 </div>   
 
                 <div class="form-group">
-                    {{Form::label('video', 'Video:')}}
+                    {{Form::label('video', 'Video:')}} <br>
+                    <a href="{{$post->video}}" target="_blank">
+                        <img src="{{$post->videoPreviewImage}}" alt="">
+                    </a>
+                    <br>
+                    <br>
                     <span class="input-icon icon-right">
                         {!! Form::text('video', $post->video,['class'=>'form-control']) !!}
                         <i class="fa fa-play"></i>

@@ -19,4 +19,24 @@ class Post extends Model
     	
     	return asset('/images/posts/thumbnails/' . $this->image);
     }
+
+    public function getVideoPreviewImageAttribute(){
+        if($this->video)
+        {
+            try {
+                $components = parse_url($this->video);
+                parse_str($components['query'], $params);
+                
+                $id = $params['v'];
+                $image = "https://img.youtube.com/vi/{$id}/hqdefault.jpg";
+                
+                return $image;
+            } catch (Exception $e) {
+                
+                return false;
+            }
+        }
+
+        return false;
+    }
 }

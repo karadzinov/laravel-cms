@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('head')
-    <script src="/assets/js/ckeditor/ckeditor.js">
-        
-    </script>
+    <style>
+        label{
+            display: block;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="widget">
@@ -56,8 +58,11 @@
             @if($post->video)
                 <div>
                     <label for="video"><strong>Video:</strong></label>
-                    <p id="video">{{$post->video}}</p>
+                    <a href="{{$post->video}}" target="_blank">
+                        <img src="{{$post->videoPreviewImage}}" alt="">
+                    </a>
                 </div>
+                <br>
             @endif
 
             <div>

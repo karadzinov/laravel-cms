@@ -23,6 +23,8 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+        $youtubeRegex = "/^(?:https:\/\/(?:www\\.)?youtube.com\/)(watch\\?v=)([a-zA-Z0-9_]*)/";
+
         return [
             "category_id"   => "required",
             "title"         => "required|max:255",
@@ -30,7 +32,14 @@ class StorePostRequest extends FormRequest
             "main_text"     => "required",
             "workflow"      => "required",
             "location"      => "max:255",
-            "video"         => "url",
+            "video"         => "url|regex:{$youtubeRegex}",
+        ];
+    }
+
+    public function messages(){
+        
+        return[
+            'regex' => 'Video must be valid youtube link.',
         ];
     }
 }
