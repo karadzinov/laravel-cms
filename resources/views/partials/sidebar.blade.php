@@ -50,6 +50,12 @@
 
             </a>
         </li>
+         <li class="{{Request::is('pages/*') ? 'active' : null}}">
+            <a href="{{ route('pages.index')}}" class="menu">
+                <i class="menu-icon fa fa-newspaper-o"></i>
+                <span class="menu-text"> Pages </span>
+            </a>
+        </li>
     </ul>
     <!-- /Sidebar Menu -->
 </div>
