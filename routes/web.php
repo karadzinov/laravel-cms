@@ -162,3 +162,13 @@ Route::group(["prefix"=>"pages", "as"=>"pages.", 'middleware' => ['auth', 'activ
     Route::put('update/{page}', 'PagesController@update')->name('update');
     Route::delete('delete/{page}', 'PagesController@delete')->name('delete');
 });
+
+Route::group(["prefix"=>"images", "as"=>"images.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    // Route::get('index', 'Images@index')->name('index');
+    // Route::get('show/{page}', 'Images@show')->name('show');
+    // Route::get('create', 'Images@create')->name('create');
+    Route::post('store', 'ImagesController@store')->name('store');
+    // Route::get('edit/{page}', 'Images@edit')->name('edit');
+    Route::put('update/{image}', 'ImagesController@update')->name('update');
+    Route::post('delete', 'ImagesController@delete')->name('delete');
+});
