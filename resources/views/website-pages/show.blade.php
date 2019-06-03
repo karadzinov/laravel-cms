@@ -13,7 +13,7 @@
         <div class="widget-body">
             <div>
                 <label for="title"><strong>Title:</strong></label>
-                <p>{{$page->title}}</p>
+                <p>{!!$page->title!!}</p>
             </div>
             <div>
                 <label for="subtitle">Subtitle:</label>

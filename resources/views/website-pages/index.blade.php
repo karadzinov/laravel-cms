@@ -36,9 +36,9 @@
 				            @foreach($pages as $page)
 				                <tr>
 				                    <td>{{$page->id}}</td>
-				                    <td>{{$page->title}}</td>
+				                    <td>{!!$page->title!!}</td>
 				                    <td>
-						        		{{$page->subtitle}}
+						        		{!!$page->subtitle!!}
 				                    </td>
 				                    <td>{{$page->created_at->format('d-m-Y, H:i')}}</td>
 				                    <td>{{$page->updated_at->format('d-m-Y, H:i')}}</td>
