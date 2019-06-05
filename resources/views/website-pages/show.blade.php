@@ -27,7 +27,7 @@
                 <pre id="main_text"><code>{!!$page->main_text!!}</code></pre>
             </div>
 
-            @if($page->images)
+            @if($page->images->isNotEmpty())
                 <label for="gallery">Images:</label>
 
                 <div id="gallery">

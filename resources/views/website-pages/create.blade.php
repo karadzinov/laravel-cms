@@ -50,6 +50,6 @@
 @endsection
 
 @section('footer_scripts')
-    @include('scripts/pages-dropzone-config', 
+    @include('scripts/dropzone-config', 
             ['table'=>'pages'])
 @endsection

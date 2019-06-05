@@ -50,7 +50,7 @@
 @endsection
 
 @section('footer_scripts')
-    @include('scripts/pages-dropzone-config', 
+    @include('scripts/dropzone-config', 
             ['table' => $page->getTable(),
              'model'=>$page
          ])

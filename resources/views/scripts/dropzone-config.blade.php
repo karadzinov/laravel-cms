@@ -13,7 +13,7 @@ put #submitForm on your main submit button and #main_form on its form
         url: '{{route('images.store')}}',
         autoProcessQueue: true,
         uploadMultiple: true,
-        parallelUploads: 1,
+        parallelUploads: 2,
         // maxFiles: 5,
         maxFilesize: 1, //mb
         acceptedFiles: 'image/*',
