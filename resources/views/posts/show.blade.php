@@ -81,6 +81,12 @@
                 <label for="category"><strong>Category:</strong></label>
                 <p id="category">{{$post->category->name}}</p>
             </div>
+            @if($post->user)
+                <div>
+                    <label for="author"><strong>Author:</strong></label>
+                    <p id="author">{{$post->user->name}}</p>
+                </div>
+            @endif
         </div>
         
     </div>

@@ -76,6 +76,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Build Post Relationships.
+     *
+     * @var array
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
+
+    /**
      * User Profile Relationships.
      *
      * @var array

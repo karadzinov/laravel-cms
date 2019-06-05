@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use File;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -32,8 +33,9 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::pluck('name', 'id')->toArray();
-        
-        return view('posts/create', compact('categories'));
+        $users = User::pluck('name', 'id')->toArray();
+
+        return view('posts/create', compact('categories', 'users'));
     }
 
     /**
@@ -73,8 +75,9 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::pluck('name', 'id')->toArray();
+        $users = User::pluck('name', 'id')->toArray();
 
-        return view('posts/edit', compact('post', 'categories'));
+        return view('posts/edit', compact('post', 'categories', 'users'));
     }
 
     /**

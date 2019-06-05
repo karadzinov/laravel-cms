@@ -26,6 +26,7 @@ class StorePostRequest extends FormRequest
         $youtubeRegex = "/^(?:https:\/\/(?:www\\.)?youtube.com\/)(watch\\?v=)([a-zA-Z0-9_]*)/";
 
         return [
+            "user_id"       => "required",
             "category_id"   => "required",
             "title"         => "required|max:255",
             "subtitle"      => "required|max:500",

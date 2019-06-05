@@ -28,6 +28,7 @@
                                 <th>Subtitle</th>
                                 <th>Location</th>
                                 <th>Workflow</th>
+                                <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Actions</th>
@@ -56,6 +57,7 @@
                                             {{$post->workflow}}
                                         </span>
                                     </td>
+                                    <td>{{optional($post->user)->name}}</td>
                                     <td>{{$post->created_at->format('d-m-Y, H:i')}}</td>
                                     <td>{{$post->updated_at->format('d-m-Y, H:i')}}</td>
                                     <td>
