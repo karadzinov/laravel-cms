@@ -17,7 +17,7 @@ class ImagesController extends Controller
     	if($request->ajax()){
 	        if ($request->hasFile('file')) {
 	            $image = $request->file('file')[0];
-	            $paths = $this->makePaths($request->get('model'));
+	            $paths = $this->makePaths($request->get('table'));
 	            $this->makeDirectories($paths);
 	            
 	            $imageName = $image->getClientOriginalName();
@@ -54,9 +54,15 @@ class ImagesController extends Controller
     public function delete(Request $request){
     	$key = self::SESSION_KEY;
 		try {
-			$paths = $this->makePaths($request->model);
+			$paths = $this->makePaths($request->get('table'));
 			$image = $request->name;
-			// $elementKey = array_search($image, Session::get($key));
+			if($request->get('model')){
+				$model = $request->get('model');
+				$model = $model::findOrFail($request->get('id'));
+				$modelImage = $model->images()->where('name', '=', $image)->first();
+				
+				($modelImage) ? $modelImage->delete() : null;
+			}
 
 			@unlink($paths->original . $image);
 			@unlink($paths->thumbnail . $image);

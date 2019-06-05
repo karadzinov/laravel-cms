@@ -13,7 +13,7 @@
         </div>
         <div class="widget-body">
             <div class="widget-body">
-                {!! Form::open(array('route' => ['pages.update', $page->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
+                {!! Form::open(array('route' => ['pages.update', $page->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true, 'id'=>'main_form')) !!}
                     <div class="form-group">
                         {!! Form::label('name', 'Title:') !!}
                         {!! Form::textarea('title', $page->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}
@@ -38,9 +38,20 @@
                         {!! $errors->first('main_text') !!}
                     </div>
                     
-                    {!! Form::button('Edit Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
                 {!! Form::close() !!}
+                {!! Form::label('images', 'Images:') !!}
+                {!! Form::open(array('route' => 'images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
+                {!! Form::close() !!}
+
+                {!! Form::button('Edit Script', array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer_scripts')
+    @include('scripts/pages-dropzone-config', 
+            ['table' => $page->getTable(),
+             'model'=>$page
+         ])
 @endsection
