@@ -99,8 +99,8 @@ class PagesController extends Controller
         if($images){
             $paths = $this->makePaths();
             foreach($images as $image){
-                @unlink($paths->original . $image->name);
-                @unlink($paths->thumbnail . $image->name);
+                @unlink($paths->originals . $image->name);
+                @unlink($paths->thumbnails . $image->name);
                 @unlink($paths->medium . $image->name);
                 $image->delete();
             }
@@ -113,11 +113,11 @@ class PagesController extends Controller
     public function makePaths(){
         $basePath = public_path() . '/images/pages/';
 
-        $original = $basePath . 'originals/';
-        $thumbnail = $basePath . 'thumbnails/';
+        $originals = $basePath . 'originals/';
+        $thumbnails = $basePath . 'thumbnails/';
         $medium = $basePath . 'medium/';
 
-        $paths = (object) compact('original', 'thumbnail', 'medium');
+        $paths = (object) compact('originals', 'thumbnails', 'medium');
 
         return $paths;
     }
@@ -143,18 +143,11 @@ class PagesController extends Controller
     }
 
     public function renameImage($key, $name, $title, $paths){
-        $nameParts = explode('.', $name);
-        $extension = $nameParts[count($nameParts)-1];
-        $newName = $title.'-'.$key.'.'.$extension;
-
-        $images = scandir($paths->original);
-
-        if(in_array($newName, $images)){
-            $newName = $this->makeNewName($key, $newName, $newName, $paths);
-        }
-
-        rename($paths->original . $name, $paths->original . $newName);
-        rename($paths->thumbnail . $name, $paths->thumbnail . $newName);
+        
+        $newName= $this->makeNewName($key, $name, $title, $paths);
+        
+        rename($paths->originals . $name, $paths->originals . $newName);
+        rename($paths->thumbnails . $name, $paths->thumbnails . $newName);
         rename($paths->medium . $name, $paths->medium . $newName);
 
         return $newName;
@@ -162,13 +155,13 @@ class PagesController extends Controller
 
     public function makeNewName($key, $name, $title, $paths){
         
+        $title = explode('.', $title)[0];
         $nameParts = explode('.', $name);
         $extension = $nameParts[count($nameParts)-1];
-        $newName = $nameParts[0].'-'.$key.'.'.$extension;
+        $newName = $title.'-'.$key.'.'.$extension;
 
-        $images = scandir($paths->original);
+        $images = scandir($paths->originals);
         if(in_array($newName, $images)){
-
             $newName = $this->makeNewName($key, $newName, $newName, $paths);
         }
 

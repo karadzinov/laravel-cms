@@ -23,6 +23,6 @@ trait Imageable{
 
     public function getOriginalPathAttribute(){
     	
-    	return asset('/images/'. $this->getTable() .'/original') . '/';
+    	return asset('/images/'. $this->getTable() .'/originals') . '/';
     }
 }

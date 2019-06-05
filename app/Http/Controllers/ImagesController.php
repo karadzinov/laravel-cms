@@ -21,15 +21,15 @@ class ImagesController extends Controller
 	            $this->makeDirectories($paths);
 	            
 	            $imageName = $image->getClientOriginalName();
-	            $image->move($paths->original, $imageName);
-	            $findimage = $paths->original . $imageName;
+	            $image->move($paths->originals, $imageName);
+	            $findimage = $paths->originals . $imageName;
 	            $imagethumb = InterventionImage::make($findimage)->resize(200, null, function ($constraint) {
 	                $constraint->aspectRatio();
 	            });
 	            $imagemedium = InterventionImage::make($findimage)->resize(600, null, function ($constraint) {
 	                $constraint->aspectRatio();
 	            });
-	            $imagethumb->save($paths->thumbnail . $imageName);
+	            $imagethumb->save($paths->thumbnails . $imageName);
 	            $imagemedium->save($paths->medium . $imageName);
 
 	            $this->updateSession($imageName, $request);
@@ -64,8 +64,8 @@ class ImagesController extends Controller
 				($modelImage) ? $modelImage->delete() : null;
 			}
 
-			@unlink($paths->original . $image);
-			@unlink($paths->thumbnail . $image);
+			@unlink($paths->originals . $image);
+			@unlink($paths->thumbnails . $image);
 			@unlink($paths->medium . $image);
 
 			if($request->session()->has($key)){
@@ -91,18 +91,18 @@ class ImagesController extends Controller
      */
     public function makePaths($model){
         $basePath = public_path() . '/images/'.$model;
-        $original = $basePath . '/originals/';
-        $thumbnail = $basePath . '/thumbnails/';
+        $originals = $basePath . '/originals/';
+        $thumbnails = $basePath . '/thumbnails/';
         $medium = $basePath . '/medium/';
-        $paths = (object) compact('original', 'thumbnail', 'medium');
+        $paths = (object) compact('originals', 'thumbnails', 'medium');
 
         return $paths;
     }
 
     public function makeDirectories($paths){
     	
-    	File::makeDirectory($paths->original, $mode = 0755, true, true);
-        File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
+    	File::makeDirectory($paths->originals, $mode = 0755, true, true);
+        File::makeDirectory($paths->thumbnails, $mode = 0755, true, true);
         File::makeDirectory($paths->medium, $mode = 0755, true, true);
     }
 }
