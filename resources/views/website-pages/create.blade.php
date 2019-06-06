@@ -10,6 +10,10 @@
                 <i class="fa fa-newspaper-o"></i> 
                 Pages
             </span>
+            <a href="{{route('pages.index')}}" class="btn btn-default pull-right">
+                <i class="fa fa-fw fa-reply-all"></i> 
+                Back To Pages
+            </a>
         </div>
         <div class="widget-body">
             <div class="widget-body">
@@ -43,7 +47,7 @@
                 {!! Form::open(array('route' => 'images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                 {!! Form::close() !!}
 
-                {!! Form::button('Create Script', array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {!! Form::button('Create Page', array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>
