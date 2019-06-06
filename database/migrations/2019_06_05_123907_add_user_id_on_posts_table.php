@@ -14,9 +14,9 @@ class AddUserIdOnPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->after('id')->nullable();
+            $table->unsignedBigInteger('user_id')->after('id');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

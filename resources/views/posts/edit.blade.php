@@ -91,8 +91,14 @@
                 <div class="form-group">
                     {!! Form::label('author', 'Author:' , array('class' => 'control-label')); !!}
                     {{Form::select('user_id', 
-                        $users, optional($post->user)->id,
-                        array('class'=>'form-control'))}}
+                        $users, optional($post->author)->id,
+                        array('id'=>'author', 'class'=>'form-control'))}}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('assigned_users', 'Assign Users:' , array('class' => 'control-label')); !!}
+                    {{Form::select('assigned_users[]', 
+                        $users, $assignedUsers,
+                        array('id'=>'assigned_users', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div>
                 {!! Form::button('Update Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
@@ -107,5 +113,12 @@
     @if(config('settings.googleMapsAPIStatus'))
         @include('scripts.gmaps-address-lookup-api3')
     @endif
-
+    <script src="{{asset('assets/js/select2/select2.js')}}"></script>
+    <script>
+        $("#author").select2();
+        $("#assigned_users").select2({
+            placeholder: "Assign User",
+            allowClear: true
+        })
+    </script>
 @endsection

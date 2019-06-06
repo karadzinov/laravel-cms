@@ -15,9 +15,14 @@ class Post extends Model
     	return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function user(){
+    public function author(){
         
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function users(){
+        
+        return $this->belongsToMany(User::class, 'users_posts', 'post_id', 'user_id');
     }
 
     public function getThumnailPathAttribute(){

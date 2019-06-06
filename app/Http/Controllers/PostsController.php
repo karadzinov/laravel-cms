@@ -48,9 +48,20 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
-        $input['image'] = $image;
+        
+        if($request->has('assigned_users')){
+            $assignedUsers = $request->get('assigned_users');
+            unset($input['assigned_users']);
+        }else{
+            $assignedUsers = false;
+        }
 
+        $input['image'] = $image;
         $post = Post::create($input);
+
+        if($assignedUsers){
+            $post->users()->attach($assignedUsers);
+        }
 
         return redirect()->route('posts.index');
     }
@@ -76,8 +87,10 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
+        
+        $assignedUsers = $this->assignedUsers($post);
 
-        return view('posts/edit', compact('post', 'categories', 'users'));
+        return view('posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
     }
 
     /**
@@ -93,9 +106,38 @@ class PostsController extends Controller
         $input = $request->all();
         $input['image'] = $image;
 
+        if($request->get('assigned_users')){
+            $users = $request->get('assigned_users');
+            unset($input['assigned_users']);
+        }
+
         $post->update($input);
 
+        if(isset($users)){
+            $alreadyAssignedUsers = $this->assignedUsers($post);
+
+            $post->users()->detach();
+            $post->users()->attach($users);
+        }else{
+            $post->users()->detach();
+        }
+
         return redirect()->route('posts.show', $post->id);
+    }
+
+    /**
+     * Finds assignedUsers ids.
+     */
+    public function assignedUsers(Post $post){
+        if($post->users->isNotEmpty()){
+            $assignedUsers = $post->users()->get()->pluck('id')->toArray();
+
+            return $assignedUsers;
+        }else{
+
+            return false;
+        }
+        
     }
 
     /**

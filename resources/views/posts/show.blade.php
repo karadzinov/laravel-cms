@@ -81,10 +81,20 @@
                 <label for="category"><strong>Category:</strong></label>
                 <p id="category">{{$post->category->name}}</p>
             </div>
-            @if($post->user)
+            @if($post->author)
                 <div>
                     <label for="author"><strong>Author:</strong></label>
-                    <p id="author">{{$post->user->name}}</p>
+                    <p id="author">{{$post->author->name}}</p>
+                </div>
+            @endif
+            @if($post->users->isNotEmpty())
+                <div>
+                    <label for="assigned_users"><strong>Assigned Users:</strong></label>
+                    <ul id="assigned_users">
+                        @foreach($post->users()->get() as $user)
+                            <li>{{$user->name}}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
         </div>
