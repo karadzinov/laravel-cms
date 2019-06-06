@@ -8,6 +8,12 @@
             	<i class="fa fa-code"></i> 
             	Scripts
             </span>
+            <span class="pull-right">
+                <a href='{{route('scripts.index')}}' class="btn btn-light" title="Back To Scripts">
+                    <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
+                    Back To Scripts
+                </a>
+            </span>
         </div>
         <div class="widget-body">
 			{!! Form::open(array('route' => ['scripts.update', $script->id], 'method' => 'PUT')) !!}
@@ -35,7 +41,7 @@
 				    </label>
 				    {!! $errors->first('active') !!}
 				</div>			
-				{!! Form::button('Create Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+				{!! Form::button('Save Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}
