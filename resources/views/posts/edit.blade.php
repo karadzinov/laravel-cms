@@ -15,6 +15,10 @@
                 <i class="fa fa-pencil"></i> 
                 {!!$post->title!!}
             </span>
+            <a href="{{route('posts.index')}}" class="btn btn-deafult pull-right">
+                <i class="fa fa-fw fa-reply-all"></i> 
+                Back To Posts
+            </a>
         </div>
         <div class="widget-body">
             {!! Form::open(array('route' => ['posts.update', $post->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
@@ -100,7 +104,7 @@
                         $users, $assignedUsers,
                         array('id'=>'assigned_users', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div>
-                {!! Form::button('Update Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                {!! Form::button('Edit Post', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}

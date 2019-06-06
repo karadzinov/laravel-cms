@@ -63,7 +63,8 @@ class PostsController extends Controller
             $post->users()->attach($assignedUsers);
         }
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')
+            ->with('success', 'Post Successfully Created.');
     }
 
     /**
@@ -122,7 +123,7 @@ class PostsController extends Controller
             $post->users()->detach();
         }
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post Successfully Updated.');
     }
 
     /**

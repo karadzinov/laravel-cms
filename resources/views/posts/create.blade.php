@@ -16,6 +16,10 @@
                 <i class="fa fa-pencil"></i> 
                 Posts
             </span>
+            <a href="{{route('posts.index')}}" class="btn btn-deafult pull-right">
+                <i class="fa fa-fw fa-reply-all"></i> 
+                Back To Posts
+            </a>
         </div>
         <div class="widget-body">
             {!! Form::open(array('route' => 'posts.store', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
@@ -96,7 +100,7 @@
                         array('id'=>'assigned_users', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div>
 
-                {!! Form::button('Create Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                {!! Form::button('Create Post', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}
