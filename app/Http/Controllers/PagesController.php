@@ -55,7 +55,8 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $images = $this->updateImages($page, $request, $title);
 
-        return redirect()->route('pages.index');
+        return redirect()->route('pages.index')
+                    ->with('success', 'Page Successfully Created.');
     }
 
     /**
@@ -94,7 +95,8 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $images = $this->updateImages($page, $request, $title);
 
-        return redirect()->route('pages.show', $page->id);
+        return redirect()->route('pages.show', $page->id)
+                    ->with('success', 'Page Successfully Updated.');
     }
 
     /**
