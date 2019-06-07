@@ -26,28 +26,30 @@
             <a href="{{ url('/meta/settings') }}" class="menu">
                 <i class="menu-icon fa fa-gear"></i>
                 <span class="menu-text"> {!! trans('titles.Settings') !!} </span>
-
             </a>
         </li>
-        <li class="{{Request::is('profile/'.Auth::user()->name) ? 'active' : null}}">
+        <li class="{{Request::is('profile/*'.Auth::user()->name) ? 'active' : null}}">
             <a href="{{ url('/profile/'.Auth::user()->name) }}" class="menu">
                 <i class="menu-icon fa fa-user"></i>
                 <span class="menu-text"> Profile </span>
-
             </a>
         </li>
-        <li class="{{Request::is('users') ? 'active' : null}}">
-            <a href="{{ url('/users')}}" class="menu">
+        <li class="{{Request::is('users/*') ? 'active' : null}}">
+            <a href="{{ url('/users/')}}" class="menu">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text"> Users </span>
-
             </a>
         </li>
         <li class="{{Request::is('scripts/*') ? 'active' : null}}">
             <a href="{{ route('scripts.index')}}" class="menu">
                 <i class="menu-icon fa fa-code"></i>
                 <span class="menu-text"> Scripts </span>
-
+            </a>
+        </li>
+        <li class="{{Request::is('posts/*') ? 'active' : null}}">
+            <a href="{{ route('posts.index')}}" class="menu">
+                <i class="menu-icon fa fa-pencil"></i>
+                <span class="menu-text"> Posts </span>
             </a>
         </li>
     </ul>

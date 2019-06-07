@@ -76,6 +76,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Build Post Relationships.
+     *
+     * @var array
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Build Post Relationships for pivot table users_posts.
+     *
+     * @var array
+     */
+    public function assignedPosts(){
+        
+        return $this->belongsToMany(Post::class, 'users_posts', 'user_id', 'post_id');
+    }
+
+    /**
      * User Profile Relationships.
      *
      * @var array
