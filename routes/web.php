@@ -162,3 +162,5 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::put('update/{post}', 'PostsController@update')->name('update');
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
 });
+
+Route::get('feed', 'RssFeedController@index')->name('feed');
