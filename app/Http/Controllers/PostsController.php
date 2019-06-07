@@ -41,9 +41,23 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
+        
+        if($request->has('assigned_users')){
+            $assignedUsers = $request->get('assigned_users');
+            unset($input['assigned_users']);
+        }else{
+            $assignedUsers = false;
+        }
+
         $input['image'] = $image;
         $post = Post::create($input);
-        return redirect()->route('posts.index');
+
+        if($assignedUsers){
+            $post->users()->attach($assignedUsers);
+        }
+
+        return redirect()->route('posts.index')
+            ->with('success', 'Post Successfully Created.');
     }
     /**
      * Display the specified resource.
@@ -65,7 +79,10 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
-        return view('posts/edit', compact('post', 'categories', 'users'));
+        
+        $assignedUsers = $this->assignedUsers($post);
+
+        return view('posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
     }
     /**
      * Update the specified resource in storage.
@@ -79,8 +96,39 @@ class PostsController extends Controller
         $image = $this->updateImageIfNecessary($request, $post);
         $input = $request->all();
         $input['image'] = $image;
+
+        if($request->get('assigned_users')){
+            $users = $request->get('assigned_users');
+            unset($input['assigned_users']);
+        }
+
         $post->update($input);
-        return redirect()->route('posts.show', $post->id);
+
+        if(isset($users)){
+            $alreadyAssignedUsers = $this->assignedUsers($post);
+
+            $post->users()->detach();
+            $post->users()->attach($users);
+        }else{
+            $post->users()->detach();
+        }
+
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post Successfully Updated.');
+    }
+
+    /**
+     * Finds assignedUsers ids.
+     */
+    public function assignedUsers(Post $post){
+        if($post->users->isNotEmpty()){
+            $assignedUsers = $post->users()->get()->pluck('id')->toArray();
+
+            return $assignedUsers;
+        }else{
+
+            return false;
+        }
+        
     }
     /**
      * Remove the specified resource from storage.

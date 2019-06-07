@@ -57,7 +57,7 @@
                                             {{$post->workflow}}
                                         </span>
                                     </td>
-                                    <td>{{optional($post->user)->name}}</td>
+                                    <td>{{optional($post->author)->name}}</td>
                                     <td>{{$post->created_at->format('d-m-Y, H:i')}}</td>
                                     <td>{{$post->updated_at->format('d-m-Y, H:i')}}</td>
                                     <td>

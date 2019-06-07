@@ -82,7 +82,17 @@ class User extends Authenticatable
      */
     public function posts()
     {
-        return $this->hasMany('App\Models\Post');
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Build Post Relationships for pivot table users_posts.
+     *
+     * @var array
+     */
+    public function assignedPosts(){
+        
+        return $this->belongsToMany(Post::class, 'users_posts', 'user_id', 'post_id');
     }
 
     /**
