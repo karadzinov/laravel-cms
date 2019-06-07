@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Image;
 
 class Profile extends Model
 {
@@ -60,5 +61,14 @@ class Profile extends Model
     public function theme()
     {
         return $this->hasOne('App\Models\Theme');
+    }
+
+    public function getAvatarThumbnailAttribute(){
+
+        $imagePath = asset('/images/users/id/'
+                            .$this->id.'/uploads/images/avatar/thumbnails/'
+                            .$this->avatar);
+
+        return $imagePath;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\RssFeeds\Item;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -48,5 +49,29 @@ class Post extends Model
         }
 
         return false;
+    }
+
+    public function makeItem(){
+        
+        $title = strip_tags($this->title);
+        $subtitle = strip_tags($this->subtitle);
+
+        //update $view and $route when front is made
+        $route = route('posts.show', [$this->id]);
+        $view = view('posts/rss-show', ['post'=>$this])->render();
+
+        $item = new Item(
+            $this->id,
+            $title,
+            $route,
+            $this->created_at->format('D, d-M-y H:i:s'),
+            $this->author->name,
+            $subtitle,
+            $view,
+            $this->category->name,
+            $route
+        );
+
+        return $item;
     }
 }

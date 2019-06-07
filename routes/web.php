@@ -140,6 +140,7 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
 });
 
+
 Route::group(["prefix"=>"pages", "as"=>"pages.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'PagesController@index')->name('index');
     Route::get('show/{page}', 'PagesController@show')->name('show');
@@ -167,3 +168,6 @@ Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated
     Route::put('update/{faq}', 'FAQsController@update')->name('update');
     Route::delete('delete/{faq}', 'FAQsController@delete')->name('delete');
 });
+
+Route::get('feed', 'RssFeedController@index')->name('feed');
+

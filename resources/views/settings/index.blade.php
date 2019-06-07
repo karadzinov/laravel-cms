@@ -19,13 +19,13 @@
                         {!! trans('settings.create-settings') !!}
                     </a>
                 @else 
+                    <a class="btn btn-sm btn-warning pull-right actionButton" href="/meta/settings/1/edit"  data-toggle="tooltip" title="Edit">
+                        {!! trans('settings.edit-settings') !!}
+                    </a>
                     {!! Form::open(array('action' => ['SettingsController@destroy', $settings->id], 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                         {!! Form::hidden('_method', 'DELETE') !!}
                         {!! Form::button(trans('settings.delete-settings'), array('class' => 'pull-right btn btn-danger btn-sm actionButton','type' => 'button','data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Settings', 'data-message' => 'You want to delete Settings. Are you sure? ')) !!}
                     {!! Form::close() !!}
-                    <a class="btn btn-sm btn-success pull-right actionButton" href="/meta/settings/1/edit"  data-toggle="tooltip" title="Edit">
-                        {!! trans('settings.edit-settings') !!}
-                    </a>
                 @endif
         </div>
         <div class="widget-body">
@@ -50,7 +50,7 @@
                     </div>
                     {!! Form::label('logo', trans('forms.settings-logo'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px" >
-                        <img src="/images/{{$settings->logo}}" style="max-width: 200px">  
+                        <img src="/images/settings/thumbnails/{{$settings->logo}}" style="max-width: 200px">  
                     </div>
                     {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
