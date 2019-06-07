@@ -254,26 +254,65 @@ class ProfilesController extends Controller
     {
         if (Input::hasFile('file')) {
             $currentUser = Auth::user();
+            if($currentUser->profile && $currentUser->profile->avatar_status == 1){
+               $this->deleteImages($currentUser);
+            }
             $avatar = Input::file('file');
             $filename = 'avatar.'.$avatar->getClientOriginalExtension();
-            $save_path = storage_path().'/users/id/'.$currentUser->id.'/uploads/images/avatar/';
-            $path = $save_path.$filename;
-            $public_path = '/images/profile/'.$currentUser->id.'/avatar/'.$filename;
+            $paths = $this->makePaths($currentUser);
 
-            // Make the user a folder and set permissions
-            File::makeDirectory($save_path, $mode = 0755, true, true);
+            File::makeDirectory($paths->original_path, $mode = 0755, true, true);
+            File::makeDirectory($paths->thumbnail_path, $mode = 0755, true, true);
+            File::makeDirectory($paths->medium_path, $mode = 0755, true, true);
 
-            // Save the file to the server
-            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+            $avatar->move($paths->original_path, $filename);
+            $findimage = $paths->original_path . $filename;
+            
+            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
 
-            // Save the public image path
-            $currentUser->profile->avatar = $public_path;
+            $imagemedium = Image::make($findimage)->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $imagethumb->save($paths->thumbnail_path . $filename);
+            $imagemedium->save($paths->medium_path . $filename);
+            
+            $currentUser->profile->avatar = $filename;
             $currentUser->profile->save();
 
-            return response()->json(['path' => $path], 200);
+            return response()->json(['path' => $currentUser->profile->avatarThumbnail], 200);
         } else {
             return response()->json(false, 200);
+        } 
+    }
+
+    public function deleteImages(User $user){
+        try {
+            $paths = $this->makePaths($user);
+            $avatar = $user->profile->avatar;
+            
+            @unlink($paths->original_path.$avatar);
+            @unlink($paths->thumbnail_path.$avatar);
+            @unlink($paths->medium_path.$avatar);
+
+            return true;
+        } catch (Exception $e) {
+            
+            return false;
         }
+    }
+
+    public function makePaths($currentUser){
+        
+        $original_path = public_path().'/images/users/id/'.$currentUser->id.'/uploads/images/avatar/originals/';
+        $thumbnail_path = public_path().'/images/users/id/'.$currentUser->id.'/uploads/images/avatar/thumbnails/';
+        $medium_path = public_path().'/images/users/id/'.$currentUser->id.'/uploads/images/avatar/medium/';
+
+        $paths = (object) compact('original_path', 'thumbnail_path', 'medium_path');
+
+        return $paths;
     }
 
     /**
