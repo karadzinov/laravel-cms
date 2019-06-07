@@ -92,7 +92,7 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FAQ $faq)
+    public function delete(FAQ $faq)
     {
      $faq->delete();
     	

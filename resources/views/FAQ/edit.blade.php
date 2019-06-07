@@ -5,7 +5,7 @@
 
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
-                <i class="fa fa-pencil"></i> 
+                <i class="fa fa-question"></i> 
             	Edit FAQ
             </span>
             <span class="pull-right">
@@ -24,7 +24,7 @@
 	        {!! $errors->first('name') !!}
             </div>
             <div class="form-group">
-                {!! Form::label('answer', 'Aanswer:') !!}
+                {!! Form::label('answer', 'Answer:') !!}
                  <span class="input-icon icon-right">
                     {!! Form::textarea('answer', $faq->answer, [ 'class' => 'form-control', 'placeholder'=>'Answer']) !!}
                 </span>

@@ -5,7 +5,7 @@
 
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
-                <i class="fa fa-pencil"></i> 
+                <i class="fa fa-question"></i> 
                 FAQs
             </span>
         </div>
@@ -21,6 +21,8 @@
 				                <th>Id</th>
 				                <th>Question</th>
 				                <th>Answer</th>
+				                <th>Created At</th>
+				                <th>Updated At</th>
 				                <th>Actions</th>
 				                <th></th>
 				                <th></th> 
@@ -44,6 +46,8 @@
                                                             {!!$faq->answer!!}
                                                         @endif
                                                     </td>
+                                                    <td>{{$faq->created_at->format('d-m-Y, H:i')}}</td>
+				                    <td>{{$faq->updated_at->format('d-m-Y, H:i')}}</td>
 				                    <td>
 				                        {!! Form::open(array('url' => route('faq.delete', [$faq->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
 				                            {!! Form::hidden('_method', 'DELETE') !!}

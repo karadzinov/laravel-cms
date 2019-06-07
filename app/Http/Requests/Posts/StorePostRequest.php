@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Requests\Posts;
-
 use Illuminate\Foundation\Http\FormRequest;
-
 class StorePostRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class StorePostRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,8 +20,8 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         $youtubeRegex = "/^(?:https:\/\/(?:www\\.)?youtube.com\/)(watch\\?v=)([a-zA-Z0-9_]*)/";
-
         return [
+            "user_id"       => "required",
             "category_id"   => "required",
             "title"         => "required|max:255",
             "subtitle"      => "required|max:500",
@@ -35,7 +31,6 @@ class StorePostRequest extends FormRequest
             "video"         => "url|regex:{$youtubeRegex}",
         ];
     }
-
     public function messages(){
         
         return[

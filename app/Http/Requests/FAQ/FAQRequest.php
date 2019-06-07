@@ -24,8 +24,8 @@ class FAQRequest extends FormRequest
     public function rules()
     {
         return [
-            'question' => 'required|max:500',
-            'answer' => 'required|max:500'
+            'question'  => 'required',
+            'answer'    => 'required'
         ];
     }
 }

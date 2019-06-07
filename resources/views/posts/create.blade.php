@@ -83,6 +83,12 @@
                         $categories,
                         array('class'=>'form-control'))}}
                 </div>
+                <div class="form-group">
+                    {!! Form::label('user', 'Author:' , array('class' => 'control-label')); !!}
+                    {{Form::select('user_id', 
+                        $users, Auth::user()->id,
+                        array('class'=>'form-control'))}}
+                </div>
                 {!! Form::button('Create Script', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 

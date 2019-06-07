@@ -130,7 +130,6 @@ Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'a
     Route::delete('delete/{script}', 'ScriptsController@delete')->name('delete');
 });
 
-
 Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'PostsController@index')->name('index');
     Route::get('show/{post}', 'PostsController@show')->name('show');
@@ -164,7 +163,7 @@ Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated
     Route::get('show/{faq}', 'FAQsController@show')->name('show');
     Route::get('create', 'FAQsController@create')->name('create');
     Route::post('store', 'FAQsController@store')->name('store');
-    Route::get('{faq}/edit', 'FAQsController@edit')->name('edit');
+    Route::get('edit/{faq}', 'FAQsController@edit')->name('edit');
     Route::put('update/{faq}', 'FAQsController@update')->name('update');
-    Route::delete('delete/{faq}', 'FAQsController@destroy')->name('delete');
+    Route::delete('delete/{faq}', 'FAQsController@delete')->name('delete');
 });

@@ -5,7 +5,7 @@
 
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
-                <i class="fa fa-pencil"></i> 
+                <i class="fa fa-question"></i> 
             	FAQ
             </span>
             <span class="pull-right">
