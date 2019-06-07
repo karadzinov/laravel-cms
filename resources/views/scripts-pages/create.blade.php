@@ -8,6 +8,12 @@
             	<i class="fa fa-code"></i> 
             	Scripts
             </span>
+            <span class="pull-right">
+                <a href='{{route('scripts.index')}}' class="btn btn-light" title="Back To Scripts">
+                    <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
+                    Back To Scripts
+                </a>
+            </span>
         </div>
         <div class="widget-body">
 			{!! Form::open(array('route' => 'scripts.store', 'method' => 'POST')) !!}
