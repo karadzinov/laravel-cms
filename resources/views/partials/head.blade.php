@@ -43,6 +43,6 @@
 </script>
 <script src="/assets/js/skins.min.js"></script>
 
-@if (Auth::User() && (Auth::User()->profile) && isset($theme) && $theme->link)
+@if (Auth::User() && (Auth::User()->profile) && (isset($theme) && $theme->link!='null'))
     <link rel="stylesheet" type="text/css" href="{{ $theme->link }}">
 @endif

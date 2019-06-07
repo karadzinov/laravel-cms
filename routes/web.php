@@ -153,6 +153,7 @@ Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'a
     Route::delete('delete/{script}', 'ScriptsController@delete')->name('delete');
 });
 
+
 Route::group(["prefix"=>"pages", "as"=>"pages.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'PagesController@index')->name('index');
     Route::get('show/{page}', 'PagesController@show')->name('show');
@@ -172,3 +173,16 @@ Route::group(["prefix"=>"images", "as"=>"images.", 'middleware' => ['auth', 'act
     Route::put('update/{image}', 'ImagesController@update')->name('update');
     Route::post('delete', 'ImagesController@delete')->name('delete');
 });
+
+Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'PostsController@index')->name('index');
+    Route::get('show/{post}', 'PostsController@show')->name('show');
+    Route::get('create', 'PostsController@create')->name('create');
+    Route::post('store', 'PostsController@store')->name('store');
+    Route::get('edit/{post}', 'PostsController@edit')->name('edit');
+    Route::put('update/{post}', 'PostsController@update')->name('update');
+    Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
+});
+
+Route::get('feed', 'RssFeedController@index')->name('feed');
+
