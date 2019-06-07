@@ -140,6 +140,7 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
 });
 
+Route::get('feed', 'RssFeedController@index')->name('feed');
 Route::group(["prefix"=>"pages", "as"=>"pages.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'PagesController@index')->name('index');
     Route::get('show/{page}', 'PagesController@show')->name('show');
