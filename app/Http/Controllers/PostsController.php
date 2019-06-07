@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use File;
 use App\Models\Post;
 use App\Models\User;
@@ -10,7 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class PostsController extends Controller
 {
     /**
@@ -21,10 +18,8 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
-
         return view('posts/index', compact('posts'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -34,10 +29,8 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
-
         return view('posts/create', compact('categories', 'users'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +59,6 @@ class PostsController extends Controller
         return redirect()->route('posts.index')
             ->with('success', 'Post Successfully Created.');
     }
-
     /**
      * Display the specified resource.
      *
@@ -77,7 +69,6 @@ class PostsController extends Controller
     {
         return view('posts/show', compact('post'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,7 +84,6 @@ class PostsController extends Controller
 
         return view('posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -140,7 +130,6 @@ class PostsController extends Controller
         }
         
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -151,10 +140,8 @@ class PostsController extends Controller
     {
         $this->deleteImages($post);
         $post->delete();
-
         return redirect()->route('posts.index');
     }
-
     /**
      * Uploads the logo if there is any, and deletes previous one.
      *
@@ -170,13 +157,11 @@ class PostsController extends Controller
             $image = $request->file('image');
             $slugname = Str::slug($request->title);
             $imageName = $slugname . '.' . $image->getClientOriginalExtension();;
-
             $paths = $this->makePaths();
             File::makeDirectory($paths->original, $mode = 0755, true, true);
             File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
             File::makeDirectory($paths->medium, $mode = 0755, true, true);
             $image->move($paths->original, $imageName);
-
             $findimage = $paths->original . $imageName;
             $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -186,12 +171,10 @@ class PostsController extends Controller
             });
             $imagethumb->save($paths->thumbnail . $imageName);
             $imagemedium->save($paths->medium . $imageName);
-
             return $imageName;
         }
         return null;
     }
-
     /**
      * Deletes images.
      *
@@ -205,14 +188,12 @@ class PostsController extends Controller
             @unlink($paths->original.$image);
             @unlink($paths->thumbnail.$image);
             @unlink($paths->medium.$image);
-
             return true;
         } catch (Exception $e) {
             
             return false;
         }
     }
-
     /**
      * Make paths for storing images.
      *
@@ -224,7 +205,6 @@ class PostsController extends Controller
         $thumbnail = public_path() . '/images/posts/thumbnails/';
         $medium = public_path() . '/images/posts/medium/';
         $paths = (object) compact('original', 'thumbnail', 'medium');
-
         return $paths;
     }
 }

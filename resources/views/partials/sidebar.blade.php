@@ -58,6 +58,12 @@
                 <span class="menu-text"> Pages </span>
             </a>
         </li>
+        <li class="{{Request::is('faq/*') ? 'active' : null}}">
+            <a href="{{ route('faq.index')}}" class="menu">
+                <i class="menu-icon fa fa-question"></i>
+                <span class="menu-text"> FAQs </span>
+            </a>
+        </li>    
     </ul>
     <!-- /Sidebar Menu -->
 </div>

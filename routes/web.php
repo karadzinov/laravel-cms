@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,55 +11,43 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
-
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
+Route::get('feed', 'RssFeedController@index')->name('feed');
 // Authentication Routes
 Auth::routes();
-
 // Public Routes
 Route::group(['middleware' => ['web', 'activity']], function () {
-
     // Activation Routes
     Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\ActivateController@initial']);
-
     Route::get('/activate/{token}', ['as' => 'authenticated.activate', 'uses' => 'Auth\ActivateController@activate']);
     Route::get('/activation', ['as' => 'authenticated.activation-resend', 'uses' => 'Auth\ActivateController@resend']);
     Route::get('/exceeded', ['as' => 'exceeded', 'uses' => 'Auth\ActivateController@exceeded']);
-
     // Socialite Register Routes
     Route::get('/social/redirect/{provider}', ['as' => 'social.redirect', 'uses' => 'Auth\SocialController@getSocialRedirect']);
     Route::get('/social/handle/{provider}', ['as' => 'social.handle', 'uses' => 'Auth\SocialController@getSocialHandle']);
-
     // Route to for user to reactivate their user deleted account.
     Route::get('/re-activate/{token}', ['as' => 'user.reactivate', 'uses' => 'RestoreUserController@userReActivate']);
 });
-
 // Registered and Activated User Routes
 Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
-
     // Activation Routes
     Route::get('/activation-required', ['uses' => 'Auth\ActivateController@activationRequired'])->name('activation-required');
     Route::get('/logout', ['uses' => 'Auth\LoginController@logout'])->name('logout');
 });
-
 // Registered and Activated User Routes
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
-
     //  Homepage Route - Redirect based on user role is in controller.
     Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
-
     // Show users profile - viewable by other users.
     Route::get('profile/{username}', [
         'as'   => '{username}',
         'uses' => 'ProfilesController@show',
     ]);
 });
-
 // Registered, activated, and is current user routes.
 Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', 'twostep']], function () {
-
     // User Profile and Account Routes
     Route::resource(
         'profile',
@@ -85,16 +72,13 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
         'as'   => '{username}',
         'uses' => 'ProfilesController@deleteUserAccount',
     ]);
-
     // Route to show user avatar
     Route::get('images/profile/{id}/avatar/{image}', [
         'uses' => 'ProfilesController@userProfileAvatar',
     ]);
-
     // Route to upload user avatar.
     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
 });
-
 // Registered, activated, and is admin routes.
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
     Route::resource('/users/deleted', 'SoftDeletesController', [
@@ -102,7 +86,6 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
             'index', 'show', 'update', 'destroy',
         ],
     ]);
-
     Route::resource('users', 'UsersManagementController', [
         'names' => [
             'index'   => 'users',
@@ -113,7 +96,6 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         ],
     ]);
     Route::post('search-users', 'UsersManagementController@search')->name('search-users');
-
     Route::resource('themes', 'ThemesManagementController', [
         'names' => [
             'index'   => 'themes',
@@ -126,7 +108,6 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
     
-
     // settings
     Route::resource('meta/settings','SettingsController');
     
@@ -138,11 +119,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::resource('node/category', 'CategoryController');
     
   
-
     });
   
 Route::redirect('/php', '/phpinfo', 301);
-
 Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'ScriptsController@index')->name('index');
     Route::get('show/{script}', 'ScriptsController@show')->name('show');
@@ -174,7 +153,8 @@ Route::group(["prefix"=>"images", "as"=>"images.", 'middleware' => ['auth', 'act
     Route::post('delete', 'ImagesController@delete')->name('delete');
 });
 
-Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+
+Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function() {
     Route::get('index', 'PostsController@index')->name('index');
     Route::get('show/{post}', 'PostsController@show')->name('show');
     Route::get('create', 'PostsController@create')->name('create');
@@ -184,5 +164,15 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
 });
 
-Route::get('feed', 'RssFeedController@index')->name('feed');
+Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'FAQsController@index')->name('index');
+    Route::get('show/{faq}', 'FAQsController@show')->name('show');
+    Route::get('create', 'FAQsController@create')->name('create');
+    Route::post('store', 'FAQsController@store')->name('store');
+    Route::get('edit/{faq}', 'FAQsController@edit')->name('edit');
+    Route::put('update/{faq}', 'FAQsController@update')->name('update');
+    Route::delete('delete/{faq}', 'FAQsController@delete')->name('delete');
+
+});
+
 
