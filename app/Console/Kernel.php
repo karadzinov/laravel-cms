@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\DeleteExpiredActivations::class,
+        Commands\GenerateSitemap::class,
     ];
 
     /**
@@ -27,8 +28,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-
         $schedule->command('activations:clean')
+                    ->daily();
+                    
+        $schedule->command('sitemap:generate')
                     ->daily();
     }
 
