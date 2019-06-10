@@ -28,7 +28,7 @@ class StorePostRequest extends FormRequest
             "main_text"     => "required",
             "workflow"      => "required",
             "location"      => "max:255",
-            "video"         => "url|regex:{$youtubeRegex}",
+            "video"         => "nullable|url|regex:{$youtubeRegex}",
         ];
     }
     public function messages(){
