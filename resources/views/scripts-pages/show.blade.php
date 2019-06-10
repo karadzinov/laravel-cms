@@ -8,11 +8,11 @@
             	<i class="fa fa-code"></i> 
             	Scripts
             </span>
-            <a href='{{route('scripts.index')}}' class="btn btn-light pull-right" title="Back To Scripts">
+            <a href='{{route('admin.scripts.index')}}' class="btn btn-light pull-right" title="Back To Scripts">
                 <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                 Back To Scripts
             </a>
-            <a href="{{route('scripts.edit', $script->id)}}" class="btn btn-warning pull-right">
+            <a href="{{route('admin.scripts.edit', $script->id)}}" class="btn btn-warning pull-right">
                 Edit Script
             </a>
         </div>

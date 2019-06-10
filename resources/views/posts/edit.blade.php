@@ -15,13 +15,13 @@
                 <i class="fa fa-pencil"></i> 
                 {!!$post->title!!}
             </span>
-            <a href="{{route('posts.index')}}" class="btn btn-deafult pull-right">
+            <a href="{{route('admin.posts.index')}}" class="btn btn-deafult pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
                 Back To Posts
             </a>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => ['posts.update', $post->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
+            {!! Form::open(array('route' => ['admin.posts.update', $post->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Title:') !!}
                     {!! Form::textarea('title', $post->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}

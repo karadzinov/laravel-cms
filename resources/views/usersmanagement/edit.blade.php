@@ -19,18 +19,18 @@
                 {!! trans('usersmanagement.editing-user', ['name' => $user->name]) !!}
             </span>
             <div class="pull-right">
-                <a href="{{ route('users') }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="top" title="{{ trans('usersmanagement.tooltips.back-users') }}">
+                <a href="{{ route('admin.users') }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="top" title="{{ trans('usersmanagement.tooltips.back-users') }}">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                     {!! trans('usersmanagement.buttons.back-to-users') !!}
                 </a>
-                <a href="{{ url('/users/' . $user->id) }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.tooltips.back-users') }}">
+                <a href="{{ url('/admin/users/' . $user->id) }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.tooltips.back-users') }}">
                     <i class="fa fa-fw fa-reply" aria-hidden="true"></i>
                     {!! trans('usersmanagement.buttons.back-to-user') !!}
                 </a>
             </div>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => ['users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation')) !!}
+            {!! Form::open(array('route' => ['admin.users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation')) !!}
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-md-10 offset-md-2">

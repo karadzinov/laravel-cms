@@ -5,15 +5,15 @@
                 <li class="list-group-item">
                     {{$category->name}} 
                     <span class="pull-right">
-                        <a href="{{ route('category.show', [ $category->getKey() ]) }}" class="btn btn-info btn-xs edit">
+                        <a href="{{ route('admin.category.show', [ $category->getKey() ]) }}" class="btn btn-info btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Show
                          </a>
-                        <a href="{{ route('category.create', [ 'parent_id' => $category->getKey() ]) }}" class="btn btn-success btn-xs edit">
+                        <a href="{{ route('admin.category.create', [ 'parent_id' => $category->getKey() ]) }}" class="btn btn-success btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Create Child
                          </a>
-                         <a href="{{ route('category.edit', [ $category->getKey() ]) }}" class="btn btn-warning btn-xs edit">
+                         <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Edit
                          </a>
@@ -23,15 +23,15 @@
                  <li class="list-group-item">
                     {{$category->name}} 
                     <span class="pull-right">
-                        <a href="{{ route('category.show', [ $category->getKey() ]) }}" class="btn btn-info btn-xs edit">
+                        <a href="{{ route('admin.category.show', [ $category->getKey() ]) }}" class="btn btn-info btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Show
                          </a>
-                        <a href="{{ route('category.create', [ 'parent_id' => $category->getKey() ]) }}" class="btn btn-success btn-xs edit">
+                        <a href="{{ route('admin.category.create', [ 'parent_id' => $category->getKey() ]) }}" class="btn btn-success btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Create Child
                          </a>
-                         <a href="{{ route('category.edit', [ $category->getKey() ]) }}" class="btn btn-warning btn-xs edit">
+                         <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning btn-xs edit">
                             <i class="fa fa-edit"></i>
                              Edit
                          </a>

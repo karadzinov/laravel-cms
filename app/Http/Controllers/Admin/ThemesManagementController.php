@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Theme;
-use App\Models\User;
 use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Validator;
+use App\Models\User;
+use App\Models\Theme;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class ThemesManagementController extends Controller
 {

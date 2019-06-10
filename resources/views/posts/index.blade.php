@@ -11,7 +11,7 @@
         </div>
 
         <div class="widget-body">
-    		<a href="{{ route('posts.create') }}" class="btn btn-success btn-lg">
+    		<a href="{{ route('admin.posts.create') }}" class="btn btn-success btn-lg">
     	        Create new Post
     	    </a>
 
@@ -61,18 +61,18 @@
                                     <td>{{$post->created_at->format('d-m-Y, H:i')}}</td>
                                     <td>{{$post->updated_at->format('d-m-Y, H:i')}}</td>
                                     <td>
-                                        {!! Form::open(array('url' => route('posts.delete', [$post->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                        {!! Form::open(array('url' => route('admin.posts.delete', [$post->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this post ?')) !!}
                                         {!! Form::close() !!}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-success btn-block" href="{{ route('posts.show', [$post->id])}}" data-toggle="tooltip" title="Show">
+                                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.posts.show', [$post->id])}}" data-toggle="tooltip" title="Show">
                                             Show
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-warning btn-block" href="{{route('posts.edit', [$post->id])}}}}" data-toggle="tooltip" title="Edit">
+                                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.posts.edit', [$post->id])}}}}" data-toggle="tooltip" title="Edit">
                                             Edit
                                         </a>
                                     </td> 

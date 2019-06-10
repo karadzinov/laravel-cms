@@ -11,11 +11,11 @@
                 <i class="fa fa-newspaper-o"></i> 
                 Pages
             </span>
-            <a href="{{route('pages.index')}}" class="btn btn-default pull-right">
+            <a href="{{route('admin.pages.index')}}" class="btn btn-default pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
                 Back To Pages
             </a>
-            <a href="{{route('pages.edit', $page->id)}}" class="btn btn-warning pull-right">
+            <a href="{{route('admin.pages.edit', $page->id)}}" class="btn btn-warning pull-right">
                 Edit Page
             </a>
         </div>

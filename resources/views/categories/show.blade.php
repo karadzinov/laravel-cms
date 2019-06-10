@@ -8,11 +8,11 @@
             <i class="fa fa-th-list"></i> 
             {!! trans('categories.edit-category') !!}
         </span>
-        <a href='/node/category' class="btn btn-light pull-right" data-toggle="tooltip" data-placement="left" title="{{ trans('categories.back-to-categories') }}">
+        <a href='{{route('admin.category.index')}}' class="btn btn-light pull-right" data-toggle="tooltip" data-placement="left" title="{{ trans('categories.back-to-categories') }}">
             <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
             {!! trans('categories.back-to-categories') !!}
         </a>
-        <a href="/node/category/{{$category->id}}/edit" class="btn btn-warning pull-right">
+        <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning pull-right">
             Edit Script
         </a>
     </div>

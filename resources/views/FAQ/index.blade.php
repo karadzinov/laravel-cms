@@ -10,7 +10,7 @@
             </span>
         </div>
         <div class="widget-body">
-        	<a href="{{ route('faq.create') }}" class="btn btn-success btn-lg">
+        	<a href="{{ route('admin.faq.create') }}" class="btn btn-success btn-lg">
         	    Create new FAQ
         	</a>
         	@if($faqs->isNotEmpty())
@@ -49,18 +49,18 @@
                                                     <td>{{$faq->created_at->format('d-m-Y, H:i')}}</td>
 				                    <td>{{$faq->updated_at->format('d-m-Y, H:i')}}</td>
 				                    <td>
-				                        {!! Form::open(array('url' => route('faq.delete', [$faq->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+				                        {!! Form::open(array('url' => route('admin.faq.delete', [$faq->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
 				                            {!! Form::hidden('_method', 'DELETE') !!}
 				                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete FAQ', 'data-message' => 'Are you sure you want to delete this FAQ ?')) !!}
 				                        {!! Form::close() !!}
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-success btn-block" href="{{ route('faq.show', [$faq->id])}}" data-toggle="tooltip" title="Show">
+				                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.faq.show', [$faq->id])}}" data-toggle="tooltip" title="Show">
 				                            Show
 				                        </a>
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('faq.edit', [$faq->id])}}" data-toggle="tooltip" title="Edit">
+				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.faq.edit', [$faq->id])}}" data-toggle="tooltip" title="Edit">
 				                            Edit
 				                        </a>
 				                    </td> 

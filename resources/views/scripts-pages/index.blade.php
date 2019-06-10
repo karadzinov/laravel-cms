@@ -10,7 +10,7 @@
             </span>
         </div>
         <div class="widget-body">
-        	<a href="{{ route('scripts.create') }}" class="btn btn-success btn-lg">
+        	<a href="{{ route('admin.scripts.create') }}" class="btn btn-success btn-lg">
                 Create new Script
             </a>
 
@@ -51,18 +51,18 @@
 				                    <td>{{$script->created_at->format('d-m-Y, H:i')}}</td>
 				                    <td>{{$script->updated_at->format('d-m-Y, H:i')}}</td>
 				                    <td>
-				                        {!! Form::open(array('url' => route('scripts.delete', [$script->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+				                        {!! Form::open(array('url' => route('admin.scripts.delete', [$script->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
 				                            {!! Form::hidden('_method', 'DELETE') !!}
 				                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Script', 'data-message' => 'Are you sure you want to delete this script ?')) !!}
 				                        {!! Form::close() !!}
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('scripts.show', [$script->id])}}" data-toggle="tooltip" title="Show">
+				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.scripts.show', [$script->id])}}" data-toggle="tooltip" title="Show">
 				                            Show
 				                        </a>
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('scripts.edit', [$script->id])}}}}" data-toggle="tooltip" title="Edit">
+				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.scripts.edit', [$script->id])}}}}" data-toggle="tooltip" title="Edit">
 				                            Edit
 				                        </a>
 				                    </td> 

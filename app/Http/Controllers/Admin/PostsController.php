@@ -1,13 +1,16 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
 use File;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
+
 class PostsController extends Controller
 {
     /**
@@ -56,7 +59,7 @@ class PostsController extends Controller
             $post->users()->attach($assignedUsers);
         }
 
-        return redirect()->route('posts.index')
+        return redirect()->route('admin.posts.index')
             ->with('success', 'Post Successfully Created.');
     }
     /**
@@ -113,7 +116,7 @@ class PostsController extends Controller
             $post->users()->detach();
         }
 
-        return redirect()->route('posts.show', $post->id)->with('success', 'Post Successfully Updated.');
+        return redirect()->route('admin.posts.show', $post->id)->with('success', 'Post Successfully Updated.');
     }
 
     /**
@@ -140,7 +143,7 @@ class PostsController extends Controller
     {
         $this->deleteImages($post);
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('admin.posts.index');
     }
     /**
      * Uploads the logo if there is any, and deletes previous one.

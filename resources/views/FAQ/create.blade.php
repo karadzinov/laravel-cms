@@ -8,14 +8,14 @@
             	Create FAQ 
             </span>
             <span class="pull-right">
-                <a href='/faq/index' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('categories.back-to-categories') }}">
+                <a href='{{route('admin.faq.index')}}' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('categories.back-to-categories') }}">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                     Back to FAQs
                 </a>
             </span>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => 'faq.store', 'method' => 'POST')) !!}
+            {!! Form::open(array('route' => 'admin.faq.store', 'method' => 'POST')) !!}
                 {!! csrf_field() !!}
                     <div class="form-group">
                         {!! Form::label('question', 'Question:') !!}

@@ -10,7 +10,7 @@
             </span>
         </div>
         <div class="widget-body">
-        	<a href="{{ route('pages.create') }}" class="btn btn-success btn-lg">
+        	<a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg">
         	    Create new Page
         	</a>
 
@@ -43,18 +43,18 @@
 				                    <td>{{$page->created_at->format('d-m-Y, H:i')}}</td>
 				                    <td>{{$page->updated_at->format('d-m-Y, H:i')}}</td>
 				                    <td>
-				                        {!! Form::open(array('url' => route('pages.delete', [$page->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+				                        {!! Form::open(array('url' => route('admin.pages.delete', [$page->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
 				                            {!! Form::hidden('_method', 'DELETE') !!}
 				                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Script', 'data-message' => 'Are you sure you want to delete this page ?')) !!}
 				                        {!! Form::close() !!}
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-success btn-block" href="{{ route('pages.show', [$page->id])}}" data-toggle="tooltip" title="Show">
+				                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.pages.show', [$page->id])}}" data-toggle="tooltip" title="Show">
 				                            Show
 				                        </a>
 				                    </td>
 				                    <td>
-				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('pages.edit', [$page->id])}}}}" data-toggle="tooltip" title="Edit">
+				                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.pages.edit', [$page->id])}}}}" data-toggle="tooltip" title="Edit">
 				                            Edit
 				                        </a>
 				                    </td> 

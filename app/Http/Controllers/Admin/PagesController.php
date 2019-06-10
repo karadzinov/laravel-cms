@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -55,7 +55,7 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $images = $this->updateImages($page, $request, $title);
 
-        return redirect()->route('pages.index')
+        return redirect()->route('admin.pages.index')
                     ->with('success', 'Page Successfully Created.');
     }
 
@@ -95,7 +95,7 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $images = $this->updateImages($page, $request, $title);
 
-        return redirect()->route('pages.show', $page->id)
+        return redirect()->route('admin.pages.show', $page->id)
                     ->with('success', 'Page Successfully Updated.');
     }
 
@@ -115,7 +115,7 @@ class PagesController extends UsesSlider
 
         $page->delete();
 
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 
     

@@ -8,14 +8,14 @@
                 {!! trans('settings.create-settings') !!}
             </span>
             <span class="pull-right">
-                <a href='/meta/settings' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
+                <a href='{{route('admin.settings.show')}}' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                     {{ trans('settings.back-to-settings') }}
                 </a>
             </span>
         </div>
         <div class="widget-body">
-           {!! Form::open(array('route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'files'=> true,  'class' => 'needs-validation')) !!}
+           {!! Form::open(array('route' => 'admin.settings.store', 'method' => 'POST', 'role' => 'form', 'files'=> true,  'class' => 'needs-validation')) !!}
                 {!! csrf_field() !!}
                 <div class="row">   
                     {!! Form::label('settings-title', trans('forms.settings-title'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 15px;margin-bottom:0px;')); !!}

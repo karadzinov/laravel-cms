@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Script;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Scripts\StoreScriptRequest;
 
 class ScriptsController extends Controller
@@ -29,7 +30,7 @@ class ScriptsController extends Controller
         $request->merge(['active'=>$request->has('active')]);
     	$script = Script::create($request->all());
 
-    	return redirect(route('scripts.index'))
+    	return redirect(route('admin.scripts.index'))
     				->with('success', 'Successifully Created Script.');
     }
 
@@ -43,7 +44,7 @@ class ScriptsController extends Controller
         $request->merge(['active'=>$request->has('active')]);
         $script->update($request->all());
     	
-    	return redirect(route('scripts.show', $script->id))
+    	return redirect(route('admin.scripts.show', $script->id))
     			     ->with('success', 'Script Successfully Updated');
     }
 
@@ -51,7 +52,7 @@ class ScriptsController extends Controller
 
     	$script->delete();
     	
-    	return redirect(route('scripts.index'))
+    	return redirect(route('admin.scripts.index'))
                     ->with('success', 'Successfully Deleted Script');
     }
 }

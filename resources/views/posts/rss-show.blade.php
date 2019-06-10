@@ -14,10 +14,10 @@
             	<i class="fa fa-pencil"></i> 
             	{!!$post->title!!}
             </span>
-            <a href="{{route('posts.edit', $post->id)}}" class="btn btn-warning">
+            <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">
                 Edit Post
             </a>
-            <a href="{{route('posts.index')}}" class="btn btn-deafult pull-right">
+            <a href="{{route('admin.posts.index')}}" class="btn btn-deafult pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
                 Back To Posts
             </a>

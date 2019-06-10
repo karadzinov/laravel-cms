@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Auth;
 use File;
@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
         $category = Category::create($input);
 
-        return redirect('/node/category');
+        return redirect('/admin/node/category');
     
     }
     /**
@@ -100,7 +100,7 @@ class CategoryController extends Controller
        
         $category->update($input);
 
-        return redirect('/node/category');
+        return redirect('/admin/node/category');
     }
 
     public function deleteImageIfNecessary($category){
@@ -205,7 +205,7 @@ class CategoryController extends Controller
         $this->deleteImageIfNecessary($category);
         $category->delete();
 
-        return redirect('/node/category');
+        return redirect('/admin/node/category');
     }
     
     protected function makeOptions(Collection $items)

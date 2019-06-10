@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Auth;
 use Validator;
 use App\Traits\CaptureIpTrait;
 use App\Models\{User, Profile};
+use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, Response};
 use jeremykenedy\LaravelRoles\Models\Role;
 use App\Http\Requests\User\StoreUserRequest;
@@ -81,7 +82,7 @@ class UsersManagementController extends Controller
         $user->attachRole($request->input('role'));
         $user->save();
 
-        return redirect('users')->with('success', trans('usersmanagement.createSuccess'));
+        return redirect(route('admin.users'))->with('success', trans('usersmanagement.createSuccess'));
     }
 
     /**
@@ -226,7 +227,7 @@ class UsersManagementController extends Controller
             $user->save();
             $user->delete();
 
-            return redirect('users')->with('success', trans('usersmanagement.deleteSuccess'));
+            return redirect(route('admin.users'))->with('success', trans('usersmanagement.deleteSuccess'));
         }
 
         return back()->with('error', trans('usersmanagement.deleteSelfError'));

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Auth;
 use File;
 use Validator;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
@@ -38,7 +39,7 @@ class SettingsController extends Controller
             return view('settings.create');
         }
 
-        return redirect('/meta/settings');
+        return redirect('admin/meta/settings');
         
     }
 
@@ -56,7 +57,7 @@ class SettingsController extends Controller
 
         Settings::create($input);
         
-        return redirect('/meta/settings');
+        return redirect('admin/meta/settings');
     }
 
     /**
@@ -67,7 +68,7 @@ class SettingsController extends Controller
      */
     public function show()
     {
-        return redirect('/meta/settings');
+        return redirect('admin/meta/settings');
     }
 
     /**
@@ -91,7 +92,7 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSettingsRequest $request, $id)
+    public function update(UpdateSettingsRequest $request, $id=1)
     {
         $settings = Settings::firstOrFail();
           
@@ -104,7 +105,7 @@ class SettingsController extends Controller
         }
         $settings->update($input);
         
-         return redirect('/meta/settings');
+         return redirect('admin/meta/settings');
     }
 
     /**
@@ -121,7 +122,7 @@ class SettingsController extends Controller
         
         $settings->delete();
         
-        return redirect('/meta/settings');
+        return redirect('admin/meta/settings');
     }
 
     /**

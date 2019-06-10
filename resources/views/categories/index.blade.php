@@ -10,7 +10,7 @@
             </span>
         </div>
         <div class="widget-body">
-            <a href="{{ route('category.create') }}" class="btn btn-success btn-lg">
+            <a href="{{ route('admin.category.create') }}" class="btn btn-success btn-lg">
                 {!! trans('categories.create-category') !!}
             </a>
             <br>

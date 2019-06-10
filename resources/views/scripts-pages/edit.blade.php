@@ -9,14 +9,14 @@
             	Scripts
             </span>
             <span class="pull-right">
-                <a href='{{route('scripts.index')}}' class="btn btn-light" title="Back To Scripts">
+                <a href='{{route('admin.scripts.index')}}' class="btn btn-light" title="Back To Scripts">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                     Back To Scripts
                 </a>
             </span>
         </div>
         <div class="widget-body">
-			{!! Form::open(array('route' => ['scripts.update', $script->id], 'method' => 'PUT')) !!}
+			{!! Form::open(array('route' => ['admin.scripts.update', $script->id], 'method' => 'PUT')) !!}
                 {!! csrf_field() !!}
 				<div class="form-group">
 				    {!! Form::label('name', 'Name:') !!}

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use jeremykenedy\LaravelRoles\Models\Role;
 
 class SoftDeletesController extends Controller
@@ -73,7 +74,7 @@ class SoftDeletesController extends Controller
         $user = self::getDeletedUser($id);
         $user->restore();
 
-        return redirect('/users/')->with('success', trans('usersmanagement.successRestore'));
+        return redirect('/admin/users/')->with('success', trans('usersmanagement.successRestore'));
     }
 
     /**
@@ -88,6 +89,6 @@ class SoftDeletesController extends Controller
         $user = self::getDeletedUser($id);
         $user->forceDelete();
 
-        return redirect('/users/deleted/')->with('success', trans('usersmanagement.successDestroy'));
+        return redirect('/admin/users/deleted/')->with('success', trans('usersmanagement.successDestroy'));
     }
 }

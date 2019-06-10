@@ -10,10 +10,10 @@ put #submitForm on your main submit button and #main_form on its form
 </script>
 <script>
     Dropzone.options.myDropzone= {
-        url: '{{route('images.store')}}',
+        url: '{{route('admin.images.store')}}',
         autoProcessQueue: true,
         uploadMultiple: true,
-        parallelUploads: 2,
+        parallelUploads: 1,
         // maxFiles: 5,
         maxFilesize: 1, //mb
         acceptedFiles: 'image/*',
@@ -42,7 +42,7 @@ put #submitForm on your main submit button and #main_form on its form
                     });
             $.ajax({
                 type: 'POST',
-                url: '{{route('images.delete')}}',
+                url: '{{route('admin.images.delete')}}',
                 data: {
                     name: file.name,
                     table: '{{$table}}',

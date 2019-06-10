@@ -8,14 +8,14 @@
                 {!! trans('usersmanagement.create-new-user') !!}
             </span>
             <div class="pull-right">
-                <a href="{{ route('users') }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.tooltips.back-users') }}">
+                <a href="{{ route('admin.users') }}" class="btn btn-light float-right" data-toggle="tooltip" data-placement="left" title="{{ trans('usersmanagement.tooltips.back-users') }}">
                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                     {!! trans('usersmanagement.buttons.back-to-users') !!}
                 </a>
             </div>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => 'users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+            {!! Form::open(array('route' => 'admin.users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-md-10 offset-md-2">

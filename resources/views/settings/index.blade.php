@@ -15,14 +15,14 @@
                 {!! trans('settings.list-settings') !!}
             </span>
                 @if (!$settings)
-                    <a href='settings/create' cdata-toggle="tooltip"  class="btn btn-success inline" data-placement="left">
+                    <a href='{{route('admin.settings.create')}}' cdata-toggle="tooltip"  class="btn btn-success inline" data-placement="left">
                         {!! trans('settings.create-settings') !!}
                     </a>
                 @else 
-                    <a class="btn btn-sm btn-warning pull-right actionButton" href="/meta/settings/1/edit"  data-toggle="tooltip" title="Edit">
+                    <a class="btn btn-sm btn-warning pull-right actionButton" href="{{route('admin.settings.edit')}}"  data-toggle="tooltip" title="Edit">
                         {!! trans('settings.edit-settings') !!}
                     </a>
-                    {!! Form::open(array('action' => ['SettingsController@destroy', $settings->id], 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                    {!! Form::open(array('route' => 'admin.settings.delete', 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                         {!! Form::hidden('_method', 'DELETE') !!}
                         {!! Form::button(trans('settings.delete-settings'), array('class' => 'pull-right btn btn-danger btn-sm actionButton','type' => 'button','data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Settings', 'data-message' => 'You want to delete Settings. Are you sure? ')) !!}
                     {!! Form::close() !!}

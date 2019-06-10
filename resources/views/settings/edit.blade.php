@@ -10,7 +10,7 @@
             <div class="pull-right">
                 @if ($settings)
                     <span class="pull-right">
-                        <a href='/meta/settings' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
+                        <a href='{{route('admin.settings.show')}}' class="btn btn-light float-right" data-toggle="tooltip" data-placement="left">
                             <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
                             {{ trans('settings.back-to-settings') }}
                         </a>
@@ -20,7 +20,7 @@
                     <table class="table-sm">
                         <tr>
                             <td>
-                                <a href='/meta/settings/create' cdata-toggle="tooltip"  class="btn btn-sm btn-success btn-block inline" data-placement="left">
+                                <a href='{{route('admin.settings.create')}}' cdata-toggle="tooltip"  class="btn btn-sm btn-success btn-block inline" data-placement="left">
                                 {!! trans('settings.create-settings') !!}
                                 </a>
                             </td>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('action' => ['SettingsController@update', $settings->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true, 'class' => 'needs-validation')) !!}
+            {!! Form::open(array('route' => 'admin.settings.update', 'method' => 'PUT', 'role' => 'form', 'files'=> true, 'class' => 'needs-validation')) !!}
                     {!! csrf_field() !!}
                     
                 <div class="row">         

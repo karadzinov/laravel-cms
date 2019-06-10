@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 
 use App\Models\FAQ;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\FAQ\FAQRequest;
 
 class FAQsController extends Controller
@@ -44,7 +45,7 @@ class FAQsController extends Controller
         //
         $faq = FAQ::create($request->all());
 
-    	return redirect(route('faq.index'))
+    	return redirect(route('admin.faq.index'))
     			->with('success', 'Successifully Created FAQ.');
     }
 
@@ -81,7 +82,7 @@ class FAQsController extends Controller
     {
         $faq->update($request->all());
     	
-    	return redirect(route('faq.show', $faq->id))
+    	return redirect(route('admin.faq.show', $faq->id))
     			     ->with('success', 'FAQ Successfully Updated');
     }
 
@@ -96,7 +97,7 @@ class FAQsController extends Controller
     {
      $faq->delete();
     	
-    	return redirect(route('faq.index'))
+    	return redirect(route('admin.faq.index'))
                     ->with('success', 'Successfully Deleted FAQ'); 
     }
 }
