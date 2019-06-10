@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>routes/web.php</url>
-            <bookmark id="1">
-                <name/>
-                <line>0</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>resources/views/categories/edit-cat.blade.php</url>
             <bookmark id="2">
                 <name/>
@@ -17,20 +9,32 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>routes/web.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projects/laravel-cms/resources/views/FAQ/edit.blade.php</file>
             <file>file:/D:/projects/laravel-cms/resources/views/FAQ/show.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/database/migrations/2019_06_05_133033_create_users_posts_table.php</file>
             <file>file:/D:/projects/laravel-cms/app/Http/Controllers/FAQsController.php</file>
-            <file>file:/D:/projects/laravel-cms/routes/web.php</file>
-            <file>file:/D:/projects/laravel-cms/resources/views/FAQ/create.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/app/Http/Requests/Posts/StorePostRequest.php</file>
             <file>file:/D:/projects/laravel-cms/resources/views/partials/sidebar.blade.php</file>
-            <file>file:/D:/projects/laravel-cms/app/Http/Controllers/ScriptsController.php</file>
             <file>file:/D:/projects/laravel-cms/app/Models/FAQ.php</file>
-            <file>file:/D:/projects/laravel-cms/resources/views/scripts-pages/edit.blade.php</file>
             <file>file:/D:/projects/laravel-cms/resources/views/FAQ/index.blade.php</file>
             <file>file:/D:/projects/laravel-cms/app/Http/Requests/FAQ/FAQRequest.php</file>
+            <file>file:/D:/projects/laravel-cms/resources/views/FAQ/edit.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/resources/views/posts/create.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/app/Http/Controllers/PostsController.php</file>
+            <file>file:/D:/projects/laravel-cms/routes/web.php</file>
+            <file>file:/D:/projects/laravel-cms/resources/views/FAQ/create.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/resources/views/posts/edit.blade.php</file>
+            <file>file:/D:/projects/laravel-cms/app/Http/Controllers/RssFeedController.php</file>
         </group>
     </open-files>
 </project-private>
