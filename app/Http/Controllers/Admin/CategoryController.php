@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all()->where('parent_id','=',NULL);
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
     /**
      * Show the form for creating a new resource.
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $data = $input->only('parent_id');
         $categories = $this->getCategoryOptions();
 
-        return view('categories.create', compact('data', 'categories'));
+        return view('admin.categories.create', compact('data', 'categories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -65,7 +65,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $tree = $category->children;
 
-        return view('categories.show', compact('tree','category'));
+        return view('admin.categories.show', compact('tree','category'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -79,7 +79,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $categories = $this->getCategoryOptions($category);
 
-        return view('categories.edit', compact('category', 'categories','id'));
+        return view('admin.categories.edit', compact('category', 'categories','id'));
     }
 
     /**

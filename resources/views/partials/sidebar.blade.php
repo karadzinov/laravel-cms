@@ -40,7 +40,7 @@
                 <span class="menu-text"> Users </span>
             </a>
         </li>
-        <li class="{{Request::is('scripts/*') ? 'active' : null}}">
+        <li class="{{Request::is('admin/scripts/*') ? 'active' : null}}">
             <a href="{{ route('admin.scripts.index')}}" class="menu">
                 <i class="menu-icon fa fa-code"></i>
                 <span class="menu-text"> Scripts </span>

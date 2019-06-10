@@ -21,7 +21,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts/index', compact('posts'));
+        return view('admin.posts/index', compact('posts'));
     }
     /**
      * Show the form for creating a new resource.
@@ -32,7 +32,7 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
-        return view('posts/create', compact('categories', 'users'));
+        return view('admin.posts/create', compact('categories', 'users'));
     }
     /**
      * Store a newly created resource in storage.
@@ -70,7 +70,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts/show', compact('post'));
+        return view('admin.posts/show', compact('post'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -85,7 +85,7 @@ class PostsController extends Controller
         
         $assignedUsers = $this->assignedUsers($post);
 
-        return view('posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
+        return view('admin.posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
     }
     /**
      * Update the specified resource in storage.

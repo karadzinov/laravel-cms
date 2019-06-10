@@ -44,7 +44,7 @@ class SoftDeletesController extends Controller
         $users = User::onlyTrashed()->get();
         $roles = Role::all();
 
-        return view('usersmanagement.deleted-users-list', compact('users', 'roles'));
+        return view('admin.usersmanagement.deleted-users-list', compact('users', 'roles'));
     }
 
     /**
@@ -58,7 +58,7 @@ class SoftDeletesController extends Controller
     {
         $user = self::getDeletedUser($id);
 
-        return view('usersmanagement.deleted-user-show')->withUser($user);
+        return view('admin.usersmanagement.deleted-user-show')->withUser($user);
     }
 
     /**

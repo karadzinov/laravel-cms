@@ -15,7 +15,7 @@
             </a>
             <br>
             <br>
-            @include('categories.partials.tree')
+            @include('admin.categories.partials.tree')
         
         </div>
     </div>    

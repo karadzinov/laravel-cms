@@ -29,7 +29,7 @@ class PagesController extends UsesSlider
     {
         $pages = Page::all();
 
-        return view('website-pages/index', compact('pages'));
+        return view('admin.website-pages/index', compact('pages'));
     }
 
     /**
@@ -40,7 +40,7 @@ class PagesController extends UsesSlider
     public function create()
     {
         $this->cleanSession();
-        return view('website-pages/create');
+        return view('admin.website-pages/create');
     }
 
     /**
@@ -67,7 +67,7 @@ class PagesController extends UsesSlider
      */
     public function show(Page $page)
     {
-        return view('website-pages/show', compact('page'));
+        return view('admin.website-pages/show', compact('page'));
     }
 
     /**
@@ -79,7 +79,7 @@ class PagesController extends UsesSlider
     public function edit(Page $page)
     {
         $this->cleanSession();
-        return view('website-pages/edit', compact('page'));
+        return view('admin.website-pages/edit', compact('page'));
     }
 
     /**

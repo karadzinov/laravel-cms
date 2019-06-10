@@ -19,7 +19,7 @@
             <div>
                 {!! Form::open(array('route' => 'admin.category.store', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
                 {!! csrf_field() !!}
-                    @include('categories.partials.create-form')
+                    @include('admin.categories.partials.create-form')
                     {!! Form::button(trans('forms.create_categories_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
                 {!! Form::close() !!}
             </div>

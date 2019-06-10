@@ -23,7 +23,7 @@ class SettingsController extends Controller
         
         $settings = Settings::first();
         
-        return view('settings.index', compact('settings'));
+        return view('admin.settings.index', compact('settings'));
 
     }
 
@@ -36,7 +36,7 @@ class SettingsController extends Controller
     {
         if (!Settings::count()){
 
-            return view('settings.create');
+            return view('admin.settings.create');
         }
 
         return redirect('admin/meta/settings');
@@ -81,7 +81,7 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
 
-        return view('settings.edit', compact('settings'));
+        return view('admin.settings.edit', compact('settings'));
  
     }
 

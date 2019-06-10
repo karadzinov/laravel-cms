@@ -13,17 +13,17 @@ class ScriptsController extends Controller
 
     	$scripts = Script::all();
     	
-    	return view('scripts-pages/index', compact('scripts'));
+    	return view('admin.scripts-pages/index', compact('scripts'));
     }
 
     public function show(Script $script){
 
-    	return view('scripts-pages/show', compact('script'));
+    	return view('admin.scripts-pages/show', compact('script'));
     }
 
     public function create(){
     	
-    	return view('scripts-pages/create');
+    	return view('admin.scripts-pages/create');
     }
 
     public function store(StoreScriptRequest $request){
@@ -36,7 +36,7 @@ class ScriptsController extends Controller
 
     public function edit(Script $script){
 
-    	return view('scripts-pages/edit', compact('script'));
+    	return view('admin.scripts-pages/edit', compact('script'));
     }
 
     public function update(Script $script, StoreScriptRequest $request){

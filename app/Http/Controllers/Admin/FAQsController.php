@@ -19,7 +19,7 @@ class FAQsController extends Controller
     {
         $faqs = FAQ::all();
     	
-    	return view('FAQ.index', compact('faqs'));
+    	return view('admin.FAQ.index', compact('faqs'));
     }
 
     /**
@@ -30,7 +30,7 @@ class FAQsController extends Controller
     public function create()
     {
         //
-        return view('FAQ.create');
+        return view('admin.FAQ.create');
 
     }
 
@@ -57,7 +57,7 @@ class FAQsController extends Controller
      */
     public function show(FAQ $faq)
     {
-        return view('FAQ/show', compact('faq'));
+        return view('admin.FAQ/show', compact('faq'));
     }
 
     /**
@@ -68,7 +68,7 @@ class FAQsController extends Controller
      */
     public function edit(FAQ $faq)
     {
-        return view('FAQ/edit', compact('faq'));
+        return view('admin.FAQ/edit', compact('faq'));
     }
 
     /**

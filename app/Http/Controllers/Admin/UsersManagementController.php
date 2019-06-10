@@ -38,7 +38,7 @@ class UsersManagementController extends Controller
         }
         $roles = Role::all();
 
-        return view('usersmanagement.index', compact('users', 'roles'));
+        return view('admin.usersmanagement.index', compact('users', 'roles'));
     }
 
     /**
@@ -52,7 +52,7 @@ class UsersManagementController extends Controller
 
         $data = compact('roles');
 
-        return view('usersmanagement.create')->with($data);
+        return view('admin.usersmanagement.create')->with($data);
     }
 
     /**
@@ -96,7 +96,7 @@ class UsersManagementController extends Controller
     {
         $user = User::find($id);
 
-        return view('usersmanagement.show')->withUser($user);
+        return view('admin.usersmanagement.show')->withUser($user);
     }
 
     /**
@@ -118,7 +118,7 @@ class UsersManagementController extends Controller
             'currentRole' => $currentRole,
         ];
 
-        return view('usersmanagement.edit')->with($data);
+        return view('admin.usersmanagement.edit')->with($data);
     }
 
     /**
