@@ -709,37 +709,37 @@ tbody {
 /*Backgrounds
 ---------------------------------- */
 .background-img-1 {
-  background: url("../images/background-img-1.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-1.jpg") 50% 0px no-repeat;
 }
 .background-img-2 {
-  background: url("../images/background-img-2.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-2.jpg") 50% 0px no-repeat;
 }
 .background-img-3 {
-  background: url("../images/background-img-3.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-3.jpg") 50% 0px no-repeat;
 }
 .background-img-4 {
-  background: url("../images/background-img-4.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-4.jpg") 50% 0px no-repeat;
 }
 .background-img-5 {
-  background: url("../images/background-img-5.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-5.jpg") 50% 0px no-repeat;
 }
 .background-img-6 {
-  background: url("../images/background-img-6.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-6.jpg") 50% 0px no-repeat;
 }
 .background-img-7 {
-  background: url("../images/background-img-7.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-7.jpg") 50% 0px no-repeat;
 }
 .background-img-8 {
-  background: url("../images/background-img-8.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-8.jpg") 50% 0px no-repeat;
 }
 .background-img-9 {
-  background: url("../images/background-img-9.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-9.jpg") 50% 0px no-repeat;
 }
 .background-img-10 {
-  background: url("../images/background-img-10.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/background-img-10.jpg") 50% 0px no-repeat;
 }
 .fullscreen-bg {
-  background: url("../images/fullscreen-bg.jpg") 50% 0px no-repeat;
+  background: url("../assets/images/fullscreen-bg.jpg") 50% 0px no-repeat;
   position: fixed;
   top: 0;
   left: 0;
