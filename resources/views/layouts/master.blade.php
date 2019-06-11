@@ -7,7 +7,9 @@
 
 	<head>
 		@include('partials/user/head')
-		<title>@yield('title', config('app.name'))</title>
+		<title>
+			@yield('title', config('app.name'))
+		</title>
 		@yield('optinalHead')
 	</head>
 
@@ -20,12 +22,15 @@
 	<body class="no-trans front-page transparent-header  ">
 
 		<!-- scrollToTop -->
-		<!-- ================ -->
 		<div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
 		
 		<!-- page wrapper start -->
-		<!-- ================ -->
 		<div class="page-wrapper">
+			<div class="header-container">
+				@include('partials/user/header')
+				@include('partials/user/nav')
+			</div>
+
 			@yield('content')
 		</div>
 		<!-- page-wrapper end -->
