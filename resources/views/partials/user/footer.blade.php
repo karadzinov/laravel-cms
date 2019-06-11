@@ -146,17 +146,18 @@
 							<div class="separator-2"></div>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium odio voluptatem necessitatibus illo vel dolorum soluta.</p>
 							<ul class="social-links circle animated-effect-1">
-								<li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-								<li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-								<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-								<li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
-								<li class="xing"><a target="_blank" href="http://www.xing.com"><i class="fa fa-xing"></i></a></li>
+								<li class="facebook"><a target="_blank" href="{{$settings->facebook}}"><i class="fa fa-facebook"></i></a></li>
+								<li class="instagram"><a target="_blank" href="{{$settings->instagram}}"><i class="fa fa-instagram"></i></a></li>
+								<li class="twitter"><a target="_blank" href="{{$settings->twitter}}"><i class="fa fa-twitter"></i></a></li>
+								<li class="linkedin"><a target="_blank" href="{{$settings->linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+								<li class="ios"><a target="_blank" href="{{$settings->ios_app}}"><i class="fa fa-apple"></i></a></li>
+								<li class="android"><a target="_blank" href="{{$settings->android_app}}"><i class="fa fa-android"></i></a></li>
 							</ul>
 							<div class="separator-2"></div>
 							<ul class="list-icons">
-								<li><i class="fa fa-map-marker pr-10 text-default"></i> One infinity loop, 54100</li>
+								<li><i class="fa fa-map-marker pr-10 text-default"></i> {{$settings->address ?? hi}}</li>
 								<li><i class="fa fa-phone pr-10 text-default"></i> +00 1234567890</li>
-								<li><a href="mailto:info@theproject.com"><i class="fa fa-envelope-o pr-10"></i>info@theproject.com</a></li>
+								<li><a href="mailto:info@theproject.com"><i class="fa fa-envelope-o pr-10"></i>{{$settings->email}}</a></li>
 							</ul>
 						</div>
 					</div>

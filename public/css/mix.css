@@ -183,6 +183,42 @@ textarea {
 .page-content .my-alerts .alert{
 	margin-bottom: 0;
 }
+
+.social-links.animated-effect-1 li.ios a:hover {
+  border-color: #E9E9E9;
+}
+.social-links:not(.animated-effect-1) li.ios a:hover,
+.colored.social-links li.ios a,
+.social-links.animated-effect-1 li.ios a:after,
+.btn.ios {
+  background-color: #E9E9E9;
+  border-color: #E9E9E9;
+  color: #fff;
+}
+
+.social-links.animated-effect-1 li.android a:hover {
+  border-color: #A0C437;
+}
+.social-links:not(.animated-effect-1) li.android a:hover,
+.colored.social-links li.android a,
+.social-links.animated-effect-1 li.android a:after,
+.btn.android {
+  background-color: #A0C437;
+  border-color: #A0C437;
+  color: #fff;
+}
+
+.social-links.animated-effect-1 li.instagram a:hover {
+  border-color: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+.social-links:not(.animated-effect-1) li.instagram a:hover,
+.colored.social-links li.instagram a,
+.social-links.animated-effect-1 li.instagram a:after,
+.btn.instagram {
+  background: #d6249f;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  color: #fff;
+}
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;
