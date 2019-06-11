@@ -124,6 +124,26 @@
 
 									<!-- mega-menu start -->
 									<li class="dropdown active mega-menu">
+										<a href="/" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+										<ul class="dropdown-menu">
+											<li>
+												<div class="row">
+													<div class="col-md-12">
+														<h4 class="title"><i class="fa fa-laptop pr-10"></i> Demos</h4>
+														<div class="row">
+															<div class="col-sm-6 col-md-3">
+																<div class="divider"></div>
+																<ul class="menu">
+																	<li class="active"><a href="{{route('faq.index')}}"><i class="fa fa-question-circle"></i>FAQ</a></li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</li>
+									<li class="dropdown active mega-menu">
 										<a href="index.html" class="dropdown-toggle" data-toggle="dropdown">Home</a>
 										<ul class="dropdown-menu">
 											<li>

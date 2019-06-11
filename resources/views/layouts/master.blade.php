@@ -18,10 +18,8 @@
 	<!-- "page-loader-1 ... page-loader-6": add a page loader to the page (more info @components-page-loaders.html) -->
 	<body class="no-trans front-page transparent-header  ">
 
-		<!-- scrollToTop -->
 		<div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
 		
-		<!-- page wrapper start -->
 		<div class="page-wrapper">
 			<div class="header-container">
 				@include('partials/user/header')
@@ -30,8 +28,8 @@
 
 			@yield('content')
 		</div>
-		<!-- page-wrapper end -->
-
+		
+		@include('partials/user/footer')
 		@include('partials/user/scripts')
 		@yield('optinalScripts')
 	</body>
