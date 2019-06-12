@@ -30,8 +30,8 @@ class ScriptsController extends Controller
         $request->merge(['active'=>$request->has('active')]);
     	$script = Script::create($request->all());
 
-    	return redirect(route('admin.scripts.index'))
-    				->with('success', 'Successifully Created Script.');
+    	return redirect()->route('admin.scripts.index')
+    				->with('success', 'Script Successifully Created.');
     }
 
     public function edit(Script $script){
@@ -44,15 +44,15 @@ class ScriptsController extends Controller
         $request->merge(['active'=>$request->has('active')]);
         $script->update($request->all());
     	
-    	return redirect(route('admin.scripts.show', $script->id))
-    			     ->with('success', 'Script Successfully Updated');
+    	return redirect()->route('admin.scripts.index')
+    			     ->with('success', 'Script Successfully Updated.');
     }
 
     public function delete(Script $script){
 
     	$script->delete();
     	
-    	return redirect(route('admin.scripts.index'))
-                    ->with('success', 'Successfully Deleted Script');
+    	return redirect()->route('admin.scripts.index')
+                    ->with('success', 'Script Successfully Deleted.');
     }
 }

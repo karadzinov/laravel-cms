@@ -82,7 +82,7 @@ class FAQsController extends Controller
     {
         $faq->update($request->all());
     	
-    	return redirect(route('admin.faq.show', $faq->id))
+    	return redirect(route('admin.faq.index'))
     			     ->with('success', 'FAQ Successfully Updated');
     }
 

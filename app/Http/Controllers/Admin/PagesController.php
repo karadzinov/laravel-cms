@@ -95,7 +95,7 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $images = $this->updateImages($page, $request, $title);
 
-        return redirect()->route('admin.pages.show', $page->id)
+        return redirect()->route('admin.pages.index')
                     ->with('success', 'Page Successfully Updated.');
     }
 
@@ -115,7 +115,8 @@ class PagesController extends UsesSlider
 
         $page->delete();
 
-        return redirect()->route('admin.pages.index');
+        return redirect()->route('admin.pages.index')
+                ->with('success', 'Page Successfully Deleted.');
     }
 
     

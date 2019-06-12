@@ -26,4 +26,9 @@ class Category extends Model
         
         return route('categories.show', [$this->id, Str::slug(strip_tags($this->name))]);
     }
+
+    public function getThumbnailPathAttribute(){
+        
+        return asset('/images/categories/thumbnails/' . $this->image);
+    }
 }

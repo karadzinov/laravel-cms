@@ -32,6 +32,7 @@ Homestead.json
 composer.lock
 
 ### Assets ###
+/public/images/
 /node_modules
 /public/hot
 /public/storage

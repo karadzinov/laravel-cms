@@ -51,7 +51,8 @@ class CategoryController extends Controller
 
         $category = Category::create($input);
 
-        return redirect('/admin/node/category');
+        return redirect()->route('admin.category.index')
+                ->with('success', 'Category Successfully Created.');
     
     }
     /**
@@ -94,13 +95,15 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $input = $request->all();
         $image = $this->updateImageIfNecessary($request, $category);
+        
         if($image){
             $input['image'] = $image;
         }
        
         $category->update($input);
 
-        return redirect('/admin/node/category');
+        return redirect()->route('admin.category.index')
+                ->with('success', 'Category Successfully Updated.');
     }
 
     public function deleteImageIfNecessary($category){
@@ -160,6 +163,10 @@ class CategoryController extends Controller
             $imagemedium->save($paths->medium . $imageName);
 
             return $imageName;
+            
+        }elseif($category && $category->image){
+
+            return $category->image;
         }
 
         return null;
@@ -205,7 +212,8 @@ class CategoryController extends Controller
         $this->deleteImageIfNecessary($category);
         $category->delete();
 
-        return redirect('/admin/node/category');
+        return redirect()->route('admin.category.index')
+                ->with('success', 'Category Successfully Deleted.');
     }
     
     protected function makeOptions(Collection $items)
