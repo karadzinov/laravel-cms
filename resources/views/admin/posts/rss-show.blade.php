@@ -57,7 +57,7 @@
                 <div>
                     <label for="image"><strong>Image:</strong></label>
                     <br>
-                    <img src="{{$post->thumnailPath}}" alt="{{$post->image}}" id="image">
+                    <img src="{{$post->thumbnailPath}}" alt="{{$post->image}}" id="image">
                 </div>
             @endif
 

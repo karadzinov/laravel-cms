@@ -7,7 +7,7 @@
 
 	<head>
 		@include('partials/user/head')
-		@yield('optinalHead')
+		@yield('optionalHead')
 	</head>
 
 	<!-- body classes:  -->
