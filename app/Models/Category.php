@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 use \Kalnoy\Nestedset\NodeTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
@@ -20,5 +20,10 @@ class Category extends Model
     public function posts(){
     	
 		return $this->hasMany(Post::class, 'category_id', 'id'); 	
+    }
+
+    public function getShowRouteAttribute(){
+        
+        return route('categories.show', [$this->id, Str::slug(strip_tags($this->name))]);
     }
 }

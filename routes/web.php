@@ -91,10 +91,10 @@ Route::group(['prefix'=>'faq', 'as'=>'faq.'], function(){
 });
 
 Route::group(['prefix'=>'categories', 'as'=>'categories.'], function(){
-    Route::get('/show/{category}', 'CategoriesController@show')->name('show');
+    Route::get('/show/{category}/{name}', 'CategoriesController@show')->name('show');
 });
 
 Route::group(['prefix'=>'posts', 'as'=>'posts.'], function(){
     Route::get('/index', 'PostsController@index')->name('index');
-    Route::get('/show/{post}', 'PostsController@show')->name('show');
+    Route::get('/show/{post}/{name}', 'PostsController@show')->name('show');
 });

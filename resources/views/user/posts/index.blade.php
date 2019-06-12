@@ -83,7 +83,7 @@
 										data-speed="500"
 										data-start="1600"
 										data-easing="easeOutQuad"
-										data-endspeed="600"><a href="{{route('posts.show', $slide->id)}}" class="btn btn-default btn-animated">Read More <i class="fa fa-arrow-right"></i></a>
+										data-endspeed="600"><a href="{{$slide->showRoute}}" class="btn btn-default btn-animated">Read More <i class="fa fa-arrow-right"></i></a>
 									</div>
 
 									</li>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use App\Helpers\RssFeeds\Item;
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,7 +66,6 @@ class Post extends Model
         if($this->video)
         {
             try {
-                
                 $id = $this->videoId;
                 $image = "https://img.youtube.com/vi/{$id}/hqdefault.jpg";
                 
@@ -105,6 +105,6 @@ class Post extends Model
 
     public function getShowRouteAttribute(){
         
-        return route('posts.show', $this->id);
+        return route('posts.show', [$this->id, Str::slug(strip_tags($this->title))]);
     }
 }
