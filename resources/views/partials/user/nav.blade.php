@@ -75,7 +75,7 @@
 					
 					<!-- logo -->
 					<div id="logo" class="logo">
-						<a href="index.html"><img id="logo_img" src="{{asset('assets/images/logo_light_blue.png')}}" alt="The Project"></a>
+						<a href="/home"><img id="logo_img" src="{{asset('assets/images/logo_light_blue.png')}}" alt="The Project"></a>
 					</div>
 
 					<!-- name-and-slogan -->
@@ -99,7 +99,7 @@
 				<!-- "animated": Enables animations on dropdowns opening e.g. class="main-navigation animated" -->
 				<!-- "with-dropdown-buttons": Mandatory class that adds extra space, to the main navigation, for the search and cart dropdowns -->
 				<!-- ================ -->
-				<div class="main-navigation  animated with-dropdown-buttons">
+				<div class="main-navigation animated with-dropdown-buttons">
 
 					<!-- navbar start -->
 					<!-- ================ -->
@@ -142,6 +142,13 @@
 												</div>
 											</li>
 										</ul>
+									</li>
+									<!-- mega-menu end -->
+									<li class="dropdown ">
+										<a href="portfolio-grid-2-3-col.html" class="dropdown-toggle" data-toggle="dropdown">
+											Categories
+										</a>
+										@include('partials/user/categories/tree')
 									</li>
 									<li class="dropdown active mega-menu">
 										<a href="index.html" class="dropdown-toggle" data-toggle="dropdown">Home</a>
@@ -507,39 +514,6 @@
 											<li ><a href="shop-checkout-payment.html">Checkout Page - Step 2</a></li>
 											<li ><a href="shop-checkout-review.html">Checkout Page - Step 3</a></li>
 											<li ><a href="shop-invoice.html">Invoice</a></li>
-										</ul>
-									</li>
-									<li class="dropdown ">
-										<a href="blog-large-image-right-sidebar.html" class="dropdown-toggle" data-toggle="dropdown">Blog</a>
-										<ul class="dropdown-menu">
-											<li ><a href="index-blog.html">Blog Home <span class="badge">v1.1</span></a></li>
-											<li ><a href="index-blog-2.html">Blog Home 2 <span class="badge">NEW</span></a></li>
-											<li class="dropdown ">
-												<a  class="dropdown-toggle" data-toggle="dropdown" href="#">Large Image</a>
-												<ul class="dropdown-menu to-left">
-													<li ><a href="blog-large-image-right-sidebar.html">Right Sidebar</a></li>
-													<li ><a href="blog-large-image-left-sidebar.html">Left Sidebar</a></li>
-													<li ><a href="blog-large-image-no-sidebar.html">Without Sidebar</a></li>
-												</ul>
-											</li>
-											<li class="dropdown ">
-												<a  class="dropdown-toggle" data-toggle="dropdown" href="#">Medium Image</a>
-												<ul class="dropdown-menu to-left">
-													<li ><a href="blog-medium-image-right-sidebar.html">Right Sidebar</a></li>
-													<li ><a href="blog-medium-image-left-sidebar.html">Left Sidebar</a></li>
-													<li ><a href="blog-medium-image-no-sidebar.html">Without Sidebar</a></li>
-												</ul>
-											</li>
-											<li class="dropdown ">
-												<a  class="dropdown-toggle" data-toggle="dropdown" href="#">Masonry</a>
-												<ul class="dropdown-menu to-left">
-													<li ><a href="blog-masonry-right-sidebar.html">Right Sidebar</a></li>
-													<li ><a href="blog-masonry-left-sidebar.html">Left Sidebar</a></li>
-													<li ><a href="blog-masonry-no-sidebar.html">Without Sidebar</a></li>
-												</ul>
-											</li>
-											<li ><a href="blog-timeline.html">Timeline</a></li>
-											<li ><a href="blog-post.html">Blog Post</a></li>
 										</ul>
 									</li>
 								</ul>

@@ -24,12 +24,15 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Using class based composers...
         View::composer(
             ['partials/user/head',
             'partials/user/header',
             'partials/user/footer',
             ], 'App\Http\View\Composers\SettingsComposer'
+        );
+
+        View::composer(
+            'partials/user/nav', 'App\Http\View\Composers\NavComposer'
         );
     }
 }
