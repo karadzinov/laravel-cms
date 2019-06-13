@@ -38,5 +38,9 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             'partials/user/nav', 'App\Http\View\Composers\NavComposer'
         );
+
+        View::composer(
+            'layouts/master', 'App\Http\View\Composers\MasterComposer'
+        );
     }
 }

@@ -31,6 +31,9 @@
 		
 		@include('partials/user/footer')
 		@include('partials/user/scripts')
+		@foreach($scripts as $script)
+			{!!$script ->code!!}
+		@endforeach
 		@yield('optinalScripts')
 	</body>
 </html>
