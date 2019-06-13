@@ -161,7 +161,7 @@ class PostsController extends Controller
                $this->deleteImages($post);
             }
             $image = $request->file('image');
-            $slugname = Str::slug($request->title);
+            $slugname = Str::slug(strip_tags($request->title));
             $imageName = $slugname . '.' . $image->getClientOriginalExtension();;
             $paths = $this->makePaths();
             File::makeDirectory($paths->original, $mode = 0755, true, true);

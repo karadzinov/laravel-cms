@@ -98,3 +98,7 @@ Route::group(['prefix'=>'posts', 'as'=>'posts.'], function(){
     Route::get('/index', 'PostsController@index')->name('index');
     Route::get('/show/{post}/{name}', 'PostsController@show')->name('show');
 });
+
+Route::group(['prefix'=>'pages', 'as'=>'pages.'], function(){
+    Route::get('/show/{page}/{title}', 'PagesController@show')->name('show');
+});

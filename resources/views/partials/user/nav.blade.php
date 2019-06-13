@@ -150,6 +150,20 @@
 										</a>
 										@include('partials/user/categories/tree')
 									</li>
+									<li class="dropdown ">
+										<a href="" class="dropdown-toggle" data-toggle="dropdown">
+											Pages
+										</a>
+										<ul class="dropdown-menu">
+											@foreach($pages as $page)
+												<li>
+													<a href="{{$page->showRoute}}">
+														{!!$page->title!!}
+													</a>
+												</li>
+											@endforeach
+										</ul>
+									</li>
 								</ul>
 								<!-- main-menu end -->
 								

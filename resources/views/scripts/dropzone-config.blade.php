@@ -24,8 +24,8 @@ put #submitForm on your main submit button and #main_form on its form
             @if(isset($model) && $model->images)
                 @foreach($model->images as $image)
                     var mockFile = { name: "{{$image->name}}", size: 12345, type: 'image/jpeg' };
-                    this.addFile.call(this, mockFile);
-                    this.options.thumbnail.call(this, mockFile, "{{$model->thumbnailPath.$image->name}}");
+                    dzClosure.emit('addedfile', mockFile);
+                    dzClosure.options.thumbnail.call(dzClosure, mockFile, "{{$model->thumbnailPath.$image->name}}");
                 @endforeach
             @endif
 
