@@ -1,47 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>403 | Forbidden.</title>
+@extends('layouts/master')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
+@section('content')
+    <div class="main-container parallax jumbotron border-clear light-translucent-bg text-center margin-clear" style="background-image:url('{{asset('assets/images/fullscreen-bg.jpg')}}');">
         <div class="container">
-            <div class="content">
-                <div class="title">Forbidden.</div>
+            <div class="row">
+                <!-- main start -->
+                <!-- ================ -->
+                <div class="main col-md-6 col-md-offset-3 pv-40">
+                    <h1 class="page-title"><span class="text-default">403</span></h1>
+                    <h2>Forbiden</h2>
+                    {{-- <p>The requested URL was not found on this server. Make sure that the Web site address displayed in the address bar of your browser is spelled and formatted correctly.</p> --}}
+                    <form role="search">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <i class="fa fa-search form-control-feedback"></i>
+                        </div>
+                    </form>
+                    <a href="/" class="btn btn-default btn-animated btn-lg">Return Home <i class="fa fa-home"></i></a>
+                </div>
+                <!-- main end -->
             </div>
         </div>
-    </body>
-</html>
+    </div>
+    <!-- main-container end -->
+@endsection
