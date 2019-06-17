@@ -10,7 +10,7 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+// first style and babel are made for admin panel, other 2 for user
 mix.styles([
    		'public/assets/css/bootstrap.min.css',
    		'public/assets/css/font-awesome.min.css',
@@ -32,5 +32,40 @@ mix.styles([
 	   	'public/assets/js/ckconf.js',
 
 			], 'public/js/mix.js')
+   .styles([
+         'public/assets/bootstrap/css/bootstrap.css',
+         'public/assets/fonts/font-awesome/css/font-awesome.css',
+         'public/assets/fonts/fontello/css/fontello.css',
+         'public/assets/plugins/magnific-popup/magnific-popup.css',
+         'public/assets/plugins/rs-plugin/css/settings.css',
+         'public/assets/css/animations.css',
+         'public/assets/plugins/owl-carousel/owl.carousel.css',
+         'public/assets/plugins/owl-carousel/owl.transitions.css',
+         'public/assets/plugins/hover/hover-min.css',
+         'public/assets/css/style.css',
+         'css/public/assets/typography-default.css',
+         'public/assets/css/custom.css',
+         ], 'public/css/user-mix.css')
+   .babel([
+         'public/assets/plugins/jquery.min.js',
+         'public/assets/bootstrap/js/bootstrap.min.js',
+         'public/assets/plugins/modernizr.js',
+         'public/assets/plugins/rs-plugin/js/jquery.themepunch.tools.min.js',
+         'public/assets/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js',
+         'public/assets/plugins/isotope/isotope.pkgd.min.js',
+         'public/assets/plugins/magnific-popup/jquery.magnific-popup.min.js',
+         'public/assets/plugins/waypoints/jquery.waypoints.min.js',
+         'public/assets/plugins/jquery.countTo.js',
+         'public/assets/plugins/jquery.parallax-1.1.3.js',
+         'public/assets/plugins/jquery.validate.js',
+         'public/assets/plugins/vide/jquery.vide.js',
+         'public/assets/plugins/owl-carousel/owl.carousel.js',
+         'public/assets/plugins/jquery.browser.js',
+         'public/assets/plugins/SmoothScroll.js',
+         'public/assets/js/template.js',
+         'public/assets/js/custom.js',
+         ], 'public/js/user-mix.js')
    .js('resources/assets/js/app.js', 'public/js')
    .version();
+
+
