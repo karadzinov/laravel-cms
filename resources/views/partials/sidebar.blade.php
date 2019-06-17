@@ -15,15 +15,15 @@
                 <span class="menu-text"> Dashboard </span>
             </a>
         </li>
-        <li class="{{ Request::is('node/category') ? 'active' : null }}">
-            <a href="/node/category" class="menu">
+        <li class="{{ Request::is('admin/node/category/*') ? 'active' : null }}">
+            <a href="{{route('admin.category.index')}}" class="menu">
                 <i class="menu-icon fa fa-list-ol"></i>
                 <span class="menu-text"> {!! trans('titles.Categories') !!} </span>
 
             </a>
         </li>
-        <li class="{{ Request::is('meta/settings') ? 'active' : null }}">
-            <a href="{{ url('/meta/settings') }}" class="menu">
+        <li class="{{ Request::is('admin/meta/settings') ? 'active' : null }}">
+            <a href="{{ url('admin/meta/settings') }}" class="menu">
                 <i class="menu-icon fa fa-gear"></i>
                 <span class="menu-text"> {!! trans('titles.Settings') !!} </span>
             </a>
@@ -34,32 +34,32 @@
                 <span class="menu-text"> Profile </span>
             </a>
         </li>
-        <li class="{{Request::is('users/*') ? 'active' : null}}">
-            <a href="{{ url('/users/')}}" class="menu">
+        <li class="{{Request::is('admin/users/*') ? 'active' : null}}">
+            <a href="{{ url('admin/users/')}}" class="menu">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text"> Users </span>
             </a>
         </li>
-        <li class="{{Request::is('scripts/*') ? 'active' : null}}">
-            <a href="{{ route('scripts.index')}}" class="menu">
+        <li class="{{Request::is('admin/scripts/*') ? 'active' : null}}">
+            <a href="{{ route('admin.scripts.index')}}" class="menu">
                 <i class="menu-icon fa fa-code"></i>
                 <span class="menu-text"> Scripts </span>
             </a>
         </li>
-        <li class="{{Request::is('posts/*') ? 'active' : null}}">
-            <a href="{{ route('posts.index')}}" class="menu">
+        <li class="{{Request::is('admin/posts/*') ? 'active' : null}}">
+            <a href="{{ route('admin.posts.index')}}" class="menu">
                 <i class="menu-icon fa fa-pencil"></i>
                 <span class="menu-text"> Posts </span>
             </a>
         </li>
-         <li class="{{Request::is('pages/*') ? 'active' : null}}">
-            <a href="{{ route('pages.index')}}" class="menu">
+         <li class="{{Request::is('admin/pages/*') ? 'active' : null}}">
+            <a href="{{ route('admin.pages.index')}}" class="menu">
                 <i class="menu-icon fa fa-newspaper-o"></i>
                 <span class="menu-text"> Pages </span>
             </a>
         </li>
-        <li class="{{Request::is('faq/*') ? 'active' : null}}">
-            <a href="{{ route('faq.index')}}" class="menu">
+        <li class="{{Request::is('admin/faq/*') ? 'active' : null}}">
+            <a href="{{ route('admin.faq.index')}}" class="menu">
                 <i class="menu-icon fa fa-question"></i>
                 <span class="menu-text"> FAQs </span>
             </a>
