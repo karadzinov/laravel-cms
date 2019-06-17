@@ -173,6 +173,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
         Baum\Providers\BaumServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
 
     ],

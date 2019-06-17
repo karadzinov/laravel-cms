@@ -7,9 +7,6 @@
 
 	<head>
 		@include('partials/user/head')
-		<title>
-			@yield('title', config('app.name'))
-		</title>
 		@yield('optinalHead')
 	</head>
 
