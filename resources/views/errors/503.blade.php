@@ -9,12 +9,7 @@
                 <div class="main col-md-6 col-md-offset-3 pv-40">
                     <h1 class="page-title"><span class="text-default">503</span></h1>
                     <h2>Be right back!</h2>
-                    <form role="search">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <i class="fa fa-search form-control-feedback"></i>
-                        </div>
-                    </form>
+                    @include('partials/user/search-form')
                     <a href="/" class="btn btn-default btn-animated btn-lg">Return Home <i class="fa fa-home"></i></a>
                 </div>
                 <!-- main end -->

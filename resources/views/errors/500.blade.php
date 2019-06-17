@@ -10,12 +10,7 @@
                     <h1 class="page-title"><span class="text-default">500</span></h1>
                     <h2>Ooops!</h2>
                     <p>Internal Server Error.</p>
-                    <form role="search">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <i class="fa fa-search form-control-feedback"></i>
-                        </div>
-                    </form>
+                    @include('partials/user/search-form')
                     <a href="/" class="btn btn-default btn-animated btn-lg">Return Home <i class="fa fa-home"></i></a>
                 </div>
                 <!-- main end -->

@@ -21,7 +21,7 @@ class SearchController extends Controller
     	$faqs = $this->searchInFaqsForAjax($searchTerm);
         $faqs = $this->makeSearchMenuItems($faqs, 'faq');
 
-    	$items = array_merge($posts, $faqs, $pages);
+    	$items = array_merge($posts, $pages, $faqs);
 
     	return $items;
     }

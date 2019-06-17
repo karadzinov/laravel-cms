@@ -10,12 +10,7 @@
                     <h1 class="page-title"><span class="text-default">404</span></h1>
                     <h2>Ooops! Page Not Found</h2>
                     <p>The requested URL was not found on this server. Make sure that the Web site address displayed in the address bar of your browser is spelled and formatted correctly.</p>
-                    <form role="search">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <i class="fa fa-search form-control-feedback"></i>
-                        </div>
-                    </form>
+                    @include('partials/user/search-form')
                     <a href="/" class="btn btn-default btn-animated btn-lg">Return Home <i class="fa fa-home"></i></a>
                 </div>
                 <!-- main end -->
