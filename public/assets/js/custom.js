@@ -81,5 +81,38 @@ $(document).ready( function() {
 		}
 		
 	});
+	//nav bar live search functionality
+	$('#search_box').keyup($.debounce(700, function (e) {
+		var responseDiv = $('#searchResponse').html('');
+		var search = $('#search_box').val();
+        if(search){
+	        $.ajax({
+	            type: 'GET',
+	            url: '/search-ajax',
+	            data: {
+	                search: search
+	                },
+	            success: function(response){
+	            	responseDiv.html('');
+					if(response.length == 0){
+						var htmlResponse = '<span class="alert alert-warning">There is no results.</span> ';
+		                responseDiv.append(htmlResponse);
+					}else{
+		                for(var i = 0; i<response.length; i++){
+		                	var tagClass = response[i].type + 'Response';
+		                	var htmlResponse = '<a href="' + response[i].route + '" class="searchResults">';
+		                	htmlResponse +=  '<span class="'+tagClass+'"> ' + response[i].type;
+		                	htmlResponse += '</span> '+ response[i].title + '</a> <br/>';
+
+		                	responseDiv.append(htmlResponse);
+		                }
+					}
+	            },
+	            error: function(response){
+	                console.log('Something went wrong.');
+	            }
+	       });
+        }
+    }));
 });
 

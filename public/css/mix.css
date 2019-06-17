@@ -219,6 +219,24 @@ textarea {
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
   color: #fff;
 }
+
+.faqResponse{
+	background: rgb(95, 186, 16, 0.4) !important;
+}
+.postResponse{
+	background: rgb(84, 213, 242, 0.4) !important;
+}
+.pageResponse{
+	background: rgb(255, 171, 28, 0.4) !important;
+}
+
+.searchResults span{
+	text-transform: capitalize;
+	padding: 4px;
+	margin-bottom: 2px;
+	width: 20px;
+
+}
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;

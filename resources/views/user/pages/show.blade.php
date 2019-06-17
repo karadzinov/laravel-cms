@@ -9,16 +9,6 @@
 			height: 167.5px !important;
 			margin: 0 auto;
 		}
-
-		.faqResponse{
-			background: yellow !important;
-		}
-		.postResponse{
-			background: rgb(200, 200, 200) !important;
-		}
-		.pageResponse{
-			background: rgb(100, 100, 100) !important;
-		}
 	</style>
 @endsection
 @section('content')
@@ -75,30 +65,6 @@
 									</div>
 								</div>
 							@endforeach
-							{{-- <div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-3.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-3.jpg')}}" class="overlay-link small popup-img" title="Third image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-4.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-4.jpg')}}" class="overlay-link small popup-img" title="Fourth image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-5.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-5.jpg')}}" class="overlay-link small popup-img" title="Fifth image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div> --}}
 						</div>
 						<br>
 						<br>
@@ -136,39 +102,4 @@
 	</div>
 	<!-- footer top end -->
 
-@endsection
-
-@section('optionalScripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
-	<script>
-		$('#search_box').keyup($.debounce(700, function (e) {
-			$('#searchResponse').html('');
-			$.ajaxSetup({
-                headers:
-                { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-            });
-            $.ajax({
-                type: 'POST',
-                url: '{{route('search')}}',
-                data: {
-                    search: $('#search_box').val()
-                    },
-                success: function(response){
-                	console.log(response)
-					$('#searchResponse').html('');
-                    for(var i = 0; i<response.length; i++){
-                    	var tagClass = response[i].type + 'Response';
-                    	var htmlResponse = '<a href="' + response[i].route + '" class="searchResults">';
-                    	htmlResponse +=  '<span class="'+tagClass+'"> ' + response[i].type;
-                    	htmlResponse += '</span> '+ response[i].title + '</a> <br/>';
-
-                    	$('#searchResponse').append(htmlResponse);
-                    }
-                },
-                error: function(response){
-                    console.log(response);
-                }
-           });
-        }));
-	</script>
 @endsection

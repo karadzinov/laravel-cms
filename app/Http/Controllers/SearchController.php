@@ -8,17 +8,41 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    public function search(Request $request){
+    public function searchAjax(Request $request){
     	
     	$searchTerm = '%'.$request->get('search').'%';
 
     	$posts = $this->searchInPosts($searchTerm);
+        $posts = $this->makeSearchMenuItems($posts, 'post');
+
     	$pages = $this->searchInPages($searchTerm);
-    	$faqs = $this->searchInFaqs($searchTerm);
+        $pages = $this->makeSearchMenuItems($pages, 'page');
+
+    	$faqs = $this->searchInFaqsForAjax($searchTerm);
+        $faqs = $this->makeSearchMenuItems($faqs, 'faq');
 
     	$items = array_merge($posts, $faqs, $pages);
 
     	return $items;
+    }
+
+    public function search(Request $request){
+        $search = $request->get('search');
+        if(!$search){
+            $posts = array();
+            $pages = array();
+            $faqs = array();
+        }else{
+            $searchTerm = '%'.$search.'%';
+            
+            $posts = $this->searchInPosts($searchTerm);
+            $pages = $this->searchInPages($searchTerm);
+            $faqs = $this->searchInFaqs($searchTerm);
+        }
+
+        return view('user/search/index', compact('posts', 'pages', 'faqs', 'search'));
+
+        
     }
 
     public function searchInPosts($searchTerm){
@@ -29,7 +53,6 @@ class SearchController extends Controller
     		->orWhere('main_text', 'LIKE', $searchTerm)
     		->get()
     		->where('workflow', '=', 'posted');
-    	$posts = $this->makeSearchMenuItems($posts, 'post');
 
     		return $posts;
     }
@@ -40,17 +63,24 @@ class SearchController extends Controller
     		->orWhere('subtitle','LIKE',$searchTerm)
     		->orWhere('main_text', 'LIKE', $searchTerm)
     		->get();
-    	$pages = $this->makeSearchMenuItems($pages, 'page');
 
     	return $pages;
     }
 
     public function searchInFaqs($searchTerm){
+        $faqs = FAQ::where('question','LIKE',$searchTerm)
+            ->where('question', 'LIKE', $searchTerm)
+            ->orWhere('answer', 'LIKE', $searchTerm)
+            ->get();
+
+        return $faqs;
+    }
+
+    public function searchInFaqsForAjax($searchTerm){
     	$faqs = DB::table('faqs')
     	    ->where('question', 'LIKE', $searchTerm)
 			->orWhere('answer', 'LIKE', $searchTerm)
     	    ->select('question as title')->get();
-    	$faqs = $this->makeSearchMenuItems($faqs, 'faq');
 
     	return $faqs;
     }
