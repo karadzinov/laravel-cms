@@ -726,8 +726,5 @@
 		<!-- footer top end -->
 	</section>
 	<!-- section end -->
-	<!-- footer start (Add "dark" class to #footer in order to enable dark footer) -->
-	<!-- ================ -->
-	@include('partials/user/footer')
-		
+			
 @endsection
