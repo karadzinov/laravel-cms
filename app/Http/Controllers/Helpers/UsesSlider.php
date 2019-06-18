@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Helpers;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
@@ -60,7 +61,7 @@ abstract class UsesSlider extends Controller
 	public function renameImage($key, $name, $title, $paths){
 	    
 	    $newName= $this->makeNewName($key, $name, $title, $paths);
-	    
+
 	    rename($paths->originals . $name, $paths->originals . $newName);
 	    rename($paths->thumbnails . $name, $paths->thumbnails . $newName);
 	    rename($paths->medium . $name, $paths->medium . $newName);
@@ -71,6 +72,7 @@ abstract class UsesSlider extends Controller
 	public function makeNewName($key, $name, $title, $paths){
 
 	    $title = explode('.', $title)[0];
+	    $title = Str::slug(strip_tags($title));
 	    $nameParts = explode('.', $name);
 	    $extension = $nameParts[count($nameParts)-1];
 	    $newName = $title.'-'.$key.'.'.$extension;
