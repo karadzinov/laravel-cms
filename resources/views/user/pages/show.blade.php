@@ -65,30 +65,6 @@
 									</div>
 								</div>
 							@endforeach
-							{{-- <div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-3.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-3.jpg')}}" class="overlay-link small popup-img" title="Third image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-4.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-4.jpg')}}" class="overlay-link small popup-img" title="Fourth image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="overlay-container">
-									<img src="{{asset('assets/images/portfolio-5.jpg')}}" alt="">
-									<a href="{{asset('assets/images/portfolio-5.jpg')}}" class="overlay-link small popup-img" title="Fifth image title">
-										<i class="fa fa-plus"></i>
-									</a>
-								</div>
-							</div> --}}
 						</div>
 						<br>
 						<br>

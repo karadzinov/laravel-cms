@@ -34,6 +34,6 @@
 		@foreach($scripts as $script)
 			{!!$script ->code!!}
 		@endforeach
-		@yield('optinalScripts')
+		@yield('optionalScripts')
 	</body>
 </html>

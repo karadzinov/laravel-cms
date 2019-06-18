@@ -102,3 +102,6 @@ Route::group(['prefix'=>'posts', 'as'=>'posts.'], function(){
 Route::group(['prefix'=>'pages', 'as'=>'pages.'], function(){
     Route::get('/show/{page}/{title}', 'PagesController@show')->name('show');
 });
+
+Route::get('search-ajax', 'SearchController@searchAjax')->name('search-ajax');
+Route::get('search', 'SearchController@search')->name('search');

@@ -81,5 +81,59 @@ $(document).ready( function() {
 		}
 		
 	});
+	//nav bar live search functionality
+	$('#search_box').keyup($.debounce(700, function (e) {
+		var responseDiv = $('#searchResponse');;
+		var search = $('#search_box').val();
+        if(search!=''){
+	        searchInDatabase(search, responseDiv);
+        }else{
+            responseDiv.html('');
+        }
+    }));
+
+    //main search on errors pages
+    $('#main_search_box').keyup($.debounce(700, function (e) {
+		var responseDiv = $('#mainSearchResponse');;
+		var search = $('#main_search_box').val();
+        if(search){
+	        searchInDatabase(search, responseDiv);
+        }else{
+            responseDiv.html('');
+        }
+    }));
+    
+    function searchInDatabase(search, responseDiv){
+    	responseDiv.html('')
+        $.ajax({
+            type: 'GET',
+            url: '/search-ajax',
+            data: {
+                search: search
+                },
+            success: function(response){
+            	responseDiv.html('');
+				if(response.length == 0){
+					var htmlResponse = '<ul class="list-group">';
+					htmlResponse+= '<li class="list-group-item alert alert-warning">There is no results.</li> ';
+	                responseDiv.append(htmlResponse);
+				}else{
+					var resultsList = '<ul class="list-group">';
+	                for(var i = 0; i<response.length; i++){
+	                	var tagClass = response[i].type + 'Response';
+	                	resultsList += '<li class="list-group-item"><a href="' + response[i].route + '" class="searchResults">';
+	                	resultsList +=  '<span class="'+tagClass+'"> ' + response[i].type;
+	                	resultsList += '</span> '+ response[i].title + '</a> <br/>';
+
+	                }
+	                	resultsList += '</ul>'
+	                	responseDiv.append(resultsList);
+				}
+            },
+            error: function(response){
+                console.log('Something went wrong.');
+            }
+       });
+    }
 });
 

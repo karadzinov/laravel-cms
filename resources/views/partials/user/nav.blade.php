@@ -173,11 +173,12 @@
 										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i></button>
 										<ul class="dropdown-menu dropdown-menu-right dropdown-animation">
 											<li>
-												<form role="search" class="search-box margin-clear">
+												<form method="GET" action="{{route('search')}}" role="search" class="search-box margin-clear">
 													<div class="form-group has-feedback">
-														<input type="text" class="form-control" placeholder="Search">
+														<input name="search" id="search_box" type="text" class="form-control" placeholder="Search">
 														<i class="icon-search form-control-feedback"></i>
 													</div>
+													<div id="searchResponse"></div>
 												</form>
 											</li>
 										</ul>

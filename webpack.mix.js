@@ -63,6 +63,7 @@ mix.styles([
          'public/assets/plugins/jquery.browser.js',
          'public/assets/plugins/SmoothScroll.js',
          'public/assets/js/template.js',
+         'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/js/custom.js',
          ], 'public/js/user-mix.js')
    .js('resources/assets/js/app.js', 'public/js')
