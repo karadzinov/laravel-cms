@@ -5,11 +5,11 @@
 			<div class="masonry-grid-item col-sm-6 col-md-4">
 				<!-- blogpost start -->
 				<article class="blogpost shadow light-gray-bg bordered">
-					<div id="carousel-blog-post" class="carousel slide" data-ride="carousel">
+					<div id="{{$page->slug}}" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
 						<ol class="carousel-indicators bottom margin-clear">
 							@foreach($page->images as $image)
-								<li data-target="#carousel-blog-post" data-slide-to="{{$loop->iteration -1}}" class="active"></li>
+								<li data-target="#{{$page->slug}}" data-slide-to="{{$loop->iteration -1}}" class="active"></li>
 							@endforeach
 						</ol>
 						<!-- Wrapper for slides -->
