@@ -151,7 +151,7 @@
 										@include('partials/user/categories/tree')
 									</li>
 									<li class="dropdown ">
-										<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<a href="{{route('pages.index')}}" class="dropdown-toggle" data-toggle="dropdown">
 											Pages
 										</a>
 										<ul class="dropdown-menu">

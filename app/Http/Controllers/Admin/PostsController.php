@@ -44,6 +44,12 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
+        $slug = Str::slug(strip_tags($request->get('title')));
+
+        if($this->slugExists($slug)){
+            return redirect()->back()->with('error', 'The title has already been taken.');
+        }
+        $input['slug'] = $slug;
         
         if($request->has('assigned_users')){
             $assignedUsers = $request->get('assigned_users');
@@ -98,6 +104,13 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request, $post);
         $input = $request->all();
+        $slug = Str::slug(strip_tags($request->get('title')));
+
+        if($this->slugExists($slug, $post->id)){
+            return redirect()->back()->with('error', 'The title has already been taken.');
+        }
+
+        $input['slug'] = $slug;
         $input['image'] = $image;
 
         if($request->get('assigned_users')){
@@ -120,6 +133,12 @@ class PostsController extends Controller
                 ->with('success', 'Post Successfully Updated.');
     }
 
+    public function slugExists($slug, $id=null){
+        
+        return Post::where('slug', '=', $slug)
+                    ->where('id', '!=', $id)
+                    ->first();
+    }
     /**
      * Finds assignedUsers ids.
      */

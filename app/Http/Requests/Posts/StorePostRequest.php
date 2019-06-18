@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Requests\Posts;
+
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+
 class StorePostRequest extends FormRequest
 {
     /**
@@ -23,7 +26,7 @@ class StorePostRequest extends FormRequest
         return [
             "user_id"       => "required",
             "category_id"   => "required",
-            "title"         => "required|max:255",
+            "title"         => "required|max:255|".Rule::unique('posts')->ignore($this->id),
             "subtitle"      => "required|max:500",
             "main_text"     => "required",
             "workflow"      => "required",

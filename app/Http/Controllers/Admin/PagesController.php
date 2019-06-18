@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Page;
+use App\Models\{Category, Page};
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Helpers\UsesSlider;
@@ -51,8 +52,16 @@ class PagesController extends UsesSlider
      */
     public function store(StorePageRequest $request)
     {
-        $page = Page::create($request->all());
         $title = $request->get('title');
+        $input = $request->all();
+        $slug = Str::slug(strip_tags($title));
+
+        if($this->slugExists($slug)){
+            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+        }
+
+        $input['slug'] = $slug;
+        $page = Page::create($input);
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
@@ -91,12 +100,37 @@ class PagesController extends UsesSlider
      */
     public function update(StorePageRequest $request, Page $page)
     {
-        $page->update($request->all());
+        $input = $request->all();
         $title = $request->get('title');
+        $slug = Str::slug(strip_tags($title));
+        if($this->slugExists($slug, $page->id)){
+            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+        }
+        $input['slug'] = $slug;
+
+        $page->update($input);
+        
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
                     ->with('success', 'Page Successfully Updated.');
+    }
+
+    public function slugExists($slug, $id=null){
+        
+        $page = Page::where('slug', '=', $slug)
+                    ->where('id', '!=', $id)
+                    ->first();
+
+        $category = Category::where('slug', '=', $slug)
+                    ->where('id', '!=', $id)
+                    ->first();
+
+        if($category || $page){
+            return true;
+        }
+
+        return false;
     }
 
     /**

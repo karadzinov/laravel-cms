@@ -14,7 +14,7 @@ class Category extends Model
     //protected $guarded =[];
     
     protected $fillable = [
-        'name', 'parent_id', 'image', 'description', 'link'
+        'name', 'parent_id', 'image', 'description', 'link', 'slug'
     ];
 
     public function posts(){
@@ -24,7 +24,7 @@ class Category extends Model
 
     public function getShowRouteAttribute(){
         
-        return route('categories.show', [$this->id, Str::slug(strip_tags($this->name))]);
+        return route('categories.pages.show', [Str::slug(strip_tags($this->name))]);
     }
 
     public function getThumbnailPathAttribute(){
