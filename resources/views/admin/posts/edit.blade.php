@@ -112,6 +112,13 @@
                         $users, $assignedUsers,
                         array('id'=>'assigned_users', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div>
+                <div class="form-group">
+                    {!! Form::label('tags', 'Tags:' , array('class' => 'control-label')); !!}
+                    {{Form::select('tags[]', 
+                        $tags, $assignedTags,
+                        array('id'=>'tags', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                </div>
+
                 {!! Form::button('Edit Post', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
@@ -132,5 +139,8 @@
             placeholder: "Assign User",
             allowClear: true
         })
+        $("#tags").select2({
+          tags: true
+        });
     </script>
 @endsection

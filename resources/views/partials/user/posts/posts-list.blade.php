@@ -26,7 +26,14 @@
 						<p>{!!$post->subtitle!!}</p>
 					</div>
 					<footer class="clearfix">
-						<div class="tags pull-left"><i class="icon-tags"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a></div>
+						@if($post->tags->isNotEmpty())
+							@foreach($post->tags as $tag)
+								<div class="tags pull-left">
+									<i class="icon-tags"></i> 
+									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+								</div>
+							@endforeach
+						@endif
 						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">Read More</a></div>
 					</footer>
 				</article>
@@ -58,7 +65,14 @@
 						<p>{!!$post->subtitle!!}</p>
 					</div>
 					<footer class="clearfix">
-						<div class="tags pull-left"><i class="icon-tags"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a></div>
+						@if($post->tags->isNotEmpty())
+							@foreach($post->tags as $tag)
+								<div class="tags pull-left">
+									<i class="icon-tags"></i> 
+									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+								</div>
+							@endforeach
+						@endif
 						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">Read More</a></div>
 					</footer>
 				</article>
@@ -86,7 +100,14 @@
 						<p>{!!$post->subtitle!!}</p>
 					</div>
 					<footer class="clearfix">
-						<div class="tags pull-left"><i class="icon-tags"></i> <a href="#">tag 1</a>, <a href="#">tag 2</a>, <a href="#">long tag 3</a></div>
+						@if($post->tags->isNotEmpty())
+							@foreach($post->tags as $tag)
+								<div class="tags pull-left">
+									<i class="icon-tags"></i> 
+									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+								</div>
+							@endforeach
+						@endif
 						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">Read More</a></div>
 					</footer>
 				</article>
