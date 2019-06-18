@@ -12,11 +12,13 @@
 
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
-    <div>
-        <img src="/images/categories/thumbnails/{{$category->image}}" style="max-width: 200px">
-        <br>
-        <br>
-    </div>
+    @if($category->image)
+        <div>
+            <img src="{{$category->thumbnailPath}}" style="max-width: 200px">
+            <br>
+            <br>
+        </div>
+    @endif
     {!! Form::file('image', null, [ 'class' => 'form-control' ]) !!}
     {!! $errors->first('image') !!}
 </div>

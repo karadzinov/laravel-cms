@@ -37,6 +37,13 @@
                     {!! $errors->first('subtitle') !!}
                 </div>
 
+                @if($post->image)
+                    <div>
+                        <img src="{{$post->thumbnailPath}}">
+                        <br>
+                        <br>
+                    </div>
+                @endif
                 <div class="form-group">
                     {{Form::label('image', 'Image:')}}
                     {!! Form::file('image', null,['class'=>'form-control']) !!}

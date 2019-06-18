@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\ViewComposers;
+namespace App\Http\View\Composers;
 
 use App\Models\Theme;
 use Illuminate\Support\Facades\Auth;

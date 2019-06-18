@@ -25,6 +25,10 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
+            'layouts.app', 'App\Http\View\Composers\ThemeComposer'
+        );
+
+        View::composer(
             ['partials/user/head',
             'partials/user/header',
             'partials/user/footer',

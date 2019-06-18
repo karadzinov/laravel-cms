@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use App\Helpers\RssFeeds\Item;
+use App\Models\Helpers\ImagesPaths;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use ImagesPaths;
+    
     protected $table = 'posts';
     protected $dates = ['created_at', 'updated_at'];
     protected $guarded = [];
@@ -25,21 +28,6 @@ class Post extends Model
     public function users(){
         
         return $this->belongsToMany(User::class, 'users_posts', 'post_id', 'user_id');
-    }
-
-    public function getThumbnailPathAttribute(){
-    	
-    	return asset('/images/posts/thumbnails/' . $this->image);
-    }
-
-    public function getMediumPathAttribute(){
-        
-        return asset('/images/posts/medium/' . $this->image);
-    }
-
-    public function getOriginalPathAttribute(){
-        
-        return asset('/images/posts/originals/' . $this->image);
     }
 
     public function getVideoIdAttribute(){

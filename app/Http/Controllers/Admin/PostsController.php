@@ -60,7 +60,7 @@ class PostsController extends Controller
         }
 
         return redirect()->route('admin.posts.index')
-            ->with('success', 'Post Successfully Created.');
+                ->with('success', 'Post Successfully Created.');
     }
     /**
      * Display the specified resource.
@@ -116,7 +116,8 @@ class PostsController extends Controller
             $post->users()->detach();
         }
 
-        return redirect()->route('admin.posts.show', $post->id)->with('success', 'Post Successfully Updated.');
+        return redirect()->route('admin.posts.index')
+                ->with('success', 'Post Successfully Updated.');
     }
 
     /**
@@ -143,7 +144,9 @@ class PostsController extends Controller
     {
         $this->deleteImages($post);
         $post->delete();
-        return redirect()->route('admin.posts.index');
+
+        return redirect()->route('admin.posts.index')
+                ->with('success', 'Post Successfully Deleted.');
     }
     /**
      * Uploads the logo if there is any, and deletes previous one.

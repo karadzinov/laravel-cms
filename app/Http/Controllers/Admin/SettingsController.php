@@ -57,7 +57,8 @@ class SettingsController extends Controller
 
         Settings::create($input);
         
-        return redirect('admin/meta/settings');
+        return redirect('admin/meta/settings')
+                ->with('success', 'Settings Successfully Created.');
     }
 
     /**
@@ -105,7 +106,8 @@ class SettingsController extends Controller
         }
         $settings->update($input);
         
-         return redirect('admin/meta/settings');
+         return redirect('admin/meta/settings')
+                ->with('success', 'Settings Successfully Updated.');
     }
 
     /**
@@ -122,7 +124,8 @@ class SettingsController extends Controller
         
         $settings->delete();
         
-        return redirect('admin/meta/settings');
+        return redirect('admin/meta/settings')
+                ->with('success', 'Settings Successfully Deleted.');
     }
 
     /**
