@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use App\Helpers\RssFeeds\Item;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,12 +27,23 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'users_posts', 'post_id', 'user_id');
     }
 
-    public function getThumnailPathAttribute(){
+    public function getThumbnailPathAttribute(){
     	
     	return asset('/images/posts/thumbnails/' . $this->image);
     }
 
-    public function getVideoPreviewImageAttribute(){
+    public function getMediumPathAttribute(){
+        
+        return asset('/images/posts/medium/' . $this->image);
+    }
+
+    public function getOriginalPathAttribute(){
+        
+        return asset('/images/posts/originals/' . $this->image);
+    }
+
+    public function getVideoIdAttribute(){
+        
         if($this->video)
         {
             try {
@@ -39,6 +51,22 @@ class Post extends Model
                 parse_str($components['query'], $params);
                 
                 $id = $params['v'];
+                
+                return $id;
+            } catch (Exception $e) {
+                
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    public function getVideoPreviewImageAttribute(){
+        if($this->video)
+        {
+            try {
+                $id = $this->videoId;
                 $image = "https://img.youtube.com/vi/{$id}/hqdefault.jpg";
                 
                 return $image;
@@ -73,5 +101,10 @@ class Post extends Model
         );
 
         return $item;
+    }
+
+    public function getShowRouteAttribute(){
+        
+        return route('posts.show', [$this->id, Str::slug(strip_tags($this->title))]);
     }
 }

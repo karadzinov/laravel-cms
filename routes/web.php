@@ -89,3 +89,12 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
 Route::group(['prefix'=>'faq', 'as'=>'faq.'], function(){
     Route::get('/index', 'FaqController@index')->name('index');
 });
+
+Route::group(['prefix'=>'categories', 'as'=>'categories.'], function(){
+    Route::get('/show/{category}/{name}', 'CategoriesController@show')->name('show');
+});
+
+Route::group(['prefix'=>'posts', 'as'=>'posts.'], function(){
+    Route::get('/index', 'PostsController@index')->name('index');
+    Route::get('/show/{post}/{name}', 'PostsController@show')->name('show');
+});

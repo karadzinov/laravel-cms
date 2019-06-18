@@ -154,7 +154,7 @@ class PostsController extends Controller
      */
     public function updateImageIfNecessary(Request $request, Post $post=null){
         if ($request->hasFile('image')) {
-            if($post){
+            if($post && $post->image){
                $this->deleteImages($post);
             }
             $image = $request->file('image');
@@ -175,6 +175,8 @@ class PostsController extends Controller
             $imagethumb->save($paths->thumbnail . $imageName);
             $imagemedium->save($paths->medium . $imageName);
             return $imageName;
+        }elseif($post && $post->image){
+            return $post->image;
         }
         return null;
     }

@@ -156,7 +156,9 @@
 					<!-- sidebar end -->
 				</div>
 			@else
-				<p class="lead">There is no questions to be answered.</p>			
+				<div class="text-center pv-40">
+					<p class="lead center">There is no questions to be answered.</p>
+				</div>
 			@endif
 		</div>
 	</section>
