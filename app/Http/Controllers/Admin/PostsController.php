@@ -2,12 +2,11 @@
 namespace App\Http\Controllers\Admin;
 
 use File;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -32,7 +31,9 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
-        return view('admin.posts/create', compact('categories', 'users'));
+        $tags = Tag::pluck('name', 'id')->toArray();
+
+        return view('admin.posts/create', compact('categories', 'users', 'tags'));
     }
     /**
      * Store a newly created resource in storage.
@@ -52,21 +53,55 @@ class PostsController extends Controller
         $input['slug'] = $slug;
         
         if($request->has('assigned_users')){
-            $assignedUsers = $request->get('assigned_users');
+            $assignedUsers = $input['assigned_users'];
             unset($input['assigned_users']);
-        }else{
-            $assignedUsers = false;
+        }
+
+        if($request->has('tags')){
+           $tags = $input['tags'];
+           unset($input['tags']);
         }
 
         $input['image'] = $image;
         $post = Post::create($input);
 
-        if($assignedUsers){
+        if(isset($assignedUsers)){
             $post->users()->attach($assignedUsers);
+        }
+
+        if(isset($tags)){
+            $this->updateTags($post, $tags);
         }
 
         return redirect()->route('admin.posts.index')
                 ->with('success', 'Post Successfully Created.');
+    }
+
+    public function updateTags($post, $tags){
+        
+        $alreadyExistingTags = Tag::all();
+        $postTags = $post->tags()->pluck('id')->toArray();
+        $difference = array_merge(array_diff($postTags, $tags), array_diff($tags, $postTags));
+        
+        foreach($difference as $differentTag){
+            if(in_array($differentTag, $postTags)){
+                $post->tags()->detach($differentTag);
+            }else{
+                $newTag = $alreadyExistingTags->find($differentTag);
+                if(!$newTag){
+                    $slug = Str::slug(strip_tags($differentTag));
+                    $newTag = Tag::create(['name'=>$differentTag, 'slug' => $slug]);
+                }
+
+                try {
+                    $post->tags()->attach($newTag->id);
+                } catch (Exception $e) {
+                   continue;
+                }
+            }
+        }
+
+        return;
     }
     /**
      * Display the specified resource.
@@ -88,10 +123,14 @@ class PostsController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
+        $tags = Tag::pluck('name', 'id')->toArray();
         
         $assignedUsers = $this->assignedUsers($post);
+        $assignedTags = $this->assignedTags($post);
 
-        return view('admin.posts/edit', compact('post', 'categories', 'users', 'assignedUsers'));
+        return view('admin/posts/edit', 
+                compact('post', 'categories', 'users', 'assignedUsers', 'tags', 'assignedTags')
+            );
     }
     /**
      * Update the specified resource in storage.
@@ -118,6 +157,12 @@ class PostsController extends Controller
             unset($input['assigned_users']);
         }
 
+        if($request->has('tags')){
+            $tags = $input['tags'];
+            unset($input['tags']);
+            $this->updateTags($post, $tags);
+        }
+
         $post->update($input);
 
         if(isset($users)){
@@ -139,6 +184,7 @@ class PostsController extends Controller
                     ->where('id', '!=', $id)
                     ->first();
     }
+    
     /**
      * Finds assignedUsers ids.
      */
@@ -150,9 +196,23 @@ class PostsController extends Controller
         }else{
 
             return false;
-        }
-        
+        }    
     }
+
+    /**
+     * Finds assignedTags ids.
+     */
+    public function assignedTags(Post $post){
+        if($post->tags->isNotEmpty()){
+            $assignedTags = $post->tags()->get()->pluck('id')->toArray();
+
+            return $assignedTags;
+        }else{
+
+            return false;
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

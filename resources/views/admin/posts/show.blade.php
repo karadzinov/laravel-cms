@@ -103,6 +103,16 @@
                     </ul>
                 </div>
             @endif
+            @if($post->tags->isNotEmpty())
+                <div>
+                    <label for="tags"><strong>Tags:</strong></label>
+                    <ul id="tags">
+                        @foreach($post->tags()->get() as $tag)
+                            <li>{{$tag->name}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         
     </div>

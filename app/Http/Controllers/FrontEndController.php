@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{FAQ, Page, Post, Category};
+use App\Models\{Category, FAQ, Page, Post, Tag};
 
 class FrontEndController extends Controller
 {
@@ -48,5 +48,13 @@ class FrontEndController extends Controller
     	$faqs = FAQ::all();
 
     	return view('user/faq/index', compact('faqs'));
+    }
+
+    public function tagPosts($slug){
+        $tag = Tag::where('slug', '=',$slug)->firstOrFail();
+        $posts = $tag->posts()->get();
+        $tag = $tag->name;
+
+        return view('user/posts/tags', compact('posts', 'tag'));
     }
 }

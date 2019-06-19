@@ -94,6 +94,8 @@ Route::group(['as'=>'faq.'], function(){
     Route::get('/faqs', 'FrontEndController@faqs')->name('index');
 });
 
+Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
+
 Route::group(['as'=>'posts.'], function(){
     Route::get('/posts', 'FrontEndController@posts')->name('index');
     Route::get('/{categorySlug}/{slug}', 'FrontEndController@postsShow')->name('show');
