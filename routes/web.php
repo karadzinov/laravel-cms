@@ -86,22 +86,23 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
 });
 
-Route::group(['prefix'=>'faq', 'as'=>'faq.'], function(){
-    Route::get('/index', 'FaqController@index')->name('index');
-});
-
-Route::group(['prefix'=>'categories', 'as'=>'categories.'], function(){
-    Route::get('/show/{category}/{name}', 'CategoriesController@show')->name('show');
-});
-
-Route::group(['prefix'=>'posts', 'as'=>'posts.'], function(){
-    Route::get('/index', 'PostsController@index')->name('index');
-    Route::get('/show/{post}/{name}', 'PostsController@show')->name('show');
-});
-
-Route::group(['prefix'=>'pages', 'as'=>'pages.'], function(){
-    Route::get('/show/{page}/{title}', 'PagesController@show')->name('show');
-});
-
 Route::get('search-ajax', 'SearchController@searchAjax')->name('search-ajax');
 Route::get('search', 'SearchController@search')->name('search');
+
+//FrontEndController actions
+Route::group(['as'=>'faq.'], function(){
+    Route::get('/faqs', 'FrontEndController@faqs')->name('index');
+});
+
+Route::group(['as'=>'posts.'], function(){
+    Route::get('/posts', 'FrontEndController@posts')->name('index');
+    Route::get('/{categorySlug}/{slug}', 'FrontEndController@postsShow')->name('show');
+});
+
+
+Route::group(['as'=>'pages.'], function(){
+    Route::get('/pages', 'FrontEndController@pages')->name('index');
+});
+
+//pages and categories
+Route::get('/{slug}', 'FrontEndController@categoriesAndPages')->name('categories.pages.show');

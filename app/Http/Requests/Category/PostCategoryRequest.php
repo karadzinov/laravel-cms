@@ -1,6 +1,7 @@
 <?php 
 namespace App\Http\Requests\Category;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostCategoryRequest extends FormRequest {
@@ -21,7 +22,7 @@ class PostCategoryRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'name' => 'required',
+            'name' => 'required|'.Rule::unique('categories')->ignore($this->id),
             'parent_id' => 'required', //'exists:categories,id',
             'image' => 'image',
 		];

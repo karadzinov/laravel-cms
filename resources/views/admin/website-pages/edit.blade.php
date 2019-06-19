@@ -18,6 +18,7 @@
         <div class="widget-body">
             <div class="widget-body">
                 {!! Form::open(array('route' => ['admin.pages.update', $page->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true, 'id'=>'main_form')) !!}
+                    {!!Form::hidden('id', $page->id)!!}
                     <div class="form-group">
                         {!! Form::label('name', 'Title:') !!}
                         {!! Form::textarea('title', $page->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}

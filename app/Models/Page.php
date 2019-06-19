@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use App\Models\Helpers\Imageable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +16,6 @@ class Page extends Model
     
     public function getShowRouteAttribute(){
     	
-    	return route('pages.show', [$this->id, Str::slug(strip_tags($this->title))]);
+    	return route('categories.pages.show', [$this->slug]);
     }
 }

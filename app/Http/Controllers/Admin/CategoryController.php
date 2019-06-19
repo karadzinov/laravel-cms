@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use Validator;
-use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\{Category, Page};
 use Kalnoy\Nestedset\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\PostCategoryRequest;
@@ -44,6 +44,13 @@ class CategoryController extends Controller
     public function store(PostCategoryRequest $request)
     {
         $input = $request->all();
+        $slug = Str::slug(strip_tags($request->get('name')));
+
+        if($this->slugExists($slug)){
+            return redirect()->back()->with('error', 'There is a category or a page with the same name.');
+        }
+        
+        $input['slug'] = $slug;
         $image = $this->updateImageIfNecessary($request);
         $image ? $input['image'] = $image : null;
 
@@ -94,6 +101,13 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $input = $request->all();
+        $slug = Str::slug(strip_tags($request->get('name')));
+
+        if($this->slugExists($slug, $category->id)){
+            return redirect()->back()->with('error', 'There is a category or a page with the same name.');
+        }
+
+        $input['slug'] = $slug;
         $image = $this->updateImageIfNecessary($request, $category);
         
         if($image){
@@ -104,6 +118,22 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.category.index')
                 ->with('success', 'Category Successfully Updated.');
+    }
+
+    public function slugExists($slug, $id=null){
+        
+        $category = Category::where('slug', '=', $slug)
+                    ->where('id', '!=', $id)
+                    ->first();
+        $page = Page::where('slug', '=', $slug)
+                    ->where('id', '!=', $id)
+                    ->first();
+
+        if($category || $page){
+            return true;
+        }
+
+        return false;
     }
 
     public function deleteImageIfNecessary($category){

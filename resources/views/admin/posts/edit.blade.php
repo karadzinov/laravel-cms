@@ -27,7 +27,8 @@
                     {!! Form::textarea('title', $post->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}
                     {!! $errors->first('title') !!}
                 </div>
-
+                {!! Form::hidden('id', $post->id) !!}
+                
                 <div class="form-group">
                     {!! Form::label('code', 'Subtitle:') !!}
                      <span class="input-icon icon-right">

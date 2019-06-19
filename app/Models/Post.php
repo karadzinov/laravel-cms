@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use App\Helpers\RssFeeds\Item;
 use App\Models\Helpers\ImagesPaths;
 use Illuminate\Database\Eloquent\Model;
@@ -93,6 +92,6 @@ class Post extends Model
 
     public function getShowRouteAttribute(){
         
-        return route('posts.show', [$this->id, Str::slug(strip_tags($this->title))]);
+        return route('posts.show', [$this->category->slug, $this->slug]);
     }
 }
