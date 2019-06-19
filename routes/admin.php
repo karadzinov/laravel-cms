@@ -14,6 +14,10 @@
 
 // Registered, activated, and is admin routes.
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
+    Route::get('socket', 'SocketController@index');
+    Route::post('sendmessage', 'SocketController@sendMessage');
+    Route::get('writemessage', 'SocketController@writemessage');
+    
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [
             'index', 'show', 'update', 'destroy',
@@ -109,5 +113,4 @@ Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated
     Route::delete('delete/{faq}', 'FAQsController@delete')->name('delete');
 
 });
-
 
