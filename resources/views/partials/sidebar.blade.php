@@ -35,7 +35,7 @@
             </a>
         </li>
         <li class="{{Request::is('admin/users/*') ? 'active' : null}}">
-            <a href="{{ url('admin/users/')}}" class="menu">
+            <a href="{{ route('admin.users') }}" class="menu">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text"> Users </span>
             </a>
