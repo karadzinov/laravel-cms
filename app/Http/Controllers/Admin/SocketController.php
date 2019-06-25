@@ -48,7 +48,7 @@ class SocketController extends Controller
         $message = $this->makeMessage($user->name, $content);
 
         if($conversation->public){
-            broadcast(new PublicMessageSent($message))->toOthers();
+            broadcast(new PublicMessageSent($message));
         }else{
             broadcast(new PrivateMessageSent($message, $id))->toOthers();
         }
@@ -63,8 +63,8 @@ class SocketController extends Controller
     }
 
     public function publicChat(){
-        $conversation = Conversation::first();
-        $messages = $conversation->messages()->take(200)->get();
+        $conversation = Conversation::where('public', '=', true)->first();
+        $messages = $conversation->messages()->take(10)->get();
 
         return view('partials/chat/history', compact('conversation', 'messages'));
     }

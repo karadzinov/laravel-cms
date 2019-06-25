@@ -66,6 +66,9 @@
             conversationId: '{{$conversation->id}}'
         },
         success: function(response){
+            let message = JSON.parse(response);
+            message = buildMessage(message.content, message.user, message.time);
+            $('#messages-list').append(message);
             $('#message').val('');
         },
         error: function(response){
@@ -73,12 +76,12 @@
    });
 });
 
-window.Echo.private('privateChat.'+'{{$conversation->id}}').listen('PrivateMessageSent', e=>{
-    alert('private');
-    let message = e.message;
-    message = buildMessage(message.content, message.user, message.time, ' replay');
+// window.Echo.private('privateChat.'+'{{$conversation->id}}').listen('PrivateMessageSent', e=>{
+//     alert('private');
+//     let message = e.message;
+//     message = buildMessage(message.content, message.user, message.time, ' replay');
     
-    $('#messages-list').append(message);
+//     $('#messages-list').append(message);
     
-})
+// })
 </script>

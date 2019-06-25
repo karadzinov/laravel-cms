@@ -1,6 +1,8 @@
-function buildMessage(content, user, time, replay){
+let conversation = 2;
+
+function buildMessage(content, user, time){
 	
-	let message = '<li class="message'+replay+'">';
+	let message = '<li class="message replay">';
     message += '<div class="message-info">';
     message += '<div class="bullet"></div>';
     message += '<div class="contact-name">'+user+'</div>';
@@ -14,18 +16,17 @@ function buildMessage(content, user, time, replay){
 	return message;
 }
 
-window.Echo.channel('publicChat.1').listen('PublicMessageSent', e=>{
+window.Echo.channel('publicChat').listen('PublicMessageSent', e=>{
 	let message = e.message;
-	message = buildMessage(message.content, message.user, message.time, ' replay');
-	console.log('public');
+	message = buildMessage(message.content, message.user, message.time);
 	$('#messages-list').append(message);
 	
 });
 
-window.Echo.private('privateChat.2').listen('PrivateMessageSent', e=>{
+window.Echo.private('privateMessage.' + conversation).listen('PrivateMessageSent', e=>{
     alert('private');
     let message = e.message;
-    message = buildMessage(message.content, message.user, message.time, ' replay');
+    message = buildMessage(message.content, message.user, message.time);
     
     $('#messages-list').append(message);
     
@@ -44,9 +45,8 @@ $( "#chatForm" ).on('submit', function(event) {
         	message: $('#message').val()
 		},
         success: function(response){
-        	
-			$('#message').val('');
-			let message = buildMessage(response.content, response.user, response.time, '');
+			$('#message').val('');alert('sent!');
+			let message = buildMessage(response.content, response.user, response.time);
 			$('#messages-list').append(message);
 		},
         error: function(response){
@@ -55,45 +55,55 @@ $( "#chatForm" ).on('submit', function(event) {
 });
 
 $('#publicChat').on('click', function(){
-	 $.ajaxSetup({
-	             headers:
-	             { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-	         });
-	 $.ajax({
-	     type: 'GET',
-	     url: '/admin/publicChat',
-	     data: {
-	         
-	         },
-	     success: function(response){
-	         $('#chatbar-messages').val('');
-	         $('#chatbar-messages').html(response);
-	     },
-	     error: function(response){
-	        console.log('Error.')
-	     }
+	$.ajaxSetup({
+	    headers:
+	    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+	});
+	$.ajax({
+	    type: 'GET',
+	    url: '/admin/publicChat',
+	    data: {
+	        
+	        },
+	    success: function(response){
+	        $('#chatbar-messages').val('');
+	        $('#chatbar-messages').html(response);
+	    },
+	    error: function(response){
+	       console.log('Error.')
+	    }
 	});
 });
 
-$('.contact').on('click', function(){
-	let conversationId = $(this).data('conversation');
+//private chats
+$('.contact').not('#publicChat').on('click', function(){
 
+	let conversationId = conversation = $(this).data('conversation');
+	window.Echo.private('privateMessage.' + conversation).listen('PrivateMessageSent', e=>{
+    alert('private');
+    let message = e.message;
+    message = buildMessage(message.content, message.user, message.time);
+    
+    // $('#messages-list').append(message);
+	    
+	})
 	$.ajaxSetup({
-	     headers:
-	     { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-	 });
-	 $.ajax({
-	     type: 'GET',
-	     url: '/admin/privateChat',
-	     data: {
-	         conversation: conversationId
-	     },
-	     success: function(response){
-	         $('#chatbar-messages').val('');
-	         $('#chatbar-messages').html(response);
-	     },
-	     error: function(response){
-	        console.log('Error.')
-	     }
+	    headers:
+	    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+	});
+	$.ajax({
+	    type: 'GET',
+	    url: '/admin/privateChat',
+	    data: {
+	        conversation: conversationId
+	    },
+	    success: function(response){
+	        $('#chatbar-messages').val('');
+	        $('#chatbar-messages').html(response);
+	        console.log(typeof ('privateChat.' + conversation));
+	    },
+	    error: function(response){
+	       console.log('Error.')
+	    }
 	});
 });
