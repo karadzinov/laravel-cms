@@ -11,6 +11,11 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
+Route::get('admin/socket', 'Admin\SocketController@index');
+Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage');
+Route::get('admin/writemessage', 'Admin\SocketController@writemessage');
+Route::get('admin/publicChat', 'Admin\SocketController@publicChat');
+Route::get('admin/privateChat', 'Admin\SocketController@privateChat');
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 

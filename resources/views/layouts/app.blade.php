@@ -13,6 +13,7 @@
         @include('partials.nav')
         <div class="main-container container-fluid">
             <div class="page-container">
+                @include('partials/chat/chatbar')
                 @include('partials.sidebar')
             
                 <div class="page-content">

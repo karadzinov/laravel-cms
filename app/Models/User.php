@@ -132,4 +132,14 @@ class User extends Authenticatable
     {
         return $this->profiles()->detach($profile);
     }
+
+    public function messages(){
+        
+        return $this->belongsToMany(Conversation::class, 'conversation_user_message', 'user_id', 'conversation_id')->withPivot(['message', 'created_at']);
+    }
+
+    public function conversations(){
+        
+        return $this->belongsToMany(Conversation::class, 'conversation_user', 'user_id', 'conversation_id');
+    }
 }

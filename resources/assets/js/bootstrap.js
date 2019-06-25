@@ -52,13 +52,29 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from 'laravel-echo'
+// import Echo from 'laravel-echo'
 
-window.Pusher = require('pusher-js');
+// window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: true
-});
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });
+
+import Echo from "laravel-echo"
+window.io = require('socket.io-client');
+// Have this in case you stop running your laravel echo server
+// if (typeof io !== 'undefined') {
+  window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: 'http://cms.test:6001',
+  });
+// }
+
+// window.Echo.channel('publicChat').listen('PublicMessageSent', e=>{
+// 	alert('here');
+// 	console.log(e);
+// 	console.log('here');
+// })

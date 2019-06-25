@@ -11,12 +11,13 @@
 | All of those routes are prefixed with 'admin/', and their names are prefxed with 'admin.', that you should not add specifically. That is also configuration of RouteServiceProvider, as the controllers that are in Admin folder, also should not be writen in this file.
 |
 */
-
+// Route::any('/broadcasting/auth', '\Illuminate\Broadcasting\BroadcastController@authenticate');
 // Registered, activated, and is admin routes.
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
-    Route::get('socket', 'SocketController@index');
-    Route::post('sendmessage', 'SocketController@sendMessage');
-    Route::get('writemessage', 'SocketController@writemessage');
+    // Route::get('socket', 'SocketController@index');
+    // Route::post('sendmessage', 'SocketController@sendMessage');
+    // Route::get('writemessage', 'SocketController@writemessage');
+    // Route::get('publicChat', 'SocketController@publicChat');
     
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [

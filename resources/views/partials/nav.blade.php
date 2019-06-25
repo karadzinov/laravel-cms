@@ -24,6 +24,11 @@
                         <li><a class="nav-link" href="{{ route('register') }}">{{ trans('titles.register') }}</a></li>
                     @else
                         <ul class="account-area">
+                            <li>
+                                <a class="wave in" id="chat-link" title="Chat" href="#">
+                                    <i class="icon glyphicon glyphicon-comment"></i>
+                                </a>
+                            </li>
                             <li class="">
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <div class="avatar" title="View your public profile">

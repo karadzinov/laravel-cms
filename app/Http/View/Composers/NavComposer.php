@@ -8,13 +8,12 @@ use App\Models\{Category, Page};
 class NavComposer
 {
     protected $categories;
-    private $pages;
+    protected $pages;
 
     public function __construct()
     {
         $categories = Category::all()->where('parent_id','=',NULL);
         $pages = $this->preparePagesForNav();
-        
         $this->categories = $categories;
         $this->pages = $pages;
     }
