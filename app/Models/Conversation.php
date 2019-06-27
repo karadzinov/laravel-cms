@@ -17,7 +17,7 @@ class Conversation extends Model
 
     public function participants(){
     	
-    	return $this->belongsToMany(User::class, 'converstion_user', 'conversation_id', 'user_id');
+    	return $this->belongsToMany(User::class, 'conversation_user', 'conversation_id', 'user_id');
     }
 
 }

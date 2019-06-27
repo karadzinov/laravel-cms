@@ -4,11 +4,6 @@
         
         @include('partials.head')
         @yield('head')
-        <style>
-            .slimScrollDiv{
-                overflow: scroll;
-            }
-        </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">

@@ -16,8 +16,7 @@
         </div>
     </div>
 </div>
-<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 677px;">
-    <ul class="messages-list" id="messages-list" style="overflow: hidden; width: auto; height: 677px;">
+    <ul class="messages-list" id="messages-list-{{$conversation->id}}">
 @if(count($messages))
 
         @php $authId = Auth::user()->id; @endphp
@@ -33,14 +32,10 @@
                 </div>
             </li>
         @endforeach
-    </ul>
-    <div class="slimScrollBar" style="background: rgb(45, 195, 232); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; left: 1px;"></div>
-    <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;">
-    </div>
-</div>
 @else
-    <p>Start conversation!</p>
+    <li class="message">Start conversation!</li>
 @endif
+    </ul>
 <div class="send-message">
     <form id="chatForm" action="admin/sendmessage" method="POST">
         <span class="input-icon icon-right">
@@ -51,6 +46,7 @@
     </form>
 </div>
 
+<script src="/assets/js/slimscroll/jquery.slimscroll.js"></script>
 <script>
     $( "#chatForm" ).on('submit', function(event) {
     event.preventDefault();
@@ -68,20 +64,43 @@
         success: function(response){
             let message = JSON.parse(response);
             message = buildMessage(message.content, message.user, message.time);
-            $('#messages-list').append(message);
+            $('#messages-list-'+'{{$conversation->id}}').append(message);
             $('#message').val('');
         },
         error: function(response){
-            console.log('Error.');              }
+            console.log('Error.');
+        }
    });
 });
+function buildMessage(content, user, time){
+        
+        let message = '<li class="message">';
+        message += '<div class="message-info">';
+        message += '<div class="bullet"></div>';
+        message += '<div class="contact-name">'+user+'</div>';
+        message += '<div class="message-time">'+time+'</div>';
+        message += '</div>';
+        message += '<div class="message-body">';
+        message += content;
+        message += '</div>';
+        message += '</li>';
 
-// window.Echo.private('privateChat.'+'{{$conversation->id}}').listen('PrivateMessageSent', e=>{
-//     alert('private');
-//     let message = e.message;
-//     message = buildMessage(message.content, message.user, message.time, ' replay');
-    
-//     $('#messages-list').append(message);
-    
-// })
+        return message;
+    }
+$('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
+     $('.page-chatbar .chatbar-contacts').hide();
+     $('.page-chatbar .chatbar-messages').show();
+ });
+ 
+ $('.page-chatbar .chatbar-messages .back').on('click', function (e) {
+     $('.page-chatbar .chatbar-contacts').show();
+     $('.page-chatbar .chatbar-messages').hide();
+ });
+ $('.chatbar-messages .messages-list').slimscroll({
+    position: position,
+    size: '4px',
+    color: themeprimary,
+    height: $(window).height() - (250 + additionalHeight),
+    start: 'bottom',
+});
 </script>

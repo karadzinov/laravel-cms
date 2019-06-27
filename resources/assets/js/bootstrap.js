@@ -69,12 +69,6 @@ window.io = require('socket.io-client');
 // if (typeof io !== 'undefined') {
   window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: 'http://cms.test:6001',
+    host: window.location.hostname + ':6001',
   });
 // }
-
-// window.Echo.channel('publicChat').listen('PublicMessageSent', e=>{
-// 	alert('here');
-// 	console.log(e);
-// 	console.log('here');
-// })

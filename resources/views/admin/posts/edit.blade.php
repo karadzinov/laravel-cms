@@ -132,7 +132,6 @@
     @if(config('settings.googleMapsAPIStatus'))
         @include('scripts.gmaps-address-lookup-api3')
     @endif
-    <script src="{{asset('assets/js/select2/select2.js')}}"></script>
     <script>
         $("#author").select2();
         $("#assigned_users").select2({

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Conversation;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -21,8 +23,8 @@ Broadcast::channel('chart', function ($user) {
     ];
 });
 
-Broadcast::channel('privateMessage.{id}', function($user, $id){
-	$conversation = Conversation::findOrFail($id);
+Broadcast::channel('privateMessage.{conversation}', function($user, $conversation){
+	$conversation = Conversation::findOrFail($conversation);
 
 	return $conversation->participants->contains($user);
 });

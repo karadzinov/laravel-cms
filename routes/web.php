@@ -16,6 +16,9 @@ Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage');
 Route::get('admin/writemessage', 'Admin\SocketController@writemessage');
 Route::get('admin/publicChat', 'Admin\SocketController@publicChat');
 Route::get('admin/privateChat', 'Admin\SocketController@privateChat');
+Route::get('admin/addConversation', 'Admin\ConversationsController@create');
+Route::get('admin/storeConversation', 'Admin\ConversationsController@store');
+
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 

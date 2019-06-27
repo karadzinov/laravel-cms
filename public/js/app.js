@@ -93115,13 +93115,8 @@ window.io = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.i
 
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'socket.io',
-  host: 'http://cms.test:6001'
+  host: window.location.hostname + ':6001'
 }); // }
-// window.Echo.channel('publicChat').listen('PublicMessageSent', e=>{
-// 	alert('here');
-// 	console.log(e);
-// 	console.log('here');
-// })
 
 /***/ }),
 

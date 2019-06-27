@@ -1,3 +1,4 @@
+<input type="hidden" id="userConversations" value="{{$conversations->pluck('id')}}">
 <div id="chatbar" class="page-chatbar">
     <div class="chatbar-contacts" style="display: block;">
         <div class="contacts-search">
@@ -5,8 +6,11 @@
             <i class="searchicon fa fa-search"></i>
             <div class="searchhelper">Search Your Contacts and Chat History</div>
         </div>
-        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 841px;">
-            <ul class="contacts-list" style="overflow: hidden; width: auto; height: 841px;">
+        <button class="btn btn-success btn-block" id="addConversationButton">
+            <i class="fa fa-plus"></i> Add New Conversation
+        </button>
+        {{-- <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 841px;"> --}}
+            <ul class="contacts-list"  style="overflow: hidden; width: auto; height: 841px;">
                 <li class="contact" id="publicChat" >
                     <div class="contact-avatar">
                         <img src="{{asset('assets/img/logo-solo.png')}}">
@@ -40,13 +44,13 @@
                     </li>
                 @endforeach
             </ul>
-            <div class="slimScrollBar" style="background: rgb(45, 195, 232); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; left: 1px; height: 841px;">
+            {{-- <div class="slimScrollBar" style="background: rgb(45, 195, 232); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; left: 1px; height: 841px;">
                 
             </div>
             <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;">
                 
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
     </div>
     <div class="chatbar-messages" id="chatbar-messages" style="display: none;">
         {{-- messages-list --}}
@@ -56,3 +60,4 @@
         </div>
     </div>
 </div>
+

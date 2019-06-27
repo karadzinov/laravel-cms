@@ -10,6 +10,7 @@ use App\Events\PublicMessageSent;
 use App\Events\PrivateMessageSent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Creativeorange\Gravatar\Gravatar;
 
 
 class SocketController extends Controller
@@ -20,27 +21,23 @@ class SocketController extends Controller
     //     $this->middleware('auth');
     // }
 
-    public function index()
-    {
-    	return view('socket');
-    }
+    // public function index()
+    // {
+    // 	return view('socket');
+    // }
 
-    public function writemessage()
-    {
-    	return view('writemessage');
-    }
+    // public function writemessage()
+    // {
+    // 	return view('writemessage');
+    // }
 
     public function sendMessage(Request $request)
     {
         $id = $request->get('conversationId');
         $user = Auth::user();
         $content = $request->get('message');
-        // try {
-            $conversation = Conversation::findOrFail($id);
+        $conversation = Conversation::findOrFail($id);
 
-        // } catch (Exception $e) {
-        //     return response()->json(403);            
-        // }
         $message = $conversation->messages()->save(
                 $user,
                 ['message' => $content]
@@ -48,7 +45,7 @@ class SocketController extends Controller
         $message = $this->makeMessage($user->name, $content);
 
         if($conversation->public){
-            broadcast(new PublicMessageSent($message));
+            broadcast(new PublicMessageSent($message))->toOthers();
         }else{
             broadcast(new PrivateMessageSent($message, $id))->toOthers();
         }
@@ -57,6 +54,7 @@ class SocketController extends Controller
     }
 
     public function makeMessage($user, $content){
+
         $time = Carbon::now()->diffForHumans();
 
         return (object)compact('content', 'user', 'time');
@@ -64,7 +62,7 @@ class SocketController extends Controller
 
     public function publicChat(){
         $conversation = Conversation::where('public', '=', true)->first();
-        $messages = $conversation->messages()->take(10)->get();
+        $messages = $conversation->messages()->get();
 
         return view('partials/chat/history', compact('conversation', 'messages'));
     }
@@ -72,7 +70,7 @@ class SocketController extends Controller
     public function privateChat(Request $request){
 
         $conversation = Conversation::findOrFail($request->get('conversation'));
-        $messages = $conversation->messages()->take(200)->get();
+        $messages = $conversation->messages()->get();
 
         return view('partials/chat/history', compact('conversation', 'messages'));
     }
