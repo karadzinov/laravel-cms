@@ -1,48 +1,57 @@
 $(document).ready(function(){
 	let privateConversations = takeConversationsIds();
+	let typingTimer = false;
 
 	// listening for public channel
-	window.Echo.channel('publicChat').listen('PublicMessageSent', e=>{
-		let message = e.message;
-		message = buildReply(message.content, message.user, message.time);
-		$('#messages-list-5').append(message);
-		
-	});
+	window.Echo.channel('publicChat')
+		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
 
 	// listening for private channels
 	for(let i = 0; i<privateConversations.length; i++){
-		window.Echo.private('privateMessage.'+privateConversations[i]).listen('PrivateMessageSent', e=>{
-		    let message = e.message;
-		    message = buildReply(message.content, message.user, message.time);
-		    
-		    $('#messages-list-' + privateConversations[i]).append(message);
-		    
-		})
+		window.Echo.private('privateMessage.'+privateConversations[i])
+			.listen('PrivateMessageSent', e=>appendNewMessage(e, $('#messages-list-'+privateConversations[i])))
+			.listenForWhisper('typing', e=>showWhoIsTyping(e));
 	}
 
+	function appendNewMessage(e, element){
+		let message = e.message;
+	    message = buildReply(message.content, message.user, message.time);
+	    
+	    element.append(message);
+	}
 
-	$( "#chatForm" ).on('submit', function(event) {
-		event.preventDefault();
-		$.ajaxSetup({
-	    	headers:
-	    	{ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-	    });
-	    $.ajax({
-	        type: 'POST',
-	        url: '/admin/sendmessage',
-	        data: {
-	        	message: $('#message').val()
-			},
-	        success: function(response){
-				$('#message').val('');alert('sent!');
-				let message = buildMessage(response.content, response.user, response.time);
-				$('#messages-list').append(message);
-			},
-	        error: function(response){
-	        	console.log('Error.');
-	        }
-	   });
-	});
+	function showWhoIsTyping(e){
+		$('#typing').html(e.content);
+
+		if(typingTimer){
+			clearTimeout(typingTimer);
+		}
+		typingTimer = setTimeout( () => {
+		  $('#typing').html('');
+		}, 2000);
+	}
+
+	function sendMessage(message){
+		if(message){
+			$.ajaxSetup({
+		    	headers:
+		    	{ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+		    });
+		    $.ajax({
+		        type: 'POST',
+		        url: '/admin/sendmessage',
+		        data: {
+		        	message: message
+				},
+		        success: function(response){
+		        	console.log(response.status);
+				},
+		        error: function(response){
+		        	console.log('Error.');
+		        }
+		   });
+		}
+	}
 
 	$('#publicChat').on('click', function(){
 		$.ajaxSetup({
@@ -102,46 +111,7 @@ $(document).ready(function(){
 		return conversations;
 	}
 
-	function buildMessage(content, user, time){
-		
-		let message = '<li class="message">';
-	    message += '<div class="message-info">';
-	    message += '<div class="bullet"></div>';
-	    message += '<div class="contact-name">'+user+'</div>';
-	    message += '<div class="message-time">'+time+'</div>';
-	    message += '</div>';
-	    message += '<div class="message-body">';
-	    message += content;
-	    message += '</div>';
-		message += '</li>';
-
-		return message;
-	}
-
-	function buildReply(content, user, time){
-		
-		let message = '<li class="message replay">';
-	    message += '<div class="message-info">';
-	    message += '<div class="bullet"></div>';
-	    message += '<div class="contact-name">'+user+'</div>';
-	    message += '<div class="message-time">'+time+'</div>';
-	    message += '</div>';
-	    message += '<div class="message-body">';
-	    message += content;
-	    message += '</div>';
-		message += '</li>';
-
-		return message;
-	}
-
-
-
-
-
-
-
-
-
+	//add new conversation
 	$("#addConversationButton").on('click', function () {
 		$.ajaxSetup({
 		    headers:
@@ -182,7 +152,8 @@ $(document).ready(function(){
 	        }
 	    });
 	}
-	 function createConversation(name, users, message){
+	
+	function createConversation(name, users, message){
 	 	$.ajaxSetup({
 	 	    headers:
 	 	    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -197,14 +168,50 @@ $(document).ready(function(){
 	 	    },
 	 	    success: function(response){
 	 	    	$('.page-chatbar .chatbar-contacts .contacts-list').append(response.view)
-	 	    	let contact = '.contact .conversation-' + response.conversationId;
-	 	    	$(contact).trigger('click');
+	 	    	// let contact = '.contact .conversation-' + response.conversationId;
+	 	    	// $(contact).trigger('click');//doesn't work
+	 	    	$('.page-chatbar .chatbar-messages').html('');
+	 	    	getConversationHistory(response.conversationId);
+	 	    	$('.page-chatbar .chatbar-contacts').hide();
+				$('.page-chatbar .chatbar-messages').show();
 	 	    },
 	 	    error: function(response){
 	 	       console.log('Error.')
 	 	    }
 	 	});
 	 }
+
+	 function buildMessage(content, user, time){
+		
+		let message = '<li class="message">';
+	    message += '<div class="message-info">';
+	    message += '<div class="bullet"></div>';
+	    message += '<div class="contact-name">'+user+'</div>';
+	    message += '<div class="message-time">'+time+'</div>';
+	    message += '</div>';
+	    message += '<div class="message-body">';
+	    message += content;
+	    message += '</div>';
+		message += '</li>';
+
+		return message;
+	}
+
+	function buildReply(content, user, time){
+		
+		let message = '<li class="message replay">';
+	    message += '<div class="message-info">';
+	    message += '<div class="bullet"></div>';
+	    message += '<div class="contact-name">'+user+'</div>';
+	    message += '<div class="message-time">'+time+'</div>';
+	    message += '</div>';
+	    message += '<div class="message-body">';
+	    message += content;
+	    message += '</div>';
+		message += '</li>';
+
+		return message;
+	}
 
 	 // $('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
 	 //       $('.page-chatbar .chatbar-contacts').hide();

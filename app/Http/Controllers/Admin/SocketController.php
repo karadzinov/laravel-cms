@@ -6,32 +6,17 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
-use App\Events\PublicMessageSent;
-use App\Events\PrivateMessageSent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Creativeorange\Gravatar\Gravatar;
+use App\Http\Requests\Chat\ChatMessageSentRequest;
+use App\Events\{PrivateMessageSent, PublicMessageSent};
 
 
 class SocketController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    // public function index()
-    // {
-    // 	return view('socket');
-    // }
-
-    // public function writemessage()
-    // {
-    // 	return view('writemessage');
-    // }
-
-    public function sendMessage(Request $request)
+    public function sendMessage(ChatMessageSentRequest $request)
     {
         $id = $request->get('conversationId');
         $user = Auth::user();

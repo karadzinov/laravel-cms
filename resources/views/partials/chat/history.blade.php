@@ -1,3 +1,4 @@
+<input type="hidden" id="currentUser" value="{{Auth::user()->name}}">
 <div class="messages-contact" id="messages-contact">
     <div class="contact-avatar">
         <img src="{{-- @if ($messages[0]->profile && $messages[0]->profile->avatar_status == 1) {{ $messages[0]->profile->avatarThumbnail }} @else {{ Gravatar::get($messages[0]->email) }} @endif --}}">
@@ -16,9 +17,8 @@
         </div>
     </div>
 </div>
-    <ul class="messages-list" id="messages-list-{{$conversation->id}}">
-@if(count($messages))
-
+<ul class="messages-list @if($conversation->public) publicMessages @endif" id="messages-list-{{$conversation->id}}">
+    @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
         @foreach($messages as $message)
             <li class="message @if ($authId !== $message->id) reply @endif">
@@ -32,47 +32,78 @@
                 </div>
             </li>
         @endforeach
-@else
-    <li class="message">Start conversation!</li>
-@endif
-    </ul>
+    @else
+        <li class="message">Start conversation!</li>
+    @endif
+</ul>
+<span id="typing"></span>
 <div class="send-message">
-    <form id="chatForm" action="admin/sendmessage" method="POST">
-        <span class="input-icon icon-right">
-            <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message"></textarea>
-            <i class="fa fa-camera themeprimary"></i>
-            <input type="submit" value="send">
-        </span>
-    </form>
+    <span class="input-icon icon-right">
+        <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message"></textarea>
+        <i class="fa fa-camera themeprimary"></i>
+    </span>
 </div>
 
 <script src="/assets/js/slimscroll/jquery.slimscroll.js"></script>
 <script>
-    $( "#chatForm" ).on('submit', function(event) {
-    event.preventDefault();
-    $.ajaxSetup({
-        headers:
-        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-    });
-    $.ajax({
-        type: 'POST',
-        url: '/admin/sendmessage',
-        data: {
-            message: $('#message').val(),
-            conversationId: '{{$conversation->id}}'
-        },
-        success: function(response){
-            let message = JSON.parse(response);
-            message = buildMessage(message.content, message.user, message.time);
-            $('#messages-list-'+'{{$conversation->id}}').append(message);
-            $('#message').val('');
-        },
-        error: function(response){
-            console.log('Error.');
+    $('#message').on('keydown', function(e){
+        @if(!$conversation->public)
+            window.Echo.private('privateMessage.' + '{{$conversation->id}}')
+            .whisper('typing', {
+                content: $('#currentUser').val() + 'is typing...'
+            });
+        @endif
+        
+        if(e.which === 13){
+            let message = $('#message').val();
+            sendMessage(message);
         }
+    });
+   $('#message').on('keydown', function(e){
    });
-});
-function buildMessage(content, user, time){
+
+    // $( "#chatForm" ).on('submit', function(event) {
+    //     event.preventDefault();
+    //     let message = $('#message').val();
+    //     sendMessage(message);
+    // });
+
+    function sendMessage(message){
+        if(message){
+            $.ajaxSetup({
+                headers:
+                { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/sendmessage',
+                data: {
+                    message: message,
+                    conversationId: '{{$conversation->id}}'
+                },
+                success: function(response){
+                   appendNewMessage(response);
+                },
+                error: function(response){
+                    console.log('Error.');
+                }
+            });
+        }
+    }
+
+    function appendNewMessage(response){
+        let list = 
+           @if($conversation->public) '.publicMessages'
+           @else
+               '#messages-list-'+'{{$conversation->id}}'
+           @endif
+       let message = JSON.parse(response);
+       message = buildMessage(message.content, message.user, message.time);
+       $(list).append(message);
+       $('#message').val('');
+    }
+
+    function buildMessage(content, user, time){
         
         let message = '<li class="message">';
         message += '<div class="message-info">';
@@ -87,20 +118,20 @@ function buildMessage(content, user, time){
 
         return message;
     }
-$('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
-     $('.page-chatbar .chatbar-contacts').hide();
-     $('.page-chatbar .chatbar-messages').show();
- });
- 
- $('.page-chatbar .chatbar-messages .back').on('click', function (e) {
-     $('.page-chatbar .chatbar-contacts').show();
-     $('.page-chatbar .chatbar-messages').hide();
- });
- $('.chatbar-messages .messages-list').slimscroll({
-    position: position,
-    size: '4px',
-    color: themeprimary,
-    height: $(window).height() - (250 + additionalHeight),
-    start: 'bottom',
-});
+    $('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
+        $('.page-chatbar .chatbar-contacts').hide();
+        $('.page-chatbar .chatbar-messages').show();
+    });
+     
+    $('.page-chatbar .chatbar-messages .back').on('click', function (e) {
+        $('.page-chatbar .chatbar-contacts').show();
+        $('.page-chatbar .chatbar-messages').hide();
+    });
+    $('.chatbar-messages .messages-list').slimscroll({
+       position: position,
+       size: '4px',
+       color: themeprimary,
+       height: $(window).height() - (250 + additionalHeight),
+       start: 'bottom',
+    });
 </script>
