@@ -48,4 +48,12 @@
       </ul>
     </div>
   @endif
+
+  <div class="alert fade in userPresence">
+      <button class="close" data-dismiss="alert">
+          ×
+      </button>
+      {{-- <i class="fa-fw fa fa-info"></i> --}}
+      <span class="userPresenceContent"></span>
+  </div>
 </div>

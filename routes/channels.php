@@ -28,3 +28,8 @@ Broadcast::channel('privateMessage.{conversation}', function($user, $conversatio
 
 	return $conversation->participants->contains($user);
 });
+
+Broadcast::channel('presentUsers', function($user){
+	
+	return ['name' => $user->name];
+});

@@ -104,6 +104,10 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
 });
 
+Route::group(["prefic"=>"conversations", "as"=>'conversations.', "middleware"=>['auth', 'activated', 'role:admin', 'activity']], function() {
+    Route::delete('delete/{post}', 'ConversationsController@delete')->name('delete');
+});
+
 Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'FAQsController@index')->name('index');
     Route::get('show/{faq}', 'FAQsController@show')->name('show');

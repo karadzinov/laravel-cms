@@ -5,10 +5,29 @@
     </div>
     <div class="contact-info">
         <div id="contact-name" class="contact-name">{{$conversation->name}}</div>
+         <div>
+            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
+                <i class="icon fa fa-gear"></i>
+            </a>
+            <!--Tasks Dropdown-->
+            <ul class="pull-left dropdown-menu dropdown-tasks dropdown-arrow deleteConversation">
+                <li class="dropdown-header bordered-darkorange">
+                    <i class="fa fa-warning"></i>
+                    Delete This Conversation?
+                </li>
+                <li>
+                    {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                        {!! Form::hidden('_method', 'DELETE') !!}
+                        {!! Form::button('Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
+                    {!! Form::close() !!}{{dd('ovde')}}
+                </li>
+            </ul>
+        </div>
         <div class="contact-status">
             <div class="online"></div>
             <div class="status">online</div>
         </div>
+       
         <div class="last-chat-time">
             a moment ago
         </div>
@@ -61,12 +80,6 @@
     });
    $('#message').on('keydown', function(e){
    });
-
-    // $( "#chatForm" ).on('submit', function(event) {
-    //     event.preventDefault();
-    //     let message = $('#message').val();
-    //     sendMessage(message);
-    // });
 
     function sendMessage(message){
         if(message){

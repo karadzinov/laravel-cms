@@ -44,4 +44,9 @@ class ConversationsController extends Controller
     	];
     	return response()->json($data);
     }
+
+    public function delete(Conversation $conversation){
+        
+        dd('delete');
+    }
 }

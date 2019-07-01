@@ -1,10 +1,25 @@
 $(document).ready(function(){
+	let csrf = $('meta[name="csrf-token"]').attr('content');
 	let privateConversations = takeConversationsIds();
 	let typingTimer = false;
 
 	// listening for public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
+
+	// presence channel
+	window.Echo.join('presentUsers').here(users=>{
+			// console.log('here');
+			// console.log(users);
+		})
+		.joining(user=>{
+			let message = user.name + 'is now online.';
+			notifyPresence('alert-success', message);
+		}).
+		leaving(user=>{
+			let message = user.name + 'has left.';
+			notifyPresence('alert-warning', message);
+		});
 
 	// listening for private channels
 	for(let i = 0; i<privateConversations.length; i++){
@@ -13,50 +28,11 @@ $(document).ready(function(){
 			.listenForWhisper('typing', e=>showWhoIsTyping(e));
 	}
 
-	function appendNewMessage(e, element){
-		let message = e.message;
-	    message = buildReply(message.content, message.user, message.time);
-	    
-	    element.append(message);
-	}
-
-	function showWhoIsTyping(e){
-		$('#typing').html(e.content);
-
-		if(typingTimer){
-			clearTimeout(typingTimer);
-		}
-		typingTimer = setTimeout( () => {
-		  $('#typing').html('');
-		}, 2000);
-	}
-
-	function sendMessage(message){
-		if(message){
-			$.ajaxSetup({
-		    	headers:
-		    	{ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-		    });
-		    $.ajax({
-		        type: 'POST',
-		        url: '/admin/sendmessage',
-		        data: {
-		        	message: message
-				},
-		        success: function(response){
-		        	console.log(response.status);
-				},
-		        error: function(response){
-		        	console.log('Error.');
-		        }
-		   });
-		}
-	}
-
+	// get histories
 	$('#publicChat').on('click', function(){
 		$.ajaxSetup({
 		    headers:
-		    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+		    { 'X-CSRF-TOKEN': csrf }
 		});
 		$.ajax({
 		    type: 'GET',
@@ -82,10 +58,60 @@ $(document).ready(function(){
 		getConversationHistory(conversationId);
 	});
 
+	function appendNewMessage(e, element){
+		let message = e.message;
+	    message = buildReply(message.content, message.user, message.time);
+	    
+	    element.append(message);
+	}
+
+	function showWhoIsTyping(e){
+		$('#typing').html(e.content);
+
+		if(typingTimer){
+			clearTimeout(typingTimer);
+		}
+		typingTimer = setTimeout( () => {
+		  $('#typing').html('');
+		}, 2000);
+	}
+
+	function sendMessage(message){
+		if(message){
+			$.ajaxSetup({
+		    	headers:
+		    	{ 'X-CSRF-TOKEN': csrf }
+		    });
+		    $.ajax({
+		        type: 'POST',
+		        url: '/admin/sendmessage',
+		        data: {
+		        	message: message
+				},
+		        success: function(response){
+		        	console.log(response.status);
+				},
+		        error: function(response){
+		        	console.log('Error.');
+		        }
+		   });
+		}
+	}
+
+	function notifyPresence(notificationClass, message){
+		let notification = $('.userPresence');
+		notification.addClass(notificationClass);
+		notification.find('.userPresenceContent').html(message)
+		notification.css('visibility', 'visible');
+		setTimeout(function(){
+			notification.css('visibility', 'hidden');
+		}, 2000);
+	}
+
 	function getConversationHistory(conversationId){
 		$.ajaxSetup({
 		    headers:
-		    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+		    { 'X-CSRF-TOKEN': csrf }
 		});
 		$.ajax({
 		    type: 'GET',
@@ -115,7 +141,7 @@ $(document).ready(function(){
 	$("#addConversationButton").on('click', function () {
 		$.ajaxSetup({
 		    headers:
-		    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+		    { 'X-CSRF-TOKEN': csrf }
 		});
 		$.ajax({
 		    type: 'GET',
@@ -136,13 +162,10 @@ $(document).ready(function(){
 	        className: "modal-darkorange",
 	        buttons: {
 	            success: {
-	                label: "Send",
+	                label: "Create",
 	                className: "btn-success",
 	                callback: function () {
-	                	let name = $('#conversationName').val();
-	                	let users = $('#selectUsers').val();
-	                	let newMessage = ($('#newConversationMessage').val());
-	                	createConversation(name, users, newMessage);
+	                	createConversation();
 	                }
 	            },
 	            "Cancel": {
@@ -153,10 +176,14 @@ $(document).ready(function(){
 	    });
 	}
 	
-	function createConversation(name, users, message){
+	function createConversation(){
+		let name = $('#conversationName').val();
+		let users = $('#selectUsers').val();
+		let newMessage = ($('#newConversationMessage').val());
+
 	 	$.ajaxSetup({
 	 	    headers:
-	 	    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+	 	    { 'X-CSRF-TOKEN': csrf }
 	 	});
 	 	$.ajax({
 	 	    type: 'GET',
@@ -164,21 +191,25 @@ $(document).ready(function(){
 	 	    data: {
 	 	    	name: name,
 	 	    	participants: users,
-	 	    	message: message
+	 	    	message: newMessage
 	 	    },
 	 	    success: function(response){
-	 	    	$('.page-chatbar .chatbar-contacts .contacts-list').append(response.view)
-	 	    	// let contact = '.contact .conversation-' + response.conversationId;
-	 	    	// $(contact).trigger('click');//doesn't work
-	 	    	$('.page-chatbar .chatbar-messages').html('');
-	 	    	getConversationHistory(response.conversationId);
-	 	    	$('.page-chatbar .chatbar-contacts').hide();
-				$('.page-chatbar .chatbar-messages').show();
+	 	    	addAndOpenNewConversation(response);
 	 	    },
 	 	    error: function(response){
 	 	       console.log('Error.')
 	 	    }
 	 	});
+	 }
+
+	 function addAndOpenNewConversation(response){
+    	$('.page-chatbar .chatbar-contacts .contacts-list').append(response.view)
+    	// let contact = '.contact .conversation-' + response.conversationId;
+    	// $(contact).trigger('click');//doesn't work
+    	$('.page-chatbar .chatbar-messages').html('');
+    	getConversationHistory(response.conversationId);
+    	$('.page-chatbar .chatbar-contacts').hide();
+		$('.page-chatbar .chatbar-messages').show();
 	 }
 
 	 function buildMessage(content, user, time){
@@ -212,11 +243,4 @@ $(document).ready(function(){
 
 		return message;
 	}
-
-	 // $('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
-	 //       $('.page-chatbar .chatbar-contacts').hide();
-	 //       $('.page-chatbar .chatbar-messages').show();
-	 // 
-	 //       height: $(window).height() - (250 + additionalHeight),
-	 //   });
 });

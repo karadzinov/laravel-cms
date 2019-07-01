@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        <style>
-            .messages-list{
-                margin-bottom: 0;
-            }
-            #typing{
-                font-size: 10px;
-                position:absolute;
-                z-index:10;
-                padding-left: 15px;
-            }
-        </style>
         @include('partials.head')
         @yield('head')
+        <style>
+            .deleteConversation{
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+            .deleteConversation .text-white{
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">

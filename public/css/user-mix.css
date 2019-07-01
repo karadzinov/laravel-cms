@@ -20659,5 +20659,24 @@ textarea {
 	padding: 4px;
 	margin-bottom: 2px;
 	width: 20px;
+}
 
+.messages-list{
+    margin-bottom: 0;
+}
+
+#typing{
+    font-size: 10px;
+    position:absolute;
+    z-index:10;
+    padding-left: 15px;
+}
+.userPresence{
+    opacity: 0;
+    max-width: 33%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 11;
+    opacity: 0.8 !important;
 }
