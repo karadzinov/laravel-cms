@@ -74,7 +74,7 @@ $(document).ready(function(){
 		}
 		typingTimer = setTimeout( () => {
 		  $('#typing').html('');
-		}, 1500);
+		}, 1000);
 	}
 
 	function sendMessage(message){

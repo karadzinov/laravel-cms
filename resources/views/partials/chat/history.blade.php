@@ -37,10 +37,6 @@
     </div>
 </div>
 <ul class="messages-list @if($conversation->public) publicMessages @endif" id="messages-list-{{$conversation->id}}">
-{{-- @foreach($messages as $message)
-<p>{{$message->pivot->created_at->format('d m Y')}}</p>
-<p>{{$message->pivot->id}}</p>
-@endforeach --}}
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
         @foreach($messages as $message)
@@ -124,7 +120,7 @@
 
     function buildMessage(content, user, time){
         
-        let message = '<li class="message">';
+        let message = '<li class="message reply">';
         message += '<div class="message-info">';
         message += '<div class="bullet"></div>';
         message += '<div class="contact-name">'+user+'</div>';
@@ -152,5 +148,25 @@
        color: themeprimary,
        height: $(window).height() - (250 + additionalHeight),
        start: 'bottom',
+    });
+
+    //scroll to he top and get older messages
+    let paginatorUrl = '{{$next}}';
+    list = $(".messages-list");
+    list.scrollTop(list[0].scrollHeight);
+    list.scroll(function(){
+        if (list.scrollTop() == 0){
+            $.ajax({
+            url:paginatorUrl,
+            data:{
+                conversation: {{$conversation->id}}
+            },
+            success:function(response){
+                paginatorUrl = response.next;
+                list.prepend(response.view);
+                list.scrollTop(30);
+            }
+            });
+        }
     });
 </script>

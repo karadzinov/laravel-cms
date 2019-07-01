@@ -11,6 +11,10 @@
             .deleteConversation .text-white{
                 color: white;
             }
+/*
+            #paginatorLinks{
+                visibility: hidden;
+            }*/
         </style>
     </head>
     <body>
