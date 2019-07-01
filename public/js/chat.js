@@ -63,6 +63,7 @@ $(document).ready(function(){
 	    message = buildReply(message.content, message.user, message.time);
 	    
 	    element.append(message);
+        $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
 	}
 
 	function showWhoIsTyping(e){
@@ -73,7 +74,7 @@ $(document).ready(function(){
 		}
 		typingTimer = setTimeout( () => {
 		  $('#typing').html('');
-		}, 2000);
+		}, 1500);
 	}
 
 	function sendMessage(message){
@@ -212,25 +213,9 @@ $(document).ready(function(){
 		$('.page-chatbar .chatbar-messages').show();
 	 }
 
-	 function buildMessage(content, user, time){
-		
-		let message = '<li class="message">';
-	    message += '<div class="message-info">';
-	    message += '<div class="bullet"></div>';
-	    message += '<div class="contact-name">'+user+'</div>';
-	    message += '<div class="message-time">'+time+'</div>';
-	    message += '</div>';
-	    message += '<div class="message-body">';
-	    message += content;
-	    message += '</div>';
-		message += '</li>';
-
-		return message;
-	}
-
 	function buildReply(content, user, time){
 		
-		let message = '<li class="message replay">';
+		let message = '<li class="message">';
 	    message += '<div class="message-info">';
 	    message += '<div class="bullet"></div>';
 	    message += '<div class="contact-name">'+user+'</div>';

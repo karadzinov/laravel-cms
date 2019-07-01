@@ -26,7 +26,7 @@ class SocketController extends Controller
         $message = $conversation->messages()->save(
                 $user,
                 ['message' => $content]
-            );
+        );
         $message = $this->makeMessage($user->name, $content);
 
         if($conversation->public){
@@ -47,7 +47,9 @@ class SocketController extends Controller
 
     public function publicChat(){
         $conversation = Conversation::where('public', '=', true)->first();
-        $messages = $conversation->messages()->get();
+        $messages = $conversation->messages()->get()->sortBy(function($message){
+            return $message->pivot->created_at->format('Y m d H:i');
+        });
 
         return view('partials/chat/history', compact('conversation', 'messages'));
     }
@@ -55,8 +57,9 @@ class SocketController extends Controller
     public function privateChat(Request $request){
 
         $conversation = Conversation::findOrFail($request->get('conversation'));
-        $messages = $conversation->messages()->get();
-
+        $messages = $conversation->messages()->get()->sortBy(function($message){
+            return $message->pivot->created_at->format('Y m d H:i');
+        });
         return view('partials/chat/history', compact('conversation', 'messages'));
     }
 }

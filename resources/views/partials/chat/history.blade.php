@@ -16,10 +16,10 @@
                     Delete This Conversation?
                 </li>
                 <li>
-                    {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                    {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                         {!! Form::hidden('_method', 'DELETE') !!}
-                        {!! Form::button('Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
-                    {!! Form::close() !!}{{dd('ovde')}}
+                        {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
+                    {!! Form::close() !!}
                 </li>
             </ul>
         </div>
@@ -37,10 +37,14 @@
     </div>
 </div>
 <ul class="messages-list @if($conversation->public) publicMessages @endif" id="messages-list-{{$conversation->id}}">
+{{-- @foreach($messages as $message)
+<p>{{$message->pivot->created_at->format('d m Y')}}</p>
+<p>{{$message->pivot->id}}</p>
+@endforeach --}}
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
         @foreach($messages as $message)
-            <li class="message @if ($authId !== $message->id) reply @endif">
+            <li class="message @if ($authId === $message->id) reply @endif">
                 <div class="message-info">
                     <div class="bullet"></div>
                     <div class="contact-name">{{$message->name}}</div>
@@ -114,6 +118,8 @@
        message = buildMessage(message.content, message.user, message.time);
        $(list).append(message);
        $('#message').val('');
+       $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
+
     }
 
     function buildMessage(content, user, time){

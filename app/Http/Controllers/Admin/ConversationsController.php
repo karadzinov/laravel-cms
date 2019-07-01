@@ -46,7 +46,18 @@ class ConversationsController extends Controller
     }
 
     public function delete(Conversation $conversation){
-        
-        dd('delete');
+        $user = Auth::user();
+        if($conversation->participants->contains($user)){
+            $conversation->participants()->detach($user);
+            $conversation->messages()->save(
+                $user,
+                ['message' => "{$user->name} left the conversation."]
+            );
+            
+            return back()->with('success', 'You Successfully removed this conversation.');
+        }else{
+
+            return response()->json(403);
+        }
     }
 }
