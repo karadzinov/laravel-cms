@@ -11,11 +11,9 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
-Route::get('admin/socket', 'Admin\SocketController@index');
-Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage');
-Route::get('admin/writemessage', 'Admin\SocketController@writemessage');
-Route::get('admin/publicChat', 'Admin\SocketController@publicChat');
-Route::get('admin/privateChat', 'Admin\SocketController@privateChat');
+Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage')->middleware(['participates']);;
+
+Route::get('admin/conversationHistory', 'Admin\ConversationsController@conversationHistory')->middleware(['participates']);
 Route::get('admin/addConversation', 'Admin\ConversationsController@create');
 Route::get('admin/storeConversation', 'Admin\ConversationsController@store');
 

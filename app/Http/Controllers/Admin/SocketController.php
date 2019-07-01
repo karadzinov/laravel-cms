@@ -18,7 +18,7 @@ class SocketController extends Controller
 
     public function sendMessage(ChatMessageSentRequest $request)
     {
-        $id = $request->get('conversationId');
+        $id = $request->get('conversation');
         $user = Auth::user();
         $content = $request->get('message');
         $conversation = Conversation::findOrFail($id);
@@ -43,35 +43,5 @@ class SocketController extends Controller
         $time = Carbon::now()->diffForHumans();
 
         return (object)compact('content', 'user', 'time');
-    }
-
-    public function publicChat(){
-        $conversation = Conversation::where('public', '=', true)->first();
-        $messages = $conversation->messages()->get()->sortBy(function($message){
-            return $message->pivot->created_at;
-        });
-
-        return view('partials/chat/history', compact('conversation', 'messages'));
-    }
-
-    public function privateChat(Request $request){
-        
-        $conversation = Conversation::findOrFail($request->get('conversation'));
-        $messages = $conversation->messages()->orderBy('conversation_user_message.created_at', 'desc')->paginate(10);
-
-        $next = $messages->nextPageUrl();
-
-        $paginatorLinks = $messages->links();
-        $messages = $messages->sortBy(function($message){
-            return $message->pivot->created_at;
-        });
-
-        if($request->get('page')){ //paginator
-            $authId = Auth::user()->id;
-            $view = view('partials/chat/messages-list', compact('messages', 'authId'))->render();
-            return response()->json(compact('view', 'next'));
-        }
-        
-        return view('partials/chat/history', compact('conversation', 'messages', 'next'));
     }
 }

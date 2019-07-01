@@ -30,32 +30,18 @@ $(document).ready(function(){
 
 	// get histories
 	$('#publicChat').on('click', function(){
-		$.ajaxSetup({
-		    headers:
-		    { 'X-CSRF-TOKEN': csrf }
-		});
-		$.ajax({
-		    type: 'GET',
-		    url: '/admin/publicChat',
-		    data: {
-		        
-		        },
-		    success: function(response){
-		        $('#chatbar-messages').val('');
-		        $('#chatbar-messages').html(response);
-		    },
-		    error: function(response){
-		       console.log('Error.')
-		    }
-		});
+		$('#chatbar-messages').html('');
+		let conversation = $(this).data('conversation');
+		let publicChat = true;
+		getConversationHistory(conversation, publicChat);
 	});
 
 	//private chats
 	$('.contact').not('#publicChat').on('click', function(){
 		$('#chatbar-messages').html('');
-		let conversationId = $(this).data('conversation');
+		let conversation = $(this).data('conversation');
 		
-		getConversationHistory(conversationId);
+		getConversationHistory(conversation);
 	});
 
 	function appendNewMessage(e, element){
@@ -109,16 +95,18 @@ $(document).ready(function(){
 		}, 2000);
 	}
 
-	function getConversationHistory(conversationId){
+	function getConversationHistory(conversation, public){
+		public = public || 0;
 		$.ajaxSetup({
 		    headers:
 		    { 'X-CSRF-TOKEN': csrf }
 		});
 		$.ajax({
 		    type: 'GET',
-		    url: '/admin/privateChat',
+		    url: '/admin/conversationHistory',
 		    data: {
-		        conversation: conversationId
+		        conversation: conversation,
+		        public: public
 		    },
 		    success: function(response){
 		        $('#chatbar-messages').val('');

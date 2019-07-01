@@ -11,7 +11,7 @@ class ChatbarComposer
 
     public function __construct()
     {
-        $this->conversations = Auth::user()->conversations()->where('public', '!=', true)->get();
+        $this->conversations = Auth::user()->conversations()->orderBy('public', 'desc')->get();
     }
 
     /**

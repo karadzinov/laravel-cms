@@ -92,7 +92,7 @@
                 url: '/admin/sendmessage',
                 data: {
                     message: message,
-                    conversationId: '{{$conversation->id}}'
+                    conversation: '{{$conversation->id}}'
                 },
                 success: function(response){
                    appendNewMessage(response);
@@ -151,13 +151,13 @@
     });
 
     //scroll to he top and get older messages
-    let paginatorUrl = '{{$next}}';
+    var paginatorUrl = '{{$next}}';
     list = $(".messages-list");
     list.scrollTop(list[0].scrollHeight);
     list.scroll(function(){
         if (list.scrollTop() == 0){
             $.ajax({
-            url:paginatorUrl,
+            url: paginatorUrl,
             data:{
                 conversation: {{$conversation->id}}
             },

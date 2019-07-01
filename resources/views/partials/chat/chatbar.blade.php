@@ -10,23 +10,8 @@
             <i class="fa fa-plus"></i> Add New Conversation
         </button>
         <ul class="contacts-list"  style="overflow: hidden; width: auto; height: 841px;">
-            <li class="contact" id="publicChat" >
-                <div class="contact-avatar">
-                    <img src="{{asset('assets/img/logo-solo.png')}}">
-                </div>
-                <div class="contact-info">
-                    <div class="contact-name">Public Chat</div>
-                    <div class="contact-status">
-                        <div class="online"></div>
-                        <div class="status">online</div>
-                    </div>
-                    <div class="last-chat-time">
-                        last week
-                    </div>
-                </div>
-            </li>
             @foreach($conversations as $conversation)
-                <li class="contact" data-conversation='{{$conversation->id}}'>
+                <li class="contact" data-conversation='{{$conversation->id}}' @if($conversation->public ) id="publicChat" @endif>
                     <div class="contact-avatar">
                         <img src="{{asset('assets/img/avatars/Nicolai-Larson.jpg')}}">
                     </div>
@@ -44,7 +29,7 @@
             @endforeach
         </ul>
     </div>
-    <div class="chatbar-messages" id="chatbar-messages" style="display: none;">
+    <div class="chatbar-messages" id="chatbar-messages">
         {{-- messages-list --}}
 
         <div class="back">

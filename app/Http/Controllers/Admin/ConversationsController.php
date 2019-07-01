@@ -45,6 +45,30 @@ class ConversationsController extends Controller
     	return response()->json($data);
     }
 
+    public function conversationHistory(Request $request){
+        if($request->get('public')){
+            $conversation = Conversation::where('public', '=', true)->first();
+        }else{
+            $conversation = Conversation::findOrFail($request->get('conversation'));
+        }
+        $messages = $conversation->messages()->orderBy('conversation_user_message.created_at', 'desc')->paginate(10);
+
+        $next = $messages->nextPageUrl();
+
+        $paginatorLinks = $messages->links();
+        $messages = $messages->sortBy(function($message){
+            return $message->pivot->created_at;
+        });
+
+        if($request->get('page')){ //paginator
+            $authId = Auth::user()->id;
+            $view = view('partials/chat/messages-list', compact('messages', 'authId'))->render();
+            return response()->json(compact('view', 'next'));
+        }
+
+        return view('partials/chat/history', compact('conversation', 'messages', 'next'));
+    }
+
     public function delete(Conversation $conversation){
         $user = Auth::user();
         if($conversation->participants->contains($user)){

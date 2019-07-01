@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckIfParticipates;
 use App\Http\Middleware\CheckIsUserActivated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -44,6 +45,7 @@ class Kernel extends HttpKernel
         'activated' => [
             CheckIsUserActivated::class,
         ],
+        'participates' => [CheckIfParticipates::class],
     ];
 
     /**
