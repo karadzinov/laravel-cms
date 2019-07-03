@@ -24,6 +24,7 @@ class CheckIfParticipates
                 return $next($request);
             }
         }
+        
         abort(403);
     }
 }

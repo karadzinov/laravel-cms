@@ -12,7 +12,7 @@ class Conversation extends Model
 
     public function messages(){
     	
-    	return $this->belongsToMany(User::class, 'conversation_user_message', 'conversation_id', 'user_id')->withPivot(['message', 'created_at']);
+    	return $this->hasMany(Message::class, 'conversation_id', 'id');
     }
 
     public function participants(){

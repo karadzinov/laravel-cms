@@ -2,6 +2,7 @@ $(document).ready(function(){
 	let csrf = $('meta[name="csrf-token"]').attr('content');
 	let privateConversations = takeConversationsIds();
 	let typingTimer = false;
+	let notificationText = 'new messages';
 
 	// listening for public channel
 	window.Echo.channel('publicChat')
@@ -49,7 +50,18 @@ $(document).ready(function(){
 	    message = buildReply(message.content, message.user, message.time);
 	    
 	    element.append(message);
-        $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
+	    let list = $('.chatbar-messages .messages-list');
+	    if(list.val()){
+        	list.slimscroll({ scrollBy: '400px' });
+	    }
+
+	    showNotification(e.conversationId);       
+	}
+
+	function showNotification(id){
+		let notification = $('#notification-'+id);
+		notification.html('new messages');
+		notification.show();
 	}
 
 	function showWhoIsTyping(e){
@@ -111,6 +123,7 @@ $(document).ready(function(){
 		    success: function(response){
 		        $('#chatbar-messages').val('');
 		        $('#chatbar-messages').html(response);
+       			$('#notification-'+conversation).hide();
 		    },
 		    error: function(response){
 		       console.log('Error.')

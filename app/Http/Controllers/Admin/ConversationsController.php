@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Models\Conversation;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\{Conversation, Message, User};
 
 class ConversationsController extends Controller
 {
@@ -42,6 +42,7 @@ class ConversationsController extends Controller
     		'view' => $view,
     		'conversationId' => $conversation->id
     	];
+
     	return response()->json($data);
     }
 
@@ -51,22 +52,34 @@ class ConversationsController extends Controller
         }else{
             $conversation = Conversation::findOrFail($request->get('conversation'));
         }
-        $messages = $conversation->messages()->orderBy('conversation_user_message.created_at', 'desc')->paginate(10);
+        $messages = $conversation->messages();
+        $messages = $messages->orderBy('messages.created_at', 'desc')->paginate(10);
 
         $next = $messages->nextPageUrl();
 
         $paginatorLinks = $messages->links();
         $messages = $messages->sortBy(function($message){
-            return $message->pivot->created_at;
+            return $message->created_at;
         });
-
         if($request->get('page')){ //paginator
             $authId = Auth::user()->id;
             $view = view('partials/chat/messages-list', compact('messages', 'authId'))->render();
             return response()->json(compact('view', 'next'));
         }
+        
+        $this->messagesSeen($messages->last());
 
         return view('partials/chat/history', compact('conversation', 'messages', 'next'));
+    }
+
+    public function messagesSeen(Message $message){
+        
+        try {
+            $message->users()->attach(Auth::user());
+            return;
+        } catch (Exception $e) {
+            return;
+        }     
     }
 
     public function delete(Conversation $conversation){

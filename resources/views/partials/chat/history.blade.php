@@ -40,14 +40,14 @@
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
         @foreach($messages as $message)
-            <li class="message @if ($authId === $message->id) reply @endif">
+            <li class="message @if ($authId === $message->user_id) reply @endif">
                 <div class="message-info">
                     <div class="bullet"></div>
-                    <div class="contact-name">{{$message->name}}</div>
-                    <div class="message-time">{{$message->pivot->created_at->diffForHumans()}}</div>
+                    <div class="contact-name">{{$message->user->name}}</div>
+                    <div class="message-time">{{$message->created_at->diffForHumans()}}</div>
                 </div>
                 <div class="message-body">
-                    {{$message->pivot->message}}
+                    {{$message->content}}
                 </div>
             </li>
         @endforeach
@@ -99,6 +99,8 @@
                 },
                 error: function(response){
                     console.log('Error.');
+                    let message = response.responseJSON.errors.message[0];
+                    notifyPresence('alert-warning', message);
                 }
             });
         }
@@ -115,6 +117,7 @@
        $(list).append(message);
        $('#message').val('');
        $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
+       $('#notification-'+'{{$conversation->id}}').hide();
 
     }
 
@@ -169,4 +172,14 @@
             });
         }
     });
+
+    function notifyPresence(notificationClass, message){
+        let notification = $('.userPresence');
+        notification.addClass(notificationClass);
+        notification.find('.userPresenceContent').html(message)
+        notification.css('visibility', 'visible');
+        setTimeout(function(){
+            notification.css('visibility', 'hidden');
+        }, 2000);
+    }
 </script>

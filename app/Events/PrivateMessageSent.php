@@ -13,7 +13,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class PrivateMessageSent implements ShouldBroadcast
 {
     public $message;
-    protected $conversationId;
+    public $conversationId;
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

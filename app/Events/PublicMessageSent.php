@@ -14,6 +14,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class PublicMessageSent implements ShouldBroadcast
 {
     public $message;
+    public $conversationId;
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,10 +23,11 @@ class PublicMessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $conversationId)
     {
         $this->dontBroadcastToCurrentUser();
         $this->message = $message;
+        $this->conversationId = $conversationId;
     }
 
     /**

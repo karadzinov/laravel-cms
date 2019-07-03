@@ -17,6 +17,7 @@ class CreateConversationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index(); //creator
             $table->string('name')->nullable();
+            $table->boolean('public')->default(false);
             
             $table->timestamps();
 

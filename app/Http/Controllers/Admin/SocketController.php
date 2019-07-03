@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Carbon\Carbon;
-use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Creativeorange\Gravatar\Gravatar;
+use App\Models\{Conversation, Message};
 use App\Http\Requests\Chat\ChatMessageSentRequest;
 use App\Events\{PrivateMessageSent, PublicMessageSent};
 
@@ -22,15 +22,17 @@ class SocketController extends Controller
         $user = Auth::user();
         $content = $request->get('message');
         $conversation = Conversation::findOrFail($id);
+        
+        $message = new Message();
+        $message->conversation_id = $conversation->id;
+        $message->user_id = $user->id;
+        $message->content = $content;
+        $message->save();
 
-        $message = $conversation->messages()->save(
-                $user,
-                ['message' => $content]
-        );
-        $message = $this->makeMessage($user->name, $content);
+        $message = $this->makeMessage($user->name, $content, $id);
 
         if($conversation->public){
-            broadcast(new PublicMessageSent($message))->toOthers();
+            broadcast(new PublicMessageSent($message, $id))->toOthers();
         }else{
             broadcast(new PrivateMessageSent($message, $id))->toOthers();
         }
@@ -38,7 +40,7 @@ class SocketController extends Controller
 	   return json_encode($message);
     }
 
-    public function makeMessage($user, $content){
+    public function makeMessage($user, $content, $id){
 
         $time = Carbon::now()->diffForHumans();
 

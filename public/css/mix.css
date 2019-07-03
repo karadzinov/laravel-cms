@@ -253,9 +253,9 @@ textarea {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 11;
-    opacity: 0.8 !important;
+    z-index: 111;
 }
+
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;
