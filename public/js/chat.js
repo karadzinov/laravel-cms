@@ -204,7 +204,7 @@ $(document).ready(function(){
 	 }
 
 	 function addAndOpenNewConversation(response){
-    	$('.page-chatbar .chatbar-contacts .contacts-list').append(response.view)
+    	$('.page-chatbar .chatbar-contacts .contacts-list li:first-child').after(response.view)
     	// let contact = '.contact .conversation-' + response.conversationId;
     	// $(contact).trigger('click');//doesn't work
     	$('.page-chatbar .chatbar-messages').html('');

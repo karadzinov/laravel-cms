@@ -39,7 +39,6 @@ class ConversationsController extends Controller
     	}
 
     	if($message){
-    		// $conversation->messages()->attach($user, ['message'=>$message]);
             $newMessage = new Message();
             $newMessage->user_id = $user->id;
             $newMessage->conversation_id = $conversation->id;

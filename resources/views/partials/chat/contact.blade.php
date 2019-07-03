@@ -1,6 +1,6 @@
 <li class="contact conversation-{{$conversation->id}}" data-conversation='{{$conversation->id}}'>
     <div class="contact-avatar">
-        <img src="{{asset('assets/img/avatars/Nicolai-Larson.jpg')}}">
+        <img src="{{$conversation->image}}">
     </div>
     <div class="contact-info">
         <div class="contact-name">{{$conversation->name}}</div>

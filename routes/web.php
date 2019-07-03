@@ -12,12 +12,7 @@
 |
 */
 Route::get('test', function(){
-     $conversations = Auth::user()->conversations()->get();
-        // ->orderBy('public', 'desc')
-        $conversations = $conversations->sortByDesc(function($c){
-            return $c->messages->last()->created_at;
-        });
-        dd($conversations->sortByDesc('public')->pluck('name'));
+     dd('web.php');
 });
 Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage')->middleware(['participates']);;
 
