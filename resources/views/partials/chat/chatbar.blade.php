@@ -13,7 +13,7 @@
             @foreach($conversations as $conversation)
                 <li class="contact" data-conversation='{{$conversation->id}}' @if($conversation->public ) id="publicChat" @endif>
                     <div class="contact-avatar">
-                        <img src="{{asset('assets/img/avatars/Nicolai-Larson.jpg')}}">
+                        <img src="{{-- {{asset('assets/img/avatars/Nicolai-Larson.jpg')}} --}}{{$conversation->image}}">
                     </div>
                     <div class="contact-info">
                         
