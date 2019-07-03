@@ -11,6 +11,14 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
+Route::get('test', function(){
+     $conversations = Auth::user()->conversations()->get();
+        // ->orderBy('public', 'desc')
+        $conversations = $conversations->sortByDesc(function($c){
+            return $c->messages->last()->created_at;
+        });
+        dd($conversations->sortByDesc('public')->pluck('name'));
+});
 Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage')->middleware(['participates']);;
 
 Route::get('admin/conversationHistory', 'Admin\ConversationsController@conversationHistory')->middleware(['participates']);

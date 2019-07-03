@@ -13,11 +13,11 @@
             @foreach($conversations as $conversation)
                 <li class="contact" data-conversation='{{$conversation->id}}' @if($conversation->public ) id="publicChat" @endif>
                     <div class="contact-avatar">
-                        <img src="{{-- {{asset('assets/img/avatars/Nicolai-Larson.jpg')}} --}}{{$conversation->image}}">
+                        <img src="{{$conversation->image}}">
                     </div>
                     <div class="contact-info">
                         
-                            <span id="notification-{{$conversation->id}}" class="badge badge-danger">@if(!$conversation->messages->last()->seen()) new messages @endif</span>
+                            <span id="notification-{{$conversation->id}}" class="badge badge-danger">@if(count($conversation->messages) && !$conversation->messages->last()->seen()) new messages @endif</span>
                     
                         <div class="contact-name">{{$conversation->name}}</div>
                         <div class="contact-status">

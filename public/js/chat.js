@@ -50,9 +50,8 @@ $(document).ready(function(){
 	    message = buildReply(message.content, message.user, message.time);
 	    
 	    element.append(message);
-	    let list = $('.chatbar-messages .messages-list');
-	    if(list.val()){
-        	list.slimscroll({ scrollBy: '400px' });
+	    if($('#chat-link').hasClass('open')){
+        	$('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
 	    }
 
 	    showNotification(e.conversationId);       

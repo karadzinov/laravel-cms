@@ -14,9 +14,11 @@ class CreateConversationUserTable extends Migration
     public function up()
     {
         Schema::create('conversation_user', function (Blueprint $table) {
-           $table->bigIncrements('id');
+           
            $table->bigInteger('conversation_id')->unsigned()->index(); //participant
            $table->bigInteger('user_id')->unsigned()->index();
+
+           $table->primary(['conversation_id',  'user_id']);
 
            $table->timestamps();
 

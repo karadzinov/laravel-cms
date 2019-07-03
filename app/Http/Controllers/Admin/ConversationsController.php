@@ -31,12 +31,22 @@ class ConversationsController extends Controller
     	$conversation->save();
 
     	foreach($participants as $participant){
-    		$conversation->participants()->attach($participant);
+    		try {
+                $conversation->participants()->attach($participant);       
+            } catch (Exception $e) {
+                
+            }
     	}
 
     	if($message){
-    		$conversation->messages()->attach($user, ['message'=>$message]);
+    		// $conversation->messages()->attach($user, ['message'=>$message]);
+            $newMessage = new Message();
+            $newMessage->user_id = $user->id;
+            $newMessage->conversation_id = $conversation->id;
+            $newMessage->content = $message;
+            $newMessage->save(); 
     	}
+
     	$view = view('partials/chat/contact', compact('conversation'))->render();
     	$data = [
     		'view' => $view,
@@ -66,8 +76,9 @@ class ConversationsController extends Controller
             $view = view('partials/chat/messages-list', compact('messages', 'authId'))->render();
             return response()->json(compact('view', 'next'));
         }
-        
-        $this->messagesSeen($messages->last());
+        if($messages->last()){
+            $this->messagesSeen($messages->last());
+        }
 
         return view('partials/chat/history', compact('conversation', 'messages', 'next'));
     }

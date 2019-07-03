@@ -11,7 +11,11 @@ class ChatbarComposer
 
     public function __construct()
     {
-        $this->conversations = Auth::user()->conversations()->orderBy('public', 'desc')->get();
+        $conversations = Auth::user()->conversations()->get();
+        $conversations = $conversations->sortByDesc(function($c){
+            return $c->messages->last()->created_at;
+        });
+        $this->conversations = $conversations->sortByDesc('public');
     }
 
     /**
