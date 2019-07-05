@@ -257,12 +257,10 @@ $(document).ready(function(){
 			for(let j = 0; j<participants.length; j++){
 				let statusClass = $(contact).find('.online-offline')
 				if(users.includes(participants[j])){
-					console.log('ima')
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
 					break;
 				}else{
-					console.log('nema')
 					statusClass.removeClass('online');
 					statusClass.addClass('offline');
 				}
