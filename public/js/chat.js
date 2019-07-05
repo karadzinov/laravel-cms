@@ -3,21 +3,31 @@ $(document).ready(function(){
 	let privateConversations = takeConversationsIds();
 	let typingTimer = false;
 	let notificationText = 'new messages';
-
+	let onlineUsers = [];
 	// public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
 
 	// presence channel
-	window.Echo.join('presentUsers').here(users=>{
-			// console.log('here');
-			// console.log(users);
+	window.Echo.join('presentUsers')
+		.here(users=>{
+			users = users.map(a => a.name);
+			onlineUsers = users;
+			checkWhoIsOnline(onlineUsers);
 		})
 		.joining(user=>{
+			if(!onlineUsers.includes(user.name)){
+				onlineUsers.push(user.name);
+			}
+			checkWhoIsOnline(onlineUsers);
+
 			let message = user.name + 'is now online.';
 			notifyPresence('alert-success', message);
+
 		}).
 		leaving(user=>{
+			onlineUsers.splice(onlineUsers.indexOf(user.name), 1);
+			checkWhoIsOnline(onlineUsers);
 			let message = user.name + 'has left.';
 			notifyPresence('alert-warning', message);
 		});
@@ -32,7 +42,6 @@ $(document).ready(function(){
 	window.Echo.private('newConversationCreated.' + window.User.id)
 		.listen('ConversationCreated', e=>{
 			addAndOpenNewConversation(e.data)
-			$('#chat-link').trigger('click');
 		});
 
 	// get histories
@@ -172,7 +181,7 @@ $(document).ready(function(){
 	                label: "Create",
 	                className: "btn-success",
 	                callback: function () {
-	                	createConversation();
+	                	storeConversation();
 	                }
 	            },
 	            "Cancel": {
@@ -183,7 +192,7 @@ $(document).ready(function(){
 	    });
 	}
 	
-	function createConversation(){
+	function storeConversation(){
 		let name = $('#conversationName').val();
 		let users = $('#selectUsers').val();
 		let newMessage = ($('#newConversationMessage').val());
@@ -236,5 +245,28 @@ $(document).ready(function(){
 		message += '</li>';
 
 		return message;
+	}
+
+	function checkWhoIsOnline(users){
+		let conversationContacts = $('.conversations');
+		conversationContacts.each(function(index, contact){
+			
+			let participants = $(contact).data('participants');
+			participants = Array.from(Object.values(participants));
+
+			for(let j = 0; j<participants.length; j++){
+				let statusClass = $(contact).find('.online-offline')
+				if(users.includes(participants[j])){
+					console.log('ima')
+					statusClass.removeClass('offline')
+					statusClass.addClass('online');
+					break;
+				}else{
+					console.log('nema')
+					statusClass.removeClass('online');
+					statusClass.addClass('offline');
+				}
+			}
+		});
 	}
 });

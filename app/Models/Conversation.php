@@ -22,6 +22,11 @@ class Conversation extends Model
     	return $this->belongsToMany(User::class, 'conversation_user', 'conversation_id', 'user_id');
     }
 
+    public function getInterlocutorsAttribute(){
+        
+        return $this->participants->where('id', '!=', Auth::user()->id);
+    }
+
     public function getImageAttribute(){
         $participants = $this->participants;
 
