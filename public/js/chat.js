@@ -230,6 +230,7 @@ $(document).ready(function(){
 		window.Echo.private('privateMessage.'+response.conversationId)
 			.listen('PrivateMessageSent', e=>appendNewMessage(e, $('#messages-list-'+response.conversationId)))
 			.listenForWhisper('typing', e=>showWhoIsTyping(e));
+		checkWhoIsOnline(onlineUsers);
 	 }
 
 	function buildReply(content, user, time){
@@ -255,16 +256,16 @@ $(document).ready(function(){
 			
 			let participants = $(contact).data('participants');
 			participants = Array.from(Object.values(participants));
-			let participantsNumber = participants.length; 
 			let multiple = 0;
 
-			for(let j = 0; j < participantsNumber; j++){
+			for(let j = 0; j < participants.length; j++){
+				let status = $(contact).find('.status');
 				let statusClass = $(contact).find('.online-offline');
+				
 				if(users.includes(participants[j])){
 					multiple++;
 				}
 
-				let status = $(contact).find('.status');
 				if(multiple === 1){
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
