@@ -52,8 +52,8 @@
     </span>
 </div>
 
-<script src="/assets/js/slimscroll/jquery.slimscroll.js"></script>
-<script>
+<script id="slimscrollScript" src="/assets/js/slimscroll/jquery.slimscroll.js"></script>
+<script id="historyScript">
     $('#message').on('keydown', function(e){
         @if(!$conversation->public)
             window.Echo.private('privateMessage.' + '{{$conversation->id}}')
@@ -67,9 +67,7 @@
             sendMessage(message);
         }
     });
-   $('#message').on('keydown', function(e){
-   });
-
+   
     function sendMessage(message){
         if(message){
             $.ajaxSetup({
@@ -133,6 +131,9 @@
     $('.page-chatbar .chatbar-messages .back').on('click', function (e) {
         $('.page-chatbar .chatbar-contacts').show();
         $('.page-chatbar .chatbar-messages').hide();
+        
+        $('#slimscrollScript').remove();
+        $('#historyScript').remove();
     });
     $('.chatbar-messages .messages-list').slimscroll({
        position: position,
