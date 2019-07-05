@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Events\ConversationCreated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Conversation, Message, User};
@@ -18,6 +19,25 @@ class ConversationsController extends Controller
     	return view('partials/conversations/addNewConversation', compact('users'));
     }
 
+    public function saveConversation($id, $name){
+        $conversation = new Conversation();
+        $conversation->user_id = $id;
+        $conversation->name = $name;
+        $conversation->save();
+        
+        return $conversation;
+    }
+
+    public function saveMessage($user, $conversation, $message){
+        $newMessage = new Message();
+        $newMessage->user_id = $user;
+        $newMessage->conversation_id = $conversation;
+        $newMessage->content = $message;
+        $newMessage->save();
+        
+        return $newMessage;
+    }
+
     public function store(Request $request){
     	$user = Auth::user();
     	$name = $request->get('name');
@@ -25,25 +45,19 @@ class ConversationsController extends Controller
     	$participants[] = $user->id;
     	$message = $request->get('message');
 
-    	$conversation = new Conversation();
-    	$conversation->user_id = $user->id;
-    	$conversation->name = $name;
-    	$conversation->save();
+    	$conversation = $this->saveConversation($user->id, $name);
 
     	foreach($participants as $participant){
     		try {
-                $conversation->participants()->attach($participant);       
+                $conversation->participants()->attach($participant);     
             } catch (Exception $e) {
-                
             }
     	}
 
     	if($message){
-            $newMessage = new Message();
-            $newMessage->user_id = $user->id;
-            $newMessage->conversation_id = $conversation->id;
-            $newMessage->content = $message;
-            $newMessage->save(); 
+            $newMessage = $this->saveMessage(
+                    $user->id, $conversation->id, $message
+                );
     	}
 
     	$view = view('partials/chat/contact', compact('conversation'))->render();
@@ -52,7 +66,18 @@ class ConversationsController extends Controller
     		'conversationId' => $conversation->id
     	];
 
+        $this->notifyOthers($participants, $user, $data);
+
     	return response()->json($data);
+    }
+
+    public function notifyOthers($participants, $user, $data){
+        
+        foreach($participants as $participant){
+            if($participant != $user->id){
+                broadcast(new ConversationCreated($participant, $data));
+            }
+        }
     }
 
     public function conversationHistory(Request $request){
@@ -96,10 +121,12 @@ class ConversationsController extends Controller
         $user = Auth::user();
         if($conversation->participants->contains($user)){
             $conversation->participants()->detach($user);
-            $conversation->messages()->save(
-                $user,
-                ['message' => "{$user->name} left the conversation."]
-            );
+
+            $message = new Message();
+            $message->user_id = $user->id;
+            $message->conversation_id = $conversation->id;
+            $message->content = "{$user->name} left the conversation.";
+            $message->save();
             
             return back()->with('success', 'You Successfully removed this conversation.');
         }else{

@@ -33,3 +33,8 @@ Broadcast::channel('presentUsers', function($user){
 	
 	return ['name' => $user->name];
 });
+
+Broadcast::channel('newConversationCreated.{id}', function($user, $id){
+	
+	return (int) $user->id === (int) $id;
+});

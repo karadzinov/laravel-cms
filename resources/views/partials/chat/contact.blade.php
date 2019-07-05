@@ -3,6 +3,8 @@
         <img src="{{$conversation->image}}">
     </div>
     <div class="contact-info">
+        <span id="notification-{{$conversation->id}}" class="badge badge-danger">@if(count($conversation->messages) && !$conversation->messages->last()->seen()) new messages @endif
+        </span>
         <div class="contact-name">{{$conversation->name}}</div>
         <div class="contact-status">
             <div class="offline"></div>

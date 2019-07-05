@@ -4,7 +4,7 @@ $(document).ready(function(){
 	let typingTimer = false;
 	let notificationText = 'new messages';
 
-	// listening for public channel
+	// public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
 
@@ -22,12 +22,18 @@ $(document).ready(function(){
 			notifyPresence('alert-warning', message);
 		});
 
-	// listening for private channels
+	// private channels
 	for(let i = 0; i<privateConversations.length; i++){
 		window.Echo.private('privateMessage.'+privateConversations[i])
 			.listen('PrivateMessageSent', e=>appendNewMessage(e, $('#messages-list-'+privateConversations[i])))
 			.listenForWhisper('typing', e=>showWhoIsTyping(e));
 	}
+
+	window.Echo.private('newConversationCreated.' + window.User.id)
+		.listen('ConversationCreated', e=>{
+			addAndOpenNewConversation(e.data)
+			$('#chat-link').trigger('click');
+		});
 
 	// get histories
 	$('#publicChat').on('click', function(){
@@ -211,6 +217,9 @@ $(document).ready(function(){
     	getConversationHistory(response.conversationId);
     	$('.page-chatbar .chatbar-contacts').hide();
 		$('.page-chatbar .chatbar-messages').show();
+		window.Echo.private('privateMessage.'+response.conversationId)
+			.listen('PrivateMessageSent', e=>appendNewMessage(e, $('#messages-list-'+response.conversationId)))
+			.listenForWhisper('typing', e=>showWhoIsTyping(e));
 	 }
 
 	function buildReply(content, user, time){

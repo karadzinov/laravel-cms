@@ -39,6 +39,7 @@
     window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
     ]) !!};
+    window.User = {!! json_encode(Auth::user()) !!}
 </script>
 <script src="/assets/js/skins.min.js"></script>
 

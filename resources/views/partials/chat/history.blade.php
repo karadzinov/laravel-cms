@@ -1,7 +1,7 @@
 <input type="hidden" id="currentUser" value="{{Auth::user()->name}}">
 <div class="messages-contact" id="messages-contact">
     <div class="contact-avatar">
-        <img src="{{-- @if ($messages[0]->profile && $messages[0]->profile->avatar_status == 1) {{ $messages[0]->profile->avatarThumbnail }} @else {{ Gravatar::get($messages[0]->email) }} @endif --}}">
+        <img src="{{$conversation->image}}">
     </div>
     <div class="contact-info">
         <div id="contact-name" class="contact-name">{{$conversation->name}}</div>
