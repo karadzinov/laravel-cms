@@ -3,19 +3,6 @@
     <head>
         @include('partials.head')
         @yield('head')
-        <style>
-            .deleteConversation{
-                padding-bottom: 0;
-                margin-bottom: 0;
-            }
-            .deleteConversation .text-white{
-                color: white;
-            }
-/*
-            #paginatorLinks{
-                visibility: hidden;
-            }*/
-        </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">

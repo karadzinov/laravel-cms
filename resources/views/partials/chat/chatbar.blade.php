@@ -11,9 +11,10 @@
         </button>
         <ul class="contacts-list"  style="overflow: hidden; width: auto; height: 841px;">
             @foreach($conversations as $conversation)
-                <li class="contact conversations" data-conversation='{{$conversation->id}}'
-                    @if($conversation->public ) id="publicChat" @endif
-                    data-participants="{{$conversation->interlocutors->pluck('name')}}" id="conversation-{{$conversation->id}}">
+                <li class="contact conversations" 
+                    data-conversation='{{$conversation->id}}'
+                    @if($conversation->public) id="publicChat" @endif
+                    data-participants="{{$conversation->interlocutors->pluck('name')}}">
                     <div class="contact-avatar">
                         <img src="{{$conversation->image}}">
                     </div>
@@ -24,7 +25,7 @@
                         <div class="contact-name">{{$conversation->name}}</div>
                         <div class="contact-status">
                             <div class="online-offline"></div>
-                            <div class="status">left 4 mins ago</div>
+                            <div class="status"></div>
                         </div>
                         <div class="last-chat-time">
                             @if($conversation->messages()->count())

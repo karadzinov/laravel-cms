@@ -248,14 +248,19 @@ textarea {
     padding-left: 15px;
 }
 .userPresence{
-    opacity: 0;
     max-width: 33%;
     position: absolute;
     top: 0;
     right: 0;
     z-index: 111;
 }
-
+.deleteConversation{
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.deleteConversation .text-white{
+    color: white;
+}
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;

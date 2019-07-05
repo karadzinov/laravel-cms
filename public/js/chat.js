@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('.userPresence').hide();
 	let csrf = $('meta[name="csrf-token"]').attr('content');
 	let privateConversations = takeConversationsIds();
 	let typingTimer = false;
@@ -21,14 +22,14 @@ $(document).ready(function(){
 			}
 			checkWhoIsOnline(onlineUsers);
 
-			let message = user.name + 'is now online.';
+			let message = user.name + ' is now online.';
 			notifyPresence('alert-success', message);
 
 		}).
 		leaving(user=>{
 			onlineUsers.splice(onlineUsers.indexOf(user.name), 1);
 			checkWhoIsOnline(onlineUsers);
-			let message = user.name + 'has left.';
+			let message = user.name + ' has left.';
 			notifyPresence('alert-warning', message);
 		});
 
@@ -115,9 +116,9 @@ $(document).ready(function(){
 		let notification = $('.userPresence');
 		notification.addClass(notificationClass);
 		notification.find('.userPresenceContent').html(message)
-		notification.css('visibility', 'visible');
+		notification.toggle();
 		setTimeout(function(){
-			notification.css('visibility', 'hidden');
+			notification.toggle();
 		}, 2000);
 	}
 
@@ -248,21 +249,34 @@ $(document).ready(function(){
 	}
 
 	function checkWhoIsOnline(users){
+		
 		let conversationContacts = $('.conversations');
 		conversationContacts.each(function(index, contact){
 			
 			let participants = $(contact).data('participants');
 			participants = Array.from(Object.values(participants));
+			let participantsNumber = participants.length; 
+			let multiple = 0;
 
-			for(let j = 0; j<participants.length; j++){
-				let statusClass = $(contact).find('.online-offline')
+			for(let j = 0; j < participantsNumber; j++){
+				let statusClass = $(contact).find('.online-offline');
 				if(users.includes(participants[j])){
+					multiple++;
+				}
+
+				let status = $(contact).find('.status');
+				if(multiple === 1){
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
-					break;
+					status.html('online');
+				}else if(multiple>1){
+					statusClass.removeClass('offline')
+					statusClass.addClass('online');
+					status.html(multiple + ' users online');
 				}else{
 					statusClass.removeClass('online');
 					statusClass.addClass('offline');
+					status.html('offline');
 				}
 			}
 		});
