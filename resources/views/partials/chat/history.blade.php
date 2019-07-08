@@ -135,6 +135,7 @@
         $('#slimscrollScript').remove();
         $('#historyScript').remove();
     });
+    
     $('.chatbar-messages .messages-list').slimscroll({
        position: position,
        size: '4px',

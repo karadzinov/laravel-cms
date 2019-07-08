@@ -30,7 +30,7 @@ mix.styles([
 	   	'public/assets/js/bootbox/bootbox.js',
 	   	'public/assets/js/ckeditor/ckeditor.js',
 	   	'public/assets/js/ckconf.js',
-
+         'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
 			], 'public/js/mix.js')
    .styles([
          'public/assets/bootstrap/css/bootstrap.css',

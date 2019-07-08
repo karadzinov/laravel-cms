@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Events\ConversationCreated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -133,5 +134,27 @@ class ConversationsController extends Controller
 
             return response()->json(403);
         }
+    }
+
+    public function search(Request $request){
+        $searchTerm = '%'.$request->get('search').'%';
+        
+        $userConversationsIds = DB::table('conversation_user')
+                                ->where('user_id', '=', Auth::user()->id)
+                                ->pluck('conversation_id')
+                                ->toArray();
+
+        $conversations = Conversation::whereIn('id', $userConversationsIds)
+                            ->where('name', 'LIKE', $searchTerm)
+                            ->pluck('name', 'id');
+
+        // dd($conversations);
+        if($conversations->isNotEmpty()){
+            
+            return $conversations;
+        }
+
+        return response()->json(['status'=>404, 'message'=>'There is no results.']);
+        
     }
 }

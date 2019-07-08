@@ -5,6 +5,7 @@ $(document).ready(function(){
 	let typingTimer = false;
 	let notificationText = 'new messages';
 	let onlineUsers = [];
+
 	// public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
@@ -136,7 +137,7 @@ $(document).ready(function(){
 		        public: public
 		    },
 		    success: function(response){
-		        $('#chatbar-messages').val('');
+		        $('#chatbar-messages').html('');
 		        $('#chatbar-messages').html(response);
        			$('#notification-'+conversation).hide();
 		    },
@@ -261,7 +262,7 @@ $(document).ready(function(){
 			for(let j = 0; j < participants.length; j++){
 				let status = $(contact).find('.status');
 				let statusClass = $(contact).find('.online-offline');
-				
+
 				if(users.includes(participants[j])){
 					multiple++;
 				}
@@ -282,4 +283,63 @@ $(document).ready(function(){
 			}
 		});
 	}
+
+	$('#search_conversations').keyup($.debounce(700, function (e) {
+		
+		let search = $('#search_conversations').val();
+		let responseDiv = $('#searchConversationsResults');
+
+        if(search!=''){
+	        searchConversationInDatabase(search, responseDiv);
+        }else{
+            responseDiv.html('');
+            responseDiv.removeClass('relativeDiv');
+        }
+    }));
+	function searchConversationInDatabase(search, responseDiv){
+    	responseDiv.html('');
+        $.ajax({
+            type: 'GET',
+            url: 'admin/search-conversations-ajax',
+            data: {
+                search: search
+                },
+            success: function(response){
+	        	if(response.status === 404){
+	        		responseDiv.html(response.message);
+            		responseDiv.addClass('relativeDiv');
+
+	        	}else{
+	        		buildSearchResults(response, responseDiv)
+	        	}
+            },
+            error: function(response){
+                console.log('Something went wrong.');
+            }
+       });
+    }
+
+    function buildSearchResults(response, responseDiv){
+    	let html = '<ul class="searchConversationsResults">';
+
+    	Object.keys(response).forEach(function(id){
+    		html += '<li class="searchList" data-id=' + id + '>';
+    		html += response[id] + '</li>';
+    	});
+    	html += '</ul>';
+
+    	responseDiv.html(html);
+    	responseDiv.addClass('relativeDiv');
+    }
+
+    $('#searchConversationsResults').on('click', '.searchList', function(){
+    	let conversation = $(this).data('id');
+    	let responseDiv = $('#searchConversationsResults');
+    	responseDiv.html('');
+    	responseDiv.removeClass('relativeDiv');
+    	$('#chatbar-messages').html('');
+    	getConversationHistory(conversation);
+    	$('.page-chatbar .chatbar-contacts').hide();
+        $('.page-chatbar .chatbar-messages').show();
+    });
 });

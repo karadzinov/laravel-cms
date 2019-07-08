@@ -2,9 +2,12 @@
 <div id="chatbar" class="page-chatbar">
     <div class="chatbar-contacts" style="display: block;">
         <div class="contacts-search">
-            <input type="text" class="searchinput" placeholder="Search Contacts">
+            <input id="search_conversations" type="text" class="searchinput" placeholder="Search Contacts">
             <i class="searchicon fa fa-search"></i>
-            <div class="searchhelper">Search Your Contacts and Chat History</div>
+            <div id="searchConversationsResults"></div>
+            {{-- <div class="searchhelper">
+                Search Your Contacts and Chat History
+            </div> --}}
         </div>
         <button class="btn btn-success btn-block" id="addConversationButton">
             <i class="fa fa-plus"></i> Add New Conversation

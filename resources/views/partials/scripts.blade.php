@@ -6,5 +6,6 @@
 @endif
  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="{{asset('assets/js/select2/select2.js')}}"></script>
-
+         
+<script src="{{asset('/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js')}}"></script>
 <script src="/js/chat.js"></script>
