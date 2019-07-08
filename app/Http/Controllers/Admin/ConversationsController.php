@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Events\ConversationCreated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -139,19 +138,30 @@ class ConversationsController extends Controller
     public function search(Request $request){
         $searchTerm = '%'.$request->get('search').'%';
         
-        $userConversationsIds = DB::table('conversation_user')
-                                ->where('user_id', '=', Auth::user()->id)
-                                ->pluck('conversation_id')
-                                ->toArray();
+        $userConversationsIds = Auth::user()->conversations()->pluck('conversation_id')->toArray();
 
         $conversations = Conversation::whereIn('id', $userConversationsIds)
                             ->where('name', 'LIKE', $searchTerm)
-                            ->pluck('name', 'id');
+                            ->select('name', 'id')->get();
 
-        // dd($conversations);
+        $messages = Message::whereIn('conversation_id', $userConversationsIds)
+                        ->where('content', 'LIKE', $searchTerm)
+                        ->get();
+        if($messages->isNotEmpty()){
+            foreach($messages as $message){
+
+                $conversation = $message->conversation()
+                                ->first(['name', 'id']);
+                $conversation->messageContent = $message->content;
+
+                $conversations->push($conversation);
+            }
+        }
+
+        // $conversations = $conversations->unique('id');
         if($conversations->isNotEmpty()){
             
-            return $conversations;
+            return $conversations->unique('id');
         }
 
         return response()->json(['status'=>404, 'message'=>'There is no results.']);

@@ -289,13 +289,14 @@ $(document).ready(function(){
 		let search = $('#search_conversations').val();
 		let responseDiv = $('#searchConversationsResults');
 
-        if(search!=''){
+        if(search!='' && search.length>4){
 	        searchConversationInDatabase(search, responseDiv);
         }else{
             responseDiv.html('');
             responseDiv.removeClass('relativeDiv');
         }
     }));
+
 	function searchConversationInDatabase(search, responseDiv){
     	responseDiv.html('');
         $.ajax({
@@ -321,10 +322,19 @@ $(document).ready(function(){
 
     function buildSearchResults(response, responseDiv){
     	let html = '<ul class="searchConversationsResults">';
+			
+// let conversations = Array.from(Object.values(response));
 
-    	Object.keys(response).forEach(function(id){
-    		html += '<li class="searchList" data-id=' + id + '>';
-    		html += response[id] + '</li>';
+
+    	Object.keys(response).forEach(function(key){
+    		let conversation = response[key];
+    		html += '<li class="searchList" data-id=' + conversation.id + '>';
+    		html += conversation.name;
+    		if(conversation.messageContent){
+    			html += '<p class="searchMessageContent"> - ';
+    			html += conversation.messageContent + '</p>';
+    		}
+    		html += '</li>';
     	});
     	html += '</ul>';
 

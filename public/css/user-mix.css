@@ -20685,3 +20685,23 @@ textarea {
 .deleteConversation .text-white{
     color: white;
 }
+
+#searchConversationsResults{
+    z-index: 124;
+    padding: 10px;
+    background: white;
+    -webkit-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    top:40px;
+    cursor: pointer;
+}
+.relativeDiv{
+    position: relative;
+}
+
+.searchMessageContent{
+    font-size: 11px;
+    margin-left: 2px;
+    padding-top: 0;
+    margin-top: 0;
+}
