@@ -42,6 +42,7 @@ class ConversationsController extends Controller
     	$user = Auth::user();
     	$name = $request->get('name');
     	$participants = $request->get('participants');
+        !$name ? $name = $this->makeConversationName($participants) : '';
     	$participants[] = $user->id;
     	$message = $request->get('message');
 
@@ -69,6 +70,19 @@ class ConversationsController extends Controller
         $this->notifyOthers($participants, $user, $data);
 
     	return response()->json($data);
+    }
+
+    public function makeConversationName($participants){
+        
+        $participants = User::whereIn('id', $participants)->pluck('name')->toArray();
+        
+        if(count($participants)===1){
+            return $participants[0];
+        }
+
+        $name = implode(', ', $participants);
+
+        return substr($name,0,255);
     }
 
     public function notifyOthers($participants, $user, $data){
@@ -138,7 +152,8 @@ class ConversationsController extends Controller
     public function search(Request $request){
         $searchTerm = '%'.$request->get('search').'%';
         
-        $userConversationsIds = Auth::user()->conversations()->pluck('conversation_id')->toArray();
+        $userConversationsIds = Auth::user()->conversations()
+                                ->pluck('conversation_id')->toArray();
 
         $conversations = Conversation::whereIn('id', $userConversationsIds)
                             ->where('name', 'LIKE', $searchTerm)
@@ -149,22 +164,34 @@ class ConversationsController extends Controller
                         ->get();
         if($messages->isNotEmpty()){
             foreach($messages as $message){
-
-                $conversation = $message->conversation()
-                                ->first(['name', 'id']);
+                $conversation = $message->conversation()->first(['name', 'id']);
                 $conversation->messageContent = $message->content;
 
                 $conversations->push($conversation);
             }
         }
 
-        // $conversations = $conversations->unique('id');
         if($conversations->isNotEmpty()){
             
             return $conversations->unique('id');
         }
 
-        return response()->json(['status'=>404, 'message'=>'There is no results.']);
+        return response()->
+                json(['status'=>404, 'message'=>'There is no results.']);
         
+    }
+
+    public function participants(Request $request){
+        $conversation = Conversation::with('participants.profile')->findOrFail($request->get('conversation'));
+        $participants = [];
+        foreach($conversation->participants as $participant){
+
+            $name = $participant->name;
+            $image = $participant->image;
+            $level = $participant->level() . ' level';
+            $participants[] = (object) compact('name', 'image', 'level');
+        }
+
+        return $participants;
     }
 }

@@ -5,9 +5,6 @@
             <input id="search_conversations" type="text" class="searchinput" placeholder="Search Contacts">
             <i class="searchicon fa fa-search"></i>
             <div id="searchConversationsResults"></div>
-            {{-- <div class="searchhelper">
-                Search Your Contacts and Chat History
-            </div> --}}
         </div>
         <button class="btn btn-success btn-block" id="addConversationButton">
             <i class="fa fa-plus"></i> Add New Conversation

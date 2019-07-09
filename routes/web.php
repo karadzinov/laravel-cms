@@ -20,6 +20,7 @@ Route::get('admin/conversationHistory', 'Admin\ConversationsController@conversat
 Route::get('admin/addConversation', 'Admin\ConversationsController@create');
 Route::get('admin/storeConversation', 'Admin\ConversationsController@store');
 Route::get('admin/search-conversations-ajax', 'Admin\ConversationsController@search');
+Route::get('admin/seeParticipants', 'Admin\ConversationsController@participants')/*->middleware(['participates'])*/;
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');

@@ -12,6 +12,17 @@
             <!--Tasks Dropdown-->
             <ul class="pull-left dropdown-menu dropdown-tasks dropdown-arrow deleteConversation">
                 <li class="dropdown-header bordered-darkorange">
+                    <i class="fa fa-gear"></i>
+                    Options
+                </li>
+                <li class="seeParticipants">
+                    <button class="btn btn-success btn-block">
+                        <i class="fa fa-users"></i>
+                         See Participants
+                    </button>
+                </li>
+                <br>
+                <li class="dropdown-header bordered-darkorange">
                     <i class="fa fa-warning"></i>
                     Delete This Conversation?
                 </li>
@@ -173,4 +184,50 @@
             notification.css('visibility', 'hidden');
         }, 2000);
     }
+
+    $('.seeParticipants').on('click', function(){
+        $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+        $.ajax({
+            type: 'GET',
+            url: 'admin/seeParticipants',
+            data: {
+                conversation: '{{$conversation->id}}'
+            },
+            success: function(response){
+               showParticipantsModal(response);
+            },
+            error: function(response){
+                console.log('Error.');
+            }
+        });
+
+        function showParticipantsModal(response){
+            let message = buildMessageList(response);
+            bootbox.alert({
+                title: "{{$conversation->name}} participants",
+                message: message,
+            })
+        }
+
+        function buildMessageList(response){
+            html = '';
+            Object.keys(response).forEach(function(key){
+                html += `<div class="databox databox-graded">
+                            <div class="databox-left no-padding">
+                                <img src="${response[key].image}" style="width:65px; height:65px;">
+                            </div>
+                            <div class="databox-right padding-top-20">
+                                <div class="databox-text darkgray">${response[key].name}</div>
+                                <div class="databox-text darkgray">${response[key].level}</div>
+                            </div>
+                        </div>`;
+
+            });
+
+            return html;
+        }
+    })
 </script>
