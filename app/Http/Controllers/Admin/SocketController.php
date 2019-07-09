@@ -16,34 +16,7 @@ use App\Events\{PrivateMessageSent, PublicMessageSent};
 class SocketController extends Controller
 {
 
-    public function sendMessage(ChatMessageSentRequest $request)
-    {
-        $id = $request->get('conversation');
-        $user = Auth::user();
-        $content = $request->get('message');
-        $conversation = Conversation::findOrFail($id);
-        
-        $message = new Message();
-        $message->conversation_id = $conversation->id;
-        $message->user_id = $user->id;
-        $message->content = $content;
-        $message->save();
+    
 
-        $message = $this->makeMessage($user->name, $content, $id);
-
-        if($conversation->public){
-            broadcast(new PublicMessageSent($message, $id))->toOthers();
-        }else{
-            broadcast(new PrivateMessageSent($message, $id))->toOthers();
-        }
-
-	   return json_encode($message);
-    }
-
-    public function makeMessage($user, $content, $id){
-
-        $time = Carbon::now()->diffForHumans();
-
-        return (object)compact('content', 'user', 'time');
-    }
+   
 }

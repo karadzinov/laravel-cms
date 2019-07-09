@@ -14,11 +14,13 @@
 Route::get('test', function(){
      dd('web.php');
 });
-Route::post('admin/sendmessage', 'Admin\SocketController@sendMessage')->middleware(['participates']);
+Route::post('admin/sendmessage', 'Admin\ConversationsController@sendMessage')->middleware(['participates']);
 
 Route::get('admin/conversationHistory', 'Admin\ConversationsController@conversationHistory')->middleware(['participates']);
 Route::get('admin/addConversation', 'Admin\ConversationsController@create');
 Route::get('admin/storeConversation', 'Admin\ConversationsController@store');
+Route::get('admin/addNewParticipants', 'Admin\ConversationsController@addNewParticipants');
+Route::post('admin/storeNewParticipants', 'Admin\ConversationsController@storeNewParticipants');
 Route::get('admin/search-conversations-ajax', 'Admin\ConversationsController@search');
 Route::get('admin/seeParticipants', 'Admin\ConversationsController@participants')/*->middleware(['participates'])*/;
 

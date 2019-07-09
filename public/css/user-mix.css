@@ -20737,3 +20737,10 @@ textarea {
 #loader-1:after{
   border: 10px solid #ccc;
 }
+
+.conversationOptions{
+    padding-bottom: 0;
+}
+.conversationOptions .btn{
+    border-radius: 0;
+}

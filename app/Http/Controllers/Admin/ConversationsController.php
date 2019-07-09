@@ -3,14 +3,49 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\PublicMessageSent;
+use App\Events\PrivateMessageSent;
 use App\Events\ConversationCreated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Conversation, Message, User};
+use App\Http\Requests\Chat\ChatMessageSentRequest;
 
 class ConversationsController extends Controller
 {
+    public function sendMessage(ChatMessageSentRequest $request)
+    {
+        $id = $request->get('conversation');
+        $user = Auth::user();
+        $content = $request->get('message');
+        $conversation = Conversation::findOrFail($id);
+        
+        $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
+
+       return json_encode($message);
+    }
+
+    public function makeAndBroadcastMessage(Conversation $conversation, User $user, $content){
+        
+        $message = new Message();
+        $message->conversation_id = $conversation->id;
+        $message->user_id = $user->id;
+        $message->content = $content;
+        $message->save();
+
+        $message = $this->makeMessage($user->name, $content, $conversation->id);
+
+        if($conversation->public){
+            broadcast(new PublicMessageSent($message, $conversation->id))->toOthers();
+        }else{
+            broadcast(new PrivateMessageSent($message, $conversation->id))->toOthers();
+        }
+
+        return $message;
+    }
+
     public function create(){
     	$users = User::with(['roles' => function($role){
     	    $role->where('name', 'admin');
@@ -19,23 +54,17 @@ class ConversationsController extends Controller
     	return view('partials/conversations/addNewConversation', compact('users'));
     }
 
-    public function saveConversation($id, $name){
-        $conversation = new Conversation();
-        $conversation->user_id = $id;
-        $conversation->name = $name;
-        $conversation->save();
+    public function addNewParticipants(Request $request){
+        $conversation = Conversation::findOrFail($request->get('conversation'));
+        $existingParticipants = $conversation->participants
+                                    ->pluck('id')->toArray();
         
-        return $conversation;
-    }
+        $users = User::with(['roles' => function($role){
+            $role->where('name', 'admin');
+            }])->whereNotIn('id', $existingParticipants)->get();
 
-    public function saveMessage($user, $conversation, $message){
-        $newMessage = new Message();
-        $newMessage->user_id = $user;
-        $newMessage->conversation_id = $conversation;
-        $newMessage->content = $message;
-        $newMessage->save();
+        return view('partials/chat/addParticipants', compact('users'));
         
-        return $newMessage;
     }
 
     public function store(Request $request){
@@ -56,9 +85,7 @@ class ConversationsController extends Controller
     	}
 
     	if($message){
-            $newMessage = $this->saveMessage(
-                    $user->id, $conversation->id, $message
-                );
+            $newMessage = $this->saveMessage($user->id, $conversation->id, $message);
     	}
 
     	$view = view('partials/chat/contact', compact('conversation'))->render();
@@ -72,17 +99,43 @@ class ConversationsController extends Controller
     	return response()->json($data);
     }
 
-    public function makeConversationName($participants){
+    public function storeNewParticipants(Request $request){
         
-        $participants = User::whereIn('id', $participants)->pluck('name')->toArray();
-        
-        if(count($participants)===1){
-            return $participants[0];
+        $user = Auth::user();
+        $conversation = Conversation::findOrFail($request->get('conversation'));
+
+        $newParticipants = $request->get('participants');
+
+        foreach($newParticipants as $participant){
+
+            try {
+                $conversation->participants()->attach($participant);
+
+                $participant = User::findOrFail($participant);
+                $content = 'I just added ' . $participant->name . ' to the conversation. Welcome, ' . $participant->name . '!';
+                $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
+                
+            } catch (Exception $e) {
+            }
         }
 
-        $name = implode(', ', $participants);
+        $view = view('partials/chat/contact', compact('conversation'))->render();
+        $data = [
+            'view' => $view,
+            'conversationId' => $conversation->id
+        ];
 
-        return substr($name,0,255);
+        $this->notifyOthers($newParticipants, $user, $data);
+
+       return json_encode($message);
+
+    }
+
+    public function makeMessage($user, $content, $id){
+
+        $time = Carbon::now()->diffForHumans();
+
+        return (object)compact('content', 'user', 'time');
     }
 
     public function notifyOthers($participants, $user, $data){
@@ -193,5 +246,38 @@ class ConversationsController extends Controller
         }
 
         return $participants;
+    }
+
+
+    public function makeConversationName($participants){
+        
+        $participants = User::whereIn('id', $participants)
+                            ->pluck('name')->toArray();
+        
+        if(count($participants)===1){
+            return $participants[0];
+        }
+
+        $name = implode(', ', $participants);
+
+        return substr($name,0,255);
+    }
+    public function saveConversation($id, $name){
+        $conversation = new Conversation();
+        $conversation->user_id = $id;
+        $conversation->name = $name;
+        $conversation->save();
+        
+        return $conversation;
+    }
+
+    public function saveMessage($user, $conversation, $message){
+        $newMessage = new Message();
+        $newMessage->user_id = $user;
+        $newMessage->conversation_id = $conversation;
+        $newMessage->content = $message;
+        $newMessage->save();
+        
+        return $newMessage;
     }
 }

@@ -10,17 +10,33 @@
                 <i class="icon fa fa-gear"></i>
             </a>
             <!--Tasks Dropdown-->
-            <ul class="pull-left dropdown-menu dropdown-tasks dropdown-arrow deleteConversation">
+            <ul class="pull-left dropdown-menu dropdown-tasks dropdown-arrow conversationOptions">
                 <li class="dropdown-header bordered-darkorange">
                     <i class="fa fa-gear"></i>
                     Options
                 </li>
+                @if(!$conversation->public)
+                    <li id="addNewParticipant">
+                        <button class="btn btn-success btn-block">
+                            <i class="fa fa-user-plus"></i>
+                            Add New Participant
+                        </button>
+                    </li>
+                @endif
                 <li class="seeParticipants">
-                    <button class="btn btn-success btn-block">
-                        <i class="fa fa-users"></i>
-                         See Participants
+                    <button class="btn btn-info btn-block">
+                        <i class="fa fa-users"></i> 
+                        See Participants
                     </button>
                 </li>
+                @if($conversation->user_id === Auth::user()->id)
+                    <li>
+                        <button class="btn btn-warning btn-block">
+                            <i class="fa fa-user-times"></i> 
+                            Remove Participant
+                        </button>
+                    </li>
+                @endif
                 <br>
                 <li class="dropdown-header bordered-darkorange">
                     <i class="fa fa-warning"></i>
@@ -40,7 +56,7 @@
         </div>
        
         <div class="last-chat-time">
-            a moment ago
+            {{-- a moment ago --}}
         </div>
         <div class="back">
             <i class="fa fa-arrow-circle-left"></i>
@@ -204,30 +220,85 @@
             }
         });
 
-        function showParticipantsModal(response){
-            let message = buildMessageList(response);
-            bootbox.alert({
-                title: "{{$conversation->name}} participants",
-                message: message,
-            })
-        }
+    });
+    
+    function showParticipantsModal(response){
+        let message = makeParticipantsList(response);
+        bootbox.alert({
+            title: "{{$conversation->name}} participants",
+            message: message,
+        })
+    }
 
-        function buildMessageList(response){
-            html = '';
-            Object.keys(response).forEach(function(key){
-                html += `<div class="databox databox-graded">
-                            <div class="databox-left no-padding">
-                                <img src="${response[key].image}" style="width:65px; height:65px;">
-                            </div>
-                            <div class="databox-right padding-top-20">
-                                <div class="databox-text darkgray">${response[key].name}</div>
-                                <div class="databox-text darkgray">${response[key].level}</div>
-                            </div>
-                        </div>`;
+    function makeParticipantsList(response){
+        html = '';
+        Object.keys(response).forEach(function(key){
+            html += `<div class="databox databox-graded">
+                        <div class="databox-left no-padding">
+                            <img src="${response[key].image}" style="width:65px; height:65px;">
+                        </div>
+                        <div class="databox-right padding-top-20">
+                            <div class="databox-text darkgray">${response[key].name}</div>
+                            <div class="databox-text darkgray">${response[key].level}</div>
+                        </div>
+                    </div>`;
 
-            });
+        });
 
-            return html;
-        }
+        return html;
+    }
+
+    $('#addNewParticipant').on('click', function(){
+        $.ajax({
+          url: '/admin/addNewParticipants',
+          data: {conversation: '{{$conversation->id}}'},
+          success: function(response){
+            callAddParticipantModal(response);
+          },
+        });
     })
+
+    function callAddParticipantModal(body){
+        bootbox.dialog({
+            message: body,
+            title: "Add New Participant",
+            className: "modal-darkorange",
+            buttons: {
+                success: {
+                    label: "Create",
+                    className: "btn-success",
+                    callback: function () {
+                        storeNewParticipants();
+                    }
+                },
+                "Cancel": {
+                    className: "btn-danger",
+                    callback: function () { }
+                }
+            }
+        });
+    }
+
+    function storeNewParticipants(){
+        let newParticipants = $('#addNewParticipants').val();
+
+        $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+        $.ajax({
+            type: 'POST',
+            url: 'admin/storeNewParticipants',
+            data: {
+                conversation: '{{$conversation->id}}',
+                participants: newParticipants
+            },
+            success: function(response){
+                appendNewMessage(response);
+            },
+            error: function(response){
+                console.log('Error.');
+            }
+        });
+    }
 </script>

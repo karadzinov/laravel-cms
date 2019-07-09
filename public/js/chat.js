@@ -62,6 +62,7 @@ $(document).ready(function(){
 		getConversationHistory(conversation);
 	});
 
+
 	function appendNewMessage(e, element){
 		let message = e.message;
 	    message = buildReply(message.content, message.user, message.time);

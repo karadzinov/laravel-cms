@@ -25,7 +25,7 @@
 
 <script>
     $("#selectUsers").select2({
-            placeholder: "Select a State",
+        placeholder: "Select Interlocutors",
         allowClear: true
     })
 </script>

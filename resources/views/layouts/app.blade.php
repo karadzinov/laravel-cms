@@ -3,11 +3,6 @@
     <head>
         @include('partials.head')
         @yield('head')
-     <style>
-        .seeParticipants{
-            cursor: pointer;   
-        }
-     </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">
