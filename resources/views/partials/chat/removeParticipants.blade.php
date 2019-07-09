@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label for="addNewParticipants"><h6>Select Participants</h6></label>
-    <select id="addNewParticipants" multiple="multiple" style="width: 100%;" required="">
+    <label for="removeParticipants"><h6>Select Participants</h6></label>
+    <select id="removeParticipants" multiple="multiple" style="width: 100%;" required="">
         @foreach($users as $user)
             <option value="{{$user->id}}">
                 {{$user->name}}
@@ -10,8 +10,8 @@
 </div>
 
 <script>
-    $("#addNewParticipants").select2({
-        placeholder: "Add New Participants",
+    $("#removeParticipants").select2({
+        placeholder: "Remove Participants",
         allowClear: true
     })
 </script>

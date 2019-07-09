@@ -28,13 +28,7 @@ class ConversationsController extends Controller
     }
 
     public function makeAndBroadcastMessage(Conversation $conversation, User $user, $content){
-        
-        $message = new Message();
-        $message->conversation_id = $conversation->id;
-        $message->user_id = $user->id;
-        $message->content = $content;
-        $message->save();
-
+        $newMessage = $this->saveMessage($user->id, $conversation->id, $content);
         $message = $this->makeMessage($user->name, $content, $conversation->id);
 
         if($conversation->public){
@@ -88,13 +82,7 @@ class ConversationsController extends Controller
             $newMessage = $this->saveMessage($user->id, $conversation->id, $message);
     	}
 
-    	$view = view('partials/chat/contact', compact('conversation'))->render();
-    	$data = [
-    		'view' => $view,
-    		'conversationId' => $conversation->id
-    	];
-
-        $this->notifyOthers($participants, $user, $data);
+        $data = $this->notifyNewcomersAndPrepareData($participants, $user, $conversation);
 
     	return response()->json($data);
     }
@@ -103,32 +91,72 @@ class ConversationsController extends Controller
         
         $user = Auth::user();
         $conversation = Conversation::findOrFail($request->get('conversation'));
-
         $newParticipants = $request->get('participants');
+        $names = [];
 
         foreach($newParticipants as $participant){
 
             try {
                 $conversation->participants()->attach($participant);
-
                 $participant = User::findOrFail($participant);
-                $content = 'I just added ' . $participant->name . ' to the conversation. Welcome, ' . $participant->name . '!';
+                $content = 'I just added ' . $participant->name . ' to the conversation.';
                 $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
-                
+                $names[] = $participant->name;
             } catch (Exception $e) {
             }
         }
 
-        $view = view('partials/chat/contact', compact('conversation'))->render();
-        $data = [
-            'view' => $view,
-            'conversationId' => $conversation->id
-        ];
+        $this->notifyNewcomersAndPrepareData($newParticipants, $user, $conversation);
 
-        $this->notifyOthers($newParticipants, $user, $data);
+        $names = $this->prepareNames($names);
+        $content = 'I just removed ' . $names . ' from this conversation.';
+        $message = $this->makeMessage($user->name, $content, $conversation->id);
 
-       return json_encode($message);
+        return json_encode($message);
 
+    }
+
+    public function prepareNames($names){
+        
+        if(count($names) && count($names) === 1){
+            $names = implode('', $names);
+        }else{
+            $names = implode(', ', $names);
+        }
+
+        return $names;
+    }
+
+    public function removeParticipants(Request $request){
+        $conversation = Conversation::findOrFail($request->get('conversation'));
+
+        $users = $conversation->participants->where('id', '!=', Auth::user()->id);
+        
+        return view('partials/chat/removeParticipants', compact('users'));
+    }
+
+    public function deleteParticipants(Request $request){
+        
+        $participants = $request->get('participants');
+        $user = Auth::user();
+        $names = [];
+        $conversation = Conversation::findOrFail($request->get('conversation'));
+        foreach($participants as $participant){
+            try {
+                $conversation->participants()->detach($participant);
+                $participant = User::findOrFail($participant);
+                $content = 'I just removed ' . $participant->name . ' from this conversation.';
+                $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
+                $names[] = $participant->name;
+            } catch (Exception $e) {
+            }
+        }
+
+        $names = $this->prepareNames($names);
+        $content = 'I just removed ' . $names . ' from this conversation.';
+        $message = $this->makeMessage($user->name, $content, $conversation->id);
+
+        return json_encode($message);
     }
 
     public function makeMessage($user, $content, $id){
@@ -138,13 +166,21 @@ class ConversationsController extends Controller
         return (object)compact('content', 'user', 'time');
     }
 
-    public function notifyOthers($participants, $user, $data){
+    public function notifyNewcomersAndPrepareData($participants, $user, $conversation){
         
+        $view = view('partials/chat/contact', compact('conversation'))->render();
+        $data = [
+            'view' => $view,
+            'conversationId' => $conversation->id
+        ];
+
         foreach($participants as $participant){
             if($participant != $user->id){
                 broadcast(new ConversationCreated($participant, $data));
             }
         }
+
+        return $data;
     }
 
     public function conversationHistory(Request $request){
@@ -235,7 +271,9 @@ class ConversationsController extends Controller
     }
 
     public function participants(Request $request){
-        $conversation = Conversation::with('participants.profile')->findOrFail($request->get('conversation'));
+        $id = $request->get('conversation');
+
+        $conversation = Conversation::with('participants.profile')->findOrFail($id);
         $participants = [];
         foreach($conversation->participants as $participant){
 

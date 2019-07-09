@@ -29,8 +29,8 @@
                         See Participants
                     </button>
                 </li>
-                @if($conversation->user_id === Auth::user()->id)
-                    <li>
+                @if($conversation->user_id === Auth::user()->id && !$conversation->public)
+                    <li id="removeFromConversation">
                         <button class="btn btn-warning btn-block">
                             <i class="fa fa-user-times"></i> 
                             Remove Participant
@@ -38,16 +38,18 @@
                     </li>
                 @endif
                 <br>
-                <li class="dropdown-header bordered-darkorange">
-                    <i class="fa fa-warning"></i>
-                    Delete This Conversation?
-                </li>
-                <li>
-                    {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
-                        {!! Form::hidden('_method', 'DELETE') !!}
-                        {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
-                    {!! Form::close() !!}
-                </li>
+                @if(!$conversation->public)
+                    <li class="dropdown-header bordered-darkorange">
+                        <i class="fa fa-warning"></i>
+                        Delete This Conversation?
+                    </li>
+                    <li>
+                        {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                            {!! Form::hidden('_method', 'DELETE') !!}
+                            {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
+                        {!! Form::close() !!}
+                    </li>
+                @endif
             </ul>
         </div>
         <div class="contact-status">
@@ -103,7 +105,7 @@
                 });
             $.ajax({
                 type: 'POST',
-                url: '/admin/sendmessage',
+                url: '{{route("admin.conversations.sendMessage")}}',
                 data: {
                     message: message,
                     conversation: '{{$conversation->id}}'
@@ -208,7 +210,7 @@
             });
         $.ajax({
             type: 'GET',
-            url: 'admin/seeParticipants',
+            url: '{{route("admin.conversations.seeParticipants")}}',
             data: {
                 conversation: '{{$conversation->id}}'
             },
@@ -250,7 +252,7 @@
 
     $('#addNewParticipant').on('click', function(){
         $.ajax({
-          url: '/admin/addNewParticipants',
+          url: '{{route("admin.conversations.addNewParticipants")}}',
           data: {conversation: '{{$conversation->id}}'},
           success: function(response){
             callAddParticipantModal(response);
@@ -258,10 +260,20 @@
         });
     })
 
+    $('#removeFromConversation').on('click', function(){
+        $.ajax({
+          url: '{{route("admin.conversations.removeParticipants")}}',
+          data: {conversation: '{{$conversation->id}}'},
+          success: function(response){
+            callRemoveParticipantModal(response);
+          },
+        });
+    })
+
     function callAddParticipantModal(body){
         bootbox.dialog({
             message: body,
-            title: "Add New Participant",
+            title: "Add New Participants",
             className: "modal-darkorange",
             buttons: {
                 success: {
@@ -269,6 +281,27 @@
                     className: "btn-success",
                     callback: function () {
                         storeNewParticipants();
+                    }
+                },
+                "Cancel": {
+                    className: "btn-danger",
+                    callback: function () { }
+                }
+            }
+        });
+    }
+
+    function callRemoveParticipantModal(body){
+        bootbox.dialog({
+            message: body,
+            title: "Remove Participants",
+            className: "modal-darkorange",
+            buttons: {
+                success: {
+                    label: "Remove",
+                    className: "btn-warning",
+                    callback: function () {
+                        removeParticipants();
                     }
                 },
                 "Cancel": {
@@ -288,10 +321,33 @@
             });
         $.ajax({
             type: 'POST',
-            url: 'admin/storeNewParticipants',
+            url: '{{route('admin.conversations.storeNewParticipants')}}',
             data: {
                 conversation: '{{$conversation->id}}',
                 participants: newParticipants
+            },
+            success: function(response){
+                appendNewMessage(response);
+            },
+            error: function(response){
+                console.log('Error.');
+            }
+        });
+    }
+
+    function removeParticipants(){
+        let participants = $('#removeParticipants').val();
+
+        $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+        $.ajax({
+            type: 'POST',
+            url: '{{route("admin.conversations.deleteParticipants")}}',
+            data: {
+                conversation: '{{$conversation->id}}',
+                participants: participants
             },
             success: function(response){
                 appendNewMessage(response);

@@ -100,7 +100,7 @@ $(document).ready(function(){
 		    });
 		    $.ajax({
 		        type: 'POST',
-		        url: '/admin/sendmessage',
+		        url: '/admin/conversations/sendmessage',
 		        data: {
 		        	message: message
 				},
@@ -134,7 +134,7 @@ $(document).ready(function(){
 		});
 		$.ajax({
 		    type: 'GET',
-		    url: '/admin/conversationHistory',
+		    url: '/admin/conversations/conversationHistory',
 		    data: {
 		        conversation: conversation,
 		        public: public
@@ -166,7 +166,7 @@ $(document).ready(function(){
 		});
 		$.ajax({
 		    type: 'GET',
-		    url: '/admin/addConversation',
+		    url: '/admin/conversations/addConversation',
 		    success: function(response){
 		       	callNewConversationModal(response);
 		    },
@@ -208,7 +208,7 @@ $(document).ready(function(){
 	 	});
 	 	$.ajax({
 	 	    type: 'GET',
-	 	    url: '/admin/storeConversation',
+	 	    url: '/admin/conversations/storeConversation',
 	 	    data: {
 	 	    	name: name,
 	 	    	participants: users,
@@ -304,7 +304,7 @@ $(document).ready(function(){
     	responseDiv.html('');
         $.ajax({
             type: 'GET',
-            url: 'admin/search-conversations-ajax',
+            url: 'admin/conversations/search-conversations-ajax',
             data: {
                 search: search
                 },
