@@ -124,6 +124,8 @@ $(document).ready(function(){
 	}
 
 	function getConversationHistory(conversation, public){
+		let chatbarMessages = $('#chatbar-messages');
+		chatbarMessages.html('<div class="loader" id="loader-1"></div>');
 		public = public || 0;
 		$.ajaxSetup({
 		    headers:
@@ -137,8 +139,8 @@ $(document).ready(function(){
 		        public: public
 		    },
 		    success: function(response){
-		        $('#chatbar-messages').html('');
-		        $('#chatbar-messages').html(response);
+		        chatbarMessages.html('');
+		        chatbarMessages.html(response);
        			$('#notification-'+conversation).hide();
 		    },
 		    error: function(response){

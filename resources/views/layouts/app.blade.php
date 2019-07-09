@@ -3,7 +3,6 @@
     <head>
         @include('partials.head')
         @yield('head')
-
      <style>
         .seeParticipants{
             cursor: pointer;   
