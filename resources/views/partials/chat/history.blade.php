@@ -73,7 +73,7 @@
         <li class="message">Start conversation!</li>
     @endif
 </ul>
-<span id="typing"></span>
+<span class="typing" id="typing-{{$conversation->id}}"></span>
 <div class="send-message">
     <span class="input-icon icon-right">
         <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message"></textarea>
@@ -87,7 +87,8 @@
         @if(!$conversation->public)
             window.Echo.private('privateMessage.' + '{{$conversation->id}}')
             .whisper('typing', {
-                content: $('#currentUser').val() + 'is typing...'
+                content: $('#currentUser').val() + 'is typing...',
+                conversation: '{{$conversation->id}}'
             });
         @endif
         

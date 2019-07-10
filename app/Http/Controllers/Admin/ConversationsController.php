@@ -163,7 +163,7 @@ class ConversationsController extends Controller
 
         $time = Carbon::now()->diffForHumans();
 
-        return (object)compact('content', 'user', 'time');
+        return (object)compact('content', 'user', 'time', 'id');
     }
 
     public function notifyNewcomersAndPrepareData($participants, $user, $conversation){

@@ -68,10 +68,15 @@ $(document).ready(function(){
 	    message = buildReply(message.content, message.user, message.time);
 	    
 	    element.append(message);
-	    if($('#chat-link').hasClass('open')){
+	    let open = openChatbarIfNecessery();
+	    if(open){
+	    	getConversationHistory(e.conversationId);
+	    	$('.page-chatbar .chatbar-contacts').hide();
+			$('.page-chatbar .chatbar-messages').show();
+	    }
+	    if($('#messages-list-' + e.conversationId).length){
         	$('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
 	    }
-
 	    showNotification(e.conversationId);       
 	}
 
@@ -82,13 +87,14 @@ $(document).ready(function(){
 	}
 
 	function showWhoIsTyping(e){
-		$('#typing').html(e.content);
+		let typingSpan= $('#typing-' + e.conversation);
+		typingSpan.html(e.content);
 
 		if(typingTimer){
 			clearTimeout(typingTimer);
 		}
 		typingTimer = setTimeout( () => {
-		  $('#typing').html('');
+		  typingSpan.html('');
 		}, 1000);
 	}
 
@@ -231,10 +237,23 @@ $(document).ready(function(){
     	getConversationHistory(response.conversationId);
     	$('.page-chatbar .chatbar-contacts').hide();
 		$('.page-chatbar .chatbar-messages').show();
+		openChatbarIfNecessery(response.conversationId);
+
 		window.Echo.private('privateMessage.'+response.conversationId)
 			.listen('PrivateMessageSent', e=>appendNewMessage(e, $('#messages-list-'+response.conversationId)))
 			.listenForWhisper('typing', e=>showWhoIsTyping(e));
 		checkWhoIsOnline(onlineUsers);
+	 }
+
+	 function openChatbarIfNecessery(){
+	 	if(!$('#chat-link').hasClass('open')){
+	 		$('.page-chatbar').toggleClass('open');
+	 		$("#chat-link").toggleClass('open');
+
+	 		return true;
+	 	}
+
+	 	return false;
 	 }
 
 	function buildReply(content, user, time){

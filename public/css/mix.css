@@ -241,7 +241,7 @@ textarea {
     margin-bottom: 0;
 }
 
-#typing{
+.typing{
     font-size: 10px;
     position:absolute;
     z-index:10;

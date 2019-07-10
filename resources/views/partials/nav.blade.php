@@ -45,7 +45,7 @@
                                     <li>
                                         <div class="avatar-area">
                                             {{-- @if ((Auth::User()->profile) && Auth::user()->profile->avatar_status == 1) --}}
-                                                <img src="@if (Auth::user()->profile->avatar_status == 1) {{ Auth::user()->profile->avatar }} @else {{ Gravatar::get(Auth::user()->email) }} @endif" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="img-responsive">
+                                                <img src="{{Auth::user()->image}}" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="img-responsive">
                                                 <span class="caption">Change Photo</span>
                                             {{-- @else --}}
                                                 {{-- <div class="user-avatar-nav"></div> --}}
