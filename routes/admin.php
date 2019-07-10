@@ -70,17 +70,26 @@ Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'a
 Route::group(['prefix'=>'conversations', 'as'=>'conversations.', 'middleware'=>['auth']], function(){
     Route::get('seeParticipants', 'ConversationsController@participants')
         ->middleware(['participates'])->name('seeParticipants');
+
     Route::post('sendmessage', 'ConversationsController@sendMessage')
         ->middleware(['participates'])->name('sendMessage');
+
     Route::get('conversationHistory', 'ConversationsController@conversationHistory')
         ->middleware(['participates']);
+
     Route::get('addConversation', 'ConversationsController@create')->name('create');
     Route::get('storeConversation', 'ConversationsController@store')->name('store');
+
     Route::get('addNewParticipants', 'ConversationsController@addNewParticipants')->name('addNewParticipants');
-    Route::get('removeParticipants', 'ConversationsController@removeParticipants')->name('removeParticipants');
-    Route::post('deleteParticipants', 'ConversationsController@deleteParticipants')->middleware(['participates'])->name('deleteParticipants');
     Route::post('storeNewParticipants', 'ConversationsController@storeNewParticipants')
         ->middleware(['participates'])->name('storeNewParticipants');
+
+    Route::get('removeParticipants', 'ConversationsController@removeParticipants')->name('removeParticipants');
+    Route::post('deleteParticipants', 'ConversationsController@deleteParticipants')->middleware(['participates'])->name('deleteParticipants');
+    
+    Route::get('changeName', 'ConversationsController@changeName')->middleware('participates')->name('changeName');
+    Route::post('storeNewName', 'ConversationsController@storeNewName')->middleware('participates')->name('storeNewName');
+
     Route::get('search-conversations-ajax', 'ConversationsController@search');
 });
 

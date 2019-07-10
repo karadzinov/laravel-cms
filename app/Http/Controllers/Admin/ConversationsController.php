@@ -40,6 +40,29 @@ class ConversationsController extends Controller
         return $message;
     }
 
+    public function changeName(Request $request){
+        
+        $conversation = Conversation::findOrFail($request->get('conversation'));
+
+        return view('partials/chat/changeName', ['name'=>$conversation->name]);
+    }
+
+    public function storeNewName(Request $request){
+        try {
+            $user = Auth::user();
+            $name = $request->get('name');
+            $conversation = Conversation::findOrFail($request->get('conversation'));
+            $conversation->name = $name;
+            $conversation->save();
+            $content = 'I just changed the name of the conversation to ' . $name;
+            $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
+            $message->name = $name;
+            return json_encode($message);
+        } catch (Exception $e) {
+            about(500);
+        }
+    }
+
     public function create(){
     	$users = User::with(['roles' => function($role){
     	    $role->where('name', 'admin');
@@ -70,7 +93,7 @@ class ConversationsController extends Controller
 
     	$conversation = $this->saveConversation($user->id, $name);
 
-	foreach($participants as $participant){
+	   foreach($participants as $participant){
     		try {
                 $conversation->participants()->attach($participant);     
             } catch (Exception $e) {

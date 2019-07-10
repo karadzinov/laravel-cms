@@ -16,6 +16,12 @@
                     Options
                 </li>
                 @if(!$conversation->public)
+                    <li id="changeName">
+                        <button class="btn btn-default btn-block">
+                            <i class="fa fa-pencil"></i>
+                            Change Name
+                        </button>
+                    </li>
                     <li id="addNewParticipant">
                         <button class="btn btn-success btn-block">
                             <i class="fa fa-user-plus"></i>
@@ -124,6 +130,7 @@
     }
 
     function appendNewMessage(response){
+
         let list = 
            @if($conversation->public) '.publicMessages'
            @else
@@ -135,7 +142,6 @@
        $('#message').val('');
        $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
        $('#notification-'+'{{$conversation->id}}').hide();
-
     }
 
     function buildMessage(content, user, time){
@@ -352,6 +358,68 @@
             },
             success: function(response){
                 appendNewMessage(response);
+            },
+            error: function(response){
+                console.log('Error.');
+            }
+        });
+    }
+
+    $('#changeName').on('click', function(){
+        
+        $.ajax({
+          url: '{{route("admin.conversations.changeName")}}',
+          data: {conversation: '{{$conversation->id}}'},
+          success: function(response){
+            callChangeNameModal(response);
+          },
+        });
+    });
+
+    function callChangeNameModal(body){
+        bootbox.dialog({
+            message: body,
+            title: "Change Name",
+            className: "modal-darkorange",
+            buttons: {
+                success: {
+                    label: "Save",
+                    className: "btn-success",
+                    callback: function () {
+                        if($('#conversationNewName').length){
+                            storeNewName();
+                        }
+                    }
+                },
+                "Cancel": {
+                    className: "btn-danger",
+                    callback: function () { }
+                }
+            }
+        });
+    }
+
+    function storeNewName(){
+        let name = $('#conversationNewName').val();
+
+        $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+        $.ajax({
+            type: 'POST',
+            url: '{{route("admin.conversations.storeNewName")}}',
+            data: {
+                conversation: '{{$conversation->id}}',
+                name: name
+            },
+            success: function(response){
+                appendNewMessage(response);
+
+                let name = JSON.parse(response).name;
+
+                $('.conversation-'+'{{$conversation->id}}').find('.contact-name').html(name);
+                $('#contact-name').html(name);
             },
             error: function(response){
                 console.log('Error.');

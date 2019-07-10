@@ -320,6 +320,12 @@ textarea {
 .conversationOptions .btn{
     border-radius: 0;
 }
+
+.contact-name{
+    max-width: 193px;
+    max-height: 20px;
+    overflow:hidden;
+}
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;

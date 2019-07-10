@@ -1,4 +1,4 @@
-<li class="contact conversations" 
+<li class="contact conversations conversation-{{$conversation->id}}" 
     data-conversation='{{$conversation->id}}'
     @if($conversation->public) id="publicChat" @endif
     data-participants="{{$conversation->interlocutors->pluck('name')}}">
