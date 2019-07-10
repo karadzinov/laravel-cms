@@ -272,7 +272,7 @@ $(document).ready(function(){
 					multiple++;
 				}
 
-				if(participants.length === 1){
+				if(participants.length === 1 && multiple === 1){
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
 					status.html('online');
