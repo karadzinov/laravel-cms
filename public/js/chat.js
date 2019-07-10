@@ -255,7 +255,9 @@ $(document).ready(function(){
 
 	function checkWhoIsOnline(users){
 		
-		let conversationContacts = $('.conversations');
+		checkWhoIsOnlineInPublicChat(users);
+
+		let conversationContacts = $('.conversations').not('#publicChat');
 		conversationContacts.each(function(index, contact){
 			
 			let participants = $(contact).data('participants');
@@ -270,11 +272,11 @@ $(document).ready(function(){
 					multiple++;
 				}
 
-				if(multiple === 1){
+				if(participants.length === 1){
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
 					status.html('online');
-				}else if(multiple>1){
+				}else if(multiple>=1){
 					statusClass.removeClass('offline')
 					statusClass.addClass('online');
 					status.html(multiple + ' users online');
@@ -285,6 +287,25 @@ $(document).ready(function(){
 				}
 			}
 		});
+	}
+
+	function checkWhoIsOnlineInPublicChat(users){
+		
+		let onlineUsers = users.length - 1;
+		let grammar = '';
+		(onlineUsers==1)? grammar = 'user' : 'users';
+		let publicChat = $('#publicChat').find('.online-offline');
+		let publicStatus = $('#publicChat').find('.status');
+
+		if(onlineUsers){
+			publicChat.removeClass('offline')
+			publicChat.addClass('online');
+			publicStatus.html(onlineUsers + ' ' + grammar + ' online');
+		}else{
+			publicChat.removeClass('online')
+			publicChat.addClass('offline');
+			publicStatus.html('offline');
+		}
 	}
 
 	$('#search_conversations').keyup($.debounce(700, function (e) {
