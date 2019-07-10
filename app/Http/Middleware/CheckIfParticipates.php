@@ -20,7 +20,7 @@ class CheckIfParticipates
         $conversation = $request->get('conversation');
         if($conversation){
             $conversation = Conversation::findOrFail($conversation);
-            if($conversation->participants()->get()->contains(Auth::user())){
+            if($conversation->public || $conversation->participants()->get()->contains(Auth::user())){
                 return $next($request);
             }
         }
