@@ -38,4 +38,19 @@ class Conversation extends Model
         return asset('images/settings/thumbnails/'.Settings::first()->logo);
     }
 
+    public function getTitleAttribute(){
+        
+        if($this->name){
+            return $this->name;
+        }else{
+            $interlocutors = $this->interlocutors;
+            $name = str_replace(['[', ']', '"'], '', $interlocutors->take(2)->pluck('name'));
+            $name = str_replace(',', ', ', $name);
+            if($interlocutors->count()>2){
+                return $name . '...';
+            }
+            return $name;
+        }
+    }
+
 }

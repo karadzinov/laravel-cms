@@ -4,7 +4,7 @@
         <img src="{{$conversation->image}}">
     </div>
     <div class="contact-info">
-        <div id="contact-name" class="contact-name">{{$conversation->name}}</div>
+        <div id="contact-name" class="contact-name">{{$conversation->title}}</div>
          <div>
             <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
                 <i class="icon fa fa-gear"></i>

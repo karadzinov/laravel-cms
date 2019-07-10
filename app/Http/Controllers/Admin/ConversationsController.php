@@ -65,13 +65,12 @@ class ConversationsController extends Controller
     	$user = Auth::user();
     	$name = $request->get('name');
     	$participants = $request->get('participants');
-        !$name ? $name = $this->makeConversationName($participants) : '';
     	$participants[] = $user->id;
     	$message = $request->get('message');
 
     	$conversation = $this->saveConversation($user->id, $name);
 
-    	foreach($participants as $participant){
+	foreach($participants as $participant){
     		try {
                 $conversation->participants()->attach($participant);     
             } catch (Exception $e) {
@@ -286,20 +285,6 @@ class ConversationsController extends Controller
         return $participants;
     }
 
-
-    public function makeConversationName($participants){
-        
-        $participants = User::whereIn('id', $participants)
-                            ->pluck('name')->toArray();
-        
-        if(count($participants)===1){
-            return $participants[0];
-        }
-
-        $name = implode(', ', $participants);
-
-        return substr($name,0,255);
-    }
     public function saveConversation($id, $name){
         $conversation = new Conversation();
         $conversation->user_id = $id;
