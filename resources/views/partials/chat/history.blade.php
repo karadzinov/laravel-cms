@@ -50,9 +50,9 @@
                         Delete This Conversation?
                     </li>
                     <li>
-                        {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]), 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                        {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]),'id'=>'deleteConversationForm', 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                             {!! Form::hidden('_method', 'DELETE') !!}
-                            {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('class' => 'btn btn-danger btn-block','type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this conversation ?')) !!}
+                            {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('id'=>'confirmConversationDelete', 'class' => 'btn btn-danger btn-block','type' => 'submit')) !!}
                         {!! Form::close() !!}
                     </li>
                 @endif
@@ -426,4 +426,27 @@
             }
         });
     }
+
+    $('#confirmConversationDelete').on('click', function (e) {
+        e.preventDefault();
+        
+        bootbox.dialog({
+            message: 'Are you sure you want to delete this conversation ?',
+            title: "Delete Conversation",
+            className: "modal-darkorange",
+            buttons: {
+                success: {
+                    label: "Delete",
+                    className: "btn-warning",
+                    callback: function () {
+                        $('#deleteConversationForm').submit();
+                    }
+                },
+                "Cancel": {
+                    className: "btn-danger",
+                    callback: function () { }
+                }
+            }
+        });
+    });
 </script>
