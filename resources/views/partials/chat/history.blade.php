@@ -139,9 +139,31 @@
        let message = JSON.parse(response);
        message = buildMessage(message.content, message.user, message.time);
        $(list).append(message);
+       $('#notification-{{$conversation->id}}').html('');
+       checkNotifications()
        $('#message').val('');
        $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
        $('#notification-'+'{{$conversation->id}}').hide();
+    }
+
+    function checkNotifications(){
+        let chatNotifications = $('.chatNotification');
+        let notificationsNumber = 0;
+
+        $('.chatNotification').each(function(index, notification){
+            if($(this).html()!=''){
+                notificationsNumber++;
+            }
+        });
+        if(notificationsNumber){
+            $('#notificationsNumber').html(notificationsNumber);
+            $('#chat-link').addClass('wave in');
+        }else{
+
+            $('#notificationsNumber').html('');
+            $('#chat-link').removeClass('wave in');
+
+        }
     }
 
     function buildMessage(content, user, time){

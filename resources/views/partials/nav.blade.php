@@ -25,8 +25,9 @@
                     @else
                         <ul class="account-area">
                             <li>
-                                <a class="wave in" id="chat-link" title="Chat" href="#">
+                                <a class="" id="chat-link" title="Chat" href="#">
                                     <i class="icon glyphicon glyphicon-comment"></i>
+                                    <span id="notificationsNumber" class="badge"></span>
                                 </a>
                             </li>
                             <li class="">

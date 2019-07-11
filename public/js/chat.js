@@ -9,6 +9,8 @@ $(document).ready(function(){
 		'online': 'offline',
 		'offline': 'online'
 	}
+    checkNotifications();
+
 	// public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
@@ -78,11 +80,14 @@ $(document).ready(function(){
 	    	getConversationHistory(e.conversationId);
 	    	$('.page-chatbar .chatbar-contacts').hide();
 			$('.page-chatbar .chatbar-messages').show();
+			$('#notification-'+e.conversationId).html('');
+			checkNotifications();
 	    }
 	    if($('#messages-list-' + e.conversationId).length){
         	$('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
 	    }
-	    showNotification(e.conversationId);       
+	    showNotification(e.conversationId);
+    	checkNotifications();
 	}
 
 	function showNotification(id){
@@ -153,12 +158,13 @@ $(document).ready(function(){
 		    success: function(response){
 		        chatbarMessages.html('');
 		        chatbarMessages.html(response);
-       			$('#notification-'+conversation).hide();
+       			$('#notification-'+conversation).html('');
        			let contact = $('#messages-contact');
        			checkContact(contact, window.users);
        			if(public){
        				checkWhoIsOnlineInPublicChat(window.users);
        			}
+    			checkNotifications();
 		    },
 		    error: function(response){
 		       console.log('Error.')
@@ -413,4 +419,23 @@ $(document).ready(function(){
     	$('.page-chatbar .chatbar-contacts').hide();
         $('.page-chatbar .chatbar-messages').show();
     });
+    function checkNotifications(){
+    	let chatNotifications = $('.chatNotification');
+    	let notificationsNumber = 0;
+
+    	$('.chatNotification').each(function(index, notification){
+    		if($(this).html()!=''){
+    			notificationsNumber++;
+    		}
+    	});
+    	if(notificationsNumber){
+    		$('#notificationsNumber').html(notificationsNumber);
+    		$('#chat-link').addClass('wave in');
+    	}else{
+
+    		$('#notificationsNumber').html('');
+    		$('#chat-link').removeClass('wave in');
+
+    	}
+    }
 });
