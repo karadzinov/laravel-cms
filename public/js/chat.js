@@ -5,7 +5,10 @@ $(document).ready(function(){
 	let typingTimer = false;
 	let notificationText = 'new messages';
 	let onlineUsers = [];
-
+	let classes = {
+		'online': 'offline',
+		'offline': 'online'
+	}
 	// public channel
 	window.Echo.channel('publicChat')
 		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
@@ -13,9 +16,11 @@ $(document).ready(function(){
 	// presence channel
 	window.Echo.join('presentUsers')
 		.here(users=>{
+			window.onlineUsers = users;
 			users = users.map(a => a.name);
 			onlineUsers = users;
 			checkWhoIsOnline(onlineUsers);
+			window.users = users;
 		})
 		.joining(user=>{
 			if(!onlineUsers.includes(user.name)){
@@ -47,7 +52,7 @@ $(document).ready(function(){
 		});
 
 	// get histories
-	$('#publicChat').on('click', function(){
+	$('.publicChat').on('click', function(){
 		$('#chatbar-messages').html('');
 		let conversation = $(this).data('conversation');
 		let publicChat = true;
@@ -55,7 +60,7 @@ $(document).ready(function(){
 	});
 
 	//private chats
-	$('.contact').not('#publicChat').on('click', function(){
+	$('.contact').not('.publicChat').on('click', function(){
 		$('#chatbar-messages').html('');
 		let conversation = $(this).data('conversation');
 		
@@ -149,6 +154,11 @@ $(document).ready(function(){
 		        chatbarMessages.html('');
 		        chatbarMessages.html(response);
        			$('#notification-'+conversation).hide();
+       			let contact = $('#messages-contact');
+       			checkContact(contact, window.users);
+       			if(public){
+       				checkWhoIsOnlineInPublicChat(window.users);
+       			}
 		    },
 		    error: function(response){
 		       console.log('Error.')
@@ -276,36 +286,44 @@ $(document).ready(function(){
 		
 		checkWhoIsOnlineInPublicChat(users);
 
-		let conversationContacts = $('.conversations').not('#publicChat');
-		conversationContacts.each(function(index, contact){
-			
-			let participants = $(contact).data('participants');
-			participants = Array.from(Object.values(participants));
-			let multiple = 0;
-
-			for(let j = 0; j < participants.length; j++){
-				let status = $(contact).find('.status');
-				let statusClass = $(contact).find('.online-offline');
-
-				if(users.includes(participants[j])){
-					multiple++;
-				}
-
-				if(participants.length === 1 && multiple === 1){
-					statusClass.removeClass('offline')
-					statusClass.addClass('online');
-					status.html('online');
-				}else if(multiple>=1){
-					statusClass.removeClass('offline')
-					statusClass.addClass('online');
-					status.html(multiple + ' users online');
-				}else{
-					statusClass.removeClass('online');
-					statusClass.addClass('offline');
-					status.html('offline');
-				}
-			}
+		let contacts = $('.conversations').not('.publicChat');
+		contacts.each(function(index, contact){
+			checkContact(contact, users);
 		});
+	}
+
+	function checkContact(contact, users){
+
+		let participants = $(contact).data('participants');
+		participants = Array.from(Object.values(participants));
+		let multiple = 0;
+
+		for(let j = 0; j < participants.length; j++){
+			let status = $(contact).find('.status');
+			let statusClass = $(contact).find('.online-offline');
+
+			if(users.includes(participants[j])){
+				multiple++;
+			}
+
+			if(participants.length === 1 && multiple === 1){
+				checkOnlineOfflineClasses(statusClass, status, 'online', 'online');
+			}else if(multiple>=1){
+				let content = multiple + ' users online';
+				checkOnlineOfflineClasses(statusClass, status, 'online', content);
+			}else{
+				checkOnlineOfflineClasses(statusClass, status, 'offline', 'offline');
+				
+				
+			}
+		}
+	}
+
+	function checkOnlineOfflineClasses(statusClass, status, className, content){
+		
+		statusClass.removeClass(classes[className])
+		statusClass.addClass(className);
+		status.html(content);
 	}
 
 	function checkWhoIsOnlineInPublicChat(users){
@@ -313,8 +331,8 @@ $(document).ready(function(){
 		let onlineUsers = users.length - 1;
 		let grammar = '';
 		(onlineUsers==1)? grammar = 'user' : 'users';
-		let publicChat = $('#publicChat').find('.online-offline');
-		let publicStatus = $('#publicChat').find('.status');
+		let publicChat = $('.publicChat').find('.online-offline');
+		let publicStatus = $('.publicChat').find('.status');
 
 		if(onlineUsers){
 			publicChat.removeClass('offline')

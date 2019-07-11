@@ -1,6 +1,5 @@
-<li class="contact conversations conversation-{{$conversation->id}}" 
+<li class="contact conversations conversation-{{$conversation->id}} @if($conversation->public) publicChat @endif" 
     data-conversation='{{$conversation->id}}'
-    @if($conversation->public) id="publicChat" @endif
     data-participants="{{$conversation->interlocutors->pluck('name')}}">
     <div class="contact-avatar">
         <img src="{{$conversation->image}}">

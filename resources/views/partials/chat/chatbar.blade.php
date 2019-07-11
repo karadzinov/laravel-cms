@@ -1,4 +1,4 @@
-<input type="hidden" id="userConversations" value="{{$conversations->pluck('id')}}">
+<input type="hidden" id="userConversations" value="{{$conversations->where('public', '!=', 1)->pluck('id')}}">
 <div id="chatbar" class="page-chatbar">
     <div class="chatbar-contacts" style="display: block;">
         <div class="contacts-search">

@@ -1,5 +1,5 @@
 <input type="hidden" id="currentUser" value="{{Auth::user()->name}}">
-<div class="messages-contact" id="messages-contact">
+<div class="messages-contact conversations @if($conversation->public) publicChat @endif" id="messages-contact" data-participants="{{$conversation->interlocutors->pluck('name')}}">
     <div class="contact-avatar">
         <img src="{{$conversation->image}}">
     </div>
@@ -59,8 +59,8 @@
             </ul>
         </div>
         <div class="contact-status">
-            <div class="online"></div>
-            <div class="status">online</div>
+            <div class="online-offline"></div>
+            <div class="status"></div>
         </div>
        
         <div class="last-chat-time">
