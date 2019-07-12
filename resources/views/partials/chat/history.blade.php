@@ -317,10 +317,10 @@
                 conversation: '{{$conversationId}}',
                 participants: newParticipants
             },
-            success: function(response){
-                appendNewMessage(response);
+            success: function(){
+                console.log('Participant added.');
             },
-            error: function(response){
+            error: function(){
                 console.log('Error.');
             }
         });
@@ -340,10 +340,10 @@
                 conversation: '{{$conversationId}}',
                 participants: participants
             },
-            success: function(response){
-                appendNewMessage(response);
+            success: function(){
+                console.log('Participant removed.');
             },
-            error: function(response){
+            error: function(){
                 console.log('Error.');
             }
         });
@@ -398,10 +398,8 @@
                 name: name
             },
             success: function(response){
-                appendNewMessage(response);
-
+                console.log('Name Changed');
                 let name = JSON.parse(response).name;
-
                 $('.conversation-'+'{{$conversationId}}').find('.contact-name').html(name);
                 $('#contact-name').html(name);
             },

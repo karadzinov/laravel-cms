@@ -15,6 +15,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    left: 20%
 }
 </style>
     </head>
@@ -35,8 +37,6 @@ body {
         </div>
 
         @include('partials.footer')
-
-        @include('partials.scripts')
 
         @yield('footer_scripts')
 
