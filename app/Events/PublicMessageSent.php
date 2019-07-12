@@ -15,6 +15,7 @@ class PublicMessageSent implements ShouldBroadcast
 {
     public $message;
     public $conversationId;
+    public $sender;
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,11 +24,11 @@ class PublicMessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($message, $conversationId)
+    public function __construct($message, $conversationId, $sender)
     {
-        $this->dontBroadcastToCurrentUser();
         $this->message = $message;
         $this->conversationId = $conversationId;
+        $this->sender = $sender;
     }
 
     /**

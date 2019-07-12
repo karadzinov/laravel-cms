@@ -24,7 +24,7 @@ class ConversationsController extends Controller
         
         $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
 
-       return json_encode($message);
+       return response()->json(['status'=>200]);
     }
 
     public function makeAndBroadcastMessage(Conversation $conversation, User $user, $content){
@@ -32,9 +32,9 @@ class ConversationsController extends Controller
         $message = $this->makeMessage($user->name, $content, $conversation->id);
 
         if($conversation->public){
-            broadcast(new PublicMessageSent($message, $conversation->id))->toOthers();
+            broadcast(new PublicMessageSent($message, $conversation->id, $user->id));
         }else{
-            broadcast(new PrivateMessageSent($message, $conversation->id))->toOthers();
+            broadcast(new PrivateMessageSent($message, $conversation->id, $user->id));
         }
 
         return $message;
@@ -228,8 +228,11 @@ class ConversationsController extends Controller
         if($messages->last()){
             $this->messagesSeen($messages->last());
         }
+        $conversationId = $conversation->id;
 
-        return view('partials/chat/history', compact('conversation', 'messages', 'next'));
+        return view('partials/chat/history', 
+                    compact('conversation', 'messages', 'next', 'conversationId')
+                );
     }
 
     public function messagesSeen(Message $message){
@@ -265,6 +268,8 @@ class ConversationsController extends Controller
         
         $userConversationsIds = Auth::user()->conversations()
                                 ->pluck('conversation_id')->toArray();
+        $public = Conversation::where('public', '=','1')->first()->id;
+        array_unshift($userConversationsIds, $public);
 
         $conversations = Conversation::whereIn('id', $userConversationsIds)
                             ->where('name', 'LIKE', $searchTerm)

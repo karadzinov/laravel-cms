@@ -1,12 +1,11 @@
-<input type="hidden" id="currentUser" value="{{Auth::user()->name}}">
-<div class="messages-contact conversations @if($conversation->public) publicChat @endif" id="messages-contact" data-participants="{{$conversation->interlocutors->pluck('name')}}">
+<div class="messages-contact conversations" id="messages-contact" data-participants="{{$conversation->interlocutors->pluck('name')}}">
     <div class="contact-avatar">
         <img src="{{$conversation->image}}">
     </div>
     <div class="contact-info">
         <div id="contact-name" class="contact-name">{{$conversation->title}}</div>
          <div>
-            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
+            <a class="dropdown-toggle" data-toggle="dropdown" title="Options" href="#">
                 <i class="icon fa fa-gear"></i>
             </a>
             <!--Tasks Dropdown-->
@@ -25,9 +24,17 @@
                     <li id="addNewParticipant">
                         <button class="btn btn-success btn-block">
                             <i class="fa fa-user-plus"></i>
-                            Add New Participant
+                            Add New Participants
                         </button>
                     </li>
+                    @if($conversation->user_id === Auth::user()->id)
+                        <li id="removeFromConversation">
+                            <button class="btn btn-warning btn-block">
+                                <i class="fa fa-user-times"></i> 
+                                Remove Participants
+                            </button>
+                        </li>
+                    @endif
                 @endif
                 <li class="seeParticipants">
                     <button class="btn btn-info btn-block">
@@ -35,14 +42,6 @@
                         See Participants
                     </button>
                 </li>
-                @if($conversation->user_id === Auth::user()->id && !$conversation->public)
-                    <li id="removeFromConversation">
-                        <button class="btn btn-warning btn-block">
-                            <i class="fa fa-user-times"></i> 
-                            Remove Participant
-                        </button>
-                    </li>
-                @endif
                 <br>
                 @if(!$conversation->public)
                     <li class="dropdown-header bordered-darkorange">
@@ -50,7 +49,7 @@
                         Delete This Conversation?
                     </li>
                     <li>
-                        {!! Form::open(array('url' => route('admin.conversations.delete', [$conversation->id]),'id'=>'deleteConversationForm', 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                        {!! Form::open(array('url' => route('admin.conversations.delete', [$conversationId]),'id'=>'deleteConversationForm', 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                             {!! Form::hidden('_method', 'DELETE') !!}
                             {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('id'=>'confirmConversationDelete', 'class' => 'btn btn-danger btn-block','type' => 'submit')) !!}
                         {!! Form::close() !!}
@@ -58,20 +57,20 @@
                 @endif
             </ul>
         </div>
-        <div class="contact-status">
+        <div class="contact-status @if($conversation->public) publicChat @endif">
             <div class="online-offline"></div>
             <div class="status"></div>
         </div>
        
-        <div class="last-chat-time">
-            {{-- a moment ago --}}
-        </div>
+       {{--  <div class="last-chat-time">
+            a moment ago
+        </div> --}}
         <div class="back">
             <i class="fa fa-arrow-circle-left"></i>
         </div>
     </div>
 </div>
-<ul class="messages-list @if($conversation->public) publicMessages @endif" id="messages-list-{{$conversation->id}}">
+<ul class="messages-list" id="messages-list-{{$conversationId}}">
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
         @include('partials/chat/messages-list')
@@ -79,7 +78,7 @@
         <li class="message">Start conversation!</li>
     @endif
 </ul>
-<span class="typing" id="typing-{{$conversation->id}}"></span>
+<span class="typing" id="typing-{{$conversationId}}"></span>
 <div class="send-message">
     <span class="input-icon icon-right">
         <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message"></textarea>
@@ -89,12 +88,13 @@
 
 <script id="slimscrollScript" src="/assets/js/slimscroll/jquery.slimscroll.js"></script>
 <script id="historyScript">
+    var currentlyAuthenticatedUser = "{{Auth::user()->name}}";
     $('#message').on('keydown', function(e){
         @if(!$conversation->public)
-            window.Echo.private('privateMessage.' + '{{$conversation->id}}')
+            window.Echo.private('privateMessage.' + '{{$conversationId}}')
             .whisper('typing', {
-                content: $('#currentUser').val() + 'is typing...',
-                conversation: '{{$conversation->id}}'
+                content: currentlyAuthenticatedUser + 'is typing...',
+                conversation: '{{$conversationId}}'
             });
         @endif
         
@@ -115,10 +115,11 @@
                 url: '{{route("admin.conversations.sendMessage")}}',
                 data: {
                     message: message,
-                    conversation: '{{$conversation->id}}'
+                    conversation: '{{$conversationId}}'
                 },
                 success: function(response){
-                   appendNewMessage(response);
+                   $('#message').val('');
+                   $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
                 },
                 error: function(response){
                     console.log('Error.');
@@ -129,58 +130,6 @@
         }
     }
 
-    function appendNewMessage(response){
-
-        let list = 
-           @if($conversation->public) '.publicMessages'
-           @else
-               '#messages-list-'+'{{$conversation->id}}'
-           @endif
-       let message = JSON.parse(response);
-       message = buildMessage(message.content, message.user, message.time);
-       $(list).append(message);
-       $('#notification-{{$conversation->id}}').html('');
-       checkNotifications()
-       $('#message').val('');
-       $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
-       $('#notification-'+'{{$conversation->id}}').hide();
-    }
-
-    function checkNotifications(){
-        let chatNotifications = $('.chatNotification');
-        let notificationsNumber = 0;
-
-        $('.chatNotification').each(function(index, notification){
-            if($(this).html()!=''){
-                notificationsNumber++;
-            }
-        });
-        if(notificationsNumber){
-            $('#notificationsNumber').html(notificationsNumber);
-            $('#chat-link').addClass('wave in');
-        }else{
-
-            $('#notificationsNumber').html('');
-            $('#chat-link').removeClass('wave in');
-
-        }
-    }
-
-    function buildMessage(content, user, time){
-        
-        let message = '<li class="message reply">';
-        message += '<div class="message-info">';
-        message += '<div class="bullet"></div>';
-        message += '<div class="contact-name">'+user+'</div>';
-        message += '<div class="message-time">'+time+'</div>';
-        message += '</div>';
-        message += '<div class="message-body">';
-        message += content;
-        message += '</div>';
-        message += '</li>';
-
-        return message;
-    }
     $('.page-chatbar .chatbar-contacts .contact').on('click', function (e) {
         $('.page-chatbar .chatbar-contacts').hide();
         $('.page-chatbar .chatbar-messages').show();
@@ -190,6 +139,7 @@
         $('.page-chatbar .chatbar-contacts').show();
         $('.page-chatbar .chatbar-messages').hide();
         
+        $('#chatbar-messages').html('');
         $('#slimscrollScript').remove();
         $('#historyScript').remove();
     });
@@ -202,7 +152,7 @@
        start: 'bottom',
     });
 
-    //scroll to he top and get older messages
+    //scroll to the top and get previous messages
     var paginatorUrl = '{{$next}}';
     list = $(".messages-list");
     list.scrollTop(list[0].scrollHeight);
@@ -211,7 +161,7 @@
             $.ajax({
             url: paginatorUrl,
             data:{
-                conversation: {{$conversation->id}}
+                conversation: {{$conversationId}}
             },
             success:function(response){
                 paginatorUrl = response.next;
@@ -241,7 +191,7 @@
             type: 'GET',
             url: '{{route("admin.conversations.seeParticipants")}}',
             data: {
-                conversation: '{{$conversation->id}}'
+                conversation: '{{$conversationId}}'
             },
             success: function(response){
                showParticipantsModal(response);
@@ -282,7 +232,7 @@
     $('#addNewParticipant').on('click', function(){
         $.ajax({
           url: '{{route("admin.conversations.addNewParticipants")}}',
-          data: {conversation: '{{$conversation->id}}'},
+          data: {conversation: '{{$conversationId}}'},
           success: function(response){
             callAddParticipantModal(response);
           },
@@ -292,7 +242,7 @@
     $('#removeFromConversation').on('click', function(){
         $.ajax({
           url: '{{route("admin.conversations.removeParticipants")}}',
-          data: {conversation: '{{$conversation->id}}'},
+          data: {conversation: '{{$conversationId}}'},
           success: function(response){
             callRemoveParticipantModal(response);
           },
@@ -352,7 +302,7 @@
             type: 'POST',
             url: '{{route('admin.conversations.storeNewParticipants')}}',
             data: {
-                conversation: '{{$conversation->id}}',
+                conversation: '{{$conversationId}}',
                 participants: newParticipants
             },
             success: function(response){
@@ -375,7 +325,7 @@
             type: 'POST',
             url: '{{route("admin.conversations.deleteParticipants")}}',
             data: {
-                conversation: '{{$conversation->id}}',
+                conversation: '{{$conversationId}}',
                 participants: participants
             },
             success: function(response){
@@ -391,7 +341,7 @@
         
         $.ajax({
           url: '{{route("admin.conversations.changeName")}}',
-          data: {conversation: '{{$conversation->id}}'},
+          data: {conversation: '{{$conversationId}}'},
           success: function(response){
             callChangeNameModal(response);
           },
@@ -432,7 +382,7 @@
             type: 'POST',
             url: '{{route("admin.conversations.storeNewName")}}',
             data: {
-                conversation: '{{$conversation->id}}',
+                conversation: '{{$conversationId}}',
                 name: name
             },
             success: function(response){
@@ -440,7 +390,7 @@
 
                 let name = JSON.parse(response).name;
 
-                $('.conversation-'+'{{$conversation->id}}').find('.contact-name').html(name);
+                $('.conversation-'+'{{$conversationId}}').find('.contact-name').html(name);
                 $('#contact-name').html(name);
             },
             error: function(response){

@@ -15,8 +15,6 @@
             @endforeach
         </ul>
     </div>
-    <div class="chatbar-messages" id="chatbar-messages">
-        {{-- messages-list --}}
-    </div>
+    <div class="chatbar-messages" id="chatbar-messages"></div>
 </div>
 

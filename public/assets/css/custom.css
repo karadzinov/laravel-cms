@@ -283,3 +283,7 @@ textarea {
     max-height: 20px;
     overflow:hidden;
 }
+
+.page-chatbar .chatbar-messages{
+    height: 0px;
+}

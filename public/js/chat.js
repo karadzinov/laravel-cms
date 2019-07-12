@@ -9,11 +9,13 @@ $(document).ready(function(){
 		'online': 'offline',
 		'offline': 'online'
 	}
+	let authenticatedUserId = window.User.id;
+
     checkNotifications();
 
 	// public channel
 	window.Echo.channel('publicChat')
-		.listen('PublicMessageSent', e=>appendNewMessage(e, $('.publicMessages')));
+		.listen('PublicMessageSent', e=>appendNewMessage(e, $('#messages-list-' + e.conversationId)));
 
 	// presence channel
 	window.Echo.join('presentUsers')
@@ -29,16 +31,15 @@ $(document).ready(function(){
 				onlineUsers.push(user.name);
 			}
 			checkWhoIsOnline(onlineUsers);
-
-			let message = user.name + ' is now online.';
-			notifyPresence('alert-success', message);
+			// let message = user.name + ' is now online.';
+			// notifyPresence('alert-success', message);
 
 		}).
 		leaving(user=>{
 			onlineUsers.splice(onlineUsers.indexOf(user.name), 1);
 			checkWhoIsOnline(onlineUsers);
-			let message = user.name + ' has left.';
-			notifyPresence('alert-warning', message);
+			// let message = user.name + ' has left.';
+			// notifyPresence('alert-warning', message);
 		});
 
 	// private channels
@@ -72,7 +73,7 @@ $(document).ready(function(){
 
 	function appendNewMessage(e, element){
 		let message = e.message;
-	    message = buildReply(message.content, message.user, message.time);
+	    message = buildMessage(message.content, message.user, message.time, e.sender);
 	    
 	    element.append(message);
 	    let open = openChatbarIfNecessery();
@@ -85,9 +86,11 @@ $(document).ready(function(){
 	    }
 	    if($('#messages-list-' + e.conversationId).length){
         	$('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
+	    }else{
+		    showNotification(e.conversationId);
+	    	checkNotifications();
 	    }
-	    showNotification(e.conversationId);
-    	checkNotifications();
+	   
 	}
 
 	function showNotification(id){
@@ -108,28 +111,6 @@ $(document).ready(function(){
 		}, 1000);
 	}
 
-	function sendMessage(message){
-		if(message){
-			$.ajaxSetup({
-		    	headers:
-		    	{ 'X-CSRF-TOKEN': csrf }
-		    });
-		    $.ajax({
-		        type: 'POST',
-		        url: '/admin/conversations/sendmessage',
-		        data: {
-		        	message: message
-				},
-		        success: function(response){
-		        	console.log(response.status);
-				},
-		        error: function(response){
-		        	console.log('Error.');
-		        }
-		   });
-		}
-	}
-
 	function notifyPresence(notificationClass, message){
 		let notification = $('.userPresence');
 		notification.addClass(notificationClass);
@@ -140,10 +121,10 @@ $(document).ready(function(){
 		}, 2000);
 	}
 
-	function getConversationHistory(conversation, public){
+	function getConversationHistory(conversation, publicChat){
 		let chatbarMessages = $('#chatbar-messages');
 		chatbarMessages.html('<div class="loader" id="loader-1"></div>');
-		public = public || 0;
+		publicChat = publicChat || 0;
 		$.ajaxSetup({
 		    headers:
 		    { 'X-CSRF-TOKEN': csrf }
@@ -153,7 +134,7 @@ $(document).ready(function(){
 		    url: '/admin/conversations/conversationHistory',
 		    data: {
 		        conversation: conversation,
-		        public: public
+		        public: publicChat
 		    },
 		    success: function(response){
 		        chatbarMessages.html('');
@@ -161,7 +142,7 @@ $(document).ready(function(){
        			$('#notification-'+conversation).html('');
        			let contact = $('#messages-contact');
        			checkContact(contact, window.users);
-       			if(public){
+       			if(publicChat){
        				checkWhoIsOnlineInPublicChat(window.users);
        			}
     			checkNotifications();
@@ -272,10 +253,13 @@ $(document).ready(function(){
 	 	return false;
 	 }
 
-	function buildReply(content, user, time){
+	function buildMessage(content, user, time, sender){
 		
-		let message = '<li class="message">';
-	    message += '<div class="message-info">';
+		let message = '<li class="message';
+		if(authenticatedUserId === sender){
+			message += ' reply';
+		}
+	    message += '"><div class="message-info">';
 	    message += '<div class="bullet"></div>';
 	    message += '<div class="contact-name">'+user+'</div>';
 	    message += '<div class="message-time">'+time+'</div>';
@@ -356,7 +340,7 @@ $(document).ready(function(){
 		let search = $('#search_conversations').val();
 		let responseDiv = $('#searchConversationsResults');
 
-        if(search!='' && search.length>4){
+        if(search!='' && search.length>3){
 	        searchConversationInDatabase(search, responseDiv);
         }else{
             responseDiv.html('');
@@ -368,7 +352,7 @@ $(document).ready(function(){
     	responseDiv.html('');
         $.ajax({
             type: 'GET',
-            url: 'admin/conversations/search-conversations-ajax',
+            url: '/admin/conversations/search-conversations-ajax',
             data: {
                 search: search
                 },
@@ -390,9 +374,6 @@ $(document).ready(function(){
     function buildSearchResults(response, responseDiv){
     	let html = '<ul class="searchConversationsResults">';
 			
-// let conversations = Array.from(Object.values(response));
-
-
     	Object.keys(response).forEach(function(key){
     		let conversation = response[key];
     		html += '<li class="searchList" data-id=' + conversation.id + '>';
