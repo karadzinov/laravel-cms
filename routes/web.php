@@ -11,6 +11,10 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
+Route::get('test', function(){
+     dd('test');
+});
+
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 

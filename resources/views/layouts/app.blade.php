@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        
         @include('partials.head')
         @yield('head')
-
     </head>
     <body>
         <div class="loading-container loading-inactive">
@@ -13,6 +11,7 @@
         @include('partials.nav')
         <div class="main-container container-fluid">
             <div class="page-container">
+                @include('partials/chat/chatbar')
                 @include('partials.sidebar')
             
                 <div class="page-content">

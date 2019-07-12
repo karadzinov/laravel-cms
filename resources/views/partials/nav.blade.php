@@ -24,6 +24,12 @@
                         <li><a class="nav-link" href="{{ route('register') }}">{{ trans('titles.register') }}</a></li>
                     @else
                         <ul class="account-area">
+                            <li>
+                                <a class="" id="chat-link" title="Chat" href="#">
+                                    <i class="icon glyphicon glyphicon-comment"></i>
+                                    <span id="notificationsNumber" class="badge"></span>
+                                </a>
+                            </li>
                             <li class="">
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <div class="avatar" title="View your public profile">
@@ -40,7 +46,7 @@
                                     <li>
                                         <div class="avatar-area">
                                             {{-- @if ((Auth::User()->profile) && Auth::user()->profile->avatar_status == 1) --}}
-                                                <img src="@if (Auth::user()->profile->avatar_status == 1) {{ Auth::user()->profile->avatar }} @else {{ Gravatar::get(Auth::user()->email) }} @endif" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="img-responsive">
+                                                <img src="{{Auth::user()->image}}" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="img-responsive">
                                                 <span class="caption">Change Photo</span>
                                             {{-- @else --}}
                                                 {{-- <div class="user-avatar-nav"></div> --}}

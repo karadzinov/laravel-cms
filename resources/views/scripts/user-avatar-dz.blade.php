@@ -1,3 +1,5 @@
+<script src="{{{ config('settings.dropZoneJsCDN') }}}"></script>
+
 <script type="text/javascript">
 
 Dropzone.autoDiscover = false;

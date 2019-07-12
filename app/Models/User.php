@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Creativeorange\Gravatar\Facades\Gravatar;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
@@ -131,5 +132,24 @@ class User extends Authenticatable
     public function removeProfile($profile)
     {
         return $this->profiles()->detach($profile);
+    }
+
+    public function messages(){
+        
+        return $this->hasMany(Message::class);
+    }
+
+    public function conversations(){
+        
+        return $this->belongsToMany(Conversation::class, 'conversation_user', 'user_id', 'conversation_id');
+    }
+
+    public function getImageAttribute(){
+        
+        if ($this->profile && $this->profile->avatar_status == 1){ 
+            return $this->profile->avatarThumbnail;
+        }
+
+        return Gravatar::get($this->email);
     }
 }

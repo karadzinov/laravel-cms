@@ -11,12 +11,8 @@
 | All of those routes are prefixed with 'admin/', and their names are prefxed with 'admin.', that you should not add specifically. That is also configuration of RouteServiceProvider, as the controllers that are in Admin folder, also should not be writen in this file.
 |
 */
-
 // Registered, activated, and is admin routes.
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
-    Route::get('socket', 'SocketController@index');
-    Route::post('sendmessage', 'SocketController@sendMessage');
-    Route::get('writemessage', 'SocketController@writemessage');
     
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [
@@ -71,6 +67,31 @@ Route::group(["prefix"=>"scripts", "as"=>"scripts.", 'middleware' => ['auth', 'a
     Route::delete('delete/{script}', 'ScriptsController@delete')->name('delete');
 });
 
+Route::group(['prefix'=>'conversations', 'as'=>'conversations.', 'middleware'=>['auth']], function(){
+    Route::get('seeParticipants', 'ConversationsController@participants')
+        ->middleware(['participates'])->name('seeParticipants');
+
+    Route::post('sendmessage', 'ConversationsController@sendMessage')
+        ->middleware(['participates'])->name('sendMessage');
+
+    Route::get('conversationHistory', 'ConversationsController@conversationHistory')
+        ->middleware(['participates']);
+
+    Route::get('addConversation', 'ConversationsController@create')->name('create');
+    Route::get('storeConversation', 'ConversationsController@store')->name('store');
+
+    Route::get('addNewParticipants', 'ConversationsController@addNewParticipants')->name('addNewParticipants');
+    Route::post('storeNewParticipants', 'ConversationsController@storeNewParticipants')
+        ->middleware(['participates'])->name('storeNewParticipants');
+
+    Route::get('removeParticipants', 'ConversationsController@removeParticipants')->name('removeParticipants');
+    Route::post('deleteParticipants', 'ConversationsController@deleteParticipants')->middleware(['participates'])->name('deleteParticipants');
+    
+    Route::get('changeName', 'ConversationsController@changeName')->middleware('participates')->name('changeName');
+    Route::post('storeNewName', 'ConversationsController@storeNewName')->middleware('participates')->name('storeNewName');
+
+    Route::get('search-conversations-ajax', 'ConversationsController@search');
+});
 
 Route::group(["prefix"=>"pages", "as"=>"pages.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('index', 'PagesController@index')->name('index');
@@ -101,6 +122,10 @@ Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activ
     Route::get('edit/{post}', 'PostsController@edit')->name('edit');
     Route::put('update/{post}', 'PostsController@update')->name('update');
     Route::delete('delete/{post}', 'PostsController@delete')->name('delete');
+});
+
+Route::group(["prefix"=>"conversations", "as"=>'conversations.', "middleware"=>['auth', 'activated', 'role:admin', 'activity']], function() {
+    Route::delete('delete/{conversation}', 'ConversationsController@delete')->name('delete');
 });
 
 Route::group(["prefix"=>"faq", "as"=>"faq.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
