@@ -15,12 +15,12 @@ class ConversationTableSeeder extends Seeder
     	$user= User::first();
 
         $conversations = [
-        	[
-        	    'user_id' => $user->id,
-        	    'name' => 'PUBLIC',
-        	    'public' => true,
-        	    'created_at' => now(),
-        	],
+        	// [
+        	//     'user_id' => $user->id,
+        	//     'name' => 'PUBLIC',
+        	//     'public' => true,
+        	//     'created_at' => now(),
+        	// ],
         	[
         	    'user_id' => $user->id,
         	    'name' => 'PRIVATE',
