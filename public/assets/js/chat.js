@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	$('.userPresence').hide();
 	let csrf = $('meta[name="csrf-token"]').attr('content');
 	let privateConversations = takeConversationsIds();
 	let typingTimer = false;
@@ -31,15 +30,11 @@ $(document).ready(function(){
 				onlineUsers.push(user.name);
 			}
 			checkWhoIsOnline(onlineUsers);
-			// let message = user.name + ' is now online.';
-			// notifyPresence('alert-success', message);
 
 		}).
 		leaving(user=>{
 			onlineUsers.splice(onlineUsers.indexOf(user.name), 1);
 			checkWhoIsOnline(onlineUsers);
-			// let message = user.name + ' has left.';
-			// notifyPresence('alert-warning', message);
 		});
 
 	// private channels
@@ -111,19 +106,22 @@ $(document).ready(function(){
 		}, 1000);
 	}
 
-	function notifyPresence(notificationClass, message){
-		let notification = $('.userPresence');
-		notification.addClass(notificationClass);
-		notification.find('.userPresenceContent').html(message)
-		notification.toggle();
-		setTimeout(function(){
-			notification.toggle();
-		}, 2000);
+	function notify(notificationClass, message){
+		let notification = $('.flashNotification');
+        let content = notification.find('.flashNotificationContent');
+       
+        notification.addClass(notificationClass);
+        content.html(message)
+        notification.css('visibility', 'visible');
+        setTimeout(function(){
+            content.html('')
+            notification.css('visibility', 'hidden');
+        }, 2000);
 	}
 
 	function getConversationHistory(conversation, publicChat){
 		let chatbarMessages = $('#chatbar-messages');
-		chatbarMessages.html('<div class="loader" id="loader-1"></div>');
+		chatbarMessages.html('<div class="loader" id="conversationLoader"></div>');
 		publicChat = publicChat || 0;
 		$.ajaxSetup({
 		    headers:

@@ -20671,7 +20671,7 @@ textarea {
     z-index:10;
     padding-left: 15px;
 }
-.userPresence{
+.flashNotification{
     max-width: 33%;
     position: absolute;
     top: 0;
@@ -20717,7 +20717,7 @@ textarea {
 
 /* LOADER 1 */
 
-#loader-1:before, #loader-1:after{
+#conversationLoader:before, #conversationLoader:after{
   content: "";
   position: absolute;
   top: -10px;
@@ -20729,12 +20729,12 @@ textarea {
   border-top-color: #3498db;
 }
 
-#loader-1:before{
+#conversationLoader:before{
   z-index: 100;
   animation: spin 1s infinite;
 }
 
-#loader-1:after{
+#conversationLoader:after{
   border: 10px solid #ccc;
 }
 

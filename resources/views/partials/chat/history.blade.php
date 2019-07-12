@@ -122,9 +122,12 @@
                    $('.chatbar-messages .messages-list').slimscroll({ scrollBy: '400px' });
                 },
                 error: function(response){
+                    if(response.status ===422){
+                        let message = 'Message too long (max 250 characters).';
+                        notify('alert-warning', message);
+
+                    }
                     console.log('Error.');
-                    let message = response.responseJSON.errors.message[0];
-                    notifyPresence('alert-warning', message);
                 }
             });
         }
@@ -172,17 +175,23 @@
         }
     });
 
-    function notifyPresence(notificationClass, message){
-        let notification = $('.userPresence');
-        notification.addClass(notificationClass);
-        notification.find('.userPresenceContent').html(message)
-        notification.css('visibility', 'visible');
-        setTimeout(function(){
-            notification.css('visibility', 'hidden');
-        }, 2000);
+    function notify(notificationClass, message){
+        let notification = $('.flashNotification');
+        let content = notification.find('.flashNotificationContent');
+
+        if(content.html() == ''){
+            notification.addClass(notificationClass);
+            content.html(message)
+            notification.css('visibility', 'visible');
+            setTimeout(function(){
+                content.html('')
+                notification.css('visibility', 'hidden');
+            }, 2000);
+        }
     }
 
     $('.seeParticipants').on('click', function(){
+        let publicChat = {{$conversation->public}}
         $.ajaxSetup({
             headers:
             { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -191,7 +200,8 @@
             type: 'GET',
             url: '{{route("admin.conversations.seeParticipants")}}',
             data: {
-                conversation: '{{$conversationId}}'
+                conversation: '{{$conversationId}}',
+                public: publicChat
             },
             success: function(response){
                showParticipantsModal(response);
@@ -204,10 +214,10 @@
     });
     
     function showParticipantsModal(response){
-        let message = makeParticipantsList(response);
+        let body = makeParticipantsList(response);
         bootbox.alert({
             title: "{{$conversation->name}} participants",
-            message: message,
+            message: body,
         })
     }
 
@@ -219,6 +229,8 @@
                             <img src="${response[key].image}" style="width:65px; height:65px;">
                         </div>
                         <div class="databox-right padding-top-20">
+                            <div class="badge badge-info graded pull-right">${response[key].messagesNumber} messages</div>
+                            
                             <div class="databox-text darkgray">${response[key].name}</div>
                             <div class="databox-text darkgray">${response[key].level}</div>
                         </div>

@@ -299,16 +299,26 @@ class ConversationsController extends Controller
 
     public function participants(Request $request){
         $id = $request->get('conversation');
-
         $conversation = Conversation::with('participants.profile')->findOrFail($id);
+        if((bool)$request->get('public')){
+            $admins = User::with(['roles' => function($role){
+                        $role->where('name', 'admin');
+                    }])->where('id', '!=', Auth()->user()->id)->get();
+            $conversation->participants = $admins;
+        }
         $participants = [];
-        foreach($conversation->participants as $participant){
 
+        foreach($conversation->participants as $participant){
             $name = $participant->name;
             $image = $participant->image;
             $level = $participant->level() . ' level';
-            $participants[] = (object) compact('name', 'image', 'level');
+            $messagesNumber = $conversation->messages()
+                            ->where('user_id', '=', $participant->id)
+                            ->count();
+            $participants[] = (object) compact('name', 'image', 'level', 'messagesNumber');
         }
+        $participants = collect($participants);
+        $participants = $participants->sortByDesc('messagesNumber');
 
         return $participants;
     }
