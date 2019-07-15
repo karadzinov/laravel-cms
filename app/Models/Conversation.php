@@ -58,4 +58,13 @@ class Conversation extends Model
         }
     }
 
+    public function seen(){
+        
+        if(count($this->messages) && !$this->messages->last()->seen()){
+            return true;
+        }
+
+        return false;
+    }
+
 }
