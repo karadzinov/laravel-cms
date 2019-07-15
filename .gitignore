@@ -44,6 +44,10 @@ composer.lock
 /storage/users
 packages/
 
+###laravel echo server files
+/laravel-echo-server.json
+/laravel-echo-server.lock
+
 # Debug Files
 npm-debug.log
 yarn-error.log
