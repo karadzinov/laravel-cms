@@ -3,7 +3,7 @@
         <div class="message-info">
             <div class="bullet"></div>
             <div class="contact-name">{{$message->user->name}}</div>
-            <div class="message-time">{{$message->created_at->diffForHumans()}}</div>
+            <div class="message-time" title="{{$message->created_at->format('d M \'y')}}">{{$message->created_at->format('H:i')}}</div>
         </div>
         <div class="message-body">
             {{$message->content}}

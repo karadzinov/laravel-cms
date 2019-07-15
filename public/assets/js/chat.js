@@ -68,7 +68,7 @@ $(document).ready(function(){
 
 	function appendNewMessage(e, element){
 		let message = e.message;
-	    message = buildMessage(message.content, message.user, message.time, e.sender);
+	    message = buildMessage(message, e.sender);
 	    
 	    element.append(message);
 	    let open = openChatbarIfNecessery();
@@ -251,7 +251,7 @@ $(document).ready(function(){
 	 	return false;
 	 }
 
-	function buildMessage(content, user, time, sender){
+	function buildMessage(comingMessage, sender){
 		
 		let message = '<li class="message';
 		if(authenticatedUserId === sender){
@@ -259,11 +259,11 @@ $(document).ready(function(){
 		}
 	    message += '"><div class="message-info">';
 	    message += '<div class="bullet"></div>';
-	    message += '<div class="contact-name">'+user+'</div>';
-	    message += '<div class="message-time">'+time+'</div>';
+	    message += '<div class="contact-name">'+comingMessage.user+'</div>';
+	    message += '<div class="message-time" title="' + comingMessage.date + '">'+comingMessage.time+'</div>';
 	    message += '</div>';
 	    message += '<div class="message-body">';
-	    message += content;
+	    message += comingMessage.content;
 	    message += '</div>';
 		message += '</li>';
 

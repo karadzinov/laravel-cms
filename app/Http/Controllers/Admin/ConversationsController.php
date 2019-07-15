@@ -54,7 +54,7 @@ class ConversationsController extends Controller
             $conversation = Conversation::findOrFail($request->get('conversation'));
             $conversation->name = $name;
             $conversation->save();
-            $content = 'I just changed the name of the conversation to ' . $name;
+            $content = 'I just changed the name of the conversation to ' . $conversation->title;
             $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             $message->name = $name;
             return json_encode($message);
@@ -182,10 +182,11 @@ class ConversationsController extends Controller
     }
 
     public function makeMessage($user, $content, $id){
+        $now = Carbon::now();
+        $time = $now->format("H:i");
+        $date = $now->format("d M 'y");
 
-        $time = Carbon::now()->diffForHumans();
-
-        return (object)compact('content', 'user', 'time', 'id');
+        return (object)compact('content', 'user', 'time', 'date', 'id');
     }
 
     public function notifyNewcomersAndPrepareData($participants, $user, $conversation){
