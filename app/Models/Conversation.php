@@ -35,7 +35,12 @@ class Conversation extends Model
             return $user->image;
         }
 
-        return asset('images/settings/thumbnails/'.Settings::first()->logo);
+        try {
+            return asset('images/settings/thumbnails/'.Settings::first()->logo);
+        } catch (\Exception $e) {
+            
+            return asset('assets/img/bg-slider.png');
+        }
     }
 
     public function getTitleAttribute(){
