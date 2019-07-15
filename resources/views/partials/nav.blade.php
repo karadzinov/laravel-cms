@@ -30,9 +30,10 @@
                                     <span id="notificationsNumber" class="badge"></span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li>
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <div class="avatar" title="View your public profile">
+                                        <img src="{{Auth::user()->image}}">
                                     </div>
                                     <section>
                                         <h2><span class="profile"><span>  {{Auth::user()->name}}</span></span></h2>
