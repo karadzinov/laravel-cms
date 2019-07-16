@@ -1,23 +1,20 @@
 $(document).ready(function(){
 
 	class Chat {
-	  	constructor(brand) {
-			let onlineUsers = [];
+	  	constructor() {
 			let classes = {
 				'online': 'offline',
 				'offline': 'online'
 			}
-			let typingTimer = false;
 			let notificationText = 'new messages';
-			let authenticatedUserId = window.User.id;
 		    let csrf = $('meta[name="csrf-token"]').attr('content');
 
 			this.csrf = csrf;
+			this.onlineUsers = [];
 			this.classes = classes;
-			this.onlineUsers = onlineUsers;
-			this.typingTimer = typingTimer;
-			this.notificationText = notificationText;
-			this.authenticatedUserId = authenticatedUserId;
+			this.typingTimer = false;
+			this.notificationText = 'new messages';
+			this.authenticatedUserId = window.User.id;;
 		}
 	  	takeConversationsIds(){
 			let conversations = $('#userConversations').val();
@@ -326,7 +323,6 @@ $(document).ready(function(){
 	// presence channel
 	window.Echo.join('presentUsers')
 		.here(users=>{
-			window.onlineUsers = users;
 			users = users.map(a => a.name);
 			Conversation.onlineUsers = users;
 			Conversation.checkWhoIsOnline();
