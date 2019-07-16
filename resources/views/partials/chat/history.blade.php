@@ -268,7 +268,7 @@
             className: "modal-darkorange",
             buttons: {
                 success: {
-                    label: "Create",
+                    label: "Add",
                     className: "btn-success",
                     callback: function () {
                         storeNewParticipants();

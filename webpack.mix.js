@@ -33,7 +33,7 @@ mix.styles([
          'public/assets/js/Socket.IO-master/socket.io.min.js',
          // 'public/assets/js/select2/select2.js',
          // 'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
-         // 'public/assets/js/chat.js'
+         'public/assets/js/chat.js'
 			], 'public/js/mix.js')
    .styles([
          'public/assets/bootstrap/css/bootstrap.css',

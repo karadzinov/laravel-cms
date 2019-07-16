@@ -59,7 +59,7 @@ class ConversationsController extends Controller
             $message->name = $name;
             return json_encode($message);
         } catch (Exception $e) {
-            about(500);
+            abort(500);
         }
     }
 
@@ -130,28 +130,13 @@ class ConversationsController extends Controller
 
         $this->notifyNewcomersAndPrepareData($newParticipants, $user, $conversation);
 
-        $names = $this->prepareNames($names);
-        $content = 'I just removed ' . $names . ' from this conversation.';
-        $message = $this->makeMessage($user->name, $content, $conversation->id);
+        return response()->json(['status' => 200]);
 
-        return json_encode($message);
-
-    }
-
-    public function prepareNames($names){
-        
-        if(count($names) && count($names) === 1){
-            $names = implode('', $names);
-        }else{
-            $names = implode(', ', $names);
-        }
-
-        return $names;
     }
 
     public function removeParticipants(Request $request){
-        $conversation = Conversation::findOrFail($request->get('conversation'));
 
+        $conversation = Conversation::findOrFail($request->get('conversation'));
         $users = $conversation->participants->where('id', '!=', Auth::user()->id);
         
         return view('partials/chat/removeParticipants', compact('users'));
@@ -159,10 +144,11 @@ class ConversationsController extends Controller
 
     public function deleteParticipants(Request $request){
         
-        $participants = $request->get('participants');
-        $user = Auth::user();
         $names = [];
+        $user = Auth::user();
+        $participants = $request->get('participants');
         $conversation = Conversation::findOrFail($request->get('conversation'));
+
         foreach($participants as $participant){
             try {
                 $conversation->participants()->detach($participant);
@@ -174,14 +160,11 @@ class ConversationsController extends Controller
             }
         }
 
-        $names = $this->prepareNames($names);
-        $content = 'I just removed ' . $names . ' from this conversation.';
-        $message = $this->makeMessage($user->name, $content, $conversation->id);
-
-        return json_encode($message);
+        return response()->json(['status' => 200]);
     }
 
     public function makeMessage($user, $content, $id){
+        
         $now = Carbon::now();
         $time = $now->format("H:i");
         $date = $now->format("d M 'y");
@@ -198,6 +181,7 @@ class ConversationsController extends Controller
         ];
 
         foreach($participants as $participant){
+
             if($participant != $user->id){
                 broadcast(new ConversationCreated($participant, $data));
             }
@@ -240,6 +224,7 @@ class ConversationsController extends Controller
         
         try {
             $message->users()->attach(Auth::user());
+
             return;
         } catch (Exception $e) {
             return;
@@ -250,12 +235,8 @@ class ConversationsController extends Controller
         $user = Auth::user();
         if($conversation->participants->contains($user)){
             $conversation->participants()->detach($user);
-
-            $message = new Message();
-            $message->user_id = $user->id;
-            $message->conversation_id = $conversation->id;
-            $message->content = "{$user->name} left the conversation.";
-            $message->save();
+            $content = "{$user->name} left the conversation.";
+            $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             
             return back()->with('success', 'You Successfully removed this conversation.');
         }else{
@@ -265,8 +246,8 @@ class ConversationsController extends Controller
     }
 
     public function search(Request $request){
+
         $searchTerm = '%'.$request->get('search').'%';
-        
         $userConversationsIds = Auth::user()->conversations()
                                 ->pluck('conversation_id')->toArray();
         $public = Conversation::where('public', '=','1')->first()->id;
@@ -319,9 +300,9 @@ class ConversationsController extends Controller
             $participants[] = (object) compact('name', 'image', 'level', 'messagesNumber');
         }
         $participants = collect($participants);
-        $participants = $participants->sortByDesc('messagesNumber');
-
-        return $participants;
+        $participants = $participants->sortByDesc('messagesNumber')->toArray();
+        
+        return response()->json(array_values($participants));
     }
 
     public function saveConversation($id, $name){

@@ -6,4 +6,4 @@
 @endif
 <script src="{{asset('assets/js/select2/select2.min.js')}}"></script>
 <script src="{{asset('/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js')}}"></script>
-<script src="{{asset('assets/js/chat.js')}}"></script>
+{{-- <script src="{{asset('assets/js/chat.js')}}"></script> --}}
