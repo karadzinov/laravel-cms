@@ -14,7 +14,8 @@ $(document).ready(function(){
 			this.classes = classes;
 			this.typingTimer = false;
 			this.notificationText = 'new messages';
-			this.authenticatedUserId = window.User.id;;
+			this.authenticatedUserId = window.User.id;
+			this.users = [];
 		}
 	  	takeConversationsIds(){
 			let conversations = $('#userConversations').val();
@@ -92,9 +93,9 @@ $(document).ready(function(){
 			        chatbarMessages.html(response);
 	       			$('#notification-'+conversation).html('');
 	       			let contact = $('#messages-contact');
-	       			chat.checkContact(contact, window.users);
+	       			chat.checkContact(contact, chat.users);
 	       			if(publicChat){
-	       				chat.checkWhoIsOnlineInPublicChat(window.users);
+	       				chat.checkWhoIsOnlineInPublicChat(chat.users);
 	       			}
 	    			chat.checkNotifications();
 			    },
@@ -162,7 +163,7 @@ $(document).ready(function(){
 			window.Echo.private('privateMessage.'+response.conversationId)
 				.listen('PrivateMessageSent', e=>this.appendNewMessage(e, $('#messages-list-'+response.conversationId)))
 				.listenForWhisper('typing', e=>this.showWhoIsTyping(e));
-			this.checkWhoIsOnline(onlineUsers);
+			this.checkWhoIsOnline(this.onlineUsers);
 		}
 		openChatbarIfNecessery(){
 			if(!$('#chat-link').hasClass('open')){
@@ -326,7 +327,7 @@ $(document).ready(function(){
 			users = users.map(a => a.name);
 			Conversation.onlineUsers = users;
 			Conversation.checkWhoIsOnline();
-			window.users = users;
+			Conversation.users = users;
 		})
 		.joining(user=>{
 			if(!Conversation.onlineUsers.includes(user.name)){
