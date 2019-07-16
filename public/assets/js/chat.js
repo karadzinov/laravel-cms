@@ -163,7 +163,7 @@ $(document).ready(function(){
 			window.Echo.private('privateMessage.'+response.conversationId)
 				.listen('PrivateMessageSent', e=>this.appendNewMessage(e, $('#messages-list-'+response.conversationId)))
 				.listenForWhisper('typing', e=>this.showWhoIsTyping(e));
-			this.checkWhoIsOnline(onlineUsers);
+			this.checkWhoIsOnline(this.onlineUsers);
 		}
 		openChatbarIfNecessery(){
 			if(!$('#chat-link').hasClass('open')){
