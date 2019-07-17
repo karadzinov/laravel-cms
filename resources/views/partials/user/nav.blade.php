@@ -17,7 +17,7 @@
 					<!-- logo -->
 					<div id="logo" class="logo">
 						<a href="/home">
-							<img id="logo_img" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="{{$settings->title}}">
+							<img class="logo_image" id="logo_img" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="{{$settings->title}}">
 						</a>
 					</div>
 

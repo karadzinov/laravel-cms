@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="footer-content">
-							<div class="logo-footer"><img id="logo-footer" src="{{asset('assets/images/logo_light_blue.png')}}" alt=""></div>
+							<div class="logo-footer"><img class="logo_image" id="logo-footer" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="Logo"></div>
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat... 
 								<a href="#">

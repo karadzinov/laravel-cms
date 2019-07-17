@@ -9,10 +9,10 @@
 		@include('partials/user/head')
 		@yield('optionalHead')
 		<style>
-			#logo_img{
+			.logo_image{
 				height: 35px;
 				width: 100%
-				object-fit: fill;
+				object-fit: cover;
 			}
 		</style>
 	</head>
