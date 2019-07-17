@@ -64,7 +64,7 @@ mix.styles([
          'public/assets/plugins/vide/jquery.vide.js',
          'public/assets/plugins/owl-carousel/owl.carousel.js',
          'public/assets/plugins/jquery.browser.js',
-         'public/assets/plugins/SmoothScroll.js',
+         // 'public/assets/plugins/SmoothScroll.js',
          'public/assets/js/template.js',
          'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/js/custom.js',
