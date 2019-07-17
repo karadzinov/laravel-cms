@@ -8,7 +8,7 @@
 				<!-- blogpost start -->
 				<article class="blogpost shadow light-gray-bg bordered object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="100">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="//www.youtube.com/embed/{{$post->videoId}}"></iframe>
+						<iframe class="embed-responsive-item" src="{{$post->videoSrc}}"></iframe>
 					</div>
 					<header>
 						<h2><a href="{{$post->showRoute}}">{!!$post->title!!}</a></h2>
@@ -19,7 +19,6 @@
 								<span class="month">{{$post->created_at->format('M Y')}}</span>
 							</span>
 							<span class="submitted"><i class="icon-user-1"></i> by <a href="#">{{$post->author->name}}</a></span>
-							<span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span>
 						</div>
 					</header>
 					<div class="blogpost-content">
@@ -45,7 +44,7 @@
 			<div class="masonry-grid-item col-sm-6 col-md-4">
 				<!-- blogpost start -->
 				<article class="blogpost shadow light-gray-bg bordered">
-					<div class="overlay-container">
+					<div class="overlay-container overlayContainerImages">
 						<img src="{{$post->thumbnailPath}}" alt="">
 						<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
 					</div>
@@ -58,7 +57,6 @@
 								<span class="month">{{$post->created_at->format('M Y')}}</span>
 							</span>
 							<span class="submitted"><i class="icon-user-1"></i> by <a href="#">{{$post->author->name}}</a></span>
-							<span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span>
 						</div>
 					</header>
 					<div class="blogpost-content">
@@ -93,7 +91,6 @@
 								<span class="month">{{$post->created_at->format('M Y')}}</span>
 							</span>
 							<span class="submitted"><i class="icon-user-1"></i> by <a href="#">{{$post->author->name}}</a></span>
-							<span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span>
 						</div>
 					</header>
 					<div class="blogpost-content">

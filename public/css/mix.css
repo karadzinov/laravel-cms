@@ -326,6 +326,82 @@ textarea {
 .page-chatbar .chatbar-messages{
     height: 0px;
 }
+
+div.tp-bannertimer{
+  margin: 0 !important;
+}
+
+.separator.with-icon i.bordered {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.02);
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.separator.with-icon i {
+    font-size: 36px;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    margin-top: -40px;
+    margin-left: -40px;
+    line-height: 77px;
+    z-index: 5;
+}
+.bordered {
+    border: 1px solid #f1f1f1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.separator.with-icon {
+    margin: 55px 0;
+}
+.separator {
+    width: 100%;
+    margin: 20px auto 15px;
+    position: relative;
+    height: 1px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1, 1);
+}
+.separator.with-icon:after{
+  background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.09) 25%, transparent 45%, transparent 55%, rgba(0, 0, 0, 0.09) 75%, transparent 100%);
+}
+.headerMail, .headerMail:hover, .headerMail:active, .headerMail:focus{
+  color: #FFF;
+  text-decoration: none
+}
+.social-links li a{
+  height: 35px;
+  width: 35px;
+}
+.social-links li a i{
+  line-height: 35px;
+}
+.footerImages img{
+  object-fit: cover;
+  height: 79px;
+  width: 100%;
+}
+#map-canvas{
+  max-height: 100px;
+}
+#mapCanvasSeparator{
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.overlayContainerImages img{
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
 ﻿.DTTTFooter {
     margin: 0;
     background: #fff;

@@ -1350,7 +1350,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#contact-form #name").val(),
 							"email": $("#contact-form #email").val(),
@@ -1431,7 +1431,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#footer-form #name2").val(),
 							"email": $("#footer-form #email2").val(),
@@ -1507,7 +1507,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#sidebar-form #name3").val(),
 							"email": $("#sidebar-form #email3").val(),
@@ -1582,7 +1582,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#rsvp #name").val(),
 							"email": $("#rsvp #email").val(),

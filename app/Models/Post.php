@@ -71,6 +71,11 @@ class Post extends Model
         return false;
     }
 
+    public function getVideoSrcAttribute(){
+        
+        return '//www.youtube.com/embed/' . $this->videoId;
+    }
+
     public function makeItem(){
         
         $title = strip_tags($this->title);

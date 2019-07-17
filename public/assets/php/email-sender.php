@@ -13,8 +13,8 @@ if($Recipient) {
 	$Email = $_POST['email'];
 	$Subject = $_POST['subject'];
 	$Message = $_POST['message'];
-	$Guests = $_POST['guests'];
-	$Events = $_POST['events'];
+	$Guests = $_POST['guests'] ?? 0;
+	$Events = $_POST['events'] ?? null;
 	$Category = $_POST['category'];
 
 	$Email_body = "";
