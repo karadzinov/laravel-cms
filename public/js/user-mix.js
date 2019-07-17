@@ -512,7 +512,8 @@ x-=1;expx=1-Math.exp(-x);val=start+expx*(1-start);}return val*options.pulseNorma
  * License URI:http://support.wrapbootstrap.com/
  * File Description: Initializations of plugins
  */(function($){$(document).ready(function(){if($('.boxed .fullscreen-bg').length>0){$("body").addClass("transparent-page-wrapper");};$(window).load(function(){$("body").removeClass("no-trans");});// Enable Smooth Scroll only on Chrome and only on Win and Linux Systems
-var platform=navigator.platform.toLowerCase();if((platform.indexOf('win')==0||platform.indexOf('linux')==0)&&!Modernizr.touch){if($.browser.webkit){$.webkitSmoothScroll();console.log("hello webkit");}};//Show dropdown on hover only for desktop devices
+var platform=navigator.platform.toLowerCase();if((platform.indexOf('win')==0||platform.indexOf('linux')==0)&&!Modernizr.touch){if($.browser.webkit){$.webkitSmoothScroll();// console.log("hello webkit");
+}};//Show dropdown on hover only for desktop devices
 //-----------------------------------------------
 var delay=0,setTimeoutConst;if(Modernizr.mq('only all and (min-width: 768px)')&&!Modernizr.touch||$("html.ie8").length>0){$('.main-navigation:not(.onclick) .navbar-nav>li.dropdown, .main-navigation:not(.onclick) li.dropdown>ul>li.dropdown').hover(function(){var $this=$(this);setTimeoutConst=setTimeout(function(){$this.addClass('open').slideDown();$this.find('.dropdown-toggle').addClass('disabled');},delay);},function(){clearTimeout(setTimeoutConst);$(this).removeClass('open');$(this).find('.dropdown-toggle').removeClass('disabled');});};//Show dropdown on click only for mobile devices
 //-----------------------------------------------

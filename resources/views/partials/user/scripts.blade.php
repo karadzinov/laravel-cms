@@ -7,8 +7,6 @@
 <script>
 	let lat = parseFloat($('#lat').val());
 	let lng = parseFloat($('#lng').val());
-	console.log(typeof lat)
-	console.log(typeof lng)
 	map = new google.maps.Map(document.getElementById('map-canvas'), {
 		    center: {lat: lat, lng: lng },
 		    zoom: 10

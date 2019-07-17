@@ -32,6 +32,7 @@ class ViewServiceProvider extends ServiceProvider
             ['partials/user/head',
             'partials/user/header',
             'partials/user/footer',
+            'partials/user/nav',
             ], 'App\Http\View\Composers\SettingsComposer'
         );
 

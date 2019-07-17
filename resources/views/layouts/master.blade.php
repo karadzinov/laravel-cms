@@ -8,6 +8,13 @@
 	<head>
 		@include('partials/user/head')
 		@yield('optionalHead')
+		<style>
+			#logo_img{
+				height: 35px;
+				width: 100%
+				object-fit: fill;
+			}
+		</style>
 	</head>
 
 	<!-- body classes:  -->

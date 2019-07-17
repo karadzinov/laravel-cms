@@ -5,7 +5,7 @@
 <!-- "full-width": mandatory class for the full-width menu layout -->
 <!-- "centered": mandatory class for the centered logo layout -->
 <!-- ================ --> 
-<header class="header  fixed    clearfix">
+<header class="header fixed clearfix">
 	
 	<div class="container">
 		<div class="row">
@@ -16,12 +16,14 @@
 					
 					<!-- logo -->
 					<div id="logo" class="logo">
-						<a href="/home"><img id="logo_img" src="{{asset('assets/images/logo_light_blue.png')}}" alt="The Project"></a>
+						<a href="/home">
+							<img id="logo_img" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="{{$settings->title}}">
+						</a>
 					</div>
 
 					<!-- name-and-slogan -->
 					<div class="site-slogan">
-						Multipurpose HTML5 Template
+						Here goes slogan
 					</div>
 
 				</div>
