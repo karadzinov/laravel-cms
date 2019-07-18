@@ -58,12 +58,27 @@
                 <span class="menu-text"> Pages </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/faq/*') ? 'active' : null}}">
-            <a href="{{ route('admin.faq.index')}}" class="menu">
+        <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">
+            <a href="#" class="menu-dropdown">
                 <i class="menu-icon fa fa-question"></i>
                 <span class="menu-text"> FAQs </span>
+
+                <i class="menu-expand"></i>
             </a>
-        </li>    
+
+            <ul class="submenu" style="display: none;">
+                <li class="{{Request::is('admin/faq/*') ? 'active' : null}}">
+                    <a href="{{ route('admin.faq.index')}}">
+                        <span class="menu-text"> FAQs </span>
+                    </a>
+                </li>
+               <li class="{{Request::is('admin/faq-categories/*') ? 'active' : null}}">
+                    <a href="{{ route('admin.faq-categories.index')}}">
+                        <span class="menu-text"> FAQ Categories </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
     <!-- /Sidebar Menu -->
 </div>

@@ -16,7 +16,7 @@
 	<section class="main-container">
 
 		<div class="container">
-			@if($faqs->isNotEmpty())
+			@if($categories->isNotEmpty())
 				<div class="row">
 
 					<!-- main start -->
@@ -31,21 +31,32 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ut quisquam ab harum hic enim quibusdam aut quasi recusandae temporibus quo voluptatibus, dolorem consectetur ipsam facere ipsa. Commodi sunt, inventore!</p>
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs style-1" role="tablist">
-							<li class="active"><a href="#tab1" role="tab" data-toggle="tab"><i class="fa  fa-life-saver pr-10"></i>Questions</a></li>
-							{{-- <li><a href="#tab2" role="tab" data-toggle="tab"><i class="fa fa-user pr-10"></i>Sales</a></li> --}}
-							{{-- <li><a href="#tab3" role="tab" data-toggle="tab"><i class="fa fa-star pr-10"></i>Popular Topics</a></li> --}}
+							@foreach($categories as $category)
+								@if($category->faqs->isNotEmpty())
+									<li class="@if($loop->iteration === 1) active @endif">
+										<a href="#faqCategory-{{$category->id}}" role="tab" data-toggle="tab">
+											<i class="fa  fa-{{$category->icon}} pr-10"></i>
+											{{$category->name}}
+										</a>
+									</li>
+								@endif
+							@endforeach
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
-							<div class="tab-pane fade in active" id="tab1">
-								<!-- accordion start -->
-								<div class="panel-group collapse-style-1" id="accordion-faq">
-									@foreach($faqs as $faq)
-										@include('partials/user/faqs/item')
-									@endforeach
-								</div>
-								<!-- accordion end -->
-							</div>
+							@foreach($categories as $category)
+								@if($category->faqs->isNotEmpty())
+									<div class="tab-pane @if($loop->iteration === 1) fade in active @endif" id="faqCategory-{{$category->id}}">
+										<!-- accordion start -->
+										<div class="panel-group collapse-style-1" id="accordion-faq-{{$category->id}}">
+											@foreach($category->faqs as $faq)
+												@include('partials/user/faqs/item')
+											@endforeach
+										</div>
+										<!-- accordion end -->
+									</div>
+								@endif
+							@endforeach
 						</div>
 					</div>
 					<!-- main end -->

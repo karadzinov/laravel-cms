@@ -26,6 +26,11 @@
                 <pre id="code">{{$faq->answer}}</pre>
             </div>
 
+            <div>
+                <label for="category"><strong>Category:</strong></label>
+                <p id="category">{{$faq->category->name}}</p>
+            </div>
+
         </div>
     </div>
 @endsection

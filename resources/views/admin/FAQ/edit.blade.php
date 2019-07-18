@@ -21,7 +21,7 @@
             <div>
                 {!! Form::label('question', 'Question:') !!}
                 {!! Form::text('question', $faq->question, [ 'class' => 'form-control', 'placeholder'=>'Question', 'autofocus' => true ]) !!}
-	        {!! $errors->first('name') !!}
+	        {!! $errors->first('question') !!}
             </div>
             <div class="form-group">
                 {!! Form::label('answer', 'Answer:') !!}
@@ -29,6 +29,13 @@
                     {!! Form::textarea('answer', $faq->answer, [ 'class' => 'form-control', 'placeholder'=>'Answer']) !!}
                 </span>
                 {!! $errors->first('code') !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('category_id', 'Category:'); !!}
+                {{Form::select('category_id', 
+                    $categories, $faq->category->id,
+                    array('class' => 'form-control', 'id'=>'category_id'))}}
+                {!! $errors->first('category_id') !!}
             </div>
             {!! Form::button('Edit FAQ', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
    

@@ -21,6 +21,7 @@
 				                <th>Id</th>
 				                <th>Question</th>
 				                <th>Answer</th>
+				                <th>Category</th>
 				                <th>Created At</th>
 				                <th>Updated At</th>
 				                <th>Actions</th>
@@ -33,20 +34,21 @@
 				                <tr>
 				                    <td>{{$faq->id}}</td>
 				                    <td>
-                                                        @if (strlen($faq->question)> 100)
-                                                            {!! substr($faq->question, 0 , 100)." ..."!!}
-                                                        @else 
-                                                            {!! $faq->question !!}
-                                                        @endif
-                                                    </td>
+                                        @if (strlen($faq->question)> 100)
+                                            {!! substr($faq->question, 0 , 100)." ..."!!}
+                                        @else 
+                                            {!! $faq->question !!}
+                                        @endif
+                                    </td>
 				                    <td>
-                                                        @if (strlen($faq->answer)> 250)
-                                                            {!! substr($faq->answer, 0 , 250)." ..."!!}
-                                                        @else 
-                                                            {!!$faq->answer!!}
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$faq->created_at->format('d-m-Y, H:i')}}</td>
+                                        @if (strlen($faq->answer)> 250)
+                                            {!! substr($faq->answer, 0 , 250)." ..."!!}
+                                        @else 
+                                            {!!$faq->answer!!}
+                                        @endif
+                                    </td>
+                                    <td>{{$faq->category->name}}</td>
+                                    <td>{{$faq->created_at->format('d-m-Y, H:i')}}</td>
 				                    <td>{{$faq->updated_at->format('d-m-Y, H:i')}}</td>
 				                    <td>
 				                        {!! Form::open(array('url' => route('admin.faq.delete', [$faq->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}

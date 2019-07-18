@@ -4,7 +4,7 @@ namespace App\Http\Requests\FAQ;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FAQRequest extends FormRequest
+class FAQCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class FAQRequest extends FormRequest
     public function rules()
     {
         return [
-            'question'  => 'required',
-            'answer'    => 'required',
-            'category_id'    => 'required'
+            'name'  => 'required|max:250',
+            'icon'    => 'required|max:250',
         ];
     }
 }

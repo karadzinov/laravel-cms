@@ -57,7 +57,7 @@
 						<div class="shadow bordered">
 							<div class="overlay-container">
 								<img id="mainImage" src="{{$page->originalPath . $page->images()->first()->name}}" alt="">
-								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img" title="First image title">
+								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img">
 									<i class="fa fa-plus"></i>
 								</a>
 							</div>
@@ -71,7 +71,7 @@
 								<div class="col-xs-3">
 									<div class="overlay-container">
 										<img class="bottomImage" src="{{$page->thumbnailPath . $image->name}}" alt="">
-										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img" title="Second image title">
+										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img">
 											<i class="fa fa-plus"></i>
 										</a>
 									</div>
