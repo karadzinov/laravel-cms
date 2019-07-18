@@ -23,8 +23,9 @@
                 {!! Form::text('name', $category->name, [ 'class' => 'form-control', 'placeholder'=>'Name', 'autofocus' => true ]) !!}
 	        {!! $errors->first('name') !!}
             </div>
+            <br>
             <div class="form-group">
-                {!! Form::label('icon', 'Answer:') !!}
+                {!! Form::label('icon', 'Icon:') !!} <span>Search corresponding icon on <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">this link</a> and copy its name.</span>
                  <span class="input-icon icon-right">
                     {!! Form::text('icon', $category->icon, [ 'class' => 'form-control', 'placeholder'=>'Icon']) !!}
                     <i class="fa fa-{{$category->icon}}"></i>
