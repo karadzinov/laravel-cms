@@ -1,4 +1,11 @@
 @extends('layouts/master')
+@section('optionalHead')
+	<style>
+		.overlayContainerImages img{
+		  height: 200px;
+		}
+	</style>
+@endsection
 @section('content')
 	<div class="breadcrumb-container">
 		<div class="container">

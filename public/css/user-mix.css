@@ -21074,7 +21074,6 @@ div.tp-bannertimer{
 }
 .overlayContainerImages img{
   object-fit: cover;
-  height: 200px;
   width: 100%;
   height: 100%;
 }
