@@ -4,12 +4,6 @@
 		.light-gray-bg{
 			margin-top: 65px;
 		}
-		.overlayContainerImages{
-			width: 100%;
-		}
-		.tp-bannertimer{
-			margin-top: 0;
-		}
 	</style>
 @endsection
 @section('content')

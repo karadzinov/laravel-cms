@@ -2735,6 +2735,7 @@ div.tp-bannertimer{
   object-fit: cover;
   height: 200px;
   width: 100%;
+  height: 100%;
 }
 ﻿.DTTTFooter {
     margin: 0;
