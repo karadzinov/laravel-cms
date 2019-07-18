@@ -32,30 +32,26 @@
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs style-1" role="tablist">
 							@foreach($categories as $category)
-								@if($category->faqs->isNotEmpty())
-									<li class="@if($loop->iteration === 1) active @endif">
-										<a href="#faqCategory-{{$category->id}}" role="tab" data-toggle="tab">
-											<i class="fa  fa-{{$category->icon}} pr-10"></i>
-											{{$category->name}}
-										</a>
-									</li>
-								@endif
+								<li class="@if($loop->iteration === 1) active @endif">
+									<a href="#faqCategory-{{$category->id}}" role="tab" data-toggle="tab">
+										<i class="fa  fa-{{$category->icon}} pr-10"></i>
+										{{$category->name}}
+									</a>
+								</li>
 							@endforeach
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
 							@foreach($categories as $category)
-								@if($category->faqs->isNotEmpty())
-									<div class="tab-pane @if($loop->iteration === 1) fade in active @endif" id="faqCategory-{{$category->id}}">
-										<!-- accordion start -->
-										<div class="panel-group collapse-style-1" id="accordion-faq-{{$category->id}}">
-											@foreach($category->faqs as $faq)
-												@include('partials/user/faqs/item')
-											@endforeach
-										</div>
-										<!-- accordion end -->
+								<div class="tab-pane @if($loop->iteration === 1) fade in active @endif" id="faqCategory-{{$category->id}}">
+									<!-- accordion start -->
+									<div class="panel-group collapse-style-1" id="accordion-faq-{{$category->id}}">
+										@foreach($category->faqs as $faq)
+											@include('partials/user/faqs/item')
+										@endforeach
 									</div>
-								@endif
+									<!-- accordion end -->
+								</div>
 							@endforeach
 						</div>
 					</div>
@@ -88,11 +84,9 @@
 									<div class="form-group">
 										<label>Category</label>
 										<select class="form-control" id="category">
-											<option value="Sales">Sales</option>
-											<option value="Support">Support</option>
-											<option value="Lorem">Lorem</option>
-											<option value="Ipsum sit">Ipsum sit</option>
-											<option value="Dolor amet">Dolor amet</option>
+											@foreach($categories as $category)
+												<option value="{{$category->name}}">{{$category->name}}</option>
+											@endforeach
 										</select>
 									</div>
 									<div class="form-group has-feedback">

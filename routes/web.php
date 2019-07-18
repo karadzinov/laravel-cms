@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
 Route::get('search-ajax', 'SearchController@searchAjax')->name('search-ajax');
 Route::get('search', 'SearchController@search')->name('search');
 
+//Faq page email sender
+Route::post('faq-email', 'EmailController@faqEmail')->name('faqEmail');
 //FrontEndController actions
 Route::group(['as'=>'faq.'], function(){
     Route::get('/faqs', 'FrontEndController@faqs')->name('index');

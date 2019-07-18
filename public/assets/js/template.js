@@ -1505,9 +1505,13 @@
 			$("#sidebar-form").validate({
 				submitHandler: function(form) {
 					$('.submit-button').button("loading");
+					$.ajaxSetup({
+					    headers:
+					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+					});
 					$.ajax({
 						type: "POST",
-						url: "/assets/php/email-sender.php",
+						url: "/faq-email",
 						data: {
 							"name": $("#sidebar-form #name3").val(),
 							"email": $("#sidebar-form #email3").val(),
