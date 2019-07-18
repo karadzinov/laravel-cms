@@ -15,20 +15,10 @@ class MessagesTableSeeder extends Seeder
     {
     	$user= User::first();
         $conversations = Conversation::all();
-        $messages = [
-        	[
-                'user_id' => $user->id,
-        	    'conversation_id' => $conversations->first()->id,
-        	    'content' => 'First message',
-        	    'created_at' => now(),
-        	],
-        	[
-                'user_id' => $user->id,
-        	    'conversation_id' => $conversations[1]->id,
-        	    'content' => 'second message',
-        	    'created_at' => now(),
-        	],
-        ];
+        $messages = array(
+          array('user_id' => '1','conversation_id' => '1','content' => 'First public message','created_at' => '2019-07-03 10:19:10','updated_at' => NULL),
+          array('user_id' => '1','conversation_id' => '2','content' => 'First private message.','created_at' => '2019-07-03 10:19:10','updated_at' => NULL)
+        );
 
         foreach($messages as $message){
         	DB::table('messages')->insert($message);

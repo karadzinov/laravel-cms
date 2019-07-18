@@ -45,8 +45,7 @@ class FrontEndController extends Controller
 
     public function faqs(){
     	
-    	$categories = FaqCategory::with('faqs')->has('faqs')
-                        ->orderBy('id', 'desc')->get();
+    	$categories = FaqCategory::with('faqs')->has('faqs')->get();
 
     	return view('user/faq/index', compact('categories'));
     }

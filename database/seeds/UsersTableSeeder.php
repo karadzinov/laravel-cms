@@ -23,21 +23,28 @@ class UsersTableSeeder extends Seeder
         $seededAdminEmail = 'admin@admin.com';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null) {
-            $user = User::create([
-                'name'                           => $faker->userName,
-                'first_name'                     => $faker->firstName,
-                'last_name'                      => $faker->lastName,
-                'email'                          => $seededAdminEmail,
-                'password'                       => Hash::make('password'),
-                'token'                          => str_random(64),
-                'activated'                      => true,
-                'signup_confirmation_ip_address' => $faker->ipv4,
-                'admin_ip_address'               => $faker->ipv4,
-            ]);
+            for($i=0; $i<2; $i++){
+                if($i == 0){
+                    $seededAdminEmail = 'admin@admin.com';
+                }else{
+                    $seededAdminEmail = 'admin2@admin.com';
+                }
+                $user = User::create([
+                    'name'                           => $faker->userName,
+                    'first_name'                     => $faker->firstName,
+                    'last_name'                      => $faker->lastName,
+                    'email'                          => $seededAdminEmail,
+                    'password'                       => Hash::make('password'),
+                    'token'                          => str_random(64),
+                    'activated'                      => true,
+                    'signup_confirmation_ip_address' => $faker->ipv4,
+                    'admin_ip_address'               => $faker->ipv4,
+                ]);
 
-            $user->profile()->save($profile);
-            $user->attachRole($adminRole);
-            $user->save();
+                $user->profile()->save($profile);
+                $user->attachRole($adminRole);
+                $user->save();
+            }
         }
 
         // Seed test user

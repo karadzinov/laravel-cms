@@ -19,8 +19,21 @@ class DatabaseSeeder extends Seeder
         $this->call(ConnectRelationshipsSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(ConversationTableSeeder::class);
-        $this->call(MessagesTableSeeder::class);
+        $this->call([
+            ConversationTableSeeder::class,
+            ConversationUserTableSeeder::class,
+            MessagesTableSeeder::class,
+            CategoriesTableSeeder::class,
+            FaqCategoriesTableSeeder::class,
+            FaqsTableSeeder::class,
+            ImagesTableSeeder::class,
+            PagesTableSeeder::class,
+            PostsTableSeeder::class,
+            TagsTableSeeder::class,
+            PostTagTableSeeder::class,
+            ScriptsTableSeeder::class,
+            SettingsTableSeeder::class,
+        ]);
 
         Model::reguard();
     }
