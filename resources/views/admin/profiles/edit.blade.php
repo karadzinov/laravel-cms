@@ -107,7 +107,7 @@
                                             <div id="edit-profile-tab" class="tab-pane active">
                                                 <div class="row edit-profile-tab">
                                                         <div class="col-md-12">
-                                                            @include('profiles.partials.edit-profile-tab')
+                                                            @include('admin/profiles/partials/edit-profile-tab')
 
                                                         </div>
                                                 </div>
@@ -116,7 +116,7 @@
                                             <div id="edit-settings-tab" class="tab-pane">
                                                 <div class="row edit-profile-tab">
                                                         <div class="col-md-12">
-                                                            @include('profiles.partials.edit-settings-tab')
+                                                            @include('admin/profiles/partials/edit-settings-tab')
 
                                                         </div>
                                                 </div>
@@ -125,7 +125,7 @@
                                             <div id="edit-account-tab" class="tab-pane">
                                                 <div class="row edit-profile-tab">
                                                         <div class="col-md-12">
-                                                            @include('profiles.partials.edit-account-tab')
+                                                            @include('admin/profiles/partials/edit-account-tab')
 
                                                         </div>
                                                 </div>

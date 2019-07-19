@@ -29,7 +29,7 @@ class SocialController extends Controller
         $providerKey = Config::get('services.'.$provider);
 
         if (empty($providerKey)) {
-            return view('pages.status')
+            return view('admin/status')
                 ->with('error', trans('socials.noProvider'));
         }
 

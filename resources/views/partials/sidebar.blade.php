@@ -80,7 +80,7 @@
             </ul>
         </li>
         @php
-            $systemRoutes = ['/activity', '/phpinfo', '/admin/logs', '/admin/routes'];
+            $systemRoutes = ['/activity', '/phpinfo', '/admin/logs', '/admin/routes', '/admin/active-users'];
         @endphp
         
         <li class="@if(in_array(Request::getRequestUri(), $systemRoutes)) open active @endif">
@@ -110,6 +110,11 @@
                  <li class="{{Request::is('admin/routes') ? 'active' : null}}">
                      <a href="/admin/routes">
                          <span class="menu-text"> Routes </span>
+                     </a>
+                 </li>
+                 <li class="{{Request::is('admin/active-users') ? 'active' : null}}">
+                     <a href="/admin/active-users">
+                         <span class="menu-text"> Online Users </span>
                      </a>
                  </li>
             </ul>

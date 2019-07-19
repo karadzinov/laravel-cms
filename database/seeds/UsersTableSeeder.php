@@ -15,25 +15,22 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $profile = new Profile();
+        $profiles = [new Profile(), new Profile()];
         $adminRole = Role::whereName('Admin')->first();
         $userRole = Role::whereName('User')->first();
 
         // Seed test admin
         $seededAdminEmail = 'admin@admin.com';
         $user = User::where('email', '=', $seededAdminEmail)->first();
+        $adminEmails = ['admin@admin.com', 'admin2@admin.com'];
         if ($user === null) {
             for($i=0; $i<2; $i++){
-                if($i == 0){
-                    $seededAdminEmail = 'admin@admin.com';
-                }else{
-                    $seededAdminEmail = 'admin2@admin.com';
-                }
+                
                 $user = User::create([
                     'name'                           => $faker->userName,
                     'first_name'                     => $faker->firstName,
                     'last_name'                      => $faker->lastName,
-                    'email'                          => $seededAdminEmail,
+                    'email'                          => $adminEmails[$i],
                     'password'                       => Hash::make('password'),
                     'token'                          => str_random(64),
                     'activated'                      => true,
@@ -41,7 +38,7 @@ class UsersTableSeeder extends Seeder
                     'admin_ip_address'               => $faker->ipv4,
                 ]);
 
-                $user->profile()->save($profile);
+                $user->profile()->save($profiles[$i]);
                 $user->attachRole($adminRole);
                 $user->save();
             }

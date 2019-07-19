@@ -1900,7 +1900,7 @@ __webpack_require__.r(__webpack_exports__);
     update: function update() {
       var _this = this;
 
-      Echo.join('chart').here(function (users) {
+      Echo.join('presentUsers').here(function (users) {
         _this.count = users.length;
 
         _this.drawChart();
@@ -26002,7 +26002,7 @@ function load() {
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
   if (!r && typeof process !== 'undefined' && 'env' in process) {
-    r = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
+    r = Object({"MIX_PUSHER_APP_KEY":"d66ca498d980a3900469","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
   }
 
   return r;
@@ -78946,7 +78946,7 @@ function load() {
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
   if (!r && typeof process !== 'undefined' && 'env' in process) {
-    r = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
+    r = Object({"MIX_PUSHER_APP_KEY":"d66ca498d980a3900469","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
   }
 
   return r;
@@ -80162,7 +80162,7 @@ function load() {
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
   if (!r && typeof process !== 'undefined' && 'env' in process) {
-    r = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
+    r = Object({"MIX_PUSHER_APP_KEY":"d66ca498d980a3900469","MIX_PUSHER_APP_CLUSTER":"","NODE_ENV":"development"}).DEBUG;
   }
 
   return r;
@@ -92999,7 +92999,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('users-count', __webpack_require__(/*! ./components/UsersCount.vue */ "./resources/assets/js/components/UsersCount.vue"));
+Vue.component('users-count', __webpack_require__(/*! ./components/UsersCount.vue */ "./resources/assets/js/components/UsersCount.vue").default);
 
 if (document.getElementById('app')) {
   var app = new Vue({
