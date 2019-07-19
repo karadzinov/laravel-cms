@@ -20779,12 +20779,6 @@ input[readonly] {
 	text-align: right;
 }
 
-#map-canvas {
-	width: 100%;
-	height: 300px;
-}
-
-
 #searchmap {
 	background-color: #fff;
 	font-family: Roboto;
@@ -21065,9 +21059,19 @@ div.tp-bannertimer{
   height: 79px;
   width: 100%;
 }
-#map-canvas{
+
+#map-canvas {
+  width: 100%;
+  height: 300px;
+}
+
+footer #map-canvas{
   max-height: 100px;
 }
+#collapseMap #map-canvas{
+  height: 100%
+}
+
 #mapCanvasSeparator{
   margin-bottom: 0px;
   margin-top: 0px;
@@ -21076,4 +21080,10 @@ div.tp-bannertimer{
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+.logo_image{
+  height: 35px;
+  width: 100%
+  object-fit: cover;
 }

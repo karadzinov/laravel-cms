@@ -28,7 +28,9 @@ class StoreSettnigsRequest extends FormRequest
             'email'                 => 'required|email|max:255',
             'main_url'              => 'required|max:255',
             'address'               => 'required|max:255',
+            'phone_number'          => 'required|max:255',
             'logo'                  => 'required|max:255',
+            'slogan'                => 'max:255',
             'meta_image'            => 'max:255',
             'meta_title'            => 'max:255',
             'instagram'             => 'max:255',
@@ -37,8 +39,7 @@ class StoreSettnigsRequest extends FormRequest
             'linkedin'              => 'max:255',
             'ios_app'               => 'max:255',
             'android_app'           => 'max:255',
-            'lat'                   => '',
-            'lng'                   => '',
+            'lat'                   => 'required',
         ];
     }
 
@@ -51,8 +52,7 @@ class StoreSettnigsRequest extends FormRequest
             'address.required'      => trans('settings.addressRequired'),
             'main_url.required'     => trans('settings.mainURLRequired'),
             'logo.required'         => trans('settings.logoRequired'),
-            'lat'                   => '', //'Latitude required',
-            'lng'                   => '', //'Longtitude required',
+            'lat.required'          => 'You have to specify your company location.',
         ];
     }
 }

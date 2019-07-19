@@ -1,6 +1,6 @@
 @component('mail::message')
-### {!!$email->subject!!}
-# Category: {{$email->category}}
+### Email sent from [Contact Page]({{route('contact')}})
+# Subject: {{$email->subject}}
 
 {{$email->message}}
 

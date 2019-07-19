@@ -1348,9 +1348,13 @@
 			$("#contact-form").validate({
 				submitHandler: function(form) {
 					$('.submit-button').button("loading");
+					$.ajaxSetup({
+					    headers:
+					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+					});
 					$.ajax({
 						type: "POST",
-						url: "/assets/php/email-sender.php",
+						url: "/contact-page-email",
 						data: {
 							"name": $("#contact-form #name").val(),
 							"email": $("#contact-form #email").val(),
@@ -1505,6 +1509,8 @@
 			$("#sidebar-form").validate({
 				submitHandler: function(form) {
 					$('.submit-button').button("loading");
+					var url = window.location.host + '/faqs';
+					var faqpageUrl = ' [Faq Page](//' + url + ')';
 					$.ajaxSetup({
 					    headers:
 					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
@@ -1515,7 +1521,7 @@
 						data: {
 							"name": $("#sidebar-form #name3").val(),
 							"email": $("#sidebar-form #email3").val(),
-							"subject": "Message from FAQ page",
+							"subject": "Message from" + faqpageUrl,
 							"category": $("#sidebar-form #category").val(),
 							"message": $("#sidebar-form #message3").val()
 						},

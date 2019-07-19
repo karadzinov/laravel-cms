@@ -37,7 +37,7 @@
 						<li><i class="fa fa-map-marker pr-5 pl-10"></i>{{$settings->address}}</li>
 						<li>
 							<i class="fa fa-phone pr-5 pl-10"></i>
-							+12 123 123 123
+							{{$settings->phone_number}}
 						</li>
 						<li>
 							<i class="fa fa-envelope-o pr-5 pl-10"></i> 

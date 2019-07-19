@@ -23,7 +23,7 @@
 
 					<!-- name-and-slogan -->
 					<div class="site-slogan">
-						Here goes slogan
+						{{$settings->slogan}}
 					</div>
 
 				</div>
@@ -64,28 +64,6 @@
 							<div class="collapse navbar-collapse" id="navbar-collapse-1">
 								<!-- main-menu -->
 								<ul class="nav navbar-nav ">
-
-									<!-- mega-menu start -->
-									<li class="dropdown active mega-menu">
-										<a href="/" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="row">
-													<div class="col-md-12">
-														<h4 class="title"><i class="fa fa-laptop pr-10"></i> Demos</h4>
-														<div class="row">
-															<div class="col-sm-6 col-md-3">
-																<div class="divider"></div>
-																<ul class="menu">
-																	<li class="active"><a href="{{route('faq.index')}}"><i class="fa fa-question-circle"></i>FAQ</a></li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
 									<!-- mega-menu end -->
 									<li class="dropdown ">
 										<a href="{{route('posts.index')}}" class="dropdown-toggle" data-toggle="dropdown">
@@ -107,13 +85,24 @@
 											@endforeach
 										</ul>
 									</li>
+									<li>
+										<a href="{{route('contact')}}">Contact</a>
+									</li>
+									<li>
+										<a href="{{route('faq.index')}}">
+											{{-- <i class="fa fa-question-circle"></i> --}}
+											FAQ
+										</a>
+									</li>
 								</ul>
 								<!-- main-menu end -->
 								
 								<!-- header dropdown buttons -->
 								<div class="header-dropdown-buttons hidden-xs ">
 									<div class="btn-group dropdown">
-										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i></button>
+										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+											<i class="icon-search"></i>
+										</button>
 										<ul class="dropdown-menu dropdown-menu-right dropdown-animation">
 											<li>
 												<form method="GET" action="{{route('search')}}" role="search" class="search-box margin-clear">

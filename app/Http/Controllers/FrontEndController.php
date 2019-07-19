@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Category, FaqCategory, Page, Post, Tag};
+use App\Models\{Category, FaqCategory, Page, Post, Settings, Tag};
 
 class FrontEndController extends Controller
 {
@@ -56,5 +56,12 @@ class FrontEndController extends Controller
         $tag = $tag->name;
 
         return view('user/posts/tags', compact('posts', 'tag'));
+    }
+
+    public function contact(){
+        
+       $settings = Settings::first();
+
+       return view('user/contact', compact('settings'));
     }
 }

@@ -116,7 +116,7 @@
                                 <div id="map-canvas"></div>
 									
 								</li>
-								<li><i class="fa fa-phone pr-10 text-default"></i> +00 1234567890</li>
+								<li><i class="fa fa-phone pr-10 text-default"></i> {{$settings->phone_number}}</li>
 								<li><a href="mailto:info@theproject.com"><i class="fa fa-envelope-o pr-10"></i>{{$settings->email}}</a></li>
 							</ul>
 						</div>
