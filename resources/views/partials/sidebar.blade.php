@@ -79,6 +79,41 @@
                 </li>
             </ul>
         </li>
+        @php
+            $systemRoutes = ['/activity', '/phpinfo', '/admin/logs', '/admin/routes'];
+        @endphp
+        
+        <li class="@if(in_array(Request::getRequestUri(), $systemRoutes)) open active @endif">
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-cog"></i>
+                <span class="menu-text"> System </span>
+
+                <i class="menu-expand"></i>
+            </a>
+
+            <ul class="submenu" style="display: none;">
+                <li class="{{Request::is('activity') ? 'active' : null}}">
+                    <a href="{{ route('activity')}}">
+                        <span class="menu-text"> Activity </span>
+                    </a>
+                </li>
+               <li class="{{Request::is('phpinfo') ? 'active' : null}}">
+                    <a href="/phpinfo">
+                        <span class="menu-text"> Php Info </span>
+                    </a>
+                </li>  
+                <li class="{{Request::is('admin/logs') ? 'active' : null}}">
+                     <a href="/admin/logs">
+                         <span class="menu-text"> Logs </span>
+                     </a>
+                 </li>
+                 <li class="{{Request::is('admin/routes') ? 'active' : null}}">
+                     <a href="/admin/routes">
+                         <span class="menu-text"> Routes </span>
+                     </a>
+                 </li>
+            </ul>
+        </li>
     </ul>
     <!-- /Sidebar Menu -->
 </div>
