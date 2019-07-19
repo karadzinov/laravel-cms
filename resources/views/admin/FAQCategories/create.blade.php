@@ -4,7 +4,7 @@
 	<div class="widget">
 	    <div class="widget-header bordered-bottom bordered-blue">
 	        <span class="widget-caption">
-	            <i class="fa fa-pencil"></i> 
+	            <i class="fa fa-question"></i> 
 	        	Create FAQ Category 
 	        </span>
 	        <span class="pull-right">

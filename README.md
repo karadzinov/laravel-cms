@@ -8,6 +8,7 @@ CMS System made for Laravel.
 - composer install
 - npm install
 - !IMPORTANT! CMS requires [Laravel Echo Server](https://github.com/tlaverdure/laravel-echo-server) - it is installed with npm, but not initialized. Follow the process with laravel-echo-server init/start/stop from the link.
+- in your .env file put BROADCAST_DRIVER=redis
 - follow laravel process from below
 
 ### Work on a task

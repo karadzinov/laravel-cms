@@ -45,10 +45,9 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::resource('meta/settings','SettingsController');
     
     Route::get('meta/settings/show','SettingsController@show')->name('settings.show');
-    Route::get('meta/settings/1/edit','SettingsController@edit')->name('settings.edit');
+    Route::get('meta/settings/edit','SettingsController@edit')->name('settings.edit');
     Route::get('meta/settings/create','SettingsController@create' )->name('settings.create');
-    Route::put('meta/settings/1/update','SettingsController@update' )->name('settings.update');
-    Route::delete('meta/settings/1/destroy','SettingsController@destroy' )->name('settings.delete');
+    Route::put('meta/settings/update','SettingsController@update' )->name('settings.update');
     
     // category
     Route::resource('node/category', 'CategoryController');

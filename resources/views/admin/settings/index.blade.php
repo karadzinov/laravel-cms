@@ -22,10 +22,6 @@
                     <a class="btn btn-sm btn-warning pull-right actionButton" href="{{route('admin.settings.edit')}}"  data-toggle="tooltip" title="Edit">
                         {!! trans('settings.edit-settings') !!}
                     </a>
-                    {!! Form::open(array('route' => 'admin.settings.delete', 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
-                        {!! Form::hidden('_method', 'DELETE') !!}
-                        {!! Form::button(trans('settings.delete-settings'), array('class' => 'pull-right btn btn-danger btn-sm actionButton','type' => 'button','data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Settings', 'data-message' => 'You want to delete Settings. Are you sure? ')) !!}
-                    {!! Form::close() !!}
                 @endif
         </div>
         <div class="widget-body">
@@ -182,6 +178,4 @@
 
         </script>
     @endif
-
-    @include('scripts.delete-modal-script')
 @endsection
