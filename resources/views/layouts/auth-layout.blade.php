@@ -2,7 +2,7 @@
 <html lang="{{ config('app.locale') }}">
     <head>
         
-        @include('partials.head')
+        @include('partials/admin/head')
         @yield('head')
 <style>
     .social-buttons{
@@ -21,9 +21,9 @@
         <div class="loading-container loading-inactive">
             <div class="loader"></div>
         </div>
-        @include('partials.form-status')
+        @include('partials/admin/form-status')
         @yield('content')
-        @include('partials.footer')
+        @include('partials/admin/footer')
         @yield('footer_scripts')
     </body>
 </html>

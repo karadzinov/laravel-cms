@@ -73,7 +73,7 @@
 <ul class="messages-list" id="messages-list-{{$conversationId}}">
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
-        @include('partials/chat/messages-list')
+        @include('partials/admin/chat/messages-list')
     @else
         <li class="message">Start conversation!</li>
     @endif

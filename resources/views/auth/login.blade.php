@@ -7,7 +7,7 @@
             <div class="loginbox-social">
                 <div class="social-title ">Connect with Your Social Accounts</div>
                 <div class="social-buttons">
-                    @include('partials.socials-icons')
+                    @include('partials/admin/socials-icons')
                 </div>
             </div>
             <div class="loginbox-or">

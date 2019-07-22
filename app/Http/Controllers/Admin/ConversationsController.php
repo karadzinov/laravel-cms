@@ -44,7 +44,7 @@ class ConversationsController extends Controller
         
         $conversation = Conversation::findOrFail($request->get('conversation'));
 
-        return view('partials/chat/changeName', ['name'=>$conversation->name]);
+        return view('partials/admin/chat/changeName', ['name'=>$conversation->name]);
     }
 
     public function storeNewName(Request $request){
@@ -68,7 +68,7 @@ class ConversationsController extends Controller
     	    $role->where('name', 'admin');
     	}])->where('id', '!=', Auth()->user()->id)->get();
 
-    	return view('partials/conversations/addNewConversation', compact('users'));
+    	return view('partials/admin/conversations/addNewConversation', compact('users'));
     }
 
     public function addNewParticipants(Request $request){
@@ -80,7 +80,7 @@ class ConversationsController extends Controller
             $role->where('name', 'admin');
             }])->whereNotIn('id', $existingParticipants)->get();
 
-        return view('partials/chat/addParticipants', compact('users'));
+        return view('partials/admin/chat/addParticipants', compact('users'));
         
     }
 
@@ -139,7 +139,7 @@ class ConversationsController extends Controller
         $conversation = Conversation::findOrFail($request->get('conversation'));
         $users = $conversation->participants->where('id', '!=', Auth::user()->id);
         
-        return view('partials/chat/removeParticipants', compact('users'));
+        return view('partials/admin/chat/removeParticipants', compact('users'));
     }
 
     public function deleteParticipants(Request $request){
@@ -174,7 +174,7 @@ class ConversationsController extends Controller
 
     public function notifyNewcomersAndPrepareData($participants, $user, $conversation){
         
-        $view = view('partials/chat/contact', compact('conversation'))->render();
+        $view = view('partials/admin/chat/contact', compact('conversation'))->render();
         $data = [
             'view' => $view,
             'conversationId' => $conversation->id
@@ -215,7 +215,7 @@ class ConversationsController extends Controller
         }
         $conversationId = $conversation->id;
 
-        return view('partials/chat/history', 
+        return view('partials/admin/chat/history', 
                     compact('conversation', 'messages', 'next', 'conversationId')
                 );
     }

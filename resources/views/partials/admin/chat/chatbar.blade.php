@@ -11,7 +11,7 @@
         </button>
         <ul class="contacts-list"  style="overflow: hidden; width: auto; height: 841px;">
             @foreach($conversations as $conversation)
-                @include('partials/chat/contact')
+                @include('partials/admin/chat/contact')
             @endforeach
         </ul>
     </div>

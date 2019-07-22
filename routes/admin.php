@@ -42,8 +42,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('active-users', 'AdminDetailsController@activeUsers');
     
     // settings
-    Route::resource('meta/settings','SettingsController');
-    
+    Route::get('meta/settings','SettingsController@index')->name('settings.index');
     Route::get('meta/settings/show','SettingsController@show')->name('settings.show');
     Route::get('meta/settings/edit','SettingsController@edit')->name('settings.edit');
     Route::get('meta/settings/create','SettingsController@create' )->name('settings.create');

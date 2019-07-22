@@ -45,7 +45,7 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            'partials/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
+            'partials/admin/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
         );
 
         View::composer(
