@@ -14,19 +14,10 @@ class ConversationTableSeeder extends Seeder
     {
     	$user= User::first();
 
-        $conversations = [
-        	[
-        	    'user_id' => $user->id,
-        	    'name' => 'PUBLIC',
-        	    'public' => true,
-        	    'created_at' => now(),
-        	],
-        	[
-        	    'user_id' => $user->id,
-        	    'name' => 'PRIVATE',
-        	    'created_at' => now(),
-        	],
-        ];
+        $conversations = array(
+          array('user_id' => '1','name' => 'PUBLIC','public' => '1','created_at' => '2019-07-03 10:19:10','updated_at' => NULL),
+          array('user_id' => '1','name' => 'Private Conversation','public' => '0','created_at' => '2019-07-03 10:19:10','updated_at' => NULL)
+        );
 
         foreach($conversations as $conversation){
         	DB::table('conversations')->insert($conversation);

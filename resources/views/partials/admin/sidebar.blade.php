@@ -58,12 +58,67 @@
                 <span class="menu-text"> Pages </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/faq/*') ? 'active' : null}}">
-            <a href="{{ route('admin.faq.index')}}" class="menu">
+        <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">
+            <a href="#" class="menu-dropdown">
                 <i class="menu-icon fa fa-question"></i>
                 <span class="menu-text"> FAQs </span>
+
+                <i class="menu-expand"></i>
             </a>
-        </li>    
+
+            <ul class="submenu" style="display: none;">
+                <li class="{{Request::is('admin/faq/*') ? 'active' : null}}">
+                    <a href="{{ route('admin.faq.index')}}">
+                        <span class="menu-text"> FAQs </span>
+                    </a>
+                </li>
+               <li class="{{Request::is('admin/faq-categories/*') ? 'active' : null}}">
+                    <a href="{{ route('admin.faq-categories.index')}}">
+                        <span class="menu-text"> FAQ Categories </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @php
+            $systemRoutes = ['/activity', '/phpinfo', '/admin/logs', '/admin/routes', '/admin/active-users'];
+        @endphp
+        
+        <li class="@if(in_array(Request::getRequestUri(), $systemRoutes)) open active @endif">
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-cog"></i>
+                <span class="menu-text"> System </span>
+
+                <i class="menu-expand"></i>
+            </a>
+
+            <ul class="submenu" style="display: none;">
+                <li class="{{Request::is('activity') ? 'active' : null}}">
+                    <a href="{{ route('activity')}}">
+                        <span class="menu-text"> Activity </span>
+                    </a>
+                </li>
+               <li class="{{Request::is('phpinfo') ? 'active' : null}}">
+                    <a href="/phpinfo">
+                        <span class="menu-text"> Php Info </span>
+                    </a>
+                </li>  
+                <li class="{{Request::is('admin/logs') ? 'active' : null}}">
+                     <a href="/admin/logs">
+                         <span class="menu-text"> Logs </span>
+                     </a>
+                 </li>
+                 <li class="{{Request::is('admin/routes') ? 'active' : null}}">
+                     <a href="/admin/routes">
+                         <span class="menu-text"> Routes </span>
+                     </a>
+                 </li>
+                 <li class="{{Request::is('admin/active-users') ? 'active' : null}}">
+                     <a href="/admin/active-users">
+                         <span class="menu-text"> Online Users </span>
+                     </a>
+                 </li>
+            </ul>
+        </li>
     </ul>
     <!-- /Sidebar Menu -->
 </div>

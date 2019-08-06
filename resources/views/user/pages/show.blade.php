@@ -7,7 +7,9 @@
 		}
 		.bottomImage{
 			height: 167.5px !important;
-			margin: 0 auto;
+			object-fit: cover;
+			width: 100%;
+			padding-top: 20px;
 		}
 	</style>
 @endsection
@@ -17,7 +19,12 @@
 	<div class="breadcrumb-container">
 		<div class="container">
 			<ol class="breadcrumb">
-				<li><i class="fa fa-home pr-10"></i><a href="index.html">Home</a></li>
+				<li>
+					<i class="fa fa-home pr-10"></i>
+					<a href="/">
+						Home
+					</a>
+				</li>
 				<li class="active">{!!$page->title!!}</li>
 			</ol>
 		</div>
@@ -41,11 +48,16 @@
 					<div class="separator-2"></div>
 					<p class="lead">{!!$page->subtitle!!}</p>
 					<div class="separator-2"></div>
+					
+					<p>
+						{!!$page->main_text!!}
+					</p>
+
 					@if($page->images->isNotEmpty())
 						<div class="shadow bordered">
 							<div class="overlay-container">
 								<img id="mainImage" src="{{$page->originalPath . $page->images()->first()->name}}" alt="">
-								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img" title="First image title">
+								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img">
 									<i class="fa fa-plus"></i>
 								</a>
 							</div>
@@ -59,7 +71,7 @@
 								<div class="col-xs-3">
 									<div class="overlay-container">
 										<img class="bottomImage" src="{{$page->thumbnailPath . $image->name}}" alt="">
-										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img" title="Second image title">
+										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img">
 											<i class="fa fa-plus"></i>
 										</a>
 									</div>
@@ -69,8 +81,6 @@
 						<br>
 						<br>
 					@endif
-					{!!$page->main_text!!}
-
 				</div>
 				<!-- main end -->
 
@@ -78,28 +88,4 @@
 		</div>
 	</section>
 	<!-- main-container end -->
-	
-	<!-- footer top start -->
-	<!-- ================ -->
-	<div class="dark-bg  default-hovered footer-top animated-text">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="call-to-action text-center">
-						<div class="row">
-							<div class="col-sm-8">
-								<h2>Powerful Bootstrap Template</h2>
-								<h2>Waste no more time</h2>
-							</div>
-							<div class="col-sm-4">
-								<p class="mt-10"><a href="#" class="btn btn-animated btn-lg btn-gray-transparent ">Purchase<i class="fa fa-cart-arrow-down pl-20"></i></a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- footer top end -->
-
 @endsection

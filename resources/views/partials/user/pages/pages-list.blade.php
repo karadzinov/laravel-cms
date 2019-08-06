@@ -15,7 +15,7 @@
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
-								<div class="overlay-container">
+								<div class="overlay-container overlayContainerImages">
 									<img src="{{$page->thumbnailPath . $page->images()->first()->name}}" alt="">
 									<a class="overlay-link" href="{{$page->showRoute}}"><i class="fa fa-link"></i></a>
 								</div>
@@ -25,7 +25,7 @@
 							@endphp
 							@foreach($page->images as $image)
 								<div class="item">
-									<div class="overlay-container">
+									<div class="overlay-container overlayContainerImages">
 										<img src="{{$page->thumbnailPath . $image->name}}" alt="">
 										<a class="overlay-link" href="{{$page->showRoute}}"><i class="fa fa-link"></i></a>
 									</div>

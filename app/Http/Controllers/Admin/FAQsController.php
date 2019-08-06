@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Models\FAQ;
 use Illuminate\Http\Request;
+use App\Models\{FAQ, FaqCategory};
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FAQ\FAQRequest;
 
@@ -29,8 +29,9 @@ class FAQsController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.FAQ.create');
+        $categories = FaqCategory::pluck('name', 'id')->toArray();
+
+        return view('admin.FAQ.create', compact('categories'));
 
     }
 
@@ -42,7 +43,6 @@ class FAQsController extends Controller
      */
     public function store(FAQRequest $request)
     {
-        //
         $faq = FAQ::create($request->all());
 
     	return redirect(route('admin.faq.index'))
@@ -68,7 +68,9 @@ class FAQsController extends Controller
      */
     public function edit(FAQ $faq)
     {
-        return view('admin.FAQ/edit', compact('faq'));
+        $categories = FaqCategory::pluck('name', 'id')->toArray();
+
+        return view('admin.FAQ/edit', compact('faq', 'categories'));
     }
 
     /**
@@ -95,7 +97,7 @@ class FAQsController extends Controller
      */
     public function delete(FAQ $faq)
     {
-     $faq->delete();
+        $faq->delete();
     	
     	return redirect(route('admin.faq.index'))
                     ->with('success', 'Successfully Deleted FAQ'); 

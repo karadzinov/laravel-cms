@@ -22,8 +22,8 @@
 		var platform = navigator.platform.toLowerCase();
 		if ((platform.indexOf('win') == 0 || platform.indexOf('linux') == 0) && !Modernizr.touch) {
 			if ($.browser.webkit) {
-				$.webkitSmoothScroll();
-				console.log("hello webkit");
+				// $.webkitSmoothScroll();
+				// console.log("hello webkit");
 			}
 		};
 		//Show dropdown on hover only for desktop devices
@@ -1348,9 +1348,13 @@
 			$("#contact-form").validate({
 				submitHandler: function(form) {
 					$('.submit-button').button("loading");
+					$.ajaxSetup({
+					    headers:
+					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+					});
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/contact-page-email",
 						data: {
 							"name": $("#contact-form #name").val(),
 							"email": $("#contact-form #email").val(),
@@ -1431,7 +1435,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#footer-form #name2").val(),
 							"email": $("#footer-form #email2").val(),
@@ -1505,13 +1509,19 @@
 			$("#sidebar-form").validate({
 				submitHandler: function(form) {
 					$('.submit-button').button("loading");
+					var url = window.location.host + '/faqs';
+					var faqpageUrl = ' [Faq Page](//' + url + ')';
+					$.ajaxSetup({
+					    headers:
+					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+					});
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/faq-email",
 						data: {
 							"name": $("#sidebar-form #name3").val(),
 							"email": $("#sidebar-form #email3").val(),
-							"subject": "Message from FAQ page",
+							"subject": "Message from" + faqpageUrl,
 							"category": $("#sidebar-form #category").val(),
 							"message": $("#sidebar-form #message3").val()
 						},
@@ -1582,7 +1592,7 @@
 					$('.submit-button').button("loading");
 					$.ajax({
 						type: "POST",
-						url: "php/email-sender.php",
+						url: "/assets/php/email-sender.php",
 						data: {
 							"name": $("#rsvp #name").val(),
 							"email": $("#rsvp #email").val(),

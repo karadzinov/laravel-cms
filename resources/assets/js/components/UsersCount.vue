@@ -53,7 +53,7 @@
                 });
             },
             update() {
-                Echo.join('chart')
+                Echo.join('presentUsers')
                     .here((users) => {
                         this.count = users.length;
                         this.drawChart();

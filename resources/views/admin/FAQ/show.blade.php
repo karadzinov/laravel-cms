@@ -23,7 +23,12 @@
             </div>
             <div>
                 <label for="answer"><strong>Answer:</strong></label>
-                <pre id="code">{{$faq->answer}}</pre>
+                <pre id="answer">{{$faq->answer}}</pre>
+            </div>
+
+            <div>
+                <label for="category"><strong>Category:</strong></label>
+                <p id="category">{{$faq->category->name}}</p>
             </div>
 
         </div>

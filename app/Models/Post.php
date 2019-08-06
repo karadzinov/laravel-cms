@@ -71,14 +71,19 @@ class Post extends Model
         return false;
     }
 
+    public function getVideoSrcAttribute(){
+        
+        return '//www.youtube.com/embed/' . $this->videoId;
+    }
+
     public function makeItem(){
         
         $title = strip_tags($this->title);
         $subtitle = strip_tags($this->subtitle);
 
         //update $view and $route when front is made
-        $route = route('posts.show', [$this->id]);
-        $view = view('posts/rss-show', ['post'=>$this])->render();
+        $route = $this->showRoute;
+        $view = view('admin/posts/rss-show', ['post'=>$this])->render();
 
         $item = new Item(
             $this->id,

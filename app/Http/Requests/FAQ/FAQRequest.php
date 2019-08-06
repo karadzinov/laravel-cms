@@ -25,7 +25,8 @@ class FAQRequest extends FormRequest
     {
         return [
             'question'  => 'required',
-            'answer'    => 'required'
+            'answer'    => 'required',
+            'category_id'    => 'required'
         ];
     }
 }

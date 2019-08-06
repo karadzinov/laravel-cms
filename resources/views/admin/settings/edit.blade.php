@@ -36,11 +36,21 @@
                     {!! Form::label('settings-title', trans('forms.settings-title'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 15px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('title', $settings->title, array('id' => 'settings-title', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px; visibility: visible;', 'placeholder' => trans('forms.settings-title-ph'))) !!}
+                            @if ($errors->has('title'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('title') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('main_url', trans('forms.settings-url'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('main_url', $settings->main_url, array('id' => 'main_url', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-url-ph'))) !!}
+                            @if ($errors->has('main_url'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('main_url') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     {{--  email --}}
                         {!! Form::label('email', trans('forms.settings-email'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
@@ -56,56 +66,132 @@
                         {!! Form::label('address', trans('forms.settings-address'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('address', $settings->address, array('id' => 'address', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-address-ph'))) !!}
+                            @if ($errors->has('address'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('address') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        {!! Form::label('phone_number', 'Phone Number', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        <div class="col-md-12"  style="font-size: 14px">
+                            {!! Form::text('phone_number', $settings->phone_number, array('id' => 'phone_number', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Phone Number')) !!}
+                            @if ($errors->has('phone_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('phone_number') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('logo', trans('forms.settings-logo'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             <img src="/images/settings/thumbnails/{{$settings->logo}}" style="max-width: 200px">
                             {!! Form::file('logo', null,['class'=>'form-control']) !!}
+                            @if ($errors->has('logo'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('logo') }}</strong>
+                                </span>
+                            @endif
                         </div>
+
+                        {!! Form::label('slogan', 'Company Slogan', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        <div class="col-md-12"  style="font-size: 14px">
+                            {!! Form::text('slogan', $settings->slogan, array('id' => 'slogan', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Company Slogan')) !!}
+                            @if ($errors->has('slogan'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('slogan') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
                         {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('meta_description', $settings->meta_description, array('id' => 'meta_description', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-meta-description-ph'))) !!}
+                            @if ($errors->has('meta_description'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('meta_description') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('meta_image', trans('forms.settings-meta-image'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('meta_image', $settings->meta_image, array('id' => 'meta_image', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-meta-image-ph'))) !!}
+                            @if ($errors->has('meta_image'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('meta_image') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('meta_title', trans('forms.settings-meta-title'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('meta_title', $settings->meta_title, array('id' => 'meta_title', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-meta-title-ph'))) !!}
+                            @if ($errors->has('meta_title'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('meta_title') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('instagram', trans('forms.settings-instagram'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('instagram', $settings->instagram, array('id' => 'instagram', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-instagram-ph'))) !!}
+                            @if ($errors->has('instagram'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('instagram') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('twitter', trans('forms.settings-twitter'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('twitter', $settings->twitter, array('id' => 'twitter', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-twitter-ph'))) !!}
+                            @if ($errors->has('twitter'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('twitter') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('facebook', trans('forms.settings-facebook'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('facebook', $settings->facebook, array('id' => 'facebook', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-facebook-ph'))) !!}
+                            @if ($errors->has('facebook'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('facebook') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('linkedin', trans('forms.settings-linkedin'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('linkedin', $settings->linkedin, array('id' => 'linkedin', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-linkedin-ph'))) !!}
+                            @if ($errors->has('linkedin'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('linkedin') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('ios_app', trans('forms.settings-ios-app'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('ios_app', $settings->ios_app, array('id' => 'ios_app', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-ios-app-ph'))) !!}
+                            @if ($errors->has('ios_app'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('ios_app') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         {!! Form::label('android_app', trans('forms.settings-android-app'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('android_app', $settings->android_app, array('id' => 'android_app', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => trans('forms.settings-android-app-ph'))) !!}
+                            @if ($errors->has('android_app'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('android_app') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         {!! Form::label('google_map', trans('forms.settings-google-map'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
 
@@ -115,6 +201,12 @@
                                 <div id="map-canvas"></div>
 
                         </div>
+                        @if ($errors->has('lat') || $errors->has('lng'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('lat') }}</strong>
+                                <strong>{{ $errors->first('lng') }}</strong>
+                            </span>
+                        @endif
 
 
 
@@ -123,7 +215,7 @@
                     <input type="hidden" id="lng" class="form-control" name="lng" value="{{ $settings->lng }}">
                     
                 </div>
-                         {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
+                {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
             {!! Form::close() !!}
         </div>
     </div>      

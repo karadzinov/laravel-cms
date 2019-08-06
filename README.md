@@ -1,3 +1,34 @@
+## Laravel CMS
+CMS System made for Laravel.
+
+### Local
+- git clone the repo
+- create database, fill .env file
+- for developement use MAIL_HOST smtp.mailtrap.io, fill its credentials
+- composer install
+- npm install
+- !IMPORTANT! CMS requires [Laravel Echo Server](https://github.com/tlaverdure/laravel-echo-server) - it is installed with npm, but not initialized. Follow the process with laravel-echo-server init/start/stop from the link.
+- in your .env file put BROADCAST_DRIVER=redis
+- follow laravel process from below
+
+### Work on a task
+- Follow Jira tasks
+- create a new branch from develop with 'slugified' name of the task 
+- commit starting with the serial number of the task (LCMS-XX ...)
+- When you are done, assign colleague to review it. Review comments should be writen in Jira task comments.
+- After he/she finishes it, the task should be reassigned to previous user who should make pull request for develop.
+
+### LARAVEL
+- php artisan key:generate
+- php artisan migrate
+- php artisan db:seed
+- sudo chmod -R 777 storage/
+
+### Admin Login Credentials
+- admin@admin.com/password
+- admin2@admin.com/password
+### User Login Credentials
+- user@admin.com/password
 ## Laravel-Auth
 #### Laravel-Auth is a Complete Build of Laravel 5.7 with Email Registration Verification, Social Authentication, User Roles and Permissions, User Profiles, and Admin restricted user management system. Built on Bootstrap 4.
 [![Build Status](https://travis-ci.org/jeremykenedy/laravel-auth.svg?branch=master)](https://travis-ci.org/jeremykenedy/laravel-auth)

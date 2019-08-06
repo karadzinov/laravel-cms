@@ -397,113 +397,7 @@ if(browser.safari&&browser.silk){var silk="silk";matched.browser=silk;browser[si
 browser.name=matched.browser;browser.platform=matched.platform;return browser;}// Run the matching process, also assign the function to the returned object
 // for manual, jQuery-free use if desired
 window.jQBrowser=uaMatch(window.navigator.userAgent);window.jQBrowser.uaMatch=uaMatch;// Only assign to jQuery.browser if jQuery is loaded
-if(jQuery){jQuery.browser=window.jQBrowser;}return window.jQBrowser;});//
-// SmoothScroll for websites v1.2.1
-// Licensed under the terms of the MIT license.
-//
-// You may use it in your theme if you credit me. 
-// It is also free to use on any individual website.
-//
-// Exception:
-// The only restriction would be not to publish any  
-// extension for browsers or native application
-// without getting a permission first.
-//
-// People involved
-//  - Balazs Galambosi (maintainer)   
-//  - Michael Herf     (Pulse Algorithm)
-(function($){$.extend({webkitSmoothScroll:function webkitSmoothScroll(){// Scroll Variables (tweakable)
-var defaultOptions={// Scrolling Core
-frameRate:120,// [Hz]
-animationTime:600,// [px]
-stepSize:135,// [px]
-// Pulse (less tweakable)
-// ratio of "tail" to "acceleration"
-pulseAlgorithm:true,pulseScale:7,pulseNormalize:1,// Acceleration
-accelerationDelta:20,// 20
-accelerationMax:1,// 1
-// Keyboard Settings
-keyboardSupport:true,// option
-arrowScroll:50,// [px]
-// Other
-touchpadSupport:true,fixedBackground:true,excluded:""};var options=defaultOptions;// Other Variables
-var isExcluded=false;var isFrame=false;var direction={x:0,y:0};var initDone=false;var root=document.documentElement;var activeElement;var observer;var deltaBuffer=[120,120,120];var key={left:37,up:38,right:39,down:40,spacebar:32,pageup:33,pagedown:34,end:35,home:36};/***********************************************
-             * SETTINGS
-             ***********************************************/var options=defaultOptions;/***********************************************
-             * INITIALIZE
-             ***********************************************/ /**
-             * Tests if smooth scrolling is allowed. Shuts down everything if not.
-             */function initTest(){var disableKeyboard=false;// disable keyboard support if anything above requested it
-if(disableKeyboard){removeEvent("keydown",keydown);}if(options.keyboardSupport&&!disableKeyboard){addEvent("keydown",keydown);}}/**
-             * Sets up scrolls array, determines if frames are involved.
-             */function init(){if(!document.body)return;var body=document.body;var html=document.documentElement;var windowHeight=window.innerHeight;var scrollHeight=body.scrollHeight;// check compat mode for root element
-root=document.compatMode.indexOf('CSS')>=0?html:body;activeElement=body;initTest();initDone=true;// Checks if this script is running in a frame
-if(top!=self){isFrame=true;}/**
-                 * This fixes a bug where the areas left and right to 
-                 * the content does not trigger the onmousewheel event
-                 * on some pages. e.g.: html, body { height: 100% }
-                 */else if(scrollHeight>windowHeight&&(body.offsetHeight<=windowHeight||html.offsetHeight<=windowHeight)){// DOMChange (throttle): fix height
-var pending=false;var refresh=function refresh(){if(!pending&&html.scrollHeight!=document.height){pending=true;// add a new pending action
-setTimeout(function(){html.style.height=document.height+'px';pending=false;},500);// act rarely to stay fast
-}};html.style.height='auto';setTimeout(refresh,10);// clearfix
-if(root.offsetHeight<=windowHeight){var underlay=document.createElement("div");underlay.style.clear="both";body.appendChild(underlay);}}// disable fixed background
-if(!options.fixedBackground&&!isExcluded){body.style.backgroundAttachment="scroll";html.style.backgroundAttachment="scroll";}}/************************************************
-             * SCROLLING 
-             ************************************************/var que=[];var pending=false;var lastScroll=+new Date();/**
-             * Pushes scroll actions to the scrolling queue.
-             */function scrollArray(elem,left,top,delay){delay||(delay=1000);directionCheck(left,top);if(options.accelerationMax!=1){var now=+new Date();var elapsed=now-lastScroll;if(elapsed<options.accelerationDelta){var factor=(1+30/elapsed)/2;if(factor>1){factor=Math.min(factor,options.accelerationMax);left*=factor;top*=factor;}}lastScroll=+new Date();}// push a scroll command
-que.push({x:left,y:top,lastX:left<0?0.99:-0.99,lastY:top<0?0.99:-0.99,start:+new Date()});// don't act if there's a pending queue
-if(pending){return;}var scrollWindow=elem===document.body;var step=function step(time){var now=+new Date();var scrollX=0;var scrollY=0;for(var i=0;i<que.length;i++){var item=que[i];var elapsed=now-item.start;var finished=elapsed>=options.animationTime;// scroll position: [0, 1]
-var position=finished?1:elapsed/options.animationTime;// easing [optional]
-if(options.pulseAlgorithm){position=pulse(position);}// only need the difference
-var x=item.x*position-item.lastX>>0;var y=item.y*position-item.lastY>>0;// add this to the total scrolling
-scrollX+=x;scrollY+=y;// update last values
-item.lastX+=x;item.lastY+=y;// delete and step back if it's over
-if(finished){que.splice(i,1);i--;}}// scroll left and top
-if(scrollWindow){window.scrollBy(scrollX,scrollY);}else{if(scrollX)elem.scrollLeft+=scrollX;if(scrollY)elem.scrollTop+=scrollY;}// clean up if there's nothing left to do
-if(!left&&!top){que=[];}if(que.length){requestFrame(step,elem,delay/options.frameRate+1);}else{pending=false;}};// start a new queue of actions
-requestFrame(step,elem,0);pending=true;}/***********************************************
-             * EVENTS
-             ***********************************************/ /**
-             * Mouse wheel handler.
-             * @param {Object} event
-             */function wheel(event){if(!initDone){init();}var target=event.target;var overflowing=overflowingAncestor(target);// use default if there's no overflowing
-// element or default action is prevented    
-if(!overflowing||event.defaultPrevented||isNodeName(activeElement,"embed")||isNodeName(target,"embed")&&/\.pdf/i.test(target.src)){return true;}var deltaX=event.wheelDeltaX||0;var deltaY=event.wheelDeltaY||0;// use wheelDelta if deltaX/Y is not available
-if(!deltaX&&!deltaY){deltaY=event.wheelDelta||0;}// check if it's a touchpad scroll that should be ignored
-if(!options.touchpadSupport&&isTouchpad(deltaY)){return true;}// scale by step size
-// delta is 120 most of the time
-// synaptics seems to send 1 sometimes
-if(Math.abs(deltaX)>1.2){deltaX*=options.stepSize/120;}if(Math.abs(deltaY)>1.2){deltaY*=options.stepSize/120;}scrollArray(overflowing,-deltaX,-deltaY);event.preventDefault();}/**
-             * Keydown event handler.
-             * @param {Object} event
-             */function keydown(event){var target=event.target;var modifier=event.ctrlKey||event.altKey||event.metaKey||event.shiftKey&&event.keyCode!==key.spacebar;// do nothing if user is editing text
-// or using a modifier key (except shift)
-// or in a dropdown
-if(/input|textarea|select|embed/i.test(target.nodeName)||target.isContentEditable||event.defaultPrevented||modifier){return true;}// spacebar should trigger button press
-if(isNodeName(target,"button")&&event.keyCode===key.spacebar){return true;}var shift,x=0,y=0;var elem=overflowingAncestor(activeElement);var clientHeight=elem.clientHeight;if(elem==document.body){clientHeight=window.innerHeight;}switch(event.keyCode){case key.up:y=-options.arrowScroll;break;case key.down:y=options.arrowScroll;break;case key.spacebar:// (+ shift)
-shift=event.shiftKey?1:-1;y=-shift*clientHeight*0.9;break;case key.pageup:y=-clientHeight*0.9;break;case key.pagedown:y=clientHeight*0.9;break;case key.home:y=-elem.scrollTop;break;case key.end:var damt=elem.scrollHeight-elem.scrollTop-clientHeight;y=damt>0?damt+10:0;break;case key.left:x=-options.arrowScroll;break;case key.right:x=options.arrowScroll;break;default:return true;// a key we don't care about
-}scrollArray(elem,x,y);event.preventDefault();}/**
-             * Mousedown event only for updating activeElement
-             */function mousedown(event){activeElement=event.target;}/***********************************************
-             * OVERFLOW
-             ***********************************************/var cache={};// cleared out every once in while
-setInterval(function(){cache={};},10*1000);var uniqueID=function(){var i=0;return function(el){return el.uniqueID||(el.uniqueID=i++);};}();function setCache(elems,overflowing){for(var i=elems.length;i--;){cache[uniqueID(elems[i])]=overflowing;}return overflowing;}function overflowingAncestor(el){var elems=[];var rootScrollHeight=root.scrollHeight;do{var cached=cache[uniqueID(el)];if(cached){return setCache(elems,cached);}elems.push(el);if(rootScrollHeight===el.scrollHeight){if(!isFrame||root.clientHeight+10<rootScrollHeight){return setCache(elems,document.body);// scrolling root in WebKit
-}}else if(el.clientHeight+10<el.scrollHeight){overflow=getComputedStyle(el,"").getPropertyValue("overflow-y");if(overflow==="scroll"||overflow==="auto"){return setCache(elems,el);}}}while(el=el.parentNode);}/***********************************************
-             * HELPERS
-             ***********************************************/function addEvent(type,fn,bubble){window.addEventListener(type,fn,bubble||false);}function removeEvent(type,fn,bubble){window.removeEventListener(type,fn,bubble||false);}function isNodeName(el,tag){return(el.nodeName||"").toLowerCase()===tag.toLowerCase();}function directionCheck(x,y){x=x>0?1:-1;y=y>0?1:-1;if(direction.x!==x||direction.y!==y){direction.x=x;direction.y=y;que=[];lastScroll=0;}}var deltaBufferTimer;function isTouchpad(deltaY){if(!deltaY)return;deltaY=Math.abs(deltaY);deltaBuffer.push(deltaY);deltaBuffer.shift();clearTimeout(deltaBufferTimer);var allDivisable=isDivisible(deltaBuffer[0],120)&&isDivisible(deltaBuffer[1],120)&&isDivisible(deltaBuffer[2],120);return!allDivisable;}function isDivisible(n,divisor){return Math.floor(n/divisor)==n/divisor;}var requestFrame=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||function(callback,element,delay){window.setTimeout(callback,delay||1000/60);};}();/***********************************************
-             * PULSE
-             ***********************************************/ /**
-             * Viscous fluid with a pulse for part and decay for the rest.
-             * - Applies a fixed force over an interval (a damped acceleration), and
-             * - Lets the exponential bleed away the velocity over a longer interval
-             * - Michael Herf, http://stereopsis.com/stopping/
-             */function pulse_(x){var val,start,expx;// test
-x=x*options.pulseScale;if(x<1){// acceleartion
-val=x-(1-Math.exp(-x));}else{// tail
-// the previous animation ended here:
-start=Math.exp(-1);// simple viscous drag
-x-=1;expx=1-Math.exp(-x);val=start+expx*(1-start);}return val*options.pulseNormalize;}function pulse(x){if(x>=1)return 1;if(x<=0)return 0;if(options.pulseNormalize==1){options.pulseNormalize/=pulse_(1);}return pulse_(x);}var isChrome=/chrome/i.test(window.navigator.userAgent);var wheelEvent=null;if("onwheel"in document.createElement("div"))wheelEvent="wheel";else if("onmousewheel"in document.createElement("div"))wheelEvent="mousewheel";if(wheelEvent&&isChrome){addEvent(wheelEvent,wheel);addEvent("mousedown",mousedown);addEvent("load",init);}}});})(jQuery);/* Theme Name: The Project - Responsive Website Template
+if(jQuery){jQuery.browser=window.jQBrowser;}return window.jQBrowser;});/* Theme Name: The Project - Responsive Website Template
  * Author:HtmlCoder
  * Author URI:http://www.htmlcoder.me
  * Author e-mail:htmlcoder.me@gmail.com
@@ -512,7 +406,9 @@ x-=1;expx=1-Math.exp(-x);val=start+expx*(1-start);}return val*options.pulseNorma
  * License URI:http://support.wrapbootstrap.com/
  * File Description: Initializations of plugins
  */(function($){$(document).ready(function(){if($('.boxed .fullscreen-bg').length>0){$("body").addClass("transparent-page-wrapper");};$(window).load(function(){$("body").removeClass("no-trans");});// Enable Smooth Scroll only on Chrome and only on Win and Linux Systems
-var platform=navigator.platform.toLowerCase();if((platform.indexOf('win')==0||platform.indexOf('linux')==0)&&!Modernizr.touch){if($.browser.webkit){$.webkitSmoothScroll();console.log("hello webkit");}};//Show dropdown on hover only for desktop devices
+var platform=navigator.platform.toLowerCase();if((platform.indexOf('win')==0||platform.indexOf('linux')==0)&&!Modernizr.touch){if($.browser.webkit){// $.webkitSmoothScroll();
+// console.log("hello webkit");
+}};//Show dropdown on hover only for desktop devices
 //-----------------------------------------------
 var delay=0,setTimeoutConst;if(Modernizr.mq('only all and (min-width: 768px)')&&!Modernizr.touch||$("html.ie8").length>0){$('.main-navigation:not(.onclick) .navbar-nav>li.dropdown, .main-navigation:not(.onclick) li.dropdown>ul>li.dropdown').hover(function(){var $this=$(this);setTimeoutConst=setTimeout(function(){$this.addClass('open').slideDown();$this.find('.dropdown-toggle').addClass('disabled');},delay);},function(){clearTimeout(setTimeoutConst);$(this).removeClass('open');$(this).find('.dropdown-toggle').removeClass('disabled');});};//Show dropdown on click only for mobile devices
 //-----------------------------------------------
@@ -577,10 +473,10 @@ if($(".modal").length>0){$(".modal").each(function(){$(".modal").prependTo("body
 //-----------------------------------------------
 if($(".pricing-tables").length>0){$(".plan .pt-popover").popover({trigger:'hover',container:'body'});};// Contact forms validation
 //-----------------------------------------------
-if($("#contact-form").length>0){$("#contact-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"php/email-sender.php",data:{"name":$("#contact-form #name").val(),"email":$("#contact-form #email").val(),"subject":$("#contact-form #subject").val(),"message":$("#contact-form #message").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent").removeClass("hidden");$("#MessageNotSent").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#contact-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent").removeClass("hidden");$("#MessageSent").addClass("hidden");}}});},// debug: true,
-errorPlacement:function errorPlacement(error,element){error.insertBefore(element);},onkeyup:false,onclick:false,rules:{name:{required:true,minlength:2},email:{required:true,email:true},subject:{required:true},message:{required:true,minlength:10}},messages:{name:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},subject:{required:"Please enter a subject"},message:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");$(element).siblings("label").addClass("hide");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");$(element).siblings("label").removeClass("hide");}});};if($("#footer-form").length>0){$("#footer-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"php/email-sender.php",data:{"name":$("#footer-form #name2").val(),"email":$("#footer-form #email2").val(),"subject":"Message from contact form","message":$("#footer-form #message2").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent2").removeClass("hidden");$("#MessageNotSent2").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#footer-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent2").removeClass("hidden");$("#MessageSent2").addClass("hidden");}}});},// debug: true,
-errorPlacement:function errorPlacement(error,element){error.insertAfter(element);},onkeyup:false,onclick:false,rules:{name2:{required:true,minlength:2},email2:{required:true,email:true},message2:{required:true,minlength:10}},messages:{name2:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email2:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},message2:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");$(element).siblings("label").addClass("hide");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");$(element).siblings("label").removeClass("hide");}});};if($("#sidebar-form").length>0){$("#sidebar-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"php/email-sender.php",data:{"name":$("#sidebar-form #name3").val(),"email":$("#sidebar-form #email3").val(),"subject":"Message from FAQ page","category":$("#sidebar-form #category").val(),"message":$("#sidebar-form #message3").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent3").removeClass("hidden");$("#MessageNotSent3").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#sidebar-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent3").removeClass("hidden");$("#MessageSent3").addClass("hidden");}}});},// debug: true,
-errorPlacement:function errorPlacement(error,element){error.insertAfter(element);},onkeyup:false,onclick:false,rules:{name3:{required:true,minlength:2},email3:{required:true,email:true},message3:{required:true,minlength:10}},messages:{name3:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email3:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},message3:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");}});};if($("#rsvp").length>0){$("#rsvp").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"php/email-sender.php",data:{"name":$("#rsvp #name").val(),"email":$("#rsvp #email").val(),"guests":$("#rsvp #guests").val(),"subject":"RSVP","events":$("#rsvp #events").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent").removeClass("hidden");$("#MessageNotSent").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#rsvp .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent").removeClass("hidden");$("#MessageSent").addClass("hidden");}}});},// debug: true,
+if($("#contact-form").length>0){$("#contact-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajaxSetup({headers:{'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')}});$.ajax({type:"POST",url:"/contact-page-email",data:{"name":$("#contact-form #name").val(),"email":$("#contact-form #email").val(),"subject":$("#contact-form #subject").val(),"message":$("#contact-form #message").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent").removeClass("hidden");$("#MessageNotSent").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#contact-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent").removeClass("hidden");$("#MessageSent").addClass("hidden");}}});},// debug: true,
+errorPlacement:function errorPlacement(error,element){error.insertBefore(element);},onkeyup:false,onclick:false,rules:{name:{required:true,minlength:2},email:{required:true,email:true},subject:{required:true},message:{required:true,minlength:10}},messages:{name:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},subject:{required:"Please enter a subject"},message:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");$(element).siblings("label").addClass("hide");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");$(element).siblings("label").removeClass("hide");}});};if($("#footer-form").length>0){$("#footer-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"/assets/php/email-sender.php",data:{"name":$("#footer-form #name2").val(),"email":$("#footer-form #email2").val(),"subject":"Message from contact form","message":$("#footer-form #message2").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent2").removeClass("hidden");$("#MessageNotSent2").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#footer-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent2").removeClass("hidden");$("#MessageSent2").addClass("hidden");}}});},// debug: true,
+errorPlacement:function errorPlacement(error,element){error.insertAfter(element);},onkeyup:false,onclick:false,rules:{name2:{required:true,minlength:2},email2:{required:true,email:true},message2:{required:true,minlength:10}},messages:{name2:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email2:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},message2:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");$(element).siblings("label").addClass("hide");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");$(element).siblings("label").removeClass("hide");}});};if($("#sidebar-form").length>0){$("#sidebar-form").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");var url=window.location.host+'/faqs';var faqpageUrl=' [Faq Page](//'+url+')';$.ajaxSetup({headers:{'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')}});$.ajax({type:"POST",url:"/faq-email",data:{"name":$("#sidebar-form #name3").val(),"email":$("#sidebar-form #email3").val(),"subject":"Message from"+faqpageUrl,"category":$("#sidebar-form #category").val(),"message":$("#sidebar-form #message3").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent3").removeClass("hidden");$("#MessageNotSent3").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#sidebar-form .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent3").removeClass("hidden");$("#MessageSent3").addClass("hidden");}}});},// debug: true,
+errorPlacement:function errorPlacement(error,element){error.insertAfter(element);},onkeyup:false,onclick:false,rules:{name3:{required:true,minlength:2},email3:{required:true,email:true},message3:{required:true,minlength:10}},messages:{name3:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email3:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"},message3:{required:"Please enter a message",minlength:"Your message must be longer than 10 characters"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");}});};if($("#rsvp").length>0){$("#rsvp").validate({submitHandler:function submitHandler(form){$('.submit-button').button("loading");$.ajax({type:"POST",url:"/assets/php/email-sender.php",data:{"name":$("#rsvp #name").val(),"email":$("#rsvp #email").val(),"guests":$("#rsvp #guests").val(),"subject":"RSVP","events":$("#rsvp #events").val()},dataType:"json",success:function success(data){if(data.sent=="yes"){$("#MessageSent").removeClass("hidden");$("#MessageNotSent").addClass("hidden");$(".submit-button").removeClass("btn-default").addClass("btn-success").prop('value','Message Sent');$("#rsvp .form-control").each(function(){$(this).prop('value','').parent().removeClass("has-success").removeClass("has-error");});}else{$("#MessageNotSent").removeClass("hidden");$("#MessageSent").addClass("hidden");}}});},// debug: true,
 errorPlacement:function errorPlacement(error,element){error.insertAfter(element);},onkeyup:false,onclick:false,rules:{name:{required:true,minlength:2},email:{required:true,email:true},guests:{required:true},events:{required:true}},messages:{name:{required:"Please specify your name",minlength:"Your name must be longer than 2 characters"},email:{required:"We need your email address to contact you",email:"Please enter a valid email address e.g. name@domain.com"}},errorElement:"span",highlight:function highlight(element){$(element).parent().removeClass("has-success").addClass("has-error");$(element).siblings("label").addClass("hide");},success:function success(element){$(element).parent().removeClass("has-error").addClass("has-success");$(element).siblings("label").removeClass("hide");}});};// Affix Menu
 //-----------------------------------------------
 if($(".affix-menu").length>0){setTimeout(function(){var $sideBar=$('.sidebar');$sideBar.affix({offset:{top:function top(){var offsetTop=$sideBar.offset().top;return this.top=offsetTop-65;},bottom:function bottom(){var affixBottom=$(".footer").outerHeight(true)+$(".subfooter").outerHeight(true);if($(".footer-top").length>0){affixBottom=affixBottom+$(".footer-top").outerHeight(true);}return this.bottom=affixBottom+50;}}});},100);}//Scroll Spy

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        @include('partials.head')
+        @include('partials/admin/head')
         @yield('head')
     </head>
     <body>
         <div class="loading-container loading-inactive">
             <div class="loader"></div>
         </div>
-        @include('partials.nav')
+        @include('partials/admin/nav')
         <div class="main-container container-fluid">
             <div class="page-container">
-                @include('partials/chat/chatbar')
-                @include('partials.sidebar')
+                @include('partials/admin/chat/chatbar')
+                @include('partials/admin/sidebar')
             
                 <div class="page-content">
-                    @include('partials.form-status')
+                    @include('partials/admin/form-status')
                     @yield('content')
                 </div>
             </div>
         </div>
 
-        @include('partials.footer')
+        @include('partials/admin/footer')
 
-        @include('partials.scripts')
+        @include('partials/admin/scripts')
 
         @yield('footer_scripts')
 

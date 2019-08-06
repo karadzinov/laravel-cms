@@ -84,7 +84,7 @@ class ProfilesController extends Controller
             'currentTheme' => $currentTheme,
         ];
 
-        return view('profiles.show')->with($data);
+        return view('admin/profiles/show')->with($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class ProfilesController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return view('pages.status')
+            return view('admin/status')
                 ->with('error', trans('profile.notYourProfile'))
                 ->with('error_title', trans('profile.notYourProfileTitle'));
         }
@@ -120,7 +120,7 @@ class ProfilesController extends Controller
 
         ];
 
-        return view('profiles.edit')->with($data);
+        return view('admin/profiles/edit')->with($data);
     }
 
     /**

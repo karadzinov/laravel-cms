@@ -20,7 +20,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('admin.posts/index', compact('posts'));
+        return view('admin/posts/index', compact('posts'));
     }
     /**
      * Show the form for creating a new resource.
@@ -33,7 +33,7 @@ class PostsController extends Controller
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
 
-        return view('admin.posts/create', compact('categories', 'users', 'tags'));
+        return view('admin/posts/create', compact('categories', 'users', 'tags'));
     }
     /**
      * Store a newly created resource in storage.

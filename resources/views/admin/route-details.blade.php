@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				@include('partials.form-status')
+				@include('partials/admin/form-status')
 
 				<div class="card">
 					<div class="card-header">

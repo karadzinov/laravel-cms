@@ -32,6 +32,7 @@ class ViewServiceProvider extends ServiceProvider
             ['partials/user/head',
             'partials/user/header',
             'partials/user/footer',
+            'partials/user/nav',
             ], 'App\Http\View\Composers\SettingsComposer'
         );
 
@@ -44,7 +45,11 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            'partials/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
+            'partials/admin/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
+        );
+
+        View::composer(
+            'partials/user/footer', 'App\Http\View\Composers\FooterComposer'
         );
     }
 }

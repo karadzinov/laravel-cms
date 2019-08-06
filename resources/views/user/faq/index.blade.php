@@ -16,7 +16,7 @@
 	<section class="main-container">
 
 		<div class="container">
-			@if($faqs->isNotEmpty())
+			@if($categories->isNotEmpty())
 				<div class="row">
 
 					<!-- main start -->
@@ -31,21 +31,28 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ut quisquam ab harum hic enim quibusdam aut quasi recusandae temporibus quo voluptatibus, dolorem consectetur ipsam facere ipsa. Commodi sunt, inventore!</p>
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs style-1" role="tablist">
-							<li class="active"><a href="#tab1" role="tab" data-toggle="tab"><i class="fa  fa-life-saver pr-10"></i>Questions</a></li>
-							{{-- <li><a href="#tab2" role="tab" data-toggle="tab"><i class="fa fa-user pr-10"></i>Sales</a></li> --}}
-							{{-- <li><a href="#tab3" role="tab" data-toggle="tab"><i class="fa fa-star pr-10"></i>Popular Topics</a></li> --}}
+							@foreach($categories as $category)
+								<li class="@if($loop->iteration === 1) active @endif">
+									<a href="#faqCategory-{{$category->id}}" role="tab" data-toggle="tab">
+										<i class="fa  fa-{{$category->icon}} pr-10"></i>
+										{{$category->name}}
+									</a>
+								</li>
+							@endforeach
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
-							<div class="tab-pane fade in active" id="tab1">
-								<!-- accordion start -->
-								<div class="panel-group collapse-style-1" id="accordion-faq">
-									@foreach($faqs as $faq)
-										@include('partials/user/faqs/item')
-									@endforeach
+							@foreach($categories as $category)
+								<div class="tab-pane @if($loop->iteration === 1) fade in active @endif" id="faqCategory-{{$category->id}}">
+									<!-- accordion start -->
+									<div class="panel-group collapse-style-1" id="accordion-faq-{{$category->id}}">
+										@foreach($category->faqs as $faq)
+											@include('partials/user/faqs/item')
+										@endforeach
+									</div>
+									<!-- accordion end -->
 								</div>
-								<!-- accordion end -->
-							</div>
+							@endforeach
 						</div>
 					</div>
 					<!-- main end -->
@@ -77,11 +84,9 @@
 									<div class="form-group">
 										<label>Category</label>
 										<select class="form-control" id="category">
-											<option value="Sales">Sales</option>
-											<option value="Support">Support</option>
-											<option value="Lorem">Lorem</option>
-											<option value="Ipsum sit">Ipsum sit</option>
-											<option value="Dolor amet">Dolor amet</option>
+											@foreach($categories as $category)
+												<option value="{{$category->name}}">{{$category->name}}</option>
+											@endforeach
 										</select>
 									</div>
 									<div class="form-group has-feedback">
@@ -109,27 +114,4 @@
 		</div>
 	</section>
 	<!-- main-container end -->
-	
-	<!-- footer top start -->
-	<!-- ================ -->
-	<div class="dark-bg  default-hovered footer-top animated-text">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="call-to-action text-center">
-						<div class="row">
-							<div class="col-sm-8">
-								<h2>Powerful Bootstrap Template</h2>
-								<h2>Waste no more time</h2>
-							</div>
-							<div class="col-sm-4">
-								<p class="mt-10"><a href="#" class="btn btn-animated btn-lg btn-gray-transparent ">Purchase<i class="fa fa-cart-arrow-down pl-20"></i></a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- footer top end -->
 @endsection

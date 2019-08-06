@@ -13,7 +13,7 @@ let mix = require('laravel-mix');
 // first style and babel are made for admin panel, other 2 for user
 mix.styles([
    		'public/assets/css/bootstrap.min.css',
-   		'public/assets/css/font-awesome.min.css',
+         'public/assets/fonts/font-awesome/css/font-awesome.css',
    		'public/assets/css/weather-icons.min.css',
    		'public/assets/css/beyond.min.css',
    		'public/assets/css/demo.min.css',
@@ -64,7 +64,7 @@ mix.styles([
          'public/assets/plugins/vide/jquery.vide.js',
          'public/assets/plugins/owl-carousel/owl.carousel.js',
          'public/assets/plugins/jquery.browser.js',
-         'public/assets/plugins/SmoothScroll.js',
+         // 'public/assets/plugins/SmoothScroll.js',
          'public/assets/js/template.js',
          'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/js/custom.js',

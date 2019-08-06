@@ -69,7 +69,7 @@
                 </div>
             </div>
             @if(config('usersmanagement.enableSearchUsers'))
-                @include('partials.search-users-form')
+                @include('partials/admin/search-users-form')
             @endif
             <div class="table-responsive users-table">
                 <table class="table table-striped table-sm data-table">

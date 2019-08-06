@@ -73,7 +73,7 @@
 <ul class="messages-list" id="messages-list-{{$conversationId}}">
     @if(count($messages))
         @php $authId = Auth::user()->id; @endphp
-        @include('partials/chat/messages-list')
+        @include('partials/admin/chat/messages-list')
     @else
         <li class="message">Start conversation!</li>
     @endif
@@ -82,7 +82,7 @@
 <div class="send-message">
     <span class="input-icon icon-right">
         <textarea id="message" name="message" rows="4" class="form-control" placeholder="Type your message"></textarea>
-        <i class="fa fa-camera themeprimary"></i>
+        {{-- <i class="fa fa-camera themeprimary"></i> --}}
     </span>
 </div>
 

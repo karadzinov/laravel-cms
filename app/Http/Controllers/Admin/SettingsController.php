@@ -111,24 +111,6 @@ class SettingsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy()
-    {
-        $settings = Settings::firstOrFail();
-        
-        $this->deleteImages($settings);
-        
-        $settings->delete();
-        
-        return redirect('admin/meta/settings')
-                ->with('success', 'Settings Successfully Deleted.');
-    }
-
-    /**
      * Uploads the logo if there is any, and deletes previous one.
      *
      * @param  \Illuminate\Http\Request  $request

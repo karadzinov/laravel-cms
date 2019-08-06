@@ -78,7 +78,7 @@
                            <p class="text-center mb-4">
                                Or Use Social Logins to Register
                            </p>
-                           @include('partials.socials')
+                           @include('partials/admin/socials')
                        </div>
                 </div>
             </form>
