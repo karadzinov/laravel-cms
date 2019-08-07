@@ -13,7 +13,9 @@
 */
 // Registered, activated, and is admin routes.
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
-    
+
+    Route::get('home', 'AdminDetailsController@home')->name('home');
+
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [
             'index', 'show', 'update', 'destroy',

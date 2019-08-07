@@ -25,9 +25,10 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->isAdmin()) {
-            return view('admin/home');
-        }
+        // if ($user->isAdmin()) {
+            
+        //     return redirect()->route('admin.home');
+        // }
 
         return view('user/home');
     }

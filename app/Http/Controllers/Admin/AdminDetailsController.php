@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Route;
 
 class AdminDetailsController extends Controller
 {
+
+    public function home(){
+        
+        return view('admin/home');
+        
+    }
     /**
      * Create a new controller instance.
      *
