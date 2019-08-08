@@ -149,3 +149,13 @@ Route::group(["prefix" => "faq-categories", "as"=>"faq-categories.", 'middleware
     Route::delete('delete/{category}', 'FaqCategoriesController@delete')->name('delete');
 });
 
+Route::group(["prefix" => "testimonials", "as"=>"testimonials.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'TestimonialsController@index')->name('index');
+    Route::get('show/{testimonial}', 'TestimonialsController@show')->name('show');
+    Route::get('create', 'TestimonialsController@create')->name('create');
+    Route::post('store', 'TestimonialsController@store')->name('store');
+    Route::get('edit/{testimonial}', 'TestimonialsController@edit')->name('edit');
+    Route::put('update/{testimonial}', 'TestimonialsController@update')->name('update');
+    Route::delete('delete/{testimonial}', 'TestimonialsController@delete')->name('delete');
+});
+

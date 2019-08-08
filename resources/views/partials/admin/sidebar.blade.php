@@ -52,10 +52,16 @@
                 <span class="menu-text"> Posts </span>
             </a>
         </li>
-         <li class="{{Request::is('admin/pages/*') ? 'active' : null}}">
+        <li class="{{Request::is('admin/pages/*') ? 'active' : null}}">
             <a href="{{ route('admin.pages.index')}}" class="menu">
                 <i class="menu-icon fa fa-newspaper-o"></i>
                 <span class="menu-text"> Pages </span>
+            </a>
+        </li>
+        <li class="{{Request::is('admin/testimonials/*') ? 'active' : null}}">
+            <a href="{{ route('admin.testimonials.index')}}" class="menu">
+                <i class="menu-icon fa fa-comments"></i>
+                <span class="menu-text"> Testimonials </span>
             </a>
         </li>
         <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">

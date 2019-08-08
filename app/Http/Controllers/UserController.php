@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Settings;
+use App\Models\Testimonial;
 
 class UserController extends Controller
 {
@@ -23,13 +27,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $posts = Post::latest()->take(4)->get();
+        $settings = Settings::first();
+        $categories = Category::take(3)->get();
+        $testimonials = Testimonial::all();
 
-        // if ($user->isAdmin()) {
-            
-        //     return redirect()->route('admin.home');
-        // }
-
-        return view('user/home');
+        return view('user/home', compact('posts', 'settings', 'categories', 'testimonials'));
     }
 }
