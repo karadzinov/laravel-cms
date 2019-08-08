@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             PostTagTableSeeder::class,
             ScriptsTableSeeder::class,
             SettingsTableSeeder::class,
+            AboutTableSeeder::class,
         ]);
 
         Model::reguard();

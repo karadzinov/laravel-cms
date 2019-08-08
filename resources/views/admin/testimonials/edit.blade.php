@@ -22,17 +22,29 @@
                     {!! Form::textarea('title', $testimonial->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}
                     {!! $errors->first('title') !!}
                 </div>
-
+                @if($post->image)
+                    <div>
+                        <img src="{{$post->thumbnailPath}}">
+                        <br>
+                        <br>
+                    </div>
+                @endif
                 <div class="form-group">
                     {{Form::label('image', 'Image:')}}
                     {!! Form::file('image', null,['class'=>'form-control']) !!}
                     {!! $errors->first('image') !!}
-                </div>
+                </div> 
 
                 <div class="form-group">
                     {!! Form::label('name', 'Name:') !!}
-                    {!! Form::textarea('name', $testimonial->name, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>'Name', 'autofocus' => true ]) !!}
+                    {!! Form::text('name', $testimonial->name, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>'Name']) !!}
                     {!! $errors->first('name') !!}
+                </div> 
+
+                <div class="form-group">
+                    {!! Form::label('company', 'Company:') !!}
+                    {!! Form::text('company', $testimonial->company, ['id'=>'company', 'class' => 'form-control', 'placeholder'=>'Company']) !!}
+                    {!! $errors->first('company') !!}
                 </div>   
 
                 <div class="form-group">

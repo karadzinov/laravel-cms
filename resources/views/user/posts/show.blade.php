@@ -77,7 +77,7 @@
 							</p>
 							@if($post->video)
 								<div class="embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item" src="{{$post->videoSrc}}"></iframe>
+									{!!$post->videoPreview!!}
 								</div>
 							@endif
 						</div>

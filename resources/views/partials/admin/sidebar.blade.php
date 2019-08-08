@@ -64,6 +64,12 @@
                 <span class="menu-text"> Testimonials </span>
             </a>
         </li>
+        <li class="{{Request::is('admin/abouts/*') ? 'active' : null}}">
+            <a href="{{ route('admin.about.show')}}" class="menu">
+                <i class="menu-icon fa fa-id-card-o"></i>
+                <span class="menu-text"> About </span>
+            </a>
+        </li>
         <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">
             <a href="#" class="menu-dropdown">
                 <i class="menu-icon fa fa-question"></i>

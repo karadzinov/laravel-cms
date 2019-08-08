@@ -31,8 +31,14 @@
 
                 <div class="form-group">
                     {!! Form::label('name', 'Name:') !!}
-                    {!! Form::text('name', null, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>'Name', 'autofocus' => true ]) !!}
+                    {!! Form::text('name', null, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>'Name']) !!}
                     {!! $errors->first('name') !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('company', 'Company:') !!}
+                    {!! Form::text('company', null, ['id'=>'company', 'class' => 'form-control', 'placeholder'=>'Company']) !!}
+                    {!! $errors->first('company') !!}
                 </div>   
 
                 <div class="form-group">

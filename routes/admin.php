@@ -113,6 +113,12 @@ Route::group(["prefix"=>"images", "as"=>"images.", 'middleware' => ['auth', 'act
     Route::post('delete', 'ImagesController@delete')->name('delete');
 });
 
+Route::group(["prefix" => "about", "as"=>"about.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('show', 'AboutController@show')->name('show');
+    Route::post('store', 'AboutController@store')->name('store');
+    Route::get('edit', 'AboutController@edit')->name('edit');
+    Route::put('update', 'AboutController@update')->name('update');
+});
 
 Route::group(["prefix"=>"posts", "as"=>"posts.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function() {
     Route::get('index', 'PostsController@index')->name('index');
@@ -158,4 +164,3 @@ Route::group(["prefix" => "testimonials", "as"=>"testimonials.", 'middleware' =>
     Route::put('update/{testimonial}', 'TestimonialsController@update')->name('update');
     Route::delete('delete/{testimonial}', 'TestimonialsController@delete')->name('delete');
 });
-

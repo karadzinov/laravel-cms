@@ -21,6 +21,7 @@
 					                <th>Id</th>
 					                <th>Title</th>
 					                <th>Name</th>
+					                <th>Company</th>
 					                <th>Content</th>
 					                <th>Created At</th>
 					                <th>Updated At</th>
@@ -38,6 +39,9 @@
                                         </td>
 					                    <td>
                                             {{$testimonial->name}}
+                                        </td>
+                                        <td>
+                                            {{$testimonial->company}}
                                         </td>
                                         <td>
                                             {{$testimonial->content}}

@@ -8,7 +8,7 @@
 				<!-- blogpost start -->
 				<article class="blogpost shadow light-gray-bg bordered object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="100">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="{{$post->videoSrc}}"></iframe>
+						{!!$post->videoPreview!!}
 					</div>
 					<header>
 						<h2><a href="{{$post->showRoute}}">{!!$post->title!!}</a></h2>

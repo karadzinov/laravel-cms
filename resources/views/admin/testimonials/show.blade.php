@@ -25,7 +25,7 @@
             <div>
                 <label for="image"><strong>Image:</strong></label>
                 <br>
-                <img src="{{asset('images/testimonials/thumbnails/'.$testimonial->image)}}" alt="{{$testimonial->image}}" id="image">
+                <img src="{{$testimonial->thumbnailPath}}" alt="{{$testimonial->image}}" id="image">
             </div>
             <br>
 
@@ -33,6 +33,13 @@
                 <label for="name"><strong>Name:</strong></label>
                 <p id="name">{{$testimonial->name}}</p>
             </div>
+
+            @if($testimonial->company)
+                <div>
+                    <label for="company"><strong>Comapny:</strong></label>
+                    <p id="company">{{$testimonial->company}}</p>
+                </div>
+            @endif
 
             <div>
                 <label for="content"><strong>Content:</strong></label>

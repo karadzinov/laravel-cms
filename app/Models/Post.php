@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Helpers\RssFeeds\Item;
-use App\Models\Helpers\ImagesPaths;
+use App\Models\Helpers\{HasYoutubeVideos, ImagesPaths};
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use ImagesPaths;
+    use ImagesPaths, HasYoutubeVideos;
     
     protected $table = 'posts';
     protected $dates = ['created_at', 'updated_at'];
@@ -32,48 +32,6 @@ class Post extends Model
     public function tags(){
         
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
-    }
-
-    public function getVideoIdAttribute(){
-        
-        if($this->video)
-        {
-            try {
-                $components = parse_url($this->video);
-                parse_str($components['query'], $params);
-                
-                $id = $params['v'];
-                
-                return $id;
-            } catch (Exception $e) {
-                
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    public function getVideoPreviewImageAttribute(){
-        if($this->video)
-        {
-            try {
-                $id = $this->videoId;
-                $image = "https://img.youtube.com/vi/{$id}/hqdefault.jpg";
-                
-                return $image;
-            } catch (Exception $e) {
-                
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    public function getVideoSrcAttribute(){
-        
-        return '//www.youtube.com/embed/' . $this->videoId;
     }
 
     public function makeItem(){
