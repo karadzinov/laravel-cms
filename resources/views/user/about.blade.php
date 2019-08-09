@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 pv-20">
-					<h2 class="title"><strong>Wellcome</strong> To {{$settings->title}}</h2>
+					<h2 class="title"><strong>{{trans('general.welcome')}}</strong> {{trans('general.to')}} {{$settings->title}}</h2>
 					{!!$about->welcome_note!!}
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 
 					<!-- page-title start -->
 					<!-- ================ -->
-					<h1 class="page-title">About Us</h1>
+					<h1 class="page-title">{{trans('general.about_us')}}</h1>
 					<div class="separator-2 mb-20"></div>
 					<!-- page-title end -->
 
@@ -56,7 +56,7 @@
 						<!-- sidebar end -->
 					</div>
 
-					<h2 class="title">Why <strong>Choose Us</strong></h2>
+					<h2 class="title">{{trans('general.why')}} <strong>{{trans('general.choose_us')}}</strong></h2>
 					<div class="separator-2"></div>
 					{!!$about->why_us!!}
 				</div>
@@ -74,28 +74,28 @@
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg circle"><i class="fa fa-diamond"></i></span>
-					<h3><strong>Projects</strong></h3>
+					<h3><strong>{{trans('general.projects')}}</strong></h3>
 					<span class="counter" data-to="1525" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg circle"><i class="fa fa-users"></i></span>
-					<h3><strong>Clients</strong></h3>
+					<h3><strong>{{trans('general.clients')}}</strong></h3>
 					<span class="counter" data-to="1225" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg circle"><i class="fa fa-cloud-download"></i></span>
-					<h3><strong>Downloads</strong></h3>
+					<h3><strong>{{trans('general.downloads')}}</strong></h3>
 					<span class="counter" data-to="12235" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg circle"><i class="fa fa-share"></i></span>
-					<h3><strong>Shares</strong></h3>
+					<h3><strong>{{trans('general.shares')}}</strong></h3>
 					<span class="counter" data-to="15002" data-speed="5000">0</span>
 				</div>
 			</div>

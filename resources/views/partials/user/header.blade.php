@@ -58,12 +58,12 @@
 					<!-- ================ -->
 					<div class="header-top-dropdown text-right">
 						<div class="btn-group dropdown">
-							<button type="button" class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-lock pr-10"></i> {{ __('Logout') }}</button>
+							<button type="button" class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-lock pr-10"></i> {{trans('general.header.logout')}}</button>
 							<ul class="dropdown-menu dropdown-menu-right dropdown-animation">
 								<li>
 									<a class="btn btn-default" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{trans('general.header.logout')}}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

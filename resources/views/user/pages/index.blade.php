@@ -7,7 +7,7 @@
 	</style>
 @endsection
 @section('content')
-	<div class="breadcrumb-container">
+	{{-- <div class="breadcrumb-container">
 		<div class="container">
 			<ol class="breadcrumb">
 				<li>
@@ -19,7 +19,7 @@
 				<li class="active">Pages</li>
 			</ol>
 		</div>
-	</div>
+	</div> --}}
 	<br>
 	<br>
 	<br>
@@ -28,9 +28,9 @@
 			<div class="main col-md-12">
 				<!-- page-title start -->
 				<!-- ================ -->
-				<h1 class="page-title text-center">Pages</h1>
+				<h1 class="page-title text-center">{{trans('general.pages')}}</h1>
 				<div class="separator with-icon"><i class="fa fa-desktop bordered"></i></div>
-				<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+				<p class="text-center">{{trans('general.pages_top_text')}}</p>
 				<br>
 				<br>
 				<!-- page-title end -->

@@ -77,7 +77,11 @@
 										data-speed="500"
 										data-start="1600"
 										data-easing="easeOutQuad"
-										data-endspeed="600"><a href="{{$slide->showRoute}}" class="btn btn-default btn-animated">Read More <i class="fa fa-arrow-right"></i></a>
+										data-endspeed="600">
+										<a href="{{$slide->showRoute}}" class="btn btn-default btn-animated">
+											{{trans('general.read_more')}} 
+											<i class="fa fa-arrow-right"></i>
+										</a>
 									</div>
 
 									</li>
@@ -106,11 +110,11 @@
 
 						<!-- page-title start -->
 						<!-- ================ -->
-						<h1 class="page-title text-center">Featured Posts</h1>
+						<h1 class="page-title text-center">{{trans('general.our_posts')}}</h1>
 						<div class="separator with-icon">
 							<i class="fa fa-pencil bordered"></i>
 						</div>
-						<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+						<p class="text-center">{{trans('general.posts_top_text')}}</p>
 						<br>
 						<br>
 						<!-- page-title end -->

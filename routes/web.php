@@ -111,6 +111,8 @@ Route::group(['as'=>'posts.'], function(){
 Route::get('contact', 'FrontEndController@contact')->name('contact');
 Route::get('about', 'FrontEndController@about')->name('about');
 
+Route::post('switch-language', 'FrontEndController@switchLanguage')->name('switchLanguage');
+
 Route::group(['as'=>'pages.'], function(){
     Route::get('/pages', 'FrontEndController@pages')->name('index');
 });

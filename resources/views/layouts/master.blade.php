@@ -8,6 +8,14 @@
 	<head>
 		@include('partials/user/head')
 		@yield('optionalHead')
+		<style>
+			.language-switcher-area {
+				min-width: auto !important;
+			}
+			.language-switcher{
+				text-transform: uppercase;
+			}
+		</style>
 	</head>
 
 	<!-- body classes:  -->

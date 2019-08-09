@@ -22,7 +22,12 @@
 				<li>
 					<i class="fa fa-home pr-10"></i>
 					<a href="/">
-						Home
+						{{trans('general.home')}}
+					</a>
+				</li>
+				<li>
+					<a href="{{route('pages.index')}}">
+						{{trans('general.navigation.pages')}}
 					</a>
 				</li>
 				<li class="active">{!!$page->title!!}</li>

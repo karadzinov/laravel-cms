@@ -143,28 +143,28 @@
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg large circle"><i class="fa fa-diamond"></i></span>
-					<h3><strong>Projects</strong></h3>
+					<h3><strong>{{trans('general.projects')}}</strong></h3>
 					<span class="counter" data-to="1525" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg large circle"><i class="fa fa-users"></i></span>
-					<h3><strong>Clients</strong></h3>
+					<h3><strong>{{trans('general.clients')}}</strong></h3>
 					<span class="counter" data-to="1225" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg large circle"><i class="fa fa-cloud-download"></i></span>
-					<h3><strong>Downloads</strong></h3>
+					<h3><strong>{{trans('general.downloads')}}</strong></h3>
 					<span class="counter" data-to="12235" data-speed="5000">0</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
 					<span class="icon dark-bg large circle"><i class="fa fa-share"></i></span>
-					<h3><strong>Shares</strong></h3>
+					<h3><strong>{{trans('general.shares')}}</strong></h3>
 					<span class="counter" data-to="15002" data-speed="5000">0</span>
 				</div>
 			</div>

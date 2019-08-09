@@ -47,7 +47,7 @@
 						{!!$page->subtitle!!}
 					</div>
 					<footer class="clearfix">
-						<div class="link pull-right"><i class="icon-link"></i><a href="{{$page->showRoute}}">Read More</a></div>
+						<div class="link pull-right"><i class="icon-link"></i><a href="{{$page->showRoute}}">{{trans('general.read_more')}}</a></div>
 					</footer>
 				</article>
 				<!-- blogpost end -->
@@ -72,7 +72,7 @@
 						{!!$page->subtitle!!}
 					</div>
 					<footer class="clearfix">
-						<div class="link pull-right"><i class="icon-link"></i><a href="{{$page->showRoute}}">Read More</a></div>
+						<div class="link pull-right"><i class="icon-link"></i><a href="{{$page->showRoute}}">{{trans('general.read_more')}}</a></div>
 					</footer>
 				</article>
 				<!-- blogpost end -->

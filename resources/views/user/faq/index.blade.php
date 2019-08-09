@@ -1,14 +1,14 @@
 @extends('layouts/master')
-
+{{-- {{dd(App::getLocale())}} --}}
 @section('content')
-	<div class="breadcrumb-container">
+	{{-- <div class="breadcrumb-container">
 		<div class="container">
 			<ol class="breadcrumb">
 				<li><i class="fa fa-home pr-10"></i><a href="index.html">Home</a></li>
-				<li class="active">Frequently Asked Questions</li>
+				<li class="active">{{trans('general.faq')}}</li>
 			</ol>
 		</div>
-	</div>
+	</div> --}}
 	<!-- breadcrumb end -->
 
 	<!-- main-container start -->
@@ -25,10 +25,10 @@
 
 						<!-- page-title start -->
 						<!-- ================ -->
-						<h1 class="page-title">Frequently Asked Questions</h1>
+						<h1 class="page-title">{{trans('general.faq')}}</h1>
 						<div class="separator-2"></div>
 						<!-- page-title end -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ut quisquam ab harum hic enim quibusdam aut quasi recusandae temporibus quo voluptatibus, dolorem consectetur ipsam facere ipsa. Commodi sunt, inventore!</p>
+						<p>{{trans('general.faq_top_text')}}</p>
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs style-1" role="tablist">
 							@foreach($categories as $category)
@@ -62,27 +62,27 @@
 					<aside class="col-md-4 col-lg-3 col-lg-offset-1">
 						<div class="sidebar">
 							<div class="block clearfix">
-								<h3 class="title">Submit Your Question</h3>
+								<h3 class="title">{{trans('general.submit_question')}}</h3>
 								<div class="separator-2"></div>
 								<div class="alert alert-success hidden" id="MessageSent3">
-									We have received your message, we will contact you very soon.
+									{{trans('general.soon_response')}}
 								</div>
 								<div class="alert alert-danger hidden" id="MessageNotSent3">
-									Oops! Something went wrong please refresh the page and try again.
+									{{trans('general.error_response')}}
 								</div>
 								<form role="form" id="sidebar-form" class="margin-clear">
 									<div class="form-group has-feedback">
-										<label for="name3">Name</label>
-										<input type="text" class="form-control" id="name3" placeholder="Enter your name" name="name3">
+										<label for="name3">{{trans('general.name')}}</label>
+										<input type="text" class="form-control" id="name3" placeholder="{{trans('general.enter_your_name')}}" name="name3">
 										<i class="fa fa-user form-control-feedback"></i>
 									</div>
 									<div class="form-group has-feedback">
-										<label for="email3">Email address</label>
-										<input type="email" class="form-control" id="email3" placeholder="Enter your email" name="email3">
+										<label for="email3">{{trans('general.email')}}</label>
+										<input type="email" class="form-control" id="email3" placeholder="{{trans('general.enter_your_email')}}" name="email3">
 										<i class="fa fa-envelope form-control-feedback"></i>
 									</div>
 									<div class="form-group">
-										<label>Category</label>
+										<label>{{trans('general.category')}}</label>
 										<select class="form-control" id="category">
 											@foreach($categories as $category)
 												<option value="{{$category->name}}">{{$category->name}}</option>
@@ -90,25 +90,20 @@
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label for="message3">Message</label>
+										<label for="message3">{{trans('general.message')}}</label>
 										<textarea class="form-control" rows="4" id="message3" placeholder="" name="message3"></textarea>
 										<i class="fa fa-pencil form-control-feedback"></i>
 									</div>
-									<input type="submit" value="Submit" class="submit-button btn btn-default">
+									<input type="submit" value="{{trans('general.submit')}}" class="submit-button btn btn-default">
 								</form>
-							</div>								
-							<div class="block clearfix">
-								<h3 class="title">Text Sample</h3>
-								<div class="separator-2"></div>
-								<p>Consectetur adipisicing. Repellendus neque doloremque, quasi earum voluptatum velit eveniet commodi vel, beatae consequuntur vero ex facilis blanditiis excepturi numquam pariatur ipsum ipsam voluptates!</p>
-							</div>							
+							</div>													
 						</div>
 					</aside>
 					<!-- sidebar end -->
 				</div>
 			@else
 				<div class="text-center pv-40">
-					<p class="lead center">There is no questions to be answered.</p>
+					<p class="lead center">{{trans('general.no_questions')}}</p>
 				</div>
 			@endif
 		</div>

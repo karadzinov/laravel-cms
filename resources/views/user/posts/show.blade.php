@@ -16,11 +16,16 @@
 				<li>
 					<i class="fa fa-home pr-10"></i>
 					<a href="/">
-						Home
+						{{trans('general.home')}}
+					</a>
+				</li>
+				<li>
+					<a href="{{route('posts.index')}}">
+						Blog
 					</a>
 				</li>
 				<li class="active">
-					Blog Post
+					{{$post->title}}
 				</li>
 			</ol>
 		</div>
@@ -54,7 +59,7 @@
 									<span class="month">{{$post->created_at->format('M Y')}}</span>
 								</span>
 								<span class="submitted">
-									<i class="icon-user-1"></i> by 
+									<i class="icon-user-1"></i> {{trans('general.by')}} 
 									<a href="#">
 										{{$post->author->name}}
 									</a>

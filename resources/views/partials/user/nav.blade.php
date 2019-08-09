@@ -67,13 +67,13 @@
 									<!-- mega-menu end -->
 									<li class="dropdown ">
 										<a href="{{route('posts.index')}}" class="dropdown-toggle" data-toggle="dropdown">
-											Posts
+											{{trans('general.navigation.posts')}}
 										</a>
 										@include('partials/user/categories/tree')
 									</li>
 									<li class="dropdown ">
 										<a href="{{route('pages.index')}}" class="dropdown-toggle" data-toggle="dropdown">
-											Pages
+											{{trans('general.navigation.pages')}}
 										</a>
 										<ul class="dropdown-menu">
 											@foreach($pages as $page)
@@ -86,15 +86,15 @@
 										</ul>
 									</li>
 									<li>
-										<a href="{{route('contact')}}">Contact</a>
+										<a href="{{route('contact')}}">{{trans('general.navigation.contact')}}</a>
 									</li>
 									<li>
-										<a href="{{route('about')}}">About</a>
+										<a href="{{route('about')}}">{{trans('general.navigation.about')}}</a>
 									</li>
 									<li>
 										<a href="{{route('faq.index')}}">
 											{{-- <i class="fa fa-question-circle"></i> --}}
-											FAQ
+											{{trans('general.navigation.faq')}}
 										</a>
 									</li>
 								</ul>
@@ -110,14 +110,29 @@
 											<li>
 												<form method="GET" action="{{route('search')}}" role="search" class="search-box margin-clear">
 													<div class="form-group has-feedback">
-														<input name="search" id="search_box" type="text" class="form-control" placeholder="Search">
+														<input name="search" id="search_box" type="text" class="form-control" placeholder="{{trans('general.search')}}">
 														<i class="icon-search form-control-feedback"></i>
 													</div>
 													<div id="searchResponse"></div>
 												</form>
 											</li>
 										</ul>
+
 									</div>
+									<div class="btn-group dropdown">
+										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" title="">
+											<i class="fa fa-globe"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-animation language-switcher-area">
+											<li>
+												<form method="POST" action="switch-language">
+													@csrf
+													<input type="submit" name="language" class="btn btn-default btn-sm language-switcher" value="sr">
+													<input type="submit" name="language" class="btn btn-default btn-sm language-switcher" value="en">
+												</form>
+											</li>
+										</ul>
+								</div>
 								</div>
 								<!-- header dropdown buttons end-->
 								
@@ -137,4 +152,4 @@
 	</div>
 	
 </header>
-<!-- header end -->
+<!-- header end

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\{About, Category, FaqCategory, Page, Post, Settings, Tag, Testimonial};
 
@@ -72,5 +74,18 @@ class FrontEndController extends Controller
        $testimonials = Testimonial::all();
        
        return view('user/about', compact('about', 'settings', 'testimonials'));
+    }
+
+    public function switchLanguage(Request $request){
+        
+        try {
+              session()->put('locale', $request->get('language'));
+
+            return redirect()->back();
+        } catch (Exception $e) {
+            
+            return response()->json(['status'=>500]);
+        }
+
     }
 }
