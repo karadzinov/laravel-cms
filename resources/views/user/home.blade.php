@@ -17,11 +17,11 @@
 				@foreach($categories as $category)
 					<div class="col-md-4 ">
 						<div class="pv-30 ph-20 feature-box bordered shadow text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
-							<span class="icon default-bg circle"><i class="fa fa-diamond"></i></span>
+							<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
 							<h3>{{$category->name}}</h3>
 							<div class="separator clearfix"></div>
 							<p>{{$category->description}}</p>
-							<a href="{{$category->showRoute}}">Read More <i class="pl-5 fa fa-angle-double-right"></i></a>
+							<a href="{{$category->showRoute}}">{{trans('general.read_more')}} <i class="pl-5 fa fa-angle-double-right"></i></a>
 						</div>
 					</div>
 				@endforeach

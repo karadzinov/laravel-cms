@@ -15,6 +15,13 @@
 			.language-switcher{
 				text-transform: uppercase;
 			}
+			.testingImg{
+			}
+			.circle .img-circle{
+				height: 63px !important;
+				width: 63px !important;
+				object-fit: cover !important;
+			}
 		</style>
 	</head>
 
