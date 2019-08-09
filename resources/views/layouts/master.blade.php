@@ -8,27 +8,6 @@
 	<head>
 		@include('partials/user/head')
 		@yield('optionalHead')
-		<style>
-			#homepage-about-tabs .tab-content iframe, 
-			#homepage-about-tabs #messages, #offer{
-				height: 266px;
-			}
-			#homepage-about-tabs .tab-content img{
-				height: 266px;
-				object-fit: cover;
-				width: 100%;
-			}
-			#offer{
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-			}
-			.post-exemple-item{
-				height: 220px;
-				width: 100%;
-				object-fit: cover;
-			}
-		</style>
 	</head>
 
 	<!-- body classes:  -->

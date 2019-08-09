@@ -21087,3 +21087,34 @@ footer #map-canvas{
   width: 100%
   object-fit: cover;
 }
+
+#homepage-about-tabs .tab-content iframe, 
+#homepage-about-tabs #messages, #offer{
+  height: 266px;
+}
+#homepage-about-tabs .tab-content img{
+  height: 266px;
+  object-fit: cover;
+  width: 100%;
+}
+#offer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.post-exemple-item{
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.embed-responsive-16by9{
+  height: 266px;
+  padding-bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+  .embed-responsive-16by9 {
+    height: 100%;
+    padding-bottom: 56.25%;
+  }
+}

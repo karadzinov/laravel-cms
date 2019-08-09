@@ -77,7 +77,7 @@
 						data-speed="500"
 						data-easing="easeOutQuad"
 						data-start="6400"
-						{{-- data-end="10000" --}}> <img src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt=""> <br> {{$settings->title}}
+						data-end="10000"> <img src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt=""> <br> {{$settings->title}}
 					</div>	
 
 					<!-- LAYER NR. 5 -->
@@ -119,7 +119,7 @@
 						data-speed="500"
 						data-easing="easeOutQuad"
 						data-start="6400"
-						{{-- data-end="10000" --}}><div class="separator light"></div>
+						data-end="10000"><div class="separator light"></div>
 					</div>	
 
 					<!-- LAYER NR. 9 -->
@@ -129,7 +129,7 @@
 						data-speed="500"
 						data-easing="easeOutQuad"
 						data-start="5800"
-						{{-- data-end="10000" --}}
+						data-end="10000"
 						data-endspeed="600">{{$settings->slogan}}
 					</div>
 
@@ -148,7 +148,7 @@
 					</li>
 					<!-- slide 1 end -->
 
-					{{-- <!-- slide 2 start -->
+					<!-- slide 2 start -->
 					<!-- ================ -->
 					<li data-transition="random-static" data-slotamount="7" data-masterspeed="500" data-saveperformance="on" data-title="Premium HTML5 Bootstrap Theme">
 					
@@ -224,7 +224,7 @@
 						data-endspeed="600"><a href="#" class="btn btn-default btn-lg btn-animated">Purchase <i class="fa fa-cart-arrow-down"></i></a>
 					</div>
 					</li>
-					<!-- slide 2 end --> --}}
+					<!-- slide 2 end -->
 				</ul>
 				<div class="tp-bannertimer"></div>
 			</div>
