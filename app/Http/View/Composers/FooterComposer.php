@@ -13,7 +13,7 @@ class FooterComposer
     public function __construct()
     {
         $posts = Post::latest()->where('image', '!=', null)->take(4)->get();
-        $images = Image::latest()->take(6)->get();
+        $images = Image::where('imageable_type', '=', 'App\Models\Page')->take(6)->get();
         $this->posts = $posts;
         $this->images = $images;
     }

@@ -89,6 +89,9 @@
 										<a href="{{route('contact')}}">Contact</a>
 									</li>
 									<li>
+										<a href="{{route('about')}}">About</a>
+									</li>
+									<li>
 										<a href="{{route('faq.index')}}">
 											{{-- <i class="fa fa-question-circle"></i> --}}
 											FAQ

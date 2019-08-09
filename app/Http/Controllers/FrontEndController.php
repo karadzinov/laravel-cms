@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Category, FaqCategory, Page, Post, Settings, Tag};
+use App\Models\{About, Category, FaqCategory, Page, Post, Settings, Tag, Testimonial};
 
 class FrontEndController extends Controller
 {
@@ -63,5 +63,14 @@ class FrontEndController extends Controller
        $settings = Settings::first();
 
        return view('user/contact', compact('settings'));
+    }
+
+    public function about(){
+        
+       $about        = About::first();
+       $settings     = Settings::first();
+       $testimonials = Testimonial::all();
+       
+       return view('user/about', compact('about', 'settings', 'testimonials'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\Post;
+use App\Models\About;
 use App\Models\Category;
 use App\Models\Settings;
 use App\Models\Testimonial;
@@ -31,7 +32,8 @@ class UserController extends Controller
         $settings = Settings::first();
         $categories = Category::take(3)->get();
         $testimonials = Testimonial::all();
+        $about = About::first();
 
-        return view('user/home', compact('posts', 'settings', 'categories', 'testimonials'));
+        return view('user/home', compact('posts', 'settings', 'categories', 'testimonials', 'about'));
     }
 }
