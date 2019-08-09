@@ -85,7 +85,7 @@
 				@foreach($posts as $post)
 					<div class="image-box shadow text-center">
 						<div class="overlay-container">
-							<img src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
+							<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
 							<div class="overlay-top">
 								<div class="text">
 									<h3><a href="portfolio-item.html">{{$post->title}}</a></h3>

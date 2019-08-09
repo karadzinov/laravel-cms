@@ -106,25 +106,27 @@
 	<section class="pv-30 light-gray-bg clearfix">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
-					<div class="owl-carousel content-slider">
-						@foreach($testimonials as $testimonial)
-							<div class="testimonial text-center padding-ver-clear">
-								<h3>{{$testimonial->title}}</h3>
-								<div class="separator"></div>
-								<div class="testimonial-body">
-									<blockquote>
-										<p>{{$testimonial->content}}</p>
-									</blockquote>
-									<div class="testimonial-info-1">- {{$testimonial->name}}</div>
-									@if($testimonial->company)
-										<div class="testimonial-info-2">By {{$testimonial->company}}</div>
-									@endif
+				@if($testimonials->count())
+					<div class="col-md-6">
+						<div class="owl-carousel content-slider">
+							@foreach($testimonials as $testimonial)
+								<div class="testimonial text-center padding-ver-clear">
+									<h3>{{$testimonial->title}}</h3>
+									<div class="separator"></div>
+									<div class="testimonial-body">
+										<blockquote>
+											<p>{{$testimonial->content}}</p>
+										</blockquote>
+										<div class="testimonial-info-1">- {{$testimonial->name}}</div>
+										@if($testimonial->company)
+											<div class="testimonial-info-2">By {{$testimonial->company}}</div>
+										@endif
+									</div>
 								</div>
-							</div>
-						@endforeach
+							@endforeach
+						</div>
 					</div>
-				</div>
+				@endif
 				@if($about->images->isNotEmpty())
 					<div class="col-md-6">
 						<div class="owl-carousel content-slider-with-controls">

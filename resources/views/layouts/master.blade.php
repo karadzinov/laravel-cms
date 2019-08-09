@@ -23,6 +23,11 @@
 				flex-direction: column;
 				justify-content: space-between;
 			}
+			.post-exemple-item{
+				height: 220px;
+				width: 100%;
+				object-fit: cover;
+			}
 		</style>
 	</head>
 
