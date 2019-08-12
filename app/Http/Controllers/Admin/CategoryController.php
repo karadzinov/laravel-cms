@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\{Category, Page};
 use Kalnoy\Nestedset\Collection;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\PostCategoryRequest;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -51,6 +52,7 @@ class CategoryController extends Controller
         }
         
         $input['slug'] = $slug;
+        $input['language'] = App::getLocale();
         $image = $this->updateImageIfNecessary($request);
         $image ? $input['image'] = $image : null;
 

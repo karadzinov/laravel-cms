@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use \Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\ModelIsTranslatable;
 
 class Category extends Model
 {
     //
-    use NodeTrait;
+    use NodeTrait, ModelIsTranslatable;
     
     //protected $guarded =[];
     
     protected $fillable = [
-        'name', 'parent_id', 'image', 'description', 'link', 'slug'
+        'language', 'name', 'parent_id', 'image', 'description', 'link', 'slug'
     ];
 
     public function posts(){

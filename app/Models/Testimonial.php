@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Helpers\ImagesPaths;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\{ImagesPaths, ModelIsTranslatable};
 
 class Testimonial extends Model
 {

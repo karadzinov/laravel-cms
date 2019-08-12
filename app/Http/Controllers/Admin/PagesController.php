@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{Category, Page};
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\{Category, Page};
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Helpers\UsesSlider;
 use App\Http\Requests\Pages\StorePageRequest;
@@ -54,6 +55,8 @@ class PagesController extends UsesSlider
     {
         $title = $request->get('title');
         $input = $request->all();
+        $input['language'] = App::getLocale();
+
         $slug = Str::slug(strip_tags($title));
 
         if($this->slugExists($slug)){
@@ -101,6 +104,8 @@ class PagesController extends UsesSlider
     public function update(StorePageRequest $request, Page $page)
     {
         $input = $request->all();
+        $input['language'] = App::getLocale();
+        
         $title = $request->get('title');
         $slug = Str::slug(strip_tags($title));
         if($this->slugExists($slug, $page->id)){

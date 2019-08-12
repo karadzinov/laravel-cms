@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@section('head')
+    <style>
+        select{
+            width:100%;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="widget">
@@ -102,6 +109,15 @@
                                     <strong>{{ $errors->first('slogan') }}</strong>
                                 </span>
                             @endif
+                        </div>
+                        <div class="col-md-12"  style="font-size: 14px">
+
+                            <div class="form-group">
+                                {!! Form::label('languages', 'Languages:' , array('class' => 'control-label')); !!}
+                                {{Form::select('languages[]', 
+                                    $languages, $avalilableLanguages,
+                                    array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                            </div>
                         </div>
 
                         {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
@@ -275,6 +291,11 @@
             });
 
         });
+
+        $("#languages").select2({
+          tags: true
+        });
+    </script>
 
     </script>
 @endsection

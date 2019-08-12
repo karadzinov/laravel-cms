@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Helpers\RssFeeds\Item;
-use App\Models\Helpers\{HasYoutubeVideos, ImagesPaths};
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\{HasYoutubeVideos, ImagesPaths, ModelIsTranslatable};
 
 class Post extends Model
 {
-    use ImagesPaths, HasYoutubeVideos;
+    use ImagesPaths, HasYoutubeVideos, ModelIsTranslatable;
     
     protected $table = 'posts';
     protected $dates = ['created_at', 'updated_at'];

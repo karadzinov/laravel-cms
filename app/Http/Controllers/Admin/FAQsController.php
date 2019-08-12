@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\{FAQ, FaqCategory};
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FAQ\FAQRequest;
 
@@ -43,7 +44,10 @@ class FAQsController extends Controller
      */
     public function store(FAQRequest $request)
     {
-        $faq = FAQ::create($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $faq = FAQ::create($input);
 
     	return redirect(route('admin.faq.index'))
     			->with('success', 'Successifully Created FAQ.');
@@ -82,7 +86,10 @@ class FAQsController extends Controller
      */
     public function update(FAQ $faq, FAQRequest $request)
     {
-        $faq->update($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $faq->update($input);
     	
     	return redirect(route('admin.faq.index'))
     			     ->with('success', 'FAQ Successfully Updated');

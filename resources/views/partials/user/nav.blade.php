@@ -127,12 +127,13 @@
 											<li>
 												<form method="POST" action="switch-language">
 													@csrf
-													<input type="submit" name="language" class="btn btn-default btn-sm language-switcher" value="sr">
-													<input type="submit" name="language" class="btn btn-default btn-sm language-switcher" value="en">
+													@foreach($languages as $language)
+														<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->name}}">
+													@endforeach
 												</form>
 											</li>
 										</ul>
-								</div>
+									</div>
 								</div>
 								<!-- header dropdown buttons end-->
 								

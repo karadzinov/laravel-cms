@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use  App\Http\Requests\FAQ\FAQCategoryRequest;
 
@@ -39,7 +40,10 @@ class FAQCategoriesController extends Controller
      */
     public function store(FAQCategoryRequest $request)
     {
-        $category = FAQCategory::create($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $category = FAQCategory::create($input);
        
         return redirect()->route('admin.faq-categories.index')
                 ->with('success', 'Successifully Created Category.');
@@ -76,7 +80,10 @@ class FAQCategoriesController extends Controller
      */
     public function update(FAQCategoryRequest $request, FaqCategory $category)
     {
-        $category->update($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $category->update($input);
 
         return redirect()->route('admin.faq-categories.index')
                 ->with('success', 'Successifully Updated Category.');

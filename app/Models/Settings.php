@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\ModelIsTranslatable;
 
 class Settings extends Model
 {
+    // use ModelIsTranslatable;
+    
     protected $table = 'settings';
 
     /**
@@ -14,6 +17,7 @@ class Settings extends Model
      * @var array
      */
     protected $fillable = [
+        'language',
         'main_url',
         'title',
         'email',
@@ -34,4 +38,9 @@ class Settings extends Model
         'lat',
         'lng'
     ];
+
+    public function language(){
+        
+        return $this->belongsTo(Language::class, 'language_id', 'id');
+    }
 }

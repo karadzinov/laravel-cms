@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use Validator;
+use App\Models\Language;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
@@ -22,8 +24,13 @@ class SettingsController extends Controller
     {
         
         $settings = Settings::first();
-        
-        return view('admin.settings.index', compact('settings'));
+        $avalilableLanguages = Language::where('active', '=', 1)
+                                ->pluck('name')
+                                ->toArray();
+
+        $avalilableLanguages = implode(', ', $avalilableLanguages);
+
+        return view('admin.settings.index', compact('settings', 'avalilableLanguages'));
 
     }
 
@@ -54,6 +61,7 @@ class SettingsController extends Controller
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
         $input['logo'] = $image;
+        $input['language'] = App::getLocale();
 
         Settings::create($input);
         
@@ -81,8 +89,12 @@ class SettingsController extends Controller
     public function edit()
     {
         $settings = Settings::firstOrFail();
+        $languages = Language::pluck('name', 'id');
+        $avalilableLanguages = Language::where('active', '=', 1)
+                                ->pluck('id')
+                                ->toArray();
 
-        return view('admin.settings.edit', compact('settings'));
+        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages'));
  
     }
 
@@ -96,9 +108,10 @@ class SettingsController extends Controller
     public function update(UpdateSettingsRequest $request, $id=1)
     {
         $settings = Settings::firstOrFail();
-          
-        $input = $request->all(); 
-        
+        $input = $request->all();
+        $langages = $this->updateAvailableLanguages($request->get('languages'));
+        $input['language'] = App::getLocale();
+        unset($input['languages']);
         $image = $this->updateImageIfNecessary($request, $settings);
 
         if($image){
@@ -108,6 +121,21 @@ class SettingsController extends Controller
         
          return redirect('admin/meta/settings')
                 ->with('success', 'Settings Successfully Updated.');
+    }
+
+    public function updateAvailableLanguages($languages){
+        
+        $avalilableLanguages = Language::where('active', '=', '1')->get();
+        foreach($avalilableLanguages as $language){
+            $language->active = false;
+            $language->save();
+        }
+
+        foreach($languages as $id){
+            $language = Language::findOrFail($id);
+            $language->active = true;
+            $language->save();
+        }
     }
 
     /**

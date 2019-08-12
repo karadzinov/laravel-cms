@@ -16,46 +16,52 @@
             </a>
         </div>
         <div class="widget-body">
-            <div>
-                <label for="welcome_note"><strong>Welcome Note:</strong></label>
-                <p>{!!$about->welcome_note!!}</p>
-            </div>
-            <div>
-                <label for="about"><strong>About:</strong></label>
-                <div>{!!$about->about!!}</div>
-            </div>
-            <div>
-                <label for="offer"><strong>Our Offer:</strong></label>
-                <div id="offer">{!!$about->offer!!}</div>
-            </div>
-            <div>
-                <label for="why_us"><strong>Why Us:</strong></label>
-                <div id="why_us">{!!$about->why_us!!}</div>
-            </div>
-
-            <div>
-                <label for="image"><strong>Main Image:</strong></label>
+            @if($about)
                 <div>
-                    <img src="{{$about->thumbnailPath . $about->image}}">
+                    <label for="welcome_note"><strong>Welcome Note:</strong></label>
+                    <p>{!!$about->welcome_note!!}</p>
                 </div>
-            </div>
-            <br>
-
-            <div>
-                <label for="video"><strong>Video:</strong></label>
-                <div id="video">{!!$about->videoPreview!!}</div>
-            </div>
-            <br>
-
-
-            @if($about->images->isNotEmpty())
-                <label for="gallery">Images:</label>
-
-                <div id="gallery">
-                    @foreach($about->images as $image)
-                        <img src="{{$about->originalPath . $image->name}}" alt="{{$image->name}}">
-                    @endforeach
+                <div>
+                    <label for="about"><strong>About:</strong></label>
+                    <div>{!!$about->about!!}</div>
                 </div>
+                <div>
+                    <label for="admin-offer"><strong>Our Offer:</strong></label>
+                    <div id="admin-offer">{!!$about->offer!!}</div>
+                </div>
+                <div>
+                    <label for="why_us"><strong>Why Us:</strong></label>
+                    <div id="why_us">{!!$about->why_us!!}</div>
+                </div>
+
+                <div>
+                    <label for="image"><strong>Main Image:</strong></label>
+                    <div>
+                        <img src="{{$about->thumbnailPath . $about->image}}">
+                    </div>
+                </div>
+                <br>
+
+                <div>
+                    <label for="video"><strong>Video:</strong></label>
+                    <div id="video">{!!$about->videoPreview!!}</div>
+                </div>
+                <br>
+
+
+                @if($about->images->isNotEmpty())
+                    <label for="gallery">Images:</label>
+
+                    <div id="gallery">
+                        @foreach($about->images as $image)
+                            <img src="{{$about->originalPath . $image->name}}" alt="{{$image->name}}">
+                        @endforeach
+                    </div>
+                @endif
+            @else
+                <a href="{{ route('admin.about.create') }}" class="btn btn-success btn-lg">
+                Create About Page for This Language
+            </a>
             @endif
             
         </div>

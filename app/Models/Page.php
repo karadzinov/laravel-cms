@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Helpers\Imageable;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\{Imageable, ModelIsTranslatable};
 
 class Page extends Model
 {
 
-    use Imageable;
+    use Imageable, ModelIsTranslatable;
 
     protected $table = 'pages';
     protected $dates = ['created_at', 'updated_at'];

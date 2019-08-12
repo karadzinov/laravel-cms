@@ -51,5 +51,9 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             'partials/user/footer', 'App\Http\View\Composers\FooterComposer'
         );
+
+        View::composer(
+            'partials/admin/nav', 'App\Http\View\Composers\AdminNavComposer'
+        );
     }
 }

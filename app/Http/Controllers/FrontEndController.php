@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\{About, Category, FaqCategory, Page, Post, Settings, Tag, Testimonial};
+use App\Models\{About, Category, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
 
 class FrontEndController extends Controller
 {
@@ -77,9 +77,13 @@ class FrontEndController extends Controller
     }
 
     public function switchLanguage(Request $request){
-        
+
         try {
-              session()->put('locale', $request->get('language'));
+            $locale = Language::where('name', '=', $request->get('language'))
+                                ->firstOrFail()
+                                ->code;
+
+              session()->put('locale', $locale);
 
             return redirect()->back();
         } catch (Exception $e) {

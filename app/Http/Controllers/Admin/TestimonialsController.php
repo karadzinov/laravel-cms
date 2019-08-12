@@ -7,6 +7,7 @@ use Exception;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Testimonials\{StoreTestimonialRequest, UpdateTestimonialRequest};
@@ -57,6 +58,8 @@ class TestimonialsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+
         $input['title'] = strip_tags($request->get('tle'));
         $input['content'] = strip_tags($request->get('content'));
         $input['image'] = $image;
@@ -90,8 +93,9 @@ class TestimonialsController extends Controller
     public function update(UpdateTestimonialRequest $request, Testimonial $testimonial)
     {
         $image = $this->updateImageIfNecessary($request, $testimonial);
+        
         $input = $request->all();
-
+        $input['language'] = App::getLocale();
         $input['image'] = $image;
 
         $testimonial->update($input);

@@ -6,6 +6,7 @@ use File;
 use Exception;
 use App\Models\About;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Requests\UpdateAboutRequest;
 use App\Http\Controllers\Helpers\UsesSlider;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -32,6 +33,33 @@ class AboutController extends UsesSlider
         $about = About::first();
 
         return view('admin/about/index', compact('about'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin/about/create');
+    }
+
+     public function store(/*UpdateAboutRequest*/Request $request)
+    {   
+        // $about = About::create($request->all());
+        $image = $this->updateImageIfNecessary($request);
+        $input = $request->all();
+        $title = 'about';
+        $input['image'] = $image;
+        $input['language'] = App::getLocale();
+        $about = About::create($input);
+        
+        $images = $this->updateImages($about, $request, $title);
+
+        return redirect()->route('admin/about/show')
+                    ->with('success', 'About Page Successfully Updated.');
     }
 
     /**
@@ -91,7 +119,7 @@ class AboutController extends UsesSlider
      * @return string or null
      */
 
-    public function updateImageIfNecessary(Request $request, About $about){
+    public function updateImageIfNecessary(Request $request, About $about = null){
         
         if ($request->hasFile('image')) {
             if($about){

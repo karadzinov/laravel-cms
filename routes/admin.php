@@ -115,6 +115,7 @@ Route::group(["prefix"=>"images", "as"=>"images.", 'middleware' => ['auth', 'act
 
 Route::group(["prefix" => "about", "as"=>"about.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
     Route::get('show', 'AboutController@show')->name('show');
+    Route::get('create', 'AboutController@create')->name('create');
     Route::post('store', 'AboutController@store')->name('store');
     Route::get('edit', 'AboutController@edit')->name('edit');
     Route::put('update', 'AboutController@update')->name('update');

@@ -5,6 +5,7 @@ use File;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
@@ -45,6 +46,8 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug)){
@@ -143,6 +146,8 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request, $post);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+        
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug, $post->id)){
