@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Da li ste sigurni da želite da izbrišete skriptu?',
 	'back-to'		=> 'Nazad na skripte',
 	'save'			=> 'Sačuvaj skriptu',
+	'update'		=> 'Ažuriraj skriptu',
 ];

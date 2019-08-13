@@ -11,5 +11,7 @@ return [
     'tree'  			=> 'Category tree', 
     'parent'  			=> 'Parent Category', 
     'confirm-delete'  	=> 'Are you sure you want to delete this category?', 
-    'categories'  		=> 'Categories', 
+    'categories'        => 'Categories', 
+    'update'            => 'Update Category', 
+    'save'  		    => 'Save Category', 
 ];

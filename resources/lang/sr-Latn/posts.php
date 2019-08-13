@@ -9,6 +9,7 @@ return [
 	'confirm-delete'=> 'Da li ste sigurni da želite da izbrišete post?',
 	'back-to'		=> 'Nazad na postove',
 	'save'			=> 'Sačuvaj post',
+	'update'		=> 'Ažuriraj post',
 	'pending'		=> 'Pregleda se',
 	'posted'		=> 'Objavljen',
 	'redjected'		=> 'Odbijen',

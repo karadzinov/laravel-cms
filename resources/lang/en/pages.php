@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Are you sure you want to delete this page?',
 	'back-to'		=> 'Back to Pagess',
 	'save'			=> 'Save Page',
+	'update'		=> 'Update Page',
 ];

@@ -37,7 +37,7 @@
                     array('class' => 'form-control', 'id'=>'category_id'))}}
                 {!! $errors->first('category_id') !!}
             </div>
-            {!! Form::button(trans('faqs.edit'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+            {!! Form::button(trans('faqs.update'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
    
             {!! Form::close() !!}    
         </div>

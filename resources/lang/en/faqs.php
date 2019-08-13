@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Are you sure you want to delete this FAQ?',
 	'back-to'		=> 'Back to FAQs',
 	'save'			=> 'Save FAQ',
+	'update'		=> 'Update FAQ',
 ];

@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Are you sure you want to delete this script?',
 	'back-to'		=> 'Back To Scripts',
 	'save'			=> 'Save Script',
+	'update'		=> 'Update Script',
 ];

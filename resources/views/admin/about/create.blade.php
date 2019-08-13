@@ -19,8 +19,8 @@
             <div class="widget-body">
                 {!! Form::open(array('route' => ['admin.about.store'], 'method' => 'POST', 'role' => 'form', 'files'=> true, 'id'=>'main_form')) !!}
                     <div class="form-group">
-                        {!! Form::label('name', trans('about.welcome_note')) !!}
-                        {!! Form::textarea('welcome_note', null, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('about.welcome_note'), 'autofocus' => true ]) !!}
+                        {!! Form::label('name', trans('about.welcome-note')) !!}
+                        {!! Form::textarea('welcome_note', null, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('about.welcome-note'), 'autofocus' => true ]) !!}
                         {!! $errors->first('welcome_note') !!}
                     </div>
                     <div class="form-group">
@@ -69,7 +69,7 @@
                 {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                 {!! Form::close() !!}
 
-                {!! Form::button(trans('about.edit'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {!! Form::button(trans('about.create-new'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>

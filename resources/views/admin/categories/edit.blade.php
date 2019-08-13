@@ -30,7 +30,7 @@
                     {!! csrf_field() !!}
                         @include('admin/categories/partials/edit-form')
                         <span class="pull-left">    
-                            {!! Form::button(trans('forms.edit_categories_button_text'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
+                            {!! Form::button(trans('categories.update'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
                         </span>                        
                     {!! Form::close() !!}
                 </div>

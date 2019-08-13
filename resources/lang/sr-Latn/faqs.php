@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Da li ste sigurni da želite da izbrišete pitanje?',
 	'back-to'		=> 'Nazad na često postavljena pitanja',
 	'save'			=> 'Sačuvaj pitanje',
+	'update'		=> 'Ažuriraj pitanje',
 ];

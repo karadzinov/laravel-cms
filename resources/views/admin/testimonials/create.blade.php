@@ -47,7 +47,7 @@
                     {!! $errors->first('content') !!}
                 </div>
 
-                {!! Form::button(trans('testimonials.create-new'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                {!! Form::button(trans('testimonials.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}

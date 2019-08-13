@@ -11,6 +11,8 @@ return [
     'tree'  			=> 'Stablo kategorije', 
     'parent'  			=> 'Nadkategorija', 
     'confirm-delete'  	=> 'Da li ste sigurni da želite da izbrište kategoriju?', 
-    'categories'  		=> 'Kategorije', 
+    'categories'        => 'Kategorije', 
+    'save'              => 'Sačuvaj kategoriju', 
+    'update'      		=> 'Ažuriraj kategoriju', 
 
 ];

@@ -9,4 +9,5 @@ return [
 	'confirm-delete'=> 'Da li ste sigurni da želite da izbrišete svedočanstvo?',
 	'back-to'		=> 'Nazad na svedočanstva',
 	'save'			=> 'Sačuvaj svedočanstvo',
+	'update'		=> 'Ažuriraj svedočanstvo',
 ];

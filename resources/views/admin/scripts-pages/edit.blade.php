@@ -41,7 +41,7 @@
 				    </label>
 				    {!! $errors->first('active') !!}
 				</div>			
-				{!! Form::button(trans('scripts.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+				{!! Form::button(trans('scripts.update'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}

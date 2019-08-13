@@ -231,7 +231,7 @@
                     <input type="hidden" id="lng" class="form-control" name="lng" value="{{ $settings->lng }}">
                     
                 </div>
-                {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
+                {!! Form::button(trans('settings.update-settings'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
             {!! Form::close() !!}
         </div>
     </div>      

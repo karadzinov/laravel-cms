@@ -9,6 +9,7 @@ return [
 	'confirm-delete'=> 'Are you sure you want to delete this post?',
 	'back-to'		=> 'Back To Posts',
 	'save'			=> 'Save Post',
+	'update'		=> 'Update Post',
 	'pending'		=> 'Pending',
 	'posted'		=> 'Posted',
 	'redjected'		=> 'Redjected',

@@ -4,6 +4,7 @@ return [
     // Titles
     'show-settings'         => 'Show Settings',
     'create-settings'       => 'Create Settings',
+    'update-settings'       => 'Update Settings',
     'edit-settings'         => 'Edit Settings',
     'delete-settings'       => 'Delete Settings',
     'list-settings'         => 'Settings',

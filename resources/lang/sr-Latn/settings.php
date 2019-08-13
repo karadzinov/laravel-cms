@@ -4,6 +4,7 @@ return [
     // Titles
     'show-settings'    => 'Pokaži podešavanja',
     'create-settings'  => 'Napravi podešavanja',
+    'update-settings'  => 'Ažuriraj podešavanja',
     'edit-settings'    => 'Ispravi podešavanja',
     'delete-settings'  => 'Izbriši podešavanja',
     'list-settings'    => 'Podešavanja',
