@@ -88,17 +88,17 @@
                                         <ul class="nav nav-tabs tabs-flat  nav-justified" id="myTab11">
                                             <li class="active">
                                                 <a data-toggle="tab" href="#edit-profile-tab" aria-expanded="true">
-                                                    Profile Settings
+                                                    {{trans('profile.profile-settings')}}
                                                 </a>
                                             </li>
                                             <li class="tab-palegreen">
                                                 <a data-toggle="tab" href="#edit-settings-tab" aria-expanded="true">
-                                                    Settings
+                                                    {{trans('profile.settings')}}
                                                 </a>
                                             </li>
                                             <li class="tab-red">
                                                 <a data-toggle="tab" href="#edit-account-tab" aria-expanded="true">
-                                                    Account
+                                                    {{trans('profile.account')}}
                                                 </a>
                                             </li>
                                         </ul>

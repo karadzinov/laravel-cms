@@ -126,5 +126,6 @@ return [
 
     'modals' => [
         'delete_user_message' => 'Are you sure you want to delete :user?',
+        'delete-user' => 'Delete user',
     ],
 ];

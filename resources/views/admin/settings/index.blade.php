@@ -45,7 +45,7 @@
                         {!! Form::text('address', $settings->address,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
 
-                    {!! Form::label('phone_number', 'Phone Number', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                    {!! Form::label('phone_number', trans('forms.settings-phone-number'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('phone_number', $settings->phone_number,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
@@ -55,11 +55,11 @@
                         <img src="/images/settings/thumbnails/{{$settings->logo}}" style="max-width: 200px">  
                     </div>
 
-                    {!! Form::label('slogan', 'Company Slogan:', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                    {!! Form::label('slogan', trans('forms.settings-company-slogan'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('slogan', $settings->slogan,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
-                    {!! Form::label('slogan', 'Languages Available:', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                    {!! Form::label('langs-available', trans('forms.settings-languages-available'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('language_id', $avalilableLanguages,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>

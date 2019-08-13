@@ -6,32 +6,32 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
             	<i class="fa fa-pencil"></i> 
-            	Posts
+            	{{trans('posts.posts')}}
             </span>
         </div>
 
         <div class="widget-body">
     		<a href="{{ route('admin.posts.create') }}" class="btn btn-success btn-lg">
-    	        Create new Post
+    	        {{trans('posts.create-new')}}
     	    </a>
 
             @if($posts->isNotEmpty())
                 <div class="table-responsive users-table">
                     <table class="table table-striped table-sm data-table">
                         <caption id="user_count">
-                            {{$posts->count()}} posts total
+                            {{$posts->count()}} {{trans('posts.total')}}
                         </caption>
                         <thead class="thead">
                             <tr>
                                 <th>Id</th>
-                                <th>Title</th>
-                                <th>Subtitle</th>
-                                <th>Location</th>
-                                <th>Workflow</th>
-                                <th>Author</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.title')}}</th>
+                                <th>{{trans('admin.subtitle')}}</th>
+                                <th>{{trans('admin.location')}}</th>
+                                <th>{{trans('admin.workflow')}}</th>
+                                <th>{{trans('admin.author')}}</th>
+                                <th>{{trans('admin.created-at')}}</th>
+                                <th>{{trans('admin.updated-at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                                 <th></th>
                                 <th></th> 
                             </tr>
@@ -44,36 +44,37 @@
                                     <td>{!!$post->subtitle!!}</td>
                                     <td>{{$post->location}}</td>
                                     <td>
-                                        @php
-                                            if($post->workflow === 'pending'){
-                                                $labelClass = 'warning';
-                                            }elseif($post->workflow === 'posted'){
-                                                $labelClass = 'success';
-                                            }else{
-                                                $labelClass = 'danger';
-                                            }
-                                        @endphp
-                                        <span class="label label-{{$labelClass}}">
-                                            {{$post->workflow}}
-                                        </span>
+                                        @if($post->workflow === 'pending')
+                                            <span class="label label-warning">
+                                                {{trans('posts.pending')}}
+                                            </span>
+                                        @elseif($post->workflow === 'posted')
+                                            <span class="label label-success">
+                                                {{trans('posts.posted')}}
+                                            </span>
+                                        @else
+                                            <span class="label label-danger">
+                                                {{trans('posts.redjected')}}
+                                            </span>
+                                        @endif
                                     </td>
                                     <td>{{optional($post->author)->name}}</td>
                                     <td>{{$post->created_at->format('d-m-Y, H:i')}}</td>
                                     <td>{{$post->updated_at->format('d-m-Y, H:i')}}</td>
                                     <td>
-                                        {!! Form::open(array('url' => route('admin.posts.delete', [$post->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                        {!! Form::open(array('url' => route('admin.posts.delete', [$post->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Post', 'data-message' => 'Are you sure you want to delete this post ?')) !!}
+                                            {!! Form::button(trans('admin.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('posts.delete'), 'data-message' => trans('posts.confirm-delete'))) !!}
                                         {!! Form::close() !!}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.posts.show', [$post->id])}}" data-toggle="tooltip" title="Show">
-                                            Show
+                                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.posts.show', [$post->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+                                            {{trans('admin.show')}}
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.posts.edit', [$post->id])}}}}" data-toggle="tooltip" title="Edit">
-                                            Edit
+                                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.posts.edit', [$post->id])}}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+                                            {{trans('admin.edit')}}
                                         </a>
                                     </td> 
                                 </tr>

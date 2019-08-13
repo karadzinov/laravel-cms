@@ -93,7 +93,7 @@ class PostsController extends Controller
                 $newTag = $alreadyExistingTags->find($differentTag);
                 if(!$newTag){
                     $slug = Str::slug(strip_tags($differentTag));
-                    $newTag = Tag::create(['name'=>$differentTag, 'slug' => $slug]);
+                    $newTag = Tag::create(['language'=>App::getLocale(), 'name'=>$differentTag, 'slug' => $slug]);
                 }
 
                 try {
@@ -112,8 +112,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($post)
     {
+        $post = Post::findOrFail($post);
+
         return view('admin.posts/show', compact('post'));
     }
     /**
@@ -122,8 +124,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($post)
     {
+        $post = Post::findOrFail($post);
+
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
@@ -142,8 +146,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, Post $post)
+    public function update(StorePostRequest $request, $post)
     {
+        $post = Post::findOrFail($post);
         $image = $this->updateImageIfNecessary($request, $post);
         $input = $request->all();
         $input['language'] = App::getLocale();
@@ -224,8 +229,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Post $post)
+    public function delete($post)
     {
+        $post = Post::findOrFail($post);
+
         $this->deleteImages($post);
         $post->delete();
 

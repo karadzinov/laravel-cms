@@ -59,8 +59,9 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function show(FAQ $faq)
+    public function show($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         return view('admin.FAQ/show', compact('faq'));
     }
 
@@ -70,8 +71,9 @@ class FAQsController extends Controller
      
      * @return \Illuminate\Http\Response
      */
-    public function edit(FAQ $faq)
+    public function edit($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         $categories = FaqCategory::pluck('name', 'id')->toArray();
 
         return view('admin.FAQ/edit', compact('faq', 'categories'));
@@ -84,8 +86,9 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQ $faq, FAQRequest $request)
+    public function update($faq, FAQRequest $request)
     {
+        $faq = FAQ::findOrFail($faq);
         $input = $request->all();
         $input['language'] = App::getLocale();
 
@@ -102,8 +105,9 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function delete(FAQ $faq)
+    public function delete($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         $faq->delete();
     	
     	return redirect(route('admin.faq.index'))

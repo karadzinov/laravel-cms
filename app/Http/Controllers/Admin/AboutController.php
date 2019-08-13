@@ -58,7 +58,7 @@ class AboutController extends UsesSlider
         
         $images = $this->updateImages($about, $request, $title);
 
-        return redirect()->route('admin/about/show')
+        return redirect()->route('admin.about.show')
                     ->with('success', 'About Page Successfully Updated.');
     }
 

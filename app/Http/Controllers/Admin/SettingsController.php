@@ -25,7 +25,7 @@ class SettingsController extends Controller
         
         $settings = Settings::first();
         $avalilableLanguages = Language::where('active', '=', 1)
-                                ->pluck('name')
+                                ->pluck('native')
                                 ->toArray();
 
         $avalilableLanguages = implode(', ', $avalilableLanguages);
@@ -89,7 +89,7 @@ class SettingsController extends Controller
     public function edit()
     {
         $settings = Settings::firstOrFail();
-        $languages = Language::pluck('name', 'id');
+        $languages = Language::pluck('native', 'id');
         $avalilableLanguages = Language::where('active', '=', 1)
                                 ->pluck('id')
                                 ->toArray();

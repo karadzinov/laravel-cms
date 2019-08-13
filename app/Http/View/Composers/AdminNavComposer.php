@@ -13,7 +13,7 @@ class AdminNavComposer
     public function __construct()
     {
         $languages = Language::where('active','=','1')
-                        ->select('code','name')
+                        ->select('code','native')
                         ->get();
                         
         $this->languages = $languages;

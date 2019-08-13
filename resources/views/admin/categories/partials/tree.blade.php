@@ -7,15 +7,15 @@
                     <span class="pull-right">
                         <a href="{{ route('admin.category.show', [ $category->getKey() ]) }}" class="btn btn-info btn-xs edit">
                             <i class="fa fa-edit"></i>
-                             Show
+                             {{trans('admin.show')}}
                          </a>
                         <a href="{{ route('admin.category.create', [ 'parent_id' => $category->getKey() ]) }}" class="btn btn-success btn-xs edit">
                             <i class="fa fa-edit"></i>
-                             Create Child
+                             {{trans('admin.create-child')}}
                          </a>
                          <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning btn-xs edit">
                             <i class="fa fa-edit"></i>
-                             Edit
+                             {{trans('admin.edit')}}
                          </a>
                      </span>
                  </li>

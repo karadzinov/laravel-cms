@@ -1,53 +1,28 @@
-@php
-
-    $levelAmount = 'level';
-
-    if (Auth::User()->level() >= 2) {
-        $levelAmount = 'levels';
-
-    }
-
-@endphp
-
 <div class="card">
     <div class="card-header @role('admin', true) bg-secondary text-white @endrole">
 
-        Welcome {{ Auth::user()->name }}
+        {{trans('dashboard.welcome')}} {{ Auth::user()->name }}
 
         @role('admin', true)
             <span class="pull-right badge badge-primary" style="margin-top:4px">
-                Admin Access
+                {{trans('admin.admin-access')}}
             </span>
         @else
             <span class="pull-right badge badge-warning" style="margin-top:4px">
-                User Access
+                {{trans('admin.user-access')}}
             </span>
         @endrole
 
     </div>
     <div class="card-body">
         <h2 class="lead">
-            {{ trans('auth.loggedIn') }}
+            {{ trans('dashboard.logged-in') }}
         </h2>
-        <p>
-            <em>Thank you</em> for checking this project out. <strong>Please remember to star it!</strong>
-        </p>
-        <p>
-            <iframe src="https://ghbtns.com/github-btn.html?user=jeremykenedy&repo=laravel-auth&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px" style="margin: 0px 0 -3px .5em;"></iframe>
-        </p>
-        <p>
-            This page route is protected by <code>activated</code> middleware. Only accounts with activated emails are able pass this middleware.
-        </p>
-        <p>
-            <small>
-                Users registered via Social providers are by default activated.
-            </small>
-        </p>
 
         <hr>
 
         <p>
-            You have
+            {{trans('dashboard.you-have')}}
                 <strong>
                     @role('admin')
                        Admin
@@ -56,13 +31,13 @@
                        User
                     @endrole
                 </strong>
-            Access
+            {{trans('admin.access')}}
         </p>
 
         <hr>
 
         <p>
-            You have access to {{ $levelAmount }}:
+            {{trans('dashboard.levels')}}:
             @level(5)
                 <span class="badge badge-primary margin-half">5</span>
             @endlevel
@@ -89,7 +64,7 @@
             <hr>
 
             <p>
-                You have permissions:
+                {{trans('dashboard.permissions')}}:
                 @permission('view.users')
                     <span class="badge badge-primary margin-half margin-left-0">
                         {{ trans('permsandroles.permissionView') }}

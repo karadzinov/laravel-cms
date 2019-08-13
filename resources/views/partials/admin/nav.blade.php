@@ -25,7 +25,7 @@
                     @else
                         <ul class="account-area">
                             <li>
-                                <a class="" id="chat-link" title="Chat" href="javascript:void(0)">
+                                <a class="" id="chat-link" title="{{trans('admin.chat')}}" href="javascript:void(0)">
                                     <i class="icon glyphicon glyphicon-comment"></i>
                                     <span id="notificationsNumber" class="badge"></span>
                                 </a>
@@ -48,7 +48,7 @@
                                         <div class="avatar-area">
                                             {{-- @if ((Auth::User()->profile) && Auth::user()->profile->avatar_status == 1) --}}
                                                 <img src="{{Auth::user()->image}}" alt="{{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" class="img-responsive">
-                                                <span class="caption">Change Photo</span>
+                                                <span class="caption">{{trans('admin.change-photo')}}</span>
                                             {{-- @else --}}
                                                 {{-- <div class="user-avatar-nav"></div> --}}
                                             {{-- @endif --}}
@@ -57,7 +57,7 @@
                                     <!--Avatar Area-->
                                     <li class="edit">
                                         <a href="{{ url('/profile/'.Auth::user()->name) }}" class="pull-left">{!! trans('titles.profile') !!}</a>
-                                        <a href="{{ url('/profile/'.Auth::user()->name.'/edit') }}" class="pull-right">Setting</a>
+                                        <a href="{{ url('/profile/'.Auth::user()->name.'/edit') }}" class="pull-right">{{trans('admin.settings')}}</a>
                                     </li>
                                     <!--Theme Selector Area-->
                                     <li class="theme-area">
@@ -81,7 +81,7 @@
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('admin.logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
@@ -104,7 +104,7 @@
                             <form method="POST" action="{{route('switchLanguage')}}">
                                 @foreach($languages as $language)
                                     @csrf
-                                    <input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->name}}">
+                                    <input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
                                 @endforeach
                             </form>
                         </div>

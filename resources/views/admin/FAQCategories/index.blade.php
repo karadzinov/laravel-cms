@@ -6,12 +6,12 @@
 	        <div class="widget-header bordered-bottom bordered-blue">
 	            <span class="widget-caption">
 	                <i class="fa fa-question"></i> 
-	                FAQ Categories
+	                {{trans('faq-categories.faq-categories')}}
 	            </span>
 	        </div>
 	        <div class="widget-body">
 	        	<a href="{{ route('admin.faq-categories.create') }}" class="btn btn-success btn-lg">
-	        	    Create new FAQ Category
+	        	    {{trans('faq-categories.create-new')}}
 	        	</a>
 	        	@if($categories->isNotEmpty())
 					<div class="table-responsive users-table">
@@ -19,11 +19,11 @@
 					        <thead class="thead">
 					            <tr>
 					                <th>Id</th>
-					                <th>Name</th>
-					                <th>Icon</th>
-					                <th>Created At</th>
-					                <th>Updated At</th>
-					                <th>Actions</th>
+					                <th>{{trans('admin.name')}}</th>
+					                <th>{{trans('admin.icon')}}</th>
+					                <th>{{trans('admin.created-at')}}</th>
+					                <th>{{trans('admin.updated-at')}}</th>
+					                <th>{{trans('admin.actions')}}</th>
 					                <th></th>
 					                <th></th> 
 					            </tr>
@@ -43,19 +43,19 @@
 	                                    </td>
 					                    <td>{{$category->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
-					                        {!! Form::open(array('url' => route('admin.faq-categories.delete', [$category->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+					                        {!! Form::open(array('url' => route('admin.faq-categories.delete', [$category->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
 					                            {!! Form::hidden('_method', 'DELETE') !!}
-					                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete FAQ Category', 'data-message' => 'Are you sure you want to delete this FAQ Category ?')) !!}
+					                            {!! Form::button(trans('admin.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('faq-categories.delete'), 'data-message' => trans('faq-categories.confirm-delete'))) !!}
 					                        {!! Form::close() !!}
 					                    </td>
 					                    <td>
-					                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.faq-categories.show', [$category->id])}}" data-toggle="tooltip" title="Show">
-					                            Show
+					                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.faq-categories.show', [$category->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+					                            {{trans('admin.show')}}
 					                        </a>
 					                    </td>
 					                    <td>
-					                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.faq-categories.edit', [$category->id])}}" data-toggle="tooltip" title="Edit">
-					                            Edit
+					                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.faq-categories.edit', [$category->id])}}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+					                            {{trans('admin.edit')}}
 					                        </a>
 					                    </td> 
 					                </tr>

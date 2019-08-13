@@ -77,8 +77,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show($page)
     {
+        $page = Page::findOrFail($page);
         return view('admin.website-pages/show', compact('page'));
     }
 
@@ -88,8 +89,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($page)
     {
+        $page = Page::findOrFail($page);
         $this->cleanSession();
         return view('admin.website-pages/edit', compact('page'));
     }
@@ -101,8 +103,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePageRequest $request, Page $page)
+    public function update(StorePageRequest $request, $page)
     {
+        $page = Page::findOrFail($page);
         $input = $request->all();
         $input['language'] = App::getLocale();
         
@@ -144,8 +147,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Page $page)
+    public function delete($page)
     {
+        $page = Page::findOrFail($page);
         $images = $page->images;
 
         if($images){

@@ -6,12 +6,12 @@
 	        <div class="widget-header bordered-bottom bordered-blue">
 	            <span class="widget-caption">
 	                <i class="fa fa-comments"></i> 
-	                Testimonials
+	                {{trans('testimonials.testimonials')}}
 	            </span>
 	        </div>
 	        <div class="widget-body">
 	        	<a href="{{ route('admin.testimonials.create') }}" class="btn btn-success btn-lg">
-	        	    Create new Testimonials
+	        	    {{trans('testimonials.create-new')}}
 	        	</a>
 	        	@if($testimonials->isNotEmpty())
 					<div class="table-responsive users-table">
@@ -19,13 +19,13 @@
 					        <thead class="thead">
 					            <tr>
 					                <th>Id</th>
-					                <th>Title</th>
-					                <th>Name</th>
-					                <th>Company</th>
-					                <th>Content</th>
-					                <th>Created At</th>
-					                <th>Updated At</th>
-					                <th>Actions</th>
+					                <th>{{trans('admin.title')}}</th>
+					                <th>{{trans('admin.subtitle')}}</th>
+					                <th>{{trans('admin.name')}}</th>
+					                <th>{{trans('admin.company')}}</th>
+					                <th>{{trans('admin.content')}}</th>
+					                <th>{{trans('admin.created-at')}}</th>
+					                <th>{{trans('admin.updated-at')}}</th>
 					                <th></th>
 					                <th></th> 
 					            </tr>
@@ -51,19 +51,19 @@
 	                                    </td>
 					                    <td>{{$testimonial->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
-					                        {!! Form::open(array('url' => route('admin.testimonials.delete', [$testimonial->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+					                        {!! Form::open(array('url' => route('admin.testimonials.delete', [$testimonial->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
 					                            {!! Form::hidden('_method', 'DELETE') !!}
-					                            {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Testimonial Category', 'data-message' => 'Are you sure you want to delete this testimonial ?')) !!}
+					                            {!! Form::button(trans('admin.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('pages.delete'), 'data-message' => trans('pages.confirm-delete'))) !!}
 					                        {!! Form::close() !!}
 					                    </td>
 					                    <td>
-					                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.testimonials.show', [$testimonial->id])}}" data-toggle="tooltip" title="Show">
-					                            Show
+					                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.testimonials.show', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+					                            {{trans('admin.show')}}
 					                        </a>
 					                    </td>
 					                    <td>
-					                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.testimonials.edit', [$testimonial->id])}}" data-toggle="tooltip" title="Edit">
-					                            Edit
+					                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.testimonials.edit', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+					                            {{trans('admin.edit')}}
 					                        </a>
 					                    </td> 
 					                </tr>

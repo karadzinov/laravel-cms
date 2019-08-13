@@ -80,7 +80,7 @@
                             @endif
                         </div>
 
-                        {!! Form::label('phone_number', 'Phone Number', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        {!! Form::label('phone_number', trans('forms.settings-phone-number'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('phone_number', $settings->phone_number, array('id' => 'phone_number', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Phone Number')) !!}
                             @if ($errors->has('phone_number'))
@@ -101,7 +101,7 @@
                             @endif
                         </div>
 
-                        {!! Form::label('slogan', 'Company Slogan', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        {!! Form::label('slogan', trans('forms.settings-company-slogan'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('slogan', $settings->slogan, array('id' => 'slogan', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Company Slogan')) !!}
                             @if ($errors->has('slogan'))
@@ -113,7 +113,7 @@
                         <div class="col-md-12"  style="font-size: 14px">
 
                             <div class="form-group">
-                                {!! Form::label('languages', 'Languages:' , array('class' => 'control-label')); !!}
+                                {!! Form::label('languages', trans('forms.settings-languages-available') , array('class' => 'control-label')); !!}
                                 {{Form::select('languages[]', 
                                     $languages, $avalilableLanguages,
                                     array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}

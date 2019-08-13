@@ -9,33 +9,37 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-id-card-o"></i>  
-                About Page
+                {{trans('about.about')}}
             </span>
+            <a href="{{route('admin.about.show')}}" class="btn btn-light pull-right" title="Back To Scripts">
+                <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
+                {{trans('about.back-to')}}
+            </a>
             <a href="{{route('admin.about.edit')}}" class="btn btn-warning pull-right">
-                Edit About Page
+                {{trans('about.edit')}}
             </a>
         </div>
         <div class="widget-body">
             @if($about)
                 <div>
-                    <label for="welcome_note"><strong>Welcome Note:</strong></label>
+                    <label for="welcome_note"><strong>{{trans('about.welcome-note')}}:</strong></label>
                     <p>{!!$about->welcome_note!!}</p>
                 </div>
                 <div>
-                    <label for="about"><strong>About:</strong></label>
+                    <label for="about"><strong>{{trans('about.about')}}:</strong></label>
                     <div>{!!$about->about!!}</div>
                 </div>
                 <div>
-                    <label for="admin-offer"><strong>Our Offer:</strong></label>
+                    <label for="admin-offer"><strong>{{trans('about.offer')}}:</strong></label>
                     <div id="admin-offer">{!!$about->offer!!}</div>
                 </div>
                 <div>
-                    <label for="why_us"><strong>Why Us:</strong></label>
+                    <label for="why_us"><strong>{{trans('about.why-us')}}:</strong></label>
                     <div id="why_us">{!!$about->why_us!!}</div>
                 </div>
 
                 <div>
-                    <label for="image"><strong>Main Image:</strong></label>
+                    <label for="image"><strong>{{trans('about.main-image')}}:</strong></label>
                     <div>
                         <img src="{{$about->thumbnailPath . $about->image}}">
                     </div>
@@ -43,14 +47,14 @@
                 <br>
 
                 <div>
-                    <label for="video"><strong>Video:</strong></label>
+                    <label for="video"><strong>{{trans('about.welcome-note')}}:</strong></label>
                     <div id="video">{!!$about->videoPreview!!}</div>
                 </div>
                 <br>
 
 
                 @if($about->images->isNotEmpty())
-                    <label for="gallery">Images:</label>
+                    <label for="gallery">{{trans('admin.images')}}:</label>
 
                     <div id="gallery">
                         @foreach($about->images as $image)
@@ -60,7 +64,7 @@
                 @endif
             @else
                 <a href="{{ route('admin.about.create') }}" class="btn btn-success btn-lg">
-                Create About Page for This Language
+                {{trans('about.create-new')}}
             </a>
             @endif
             

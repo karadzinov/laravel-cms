@@ -15,7 +15,7 @@ class NavComposer
     {
         $categories = Category::all()->where('parent_id','=',NULL);
         $languages = Language::where('active','=','1')
-                        ->select('code','name')
+                        ->select('code','native')
                         ->get();
                         
         $pages = $this->preparePagesForNav();

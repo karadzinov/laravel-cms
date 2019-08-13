@@ -8,55 +8,55 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-comments"></i> 
-                Testimonials
+                {{trans('testimonials.testimonials')}}
             </span>
             <a href="{{route('admin.testimonials.index')}}" class="btn btn-deafult pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
-                Back To Testimonials
+                {{trans('testimonials.back-to')}}
             </a>
         </div>
         <div class="widget-body">
             {!! Form::open(array('route' => ['admin.testimonials.update', $testimonial->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
                 <div class="form-group">
-                    {!! Form::label('name', 'Title:') !!}
-                    {!! Form::textarea('title', $testimonial->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}
+                    {!! Form::label('name', trans('admin.title')) !!}
+                    {!! Form::textarea('title', $testimonial->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('admin.title'), 'autofocus' => true ]) !!}
                     {!! $errors->first('title') !!}
                 </div>
-                @if($post->image)
+                @if($testimonial->image)
                     <div>
-                        <img src="{{$post->thumbnailPath}}">
+                        <img src="{{$testimonial->thumbnailPath}}">
                         <br>
                         <br>
                     </div>
                 @endif
                 <div class="form-group">
-                    {{Form::label('image', 'Image:')}}
+                    {{Form::label('image', trans('admin.image'))}}
                     {!! Form::file('image', null,['class'=>'form-control']) !!}
                     {!! $errors->first('image') !!}
                 </div> 
 
                 <div class="form-group">
-                    {!! Form::label('name', 'Name:') !!}
-                    {!! Form::text('name', $testimonial->name, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>'Name']) !!}
+                    {!! Form::label('name', trans('admin.name')) !!}
+                    {!! Form::text('name', $testimonial->name, ['id'=>'name', 'class' => 'form-control', 'placeholder'=>trans('admin.name')]) !!}
                     {!! $errors->first('name') !!}
                 </div> 
 
                 <div class="form-group">
-                    {!! Form::label('company', 'Company:') !!}
-                    {!! Form::text('company', $testimonial->company, ['id'=>'company', 'class' => 'form-control', 'placeholder'=>'Company']) !!}
+                    {!! Form::label('company', trans('admin.company')) !!}
+                    {!! Form::text('company', $testimonial->company, ['id'=>'company', 'class' => 'form-control', 'placeholder'=>trans('admin.company')]) !!}
                     {!! $errors->first('company') !!}
                 </div>   
 
                 <div class="form-group">
-                    {!! Form::label('content', 'Content:') !!}
+                    {!! Form::label('content', trans('admin.content')) !!}
                      <span class="input-icon icon-right">
-                        {!! Form::textarea('content', $testimonial->content, ['id'=>'content', 'class' => 'form-control', 'placeholder'=>'Content']) !!}
+                        {!! Form::textarea('content', $testimonial->content, ['id'=>'content', 'class' => 'form-control', 'placeholder'=>trans('admin.content')]) !!}
                         <i class="fa fa-pencil darkorange"></i>
                     </span>
                     {!! $errors->first('content') !!}
                 </div>
 
-                {!! Form::button('Edit Testimonial', array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                {!! Form::button(trans('testimonials.create-new'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}

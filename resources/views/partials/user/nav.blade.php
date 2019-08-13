@@ -128,7 +128,7 @@
 												<form method="POST" action="switch-language">
 													@csrf
 													@foreach($languages as $language)
-														<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->name}}">
+														<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
 													@endforeach
 												</form>
 											</li>

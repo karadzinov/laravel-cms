@@ -79,7 +79,7 @@ class FrontEndController extends Controller
     public function switchLanguage(Request $request){
 
         try {
-            $locale = Language::where('name', '=', $request->get('language'))
+            $locale = Language::where('native', '=', $request->get('language'))
                                 ->firstOrFail()
                                 ->code;
 

@@ -55,8 +55,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(FaqCategory $category)
+    public function show($category)
     {
+        $category = FaqCategory::findOrFail($category);
         return view('admin/FAQCategories/show', compact('category'));
     }
 
@@ -66,8 +67,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(FaqCategory $category)
+    public function edit($category)
     {
+        $category = FaqCategory::findOrFail($category);
         return view('admin/FAQCategories/edit', compact('category'));
     }
 
@@ -78,8 +80,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQCategoryRequest $request, FaqCategory $category)
+    public function update(FAQCategoryRequest $request, $category)
     {
+        $category = FaqCategory::findOrFail($category);
         $input = $request->all();
         $input['language'] = App::getLocale();
 
@@ -95,8 +98,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function delete(FaqCategory $category)
+    public function delete($category)
     {
+        $category = FaqCategory::findOrFail($category);
         $category->delete();
 
         return redirect()->route('admin.faq-categories.index')

@@ -60,7 +60,7 @@ class TestimonialsController extends Controller
         $input = $request->all();
         $input['language'] = App::getLocale();
 
-        $input['title'] = strip_tags($request->get('tle'));
+        $input['title'] = strip_tags($request->get('title'));
         $input['content'] = strip_tags($request->get('content'));
         $input['image'] = $image;
         $testimonial = Testimonial::create($input);
@@ -96,6 +96,8 @@ class TestimonialsController extends Controller
         
         $input = $request->all();
         $input['language'] = App::getLocale();
+        $input['title'] = strip_tags($request->get('title'));
+        $input['content'] = strip_tags($request->get('content'));
         $input['image'] = $image;
 
         $testimonial->update($input);
