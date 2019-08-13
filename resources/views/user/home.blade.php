@@ -64,7 +64,9 @@
 
 	<!-- section -->
 	<!-- ================ -->
-	@include('partials/user/homepage/about')
+	@if($about)
+		@include('partials/user/homepage/about')
+	@endif
 	<!-- section end -->
 
 	<!-- section -->

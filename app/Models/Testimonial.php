@@ -7,7 +7,7 @@ use App\Models\Helpers\{ImagesPaths, ModelIsTranslatable};
 
 class Testimonial extends Model
 {
-	use ImagesPaths;
+	use ImagesPaths, ModelIsTranslatable;
 	
     protected $table = 'testimonials';
     protected $guarded = [];
