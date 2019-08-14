@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('posts.posts')}}
+@endsection
+
 @section('content')
     <div class="widget">
         

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
+
 @section('head')
   <style>
     .larger-text{

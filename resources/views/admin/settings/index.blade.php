@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('pageTitle')
+    {{trans('settings.settings')}}
+@endsection
 @section('head')
     <style>
         .actionButton{

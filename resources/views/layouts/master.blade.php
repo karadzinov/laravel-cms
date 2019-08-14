@@ -8,24 +8,6 @@
 	<head>
 		@include('partials/user/head')
 		@yield('optionalHead')
-		<style>
-			.language-switcher-area {
-				min-width: auto !important;
-			}
-			.language-switcher{
-				text-transform: uppercase;
-			}
-			.testingImg{
-			}
-			.circle .img-circle{
-				height: 63px !important;
-				width: 63px !important;
-				object-fit: cover !important;
-			}
-			#go-to-admin{
-				margin-left: 30px
-			}
-		</style>
 	</head>
 
 	<!-- body classes:  -->

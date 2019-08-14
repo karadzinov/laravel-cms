@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('categories.categories')}}
+@endsection
+
 @section('head')
     <style>
         .widget-body{

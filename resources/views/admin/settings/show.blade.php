@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('pageTitle')
+    {{trans('settings.settings')}}
+@endsection
 @section('template_title')
     Welcome {{ Auth::user()->name }}
 @endsection

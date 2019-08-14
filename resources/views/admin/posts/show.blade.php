@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('pageTitle')
+    {{trans('posts.posts')}}
+@endsection
+
 @section('head')
     <style>
         label{

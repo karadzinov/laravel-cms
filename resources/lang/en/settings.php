@@ -16,6 +16,7 @@ return [
     'addressRequired'       => 'Address is required',
     'mainURLRequired'       => 'Main URL is required',
     'logoRequired'          => 'Logo is required',
+    'settings'              => 'Settings',
     'success'               => [
         'created' => 'Settings Successfully Created.',
         'updated' => 'Settings Successfully Updated.',

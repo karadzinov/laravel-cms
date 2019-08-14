@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('faq-categories.faq-categories')}}
+@endsection
+
 @section('content')
 	<div class="widget">
 	    <div class="widget-header bordered-bottom bordered-blue">

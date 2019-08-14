@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
+
 @section('head')
     @if(config('usersmanagement.enabledDatatablesJs'))
         <link rel="stylesheet" type="text/css" href="{{ config('usersmanagement.datatablesCssCDN') }}">

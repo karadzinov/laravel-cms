@@ -10,6 +10,7 @@ return [
     'editing-user'          => 'Editing User :name',
     'showing-user'          => 'Showing User :name',
     'showing-user-title'    => ':name\'s Information',
+    'usersmanagement'       => 'Users management',
 
     // Flash Messages
     'createSuccess'   => 'Successfully created user! ',

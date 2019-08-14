@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
+
 @section('head')
     <style type="text/css">
         .btn-save,

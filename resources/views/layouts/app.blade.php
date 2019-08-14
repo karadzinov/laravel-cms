@@ -3,13 +3,6 @@
     <head>
         @include('partials/admin/head')
         @yield('head')
-        <style>
-            .admin-language-switcher{
-                margin: 0 10%;
-                text-transform: uppercase;
-
-            }
-        </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">

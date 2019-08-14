@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('about.about')}}
+@endsection
+
 @section('head')
     <link rel='stylesheet' href='{{asset('assets/js/unitegallery/dist/css/unite-gallery.css')}}' type='text/css' /> 
 @endsection

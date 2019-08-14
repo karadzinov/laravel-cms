@@ -4,7 +4,9 @@
 
 {{-- CSRF Token --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<title>
+    @yield('pageTitle', 'Admin') | {{config('app.name') . ' ' . trans('admin.admin')}}
+</title>
 <meta name="description" content="">
 <meta name="author" content="Jeremy Kenedy">
 <link rel="shortcut icon" href="/favicon.ico">

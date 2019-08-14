@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('pageTitle')
+    {{trans('profile.profile')}}
+@endsection
+
 @section('head')
     <style>
         .tab-pane .row {

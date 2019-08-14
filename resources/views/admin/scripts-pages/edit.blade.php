@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('scripts.scripts')}}
+@endsection
+
 @section('content')
     <div class="widget">
 

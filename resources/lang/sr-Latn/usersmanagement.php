@@ -10,6 +10,8 @@ return [
     'editing-user'          => 'Ispravite korisnika :name',
     'showing-user'          => 'Prikaži korisnika :name',
     'showing-user-title'    => ' Informacije za korsnika :name',
+    'usersmanagement'       => 'Upravljanje korisnicima',
+
 
     // Flash Messages
     'createSuccess'   => 'Uspešno napravljen korisnik! ',

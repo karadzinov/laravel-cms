@@ -95,4 +95,6 @@ return [
 
     'delete-account-warning' => '<strong>Deleting</strong> your account is <u><strong>permanent</strong></u> and <u><strong>cannot</strong></u> be undone.',
     'confirm-delete-check' => 'Confirm delete',
+    'profile'              => 'Profile',
+
 ];

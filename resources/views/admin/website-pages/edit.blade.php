@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('pageTitle')
+    {{trans('pages.pages')}}
+@endsection
+
 @section('head')
     <script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
 @endsection

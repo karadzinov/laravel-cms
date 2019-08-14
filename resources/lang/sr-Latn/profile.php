@@ -95,7 +95,6 @@ return [
 
     'delete-account-warning' => '<strong>Brisanje</strong> Vašeg naloga je <u><strong>trajno</strong></u> i nalog <u><strong>ne može</strong></u> biti reaktiviran.',
     'confirm-delete-check' => 'Potvrdite brisanje naloga',
-
-    // <strong>Deleting</strong> your account is <u><strong>permanent</strong></u> and <u><strong>cannot</strong></u> be undone.
+    'profile'              => 'Profil',
 
 ];

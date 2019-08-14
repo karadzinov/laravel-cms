@@ -395,6 +395,28 @@ footer #map-canvas{
   padding-bottom: 0;
 }
 
+.admin-language-switcher{
+    margin: 0 10%;
+    text-transform: uppercase;
+}
+
+.language-switcher-area {
+  min-width: auto !important;
+}
+.language-switcher{
+  text-transform: uppercase;
+}
+.testingImg{
+}
+.circle .img-circle{
+  height: 63px !important;
+  width: 63px !important;
+  object-fit: cover !important;
+}
+#go-to-admin{
+  margin-left: 30px
+}
+
 @media only screen and (max-width: 600px) {
   .embed-responsive-16by9 {
     height: 100%;

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
+
 @php
   $levelAmount = trans('usersmanagement.labelUserLevel');
   if ($user->level() >= 2) {

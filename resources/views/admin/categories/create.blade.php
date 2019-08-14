@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-   {{trans('admin.categories')}} 
+@section('pageTitle')
+    {{trans('categories.categories')}}
 @endsection
 
 @section('content')
