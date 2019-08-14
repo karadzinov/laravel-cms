@@ -9,13 +9,19 @@
     <!-- Sidebar Menu -->
     <ul class="nav sidebar-menu">
         <!--Dashboard-->
-        <li>
+        <li class="{{ Request::is('admin/home') ? 'active' : null }}">
             <a href="{{route('admin.home')}}">
                 <i class="menu-icon glyphicon glyphicon-home"></i>
                 <span class="menu-text"> {{trans('sidebar.dashboard')}} </span>
             </a>
         </li>
-        <li class="{{ Request::is('admin/node/category/*') ? 'active' : null }}">
+        <li>
+            <a href="{{route('public.home')}}">
+                <i class="menu-icon fa fa-desktop"></i>
+                <span class="menu-text"> {{trans('sidebar.user-home-page')}} </span>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/node/category*') ? 'active' : null }}">
             <a href="{{route('admin.category.index')}}" class="menu">
                 <i class="menu-icon fa fa-list-ol"></i>
                 <span class="menu-text"> {{trans('sidebar.categories')}} </span>
@@ -34,7 +40,7 @@
                 <span class="menu-text"> {{trans('sidebar.profile')}} </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/users/*') ? 'active' : null}}">
+        <li class="{{Request::is('admin/users*') ? 'active' : null}}">
             <a href="{{ route('admin.users') }}" class="menu">
                 <i class="menu-icon fa fa-users"></i>
                 <span class="menu-text"> {{trans('sidebar.users')}} </span>
@@ -64,7 +70,7 @@
                 <span class="menu-text"> {{trans('sidebar.testimonials')}} </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/abouts/*') ? 'active' : null}}">
+        <li class="{{Request::is('admin/about*') ? 'active' : null}}">
             <a href="{{ route('admin.about.show')}}" class="menu">
                 <i class="menu-icon fa fa-id-card-o"></i>
                 <span class="menu-text"> {{trans('sidebar.about')}} </span>

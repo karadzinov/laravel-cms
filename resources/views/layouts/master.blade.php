@@ -22,6 +22,10 @@
 				width: 63px !important;
 				object-fit: cover !important;
 			}
+			#go-to-admin{
+				position:relative;
+				bottom: 0px; 
+			}
 		</style>
 	</head>
 

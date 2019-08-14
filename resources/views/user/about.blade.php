@@ -9,7 +9,8 @@
 	</style>
 @endsection
 @section('content')
-	<!-- banner start -->
+@if($about)
+		<!-- banner start -->
 	<!-- ================ -->
 	<div class="banner border-clear light-translucent-bg" style="background-image:url('{{asset('images/about/originals/'.$about->image)}}');">
 		<div class="container">
@@ -142,4 +143,9 @@
 			</div>
 		</div>
 	</section>
+@else
+	<div class="text-center pv-40">
+		<p style="min-height: 100%" class="lead center">{{trans('general.coming-soon')}}...</p>
+	</div>
+@endif
 @endsection

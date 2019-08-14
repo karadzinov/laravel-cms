@@ -2,6 +2,7 @@
 
 return [
 	'dashboard' 	=> 'Početna stranica',
+	'user-home-page'=> 'Korisnična stranica',
 	'categories' 	=> 'Kategorije',
 	'settings' 		=> 'Podešavanja',
 	'profile' 		=> 'Profil',

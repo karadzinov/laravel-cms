@@ -22,10 +22,10 @@
 							<div class="separator-2"></div>
 							<nav>
 								<ul class="nav nav-pills nav-stacked">
-									<li><a target="_blank" href="http://htmlcoder.me/support">Support</a></li>
+									<li><a target="_blank" href="#">Support</a></li>
 									<li><a href="#">Privacy</a></li>
 									<li><a href="#">Terms</a></li>
-									<li><a href="page-about.html">About</a></li>
+									<li><a href="{{route('about')}}">About</a></li>
 								</ul>
 							</nav>
 						</div>

@@ -2,6 +2,7 @@
 
 return [
 	'dashboard' 	=> 'Dashboard',
+	'user-home-page'=> 'User Home Page',
 	'categories' 	=> 'Categories',
 	'settings' 		=> 'Settings',
 	'profile' 		=> 'Profile',

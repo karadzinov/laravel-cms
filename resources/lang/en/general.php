@@ -38,8 +38,8 @@ return [
 		'latest_from_blog' 	=> 'Latest From Blog',
 		'gallery' 			=> 'Gallery',
 		'find_us' 			=> 'Find Us',
-		'more' 				=> 'More',
 	],
+	'more' 				=> 'More',
 	//homepage
 	'if_questions'  	=> 'If you have any questions or propositions please do not hesitate to contact us.',
 	'contact_us' 		=> 'Contact Us',
@@ -79,5 +79,8 @@ return [
 	'error_response' => 'Oops! Something went wrong please refresh the page and try again.',
 	'no_questions'	 => 'There is no questions to be answered.',
 	'search'	 	 => 'Search',
+	'go-to-admin'	 => 'Go to Admin',
+	'coming-soon'	 => 'Coming Soon',
+
 
 ];

@@ -134,6 +134,9 @@
 											</li>
 										</ul>
 									</div>
+									@role('admin')
+										<a id="go-to-admin" href="{{route('admin.home')}}" class="btn btn-warning pull-rigth">{{trans('general.go-to-admin')}}</a>
+									@endrole
 								</div>
 								<!-- header dropdown buttons end-->
 								
@@ -153,4 +156,4 @@
 	</div>
 	
 </header>
-<!-- header end
+<!-- header end -->
