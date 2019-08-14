@@ -4,9 +4,11 @@ return [
 	//general
 	'read_more' => 'Read More',
 	'by'		=> 'by',
+	'or'		=> 'or',
 	'home'		=> 'Home',
 	'name'		=> 'Name',
 	'email'		=> 'Email',
+	'password'	=> 'Password',
 	'subject'	=> 'Subject',
 	'message'	=> 'Message',
 	'submit'	=> 'Submit',
@@ -18,7 +20,10 @@ return [
 	'shares' 	=> 'Shares',
 	//partials
 	'header' => [
-		'logout'=>'Logout'
+		'logout'	=> 'Logout',
+		'Login'		=> 'Login',
+		'Register'	=> 'Register',
+
 	],
 	'navigation' => [
 		'posts'  =>'Posts',

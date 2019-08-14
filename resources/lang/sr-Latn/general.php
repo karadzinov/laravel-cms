@@ -4,9 +4,11 @@ return [
 	//general
 	'read_more' => 'Nastavi sa čitanjem',
 	'by'		=> 'autor:',
+	'or'		=> 'ili',
 	'home'		=> 'Početna strana',
 	'name'		=> 'Ime',
 	'email'		=> 'Mejl',
+	'password'	=> 'Lozinka',
 	'subject'	=> 'Naslov',
 	'message'	=> 'Poruka',
 	'submit'	=> 'Potvrdi',
@@ -18,7 +20,9 @@ return [
 	'shares' 	=> 'Delenja',
 	//partials
 	'header' => [
-		'logout'=>'Odjavi se'
+		'logout'	=> 'Odjavi se',
+		'login'		=> 'Najavi se',
+		'register'	=> 'Napravi nalog',
 	],
 	'navigation' => [
 		'posts'  =>'Postovi',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\{About, Category, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
 
 class FrontEndController extends Controller
@@ -80,15 +81,14 @@ class FrontEndController extends Controller
 
         try {
             $locale = Language::where('native', '=', $request->get('language'))
-                                ->firstOrFail()
-                                ->code;
-
-              session()->put('locale', $locale);
+                                ->firstOrFail()->code;
+            $minutes = 60 * 24 * 60;
+            Cookie::queue(Cookie::make('locale', $locale, $minutes));
 
             return redirect()->back();
         } catch (Exception $e) {
             
-            return response()->json(['status'=>500]);
+            return redirect()->back()->with('error', 'Ooops! Something went wrong switching the language.');
         }
 
     }

@@ -77,4 +77,11 @@ return [
     'CaptchaWrong'     => 'Wrong captcha, please try again.',
     'roleRequired'     => 'User role is required.',
 
+    //login
+    'socialite-login'   => 'Connect with Your Social Accounts',
+    'remember-me'       => 'Remember me',
+    'forgot-password'   => 'Forgot Your Password?',
+    'fill-info'         => 'Please fill in your information',
+    'or-socialite'      => 'Or Use Social Logins to Register'
+
 ];
