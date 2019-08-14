@@ -45,5 +45,6 @@ return [
 	'question'		=> 'Pitanje',
 	'answer'		=> 'Odgovor',
 	'icon'			=> 'Ikonica',
+	'same-name'		=> 'Već postoji kategorija ili stranica sa istim imenom.',
 	
 ];

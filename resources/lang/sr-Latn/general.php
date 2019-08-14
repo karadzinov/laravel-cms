@@ -33,8 +33,12 @@ return [
 		'change_language' =>'Promeni jezik',
 	],
 	'footer'	 => [
-		'latest_from_blog' => 'Poslednji članci',
-		'gallery' 		=> 'Galerija',
+		'latest_from_blog' 	=> 'Poslednji članci',
+		'gallery' 			=> 'Galerija',
+		'support' 			=> 'Podrška',
+		'privacy' 			=> 'Pravila o privatnosti',
+		'terms' 			=> 'Uslovi korišćenja',
+		'about' 			=> 'O nama',
 	],
 	'more' 			=> 'Više',
 	//homepage

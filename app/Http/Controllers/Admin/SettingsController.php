@@ -66,7 +66,7 @@ class SettingsController extends Controller
         Settings::create($input);
         
         return redirect('admin/meta/settings')
-                ->with('success', 'Settings Successfully Created.');
+                ->with('success', trans('settings.success.created'));
     }
 
     /**
@@ -120,7 +120,7 @@ class SettingsController extends Controller
         $settings->update($input);
         
          return redirect('admin/meta/settings')
-                ->with('success', 'Settings Successfully Updated.');
+                ->with('success', trans('settings.success.updated'));
     }
 
     public function updateAvailableLanguages($languages){

@@ -23,8 +23,7 @@
 				object-fit: cover !important;
 			}
 			#go-to-admin{
-				position:relative;
-				bottom: 0px; 
+				margin-left: 30px
 			}
 		</style>
 	</head>

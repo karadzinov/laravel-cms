@@ -2771,6 +2771,7 @@ footer #map-canvas{
   height: 266px;
   padding-bottom: 0;
 }
+
 @media only screen and (max-width: 600px) {
   .embed-responsive-16by9 {
     height: 100%;

@@ -15,5 +15,11 @@ return [
 	'why-us'		=> 'Zašto izabrati nas?',
 	'main-image'	=> 'Glavna slika',
 	'company-video'	=> 'Firmin video',
+	'success'       => [
+        'created' => 'Stranica \'O nama\' uspešno napravljena.',
+        'updated' => 'Stranica \'O nama\' uspešno ažurirana.',
+        'deleted' => 'Stranica \'O nama\' uspešno izbrisana.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
 
 ];

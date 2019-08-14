@@ -10,4 +10,12 @@ return [
 	'back-to'		=> 'Back To Testimonials',
 	'save'			=> 'Save Testimonial',
 	'update'		=> 'Update Testimonial',
+	'success'       => [
+        'created' => 'Testimonial Successfully Created.',
+        'updated' => 'Testimonial Successfully Updated.',
+        'deleted' => 'Testimonial Successfully Deleted.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
+
+
 ];

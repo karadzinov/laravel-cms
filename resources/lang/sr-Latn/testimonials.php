@@ -10,4 +10,11 @@ return [
 	'back-to'		=> 'Nazad na svedočanstva',
 	'save'			=> 'Sačuvaj svedočanstvo',
 	'update'		=> 'Ažuriraj svedočanstvo',
+	'success'           => [
+        'created' => 'Svedočanstvo uspešno napravljeno.',
+        'updated' => 'Svedočanstvo uspešno ažurirano.',
+        'deleted' => 'Svedočanstvo uspešno izbrisano.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.',
+
 ];

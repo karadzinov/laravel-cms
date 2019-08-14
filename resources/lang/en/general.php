@@ -37,7 +37,10 @@ return [
 	'footer'	 => [
 		'latest_from_blog' 	=> 'Latest From Blog',
 		'gallery' 			=> 'Gallery',
-		'find_us' 			=> 'Find Us',
+		'support' 			=> 'Support',
+		'privacy' 			=> 'Privacy',
+		'terms' 			=> 'Terms',
+		'about' 			=> 'About',
 	],
 	'more' 				=> 'More',
 	//homepage

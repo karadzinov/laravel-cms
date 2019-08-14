@@ -16,4 +16,12 @@ return [
 	'assigned-users'=> 'Zaduženi korisnici',
 	'assign-user'	=> ' Dodeli korisniku',
 	'add-tags'		=> ' Odaberi tag ili dodaj novi unošenjem reči i pritiskom na enter',
+	'success'           => [
+        'created' => 'Post uspešno napravljen.',
+        'updated' => 'Post uspešno ažuriran.',
+        'deleted' => 'Post uspešno izbrisan.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.',
+    'name-taken' 	=> 'Post sa ovim naslovom već postoji.',
+
 ];

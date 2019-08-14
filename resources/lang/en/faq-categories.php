@@ -10,5 +10,12 @@ return [
 	'back-to'			=> 'Back to FAQ Categories',
 	'save'				=> 'Save FAQ Category',
 	'update'			=> 'Update FAQ Category',
-	'explination' 		=> '<span>Look for an icon on <a href=":link" target="_blank">this link</a> and copy its name.</span>'
+	'explination' 		=> '<span>Look for an icon on <a href=":link" target="_blank">this link</a> and copy its name.</span>',
+	'success'           => [
+        'created' => 'Category Successfully Created.',
+        'updated' => 'Category Successfully Updated.',
+        'deleted' => 'Category Successfully Deleted.',
+    ],
+    'error'             => 'We are experiencing some issues, please try again later.',
+
 ];

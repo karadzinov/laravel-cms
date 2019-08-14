@@ -22,10 +22,10 @@
 							<div class="separator-2"></div>
 							<nav>
 								<ul class="nav nav-pills nav-stacked">
-									<li><a target="_blank" href="#">Support</a></li>
-									<li><a href="#">Privacy</a></li>
-									<li><a href="#">Terms</a></li>
-									<li><a href="{{route('about')}}">About</a></li>
+									<li><a target="_blank" href="#">{{trans('general.footer.support')}}</a></li>
+									<li><a href="#">{{trans('general.footer.privacy')}}</a></li>
+									<li><a href="#">{{trans('general.footer.terms')}}</a></li>
+									<li><a href="{{route('about')}}">{{trans('general.footer.about')}}</a></li>
 								</ul>
 							</nav>
 						</div>

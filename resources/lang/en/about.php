@@ -14,5 +14,13 @@ return [
 	'why-us'		=> 'Why choose us?',
 	'main-image'	=> 'Main Image',
 	'company-video'	=> 'Company Video',
+	'success'       => [
+        'created' => 'About Page Successfully Created.',
+        'updated' => 'About Page Successfully Updated.',
+        'deleted' => 'About Page Successfully Delted.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
+
+
 
 ];

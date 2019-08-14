@@ -46,7 +46,7 @@ class FAQCategoriesController extends Controller
         $category = FAQCategory::create($input);
        
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Created Category.');
+                ->with('success', trans('faq-categories.success.created'));
     }
 
     /**
@@ -89,7 +89,7 @@ class FAQCategoriesController extends Controller
         $category->update($input);
 
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Updated Category.');
+                ->with('success', trans('faq-categories.success.updated'));
     }
 
     /**
@@ -104,6 +104,6 @@ class FAQCategoriesController extends Controller
         $category->delete();
 
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Deleted Category.');
+                ->with('success', trans('faq-categories.success.deleted'));
     }
 }

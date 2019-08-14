@@ -20,13 +20,13 @@
 					            <tr>
 					                <th>Id</th>
 					                <th>{{trans('admin.title')}}</th>
-					                <th>{{trans('admin.subtitle')}}</th>
 					                <th>{{trans('admin.name')}}</th>
 					                <th>{{trans('admin.company')}}</th>
 					                <th>{{trans('admin.content')}}</th>
 					                <th>{{trans('admin.created-at')}}</th>
 					                <th>{{trans('admin.updated-at')}}</th>
-					                <th></th>
+					                <th>{{trans('admin.actions')}}</th>
+					                <th></th> 
 					                <th></th> 
 					            </tr>
 					        </thead>

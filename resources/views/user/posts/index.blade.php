@@ -128,8 +128,8 @@
 			</div>
 		</section>
 	@else
-		<div class="text-center pv-40">
-			<p class="lead center">There is no posts on this subject.</p>
+		<div class="main-container">
+			@include('partials/user/comingSoon')
 		</div>
 	@endif
 @endsection

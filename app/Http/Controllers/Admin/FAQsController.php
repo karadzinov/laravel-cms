@@ -50,7 +50,7 @@ class FAQsController extends Controller
         $faq = FAQ::create($input);
 
     	return redirect(route('admin.faq.index'))
-    			->with('success', 'Successifully Created FAQ.');
+    			->with('success', trans('faqs.success.created'));
     }
 
     /**
@@ -95,7 +95,7 @@ class FAQsController extends Controller
         $faq->update($input);
     	
     	return redirect(route('admin.faq.index'))
-    			     ->with('success', 'FAQ Successfully Updated');
+    			     ->with('success', trans('faqs.success.updated'));
     }
 
 
@@ -111,6 +111,6 @@ class FAQsController extends Controller
         $faq->delete();
     	
     	return redirect(route('admin.faq.index'))
-                    ->with('success', 'Successfully Deleted FAQ'); 
+                    ->with('success', trans('faqs.success.deleted')); 
     }
 }

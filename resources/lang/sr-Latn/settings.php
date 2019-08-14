@@ -16,4 +16,11 @@ return [
     'addressRequired'  => 'Adresa je obavezna',
     'mainURLRequired'  => 'Glavni URL je obavezan',
     'logoRequired'     => 'Logo je obavezan',
+    'success'           => [
+        'created' => 'Podešavanje uspešno napravljeno.',
+        'updated' => 'Podešavanje uspešno ažurirano.',
+        'deleted' => 'Podešavanje uspešno izbrisano.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.' 
+
     ];

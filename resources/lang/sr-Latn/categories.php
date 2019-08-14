@@ -14,5 +14,11 @@ return [
     'categories'        => 'Kategorije', 
     'save'              => 'Sačuvaj kategoriju', 
     'update'      		=> 'Ažuriraj kategoriju', 
+    'success'           => [
+        'created' => 'Kategorija uspešno napravljena.',
+        'updated' => 'Kategorija uspešno ažurirana.',
+        'deleted' => 'Kategorija uspešno izbrisana.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.' 
 
 ];

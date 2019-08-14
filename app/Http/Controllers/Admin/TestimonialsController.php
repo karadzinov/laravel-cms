@@ -31,8 +31,9 @@ class TestimonialsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Testimonial $testimonial)
+    public function show($testimonial)
     {
+        $testimonial = Testimonial::findOrFail($testimonial);
 
         return view('admin/testimonials/show', 
                 compact('testimonial')
@@ -66,7 +67,7 @@ class TestimonialsController extends Controller
         $testimonial = Testimonial::create($input);
 
         return redirect()->route('admin.testimonials.index')
-                ->with('success', 'Testimonial Successfully Created.');
+                ->with('success', trans('testimonials.success.created'));
     }
 
     /**
@@ -75,8 +76,9 @@ class TestimonialsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Testimonial $testimonial)
+    public function edit($testimonial)
     {
+        $testimonial = Testimonial::findOrFail($testimonial);
 
         return view('admin/testimonials/edit', 
                 compact('testimonial')
@@ -90,8 +92,9 @@ class TestimonialsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTestimonialRequest $request, Testimonial $testimonial)
+    public function update(UpdateTestimonialRequest $request, $testimonial)
     {
+        $testimonial = Testimonial::findOrFail($testimonial);
         $image = $this->updateImageIfNecessary($request, $testimonial);
         
         $input = $request->all();
@@ -103,7 +106,7 @@ class TestimonialsController extends Controller
         $testimonial->update($input);
 
         return redirect()->route('admin.testimonials.index')
-                ->with('success', 'Testimonial Successfully Updated.');
+                ->with('success', trans('testimonials.success.updated'));
     }
 
     /**
@@ -112,13 +115,14 @@ class TestimonialsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Testimonial $testimonial)
+    public function delete($testimonial)
     {
+        $testimonial = Testimonial::findOrFail($testimonial);
         $this->deleteImages($testimonial);
         $testimonial->delete();
 
         return redirect()->route('admin.testimonials.index')
-                ->with('success', 'Testimonial Successfully Deleted.');
+                ->with('success', trans('testimonials.success.deleted'));
     }
     /**
      * Uploads the logo if there is any, and deletes previous one.

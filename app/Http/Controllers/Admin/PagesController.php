@@ -60,7 +60,7 @@ class PagesController extends UsesSlider
         $slug = Str::slug(strip_tags($title));
 
         if($this->slugExists($slug)){
-            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
 
         $input['slug'] = $slug;
@@ -68,7 +68,7 @@ class PagesController extends UsesSlider
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
-                    ->with('success', 'Page Successfully Created.');
+                    ->with('success', trans('pages.success.created'));
     }
 
     /**
@@ -112,7 +112,7 @@ class PagesController extends UsesSlider
         $title = $request->get('title');
         $slug = Str::slug(strip_tags($title));
         if($this->slugExists($slug, $page->id)){
-            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
         $input['slug'] = $slug;
 
@@ -121,7 +121,7 @@ class PagesController extends UsesSlider
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
-                    ->with('success', 'Page Successfully Updated.');
+                    ->with('success', trans('pages.success.updated'));
     }
 
     public function slugExists($slug, $id=null){
@@ -159,7 +159,7 @@ class PagesController extends UsesSlider
         $page->delete();
 
         return redirect()->route('admin.pages.index')
-                ->with('success', 'Page Successfully Deleted.');
+                ->with('success', trans('pages.success.deleted'));
     }
 
     

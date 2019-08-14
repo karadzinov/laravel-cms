@@ -45,5 +45,6 @@ return [
 	'question'		=> 'Question',
 	'answer'		=> 'Answer',
 	'icon'			=> 'Icon',
+	'same-name'		=> 'There is already a category or a page with the same name.',
 	
 ];

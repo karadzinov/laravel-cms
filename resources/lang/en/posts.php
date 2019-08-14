@@ -16,4 +16,11 @@ return [
 	'assigned-users'=> 'Assigned Users',
 	'assign-user'	=> ' Assign to a User',
 	'add-tags'		=> ' Choose tag or add new one by typing the word and pressing enter',
+	'success'       => [
+        'created' => 'Post Successfully Created.',
+        'updated' => 'Post Successfully Updated.',
+        'deleted' => 'Post Successfully Deleted.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
+    'name-taken' 	=> 'Post with the same title already exists.',
 ];

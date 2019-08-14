@@ -10,4 +10,11 @@ return [
 	'back-to'		=> 'Back to Pagess',
 	'save'			=> 'Save Page',
 	'update'		=> 'Update Page',
+	'success'       => [
+        'created' => 'Page Successfully Created.',
+        'updated' => 'Page Successfully Updated.',
+        'deleted' => 'Page Successfully Deleted.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
+
 ];

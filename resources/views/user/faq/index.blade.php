@@ -102,9 +102,7 @@
 					<!-- sidebar end -->
 				</div>
 			@else
-				<div class="text-center pv-40">
-					<p class="lead center">{{trans('general.no_questions')}}</p>
-				</div>
+				@include('partials/user/comingSoon')
 			@endif
 		</div>
 	</section>

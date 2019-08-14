@@ -10,4 +10,11 @@ return [
 	'back-to'		=> 'Nazad na skripte',
 	'save'			=> 'Sačuvaj skriptu',
 	'update'		=> 'Ažuriraj skriptu',
+	'success'           => [
+        'created' => 'Skripta uspešno napravljena.',
+        'updated' => 'Skripta uspešno ažurirana.',
+        'deleted' => 'Skripta uspešno izbrisana.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.' 
+
 ];

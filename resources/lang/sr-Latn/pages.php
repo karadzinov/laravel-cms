@@ -10,4 +10,11 @@ return [
 	'back-to'		=> 'Nazad na stranice',
 	'save'			=> 'Sačuvaj strnicu',
 	'update'		=> 'Ažuriraj strnicu',
+	'success'           => [
+        'created' => 'Stranica uspešno napravljena.',
+        'updated' => 'Stranica uspešno ažurirana.',
+        'deleted' => 'Stranica uspešno izbrisana.',
+    ],
+    'error'             => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.' 
+
 ];

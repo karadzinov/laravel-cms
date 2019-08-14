@@ -51,7 +51,7 @@ class PostsController extends Controller
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug)){
-            return redirect()->back()->with('error', 'The title has already been taken.');
+            return redirect()->back()->with('error', trans('posts.name-taken'));
         }
         $input['slug'] = $slug;
         
@@ -77,7 +77,7 @@ class PostsController extends Controller
         }
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Created.');
+                ->with('success', trans('posts.success.created'));
     }
 
     public function updateTags($post, $tags){
@@ -156,7 +156,7 @@ class PostsController extends Controller
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug, $post->id)){
-            return redirect()->back()->with('error', 'The title has already been taken.');
+            return redirect()->back()->with('error', trans('posts.name-taken'));
         }
 
         $input['slug'] = $slug;
@@ -185,7 +185,7 @@ class PostsController extends Controller
         }
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Updated.');
+                ->with('success', trans('posts.success.updated'));
     }
 
     public function slugExists($slug, $id=null){
@@ -237,7 +237,7 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Deleted.');
+                ->with('success', trans('posts.success.deleted'));
     }
     /**
      * Uploads the logo if there is any, and deletes previous one.

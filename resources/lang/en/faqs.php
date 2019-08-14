@@ -10,4 +10,11 @@ return [
 	'back-to'		=> 'Back to FAQs',
 	'save'			=> 'Save FAQ',
 	'update'		=> 'Update FAQ',
+	'success'       => [
+        'created' => 'FAQ Successfully Created.',
+        'updated' => 'FAQ Successfully Updated.',
+        'deleted' => 'FAQ Successfully Deleted.',
+    ],
+    'error'         => 'We are experiencing some issues, please try again later.',
+
 ];

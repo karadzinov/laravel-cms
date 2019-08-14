@@ -16,4 +16,12 @@ return [
     'addressRequired'       => 'Address is required',
     'mainURLRequired'       => 'Main URL is required',
     'logoRequired'          => 'Logo is required',
+    'success'               => [
+        'created' => 'Settings Successfully Created.',
+        'updated' => 'Settings Successfully Updated.',
+        'deleted' => 'Settings Successfully Deleted.',
+    ],
+    'error'                 => 'We are experiencing some issues, please try again later.',
+
+
     ];

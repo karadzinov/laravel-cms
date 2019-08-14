@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $slug = Str::slug(strip_tags($request->get('name')));
 
         if($this->slugExists($slug)){
-            return redirect()->back()->with('error', 'There is a category or a page with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
         
         $input['slug'] = $slug;
@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $category = Category::create($input);
 
         return redirect()->route('admin.category.index')
-                ->with('success', 'Category Successfully Created.');
+                ->with('success', trans('categories.success.created'));
     
     }
     /**
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         $slug = Str::slug(strip_tags($request->get('name')));
 
         if($this->slugExists($slug, $category->id)){
-            return redirect()->back()->with('error', 'There is a category or a page with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
 
         $input['slug'] = $slug;
@@ -119,7 +119,7 @@ class CategoryController extends Controller
         $category->update($input);
 
         return redirect()->route('admin.category.index')
-                ->with('success', 'Category Successfully Updated.');
+                ->with('success', trans('categories.success.updated'));
     }
 
     public function slugExists($slug, $id=null){
@@ -245,7 +245,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('admin.category.index')
-                ->with('success', 'Category Successfully Deleted.');
+                ->with('success', trans('categories.success.deleted'));
     }
     
     protected function makeOptions(Collection $items)
