@@ -17,6 +17,7 @@
                 {{trans('scripts.back-to')}}
             </a>
             <a href="{{route('admin.scripts.edit', $script->id)}}" class="btn btn-warning pull-right">
+                <i class="fa fa-edit"></i> 
                 {{trans('scripts.edit')}}
             </a>
         </div>

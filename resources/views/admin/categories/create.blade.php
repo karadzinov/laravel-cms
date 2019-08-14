@@ -23,7 +23,7 @@
                 {!! Form::open(array('route' => 'admin.category.store', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
                 {!! csrf_field() !!}
                     @include('admin/categories/partials/create-form')
-                    {!! Form::button(trans('categories.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                    {!! Form::button('<i class="fa fa-save"></i> '.trans('categories.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
                 {!! Form::close() !!}
             </div>
         </div>

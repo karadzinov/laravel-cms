@@ -20,7 +20,10 @@
             </span>
         </div>
         <div class="widget-body">
-            <a href="{{route('admin.faq-categories.edit', $category->id)}}" class="btn btn-warning pull-right">{{trans('faq-categories.edit')}}</a>
+            <a href="{{route('admin.faq-categories.edit', $category->id)}}" class="btn btn-warning pull-right">
+                <i class="fa fa-edit"></i> 
+                {{trans('faq-categories.edit')}}
+            </a>
             <div>
                 <label for="question"><strong>{{trans('admin.name')}}:</strong></label>
                 <p id="question">{{$category->name}}</p>

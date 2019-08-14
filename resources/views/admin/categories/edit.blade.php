@@ -34,21 +34,21 @@
                     {!! csrf_field() !!}
                         @include('admin/categories/partials/edit-form')
                         <span class="pull-left">    
-                            {!! Form::button(trans('categories.update'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
+                            {!! Form::button('<i class="fa fa-save"></i> '.trans('categories.update'), array('class' => 'btn btn-success','type' => 'submit' )) !!}
                         </span>                        
                     {!! Form::close() !!}
                 </div>
                 <div class="card-body" style="font-size: 13px" >
                 {!! Form::open(['route' => [ 'admin.category.destroy', $id ], 'method' => 'DELETE' ]) !!}
                         <span class="pull-right"> 
-                            {!! Form::button(trans('categories.delete-category'), array('class' => 'btn btn-danger margin-bottom-1 mb-1 float-right','type' => 'button','data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('categories.delete-category'), 'data-message' => trans('categories.confirm-delete'))) !!}
+                            {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('categories.delete-category'), array('class' => 'btn btn-danger margin-bottom-1 mb-1 float-right','type' => 'button','data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('categories.delete-category'), 'data-message' => trans('categories.confirm-delete'))) !!}
                         </span> 
                     {!! Form::close() !!}                                
                 </div>
             @endif
         </div>
     </div>
-@include('modals.modal-delete-category')
+@include('modals.modal-delete')
 @endsection
 
 @section('footer_scripts')

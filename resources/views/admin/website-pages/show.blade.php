@@ -13,14 +13,15 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-newspaper-o"></i> 
-                Pages
+                {{trans('pages.pages')}}
             </span>
             <a href="{{route('admin.pages.index')}}" class="btn btn-default pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
-                Back To Pages
+                {{trans('pages.back-to')}}
             </a>
             <a href="{{route('admin.pages.edit', $page->id)}}" class="btn btn-warning pull-right">
-                Edit Page
+                <i class="fa fa-edit"></i> 
+                {{trans('pages.edit')}}
             </a>
         </div>
         <div class="widget-body">

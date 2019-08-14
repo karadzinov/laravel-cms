@@ -20,6 +20,7 @@
             	{!!$post->title!!}
             </span>
             <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">
+                <i class="fa fa-edit"></i> 
                 {{trans('posts.edit')}}
             </a>
             <a href="{{route('admin.posts.index')}}" class="btn btn-deafult pull-right">

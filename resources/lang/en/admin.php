@@ -46,6 +46,10 @@ return [
 	'answer'		=> 'Answer',
 	'icon'			=> 'Icon',
 	'admin'			=> 'Admin',
+	'success'		=> 'Success',
+	'close'			=> 'Close',
+	'cancel'		=> 'Cancel',
+	'confirm-delete'=> 'Confirm Delete',
 	'same-name'		=> 'There is already a category or a page with the same name.',
 	
 ];

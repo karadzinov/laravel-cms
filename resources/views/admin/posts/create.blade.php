@@ -112,7 +112,7 @@
                         array('id'=>'tags', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div>
 
-                {!! Form::button(trans('posts.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('posts.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
 
 
             {!! Form::close() !!}

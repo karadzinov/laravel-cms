@@ -13,6 +13,7 @@
 	        </div>
 	        <div class="widget-body">
 	        	<a href="{{ route('admin.testimonials.create') }}" class="btn btn-success btn-lg">
+	        		<i class="fa fa-edit"></i> 
 	        	    {{trans('testimonials.create-new')}}
 	        	</a>
 	        	@if($testimonials->isNotEmpty())
@@ -53,21 +54,23 @@
 	                                    </td>
 					                    <td>{{$testimonial->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
-					                        {!! Form::open(array('url' => route('admin.testimonials.delete', [$testimonial->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
-					                            {!! Form::hidden('_method', 'DELETE') !!}
-					                            {!! Form::button(trans('admin.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('pages.delete'), 'data-message' => trans('pages.confirm-delete'))) !!}
-					                        {!! Form::close() !!}
-					                    </td>
-					                    <td>
-					                        <a class="btn btn-sm btn-success btn-block" href="{{ route('admin.testimonials.show', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+					                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.testimonials.show', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+					                        	<i class="fa fa-eye"></i> 
 					                            {{trans('admin.show')}}
 					                        </a>
 					                    </td>
 					                    <td>
 					                        <a class="btn btn-sm btn-warning btn-block" href="{{route('admin.testimonials.edit', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+					                        	<i class="fa fa-edit"></i> 
 					                            {{trans('admin.edit')}}
 					                        </a>
-					                    </td> 
+					                    </td>
+					                    <td>
+					                        {!! Form::open(array('url' => route('admin.testimonials.delete', [$testimonial->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
+					                            {!! Form::hidden('_method', 'DELETE') !!}
+					                            {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('admin.delete'), array('class' => 'btn btn-danger btn-sm btn-block','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('pages.delete'), 'data-message' => trans('pages.confirm-delete'))) !!}
+					                        {!! Form::close() !!}
+					                    </td>
 					                </tr>
 					            @endforeach
 					        </tbody>

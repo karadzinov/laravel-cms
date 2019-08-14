@@ -20,6 +20,7 @@
                 {{trans('about.back-to')}}
             </a>
             <a href="{{route('admin.about.edit')}}" class="btn btn-warning pull-right">
+                <i class="fa fa-edit"></i> 
                 {{trans('about.edit')}}
             </a>
         </div>

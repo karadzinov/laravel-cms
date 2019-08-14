@@ -17,6 +17,7 @@
             {!! trans('categories.back-to-categories') !!}
         </a>
         <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning pull-right">
+            <i class="fa fa-edit"></i> 
             {{trans('categories.edit-category')}}
         </a>
     </div>
@@ -52,7 +53,8 @@
     </div>
 </div>
 
-@include('modals.modal-delete-category')
+@include('modals.modal-delete')
+
 @endsection
 
 @section('footer_scripts')

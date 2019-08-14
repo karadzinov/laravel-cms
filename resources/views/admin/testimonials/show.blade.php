@@ -18,7 +18,10 @@
             </span>
         </div>
         <div class="widget-body">
-            <a href="{{route('admin.testimonials.edit', $testimonial->id)}}" class="btn btn-warning pull-right">{{trans('testimonials.edit')}}</a>
+            <a href="{{route('admin.testimonials.edit', $testimonial->id)}}" class="btn btn-warning pull-right">
+                <i class="fa fa-edit"></i> 
+                {{trans('testimonials.edit')}}
+            </a>
             <div>
                 <label><strong>{{trans('admin.title')}}:</strong></label>
                 <p>{{$testimonial->title}}</p>

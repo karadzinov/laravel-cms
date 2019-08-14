@@ -52,7 +52,7 @@
                 {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                 {!! Form::close() !!}
 
-                {!! Form::button(trans('pages.save'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('pages.save'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>

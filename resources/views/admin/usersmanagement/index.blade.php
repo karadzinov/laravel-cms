@@ -120,20 +120,22 @@
                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->created_at}}</td>
                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->updated_at}}</td>
                                 <td>
-                                    {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                    <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id) }}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+                                        <i class="fa fa-eye"></i> 
+                                        {!! trans('admin.show') !!}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+                                        <i class="fa fa-pencil"></i> 
+                                        {!! trans('admin.edit') !!}
+                                    </a>
+                                </td>
+                                <td>
+                                    {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
                                         {!! Form::hidden('_method', 'DELETE') !!}
-                                        {!! Form::button(trans('usersmanagement.buttons.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('usersmanagement.modals.delete-user'), 'data-message' => trans('usersmanagement.modals.delete_user_message', ['user'=>$user->name]))) !!}
+                                        {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('admin.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('usersmanagement.modals.delete-user'), 'data-message' => trans('usersmanagement.modals.delete_user_message', ['user'=>$user->name]))) !!}
                                     {!! Form::close() !!}
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id) }}" data-toggle="tooltip" title="Show">
-                                        {!! trans('usersmanagement.buttons.show') !!}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-warning btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
-                                        {!! trans('usersmanagement.buttons.edit') !!}
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -37,7 +37,7 @@
                 </span>
                 {!! $errors->first('icon') !!}
             </div>
-            {!! Form::button(trans('faq-categories.update'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
+            {!! Form::button('<i class="fa fa-save"></i> '.trans('faq-categories.update'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
    
             {!! Form::close() !!}    
         </div>

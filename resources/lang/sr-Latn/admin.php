@@ -46,6 +46,10 @@ return [
 	'answer'		=> 'Odgovor',
 	'icon'			=> 'Ikonica',
 	'admin'			=> 'Admin',
+	'success'		=> 'Uspešno',
+	'close'			=> 'Zatvori',
+	'cancel'		=> 'Odustani',
+	'confirm-delete'=> 'Potvrdi brisanje',
 	'same-name'		=> 'Već postoji kategorija ili stranica sa istim imenom.',
 	
 ];

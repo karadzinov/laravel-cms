@@ -40,9 +40,9 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('main_text', trans('admin.subtitle')) !!}
+                        {!! Form::label('main_text', trans('admin.main-text')) !!}
                          <span class="input-icon icon-right">
-                            {!! Form::textarea('main_text', $page->main_text, ['id'=>'elm1', 'class' => 'form-control', 'placeholder'=>trans('admin.subtitle')]) !!}
+                            {!! Form::textarea('main_text', $page->main_text, ['id'=>'elm1', 'class' => 'form-control', 'placeholder'=>trans('admin.main-text')]) !!}
                             <i class="fa fa-pencil darkorange"></i>
                         </span>
                         {!! $errors->first('main_text') !!}
@@ -53,7 +53,7 @@
                 {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                 {!! Form::close() !!}
 
-                {!! Form::button(trans('pages.update'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('pages.update'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>

@@ -15,6 +15,7 @@
         </div>
         <div class="widget-body">
             <a href="{{ route('admin.category.create') }}" class="btn btn-success btn-lg">
+                <i class="fa fa-plus"></i> 
                 {!! trans('categories.create-category') !!}
             </a>
             <br>
@@ -23,11 +24,10 @@
         
         </div>
     </div>    
-    @include('modals.modal-delete-settings')
-    
+    @include('modals.modal-delete')
+
 @endsection
 
 @section('footer_scripts')
-
     @include('scripts.delete-modal-script')
 @endsection

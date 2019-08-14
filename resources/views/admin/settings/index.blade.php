@@ -22,7 +22,8 @@
                         {!! trans('settings.create-settings') !!}
                     </a>
                 @else 
-                    <a class="btn btn-sm btn-warning pull-right actionButton" href="{{route('admin.settings.edit')}}"  data-toggle="tooltip" title="Edit">
+                    <a class="btn btn-sm btn-warning pull-right actionButton" href="{{route('admin.settings.edit')}}"  data-toggle="tooltip" title="{!! trans('settings.edit-settings') !!}">
+                        <i class="fa fa-edit"></i> 
                         {!! trans('settings.edit-settings') !!}
                     </a>
                 @endif
@@ -126,7 +127,7 @@
         </div>
     </div>
 
-    @include('modals.modal-delete-settings')
+    {{-- @include('modals.modal-delete-settings') --}}
 @endsection
 
 @section('footer_scripts')
