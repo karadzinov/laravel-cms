@@ -68,7 +68,7 @@ class ConversationsController extends Controller
     	    $role->where('name', 'admin');
     	}])->where('id', '!=', Auth()->user()->id)->get();
 
-    	return view('partials/admin/conversations/addNewConversation', compact('users'));
+    	return view('partials/admin/chat/addNewConversation', compact('users'));
     }
 
     public function addNewParticipants(Request $request){
