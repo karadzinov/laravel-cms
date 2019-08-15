@@ -112,13 +112,14 @@ $(document).ready(function(){
 		        className: "modal-darkorange",
 		        buttons: {
 		            success: {
-		                label: "Create",
+		                label: "<i class='fa fa-save'></i> Create",
 		                className: "btn-success",
 		                callback: function () {
 		                	chat.storeConversation();
 		                }
 		            },
 		            "Cancel": {
+		            	label: "<i class='fa fa-remove'></i> Cancel",
 		                className: "btn-danger",
 		                callback: function () { }
 		            }

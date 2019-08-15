@@ -54,7 +54,7 @@ class ConversationsController extends Controller
             $conversation = Conversation::findOrFail($request->get('conversation'));
             $conversation->name = $name;
             $conversation->save();
-            $content = 'I just changed the name of the conversation to ' . $conversation->title;
+            $content = trans('chat.just-changed', ['title' => $conversation->title]);
             $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             $message->name = $name;
             return json_encode($message);
@@ -121,7 +121,7 @@ class ConversationsController extends Controller
             try {
                 $conversation->participants()->attach($participant);
                 $participant = User::findOrFail($participant);
-                $content = 'I just added ' . $participant->name . ' to the conversation.';
+                $content = trans('chat.just-added', ['name'=>$participant->name]);
                 $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
                 $names[] = $participant->name;
             } catch (Exception $e) {
@@ -153,7 +153,7 @@ class ConversationsController extends Controller
             try {
                 $conversation->participants()->detach($participant);
                 $participant = User::findOrFail($participant);
-                $content = 'I just removed ' . $participant->name . ' from this conversation.';
+                $content = trans('chat.just-removed', ['name' => $participant->name]);
                 $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
                 $names[] = $participant->name;
             } catch (Exception $e) {
@@ -235,10 +235,10 @@ class ConversationsController extends Controller
         $user = Auth::user();
         if($conversation->participants->contains($user)){
             $conversation->participants()->detach($user);
-            $content = "{$user->name} left the conversation.";
+            $content = trans('chat.user-left', ['name'=>$user->name]);
             $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             
-            return back()->with('success', 'You Successfully removed this conversation.');
+            return back()->with('success', trans('chat.success-removed'));
         }else{
 
             return response()->json(403);

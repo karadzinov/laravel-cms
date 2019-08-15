@@ -36,7 +36,11 @@
                                         <img src="{{Auth::user()->image}}">
                                     </div>
                                     <section>
-                                        <h2><span class="profile"><span>  {{Auth::user()->name}}</span></span></h2>
+                                        <h2>
+                                            <span class="profile">
+                                                <span>  {{Auth::user()->name}}</span>
+                                            </span>
+                                        </h2>
                                     </section>
                                 </a>
                                 <!--Login Area Dropdown-->

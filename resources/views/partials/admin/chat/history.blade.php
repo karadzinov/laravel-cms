@@ -5,33 +5,33 @@
     <div class="contact-info">
         <div id="contact-name" class="contact-name">{{$conversation->title}}</div>
          <div>
-            <a class="dropdown-toggle" data-toggle="dropdown" title="Options" href="#">
+            <a class="dropdown-toggle" data-toggle="dropdown" title="{{trans('admin.settings')}}" href="#">
                 <i class="icon fa fa-gear"></i>
             </a>
             <!--Tasks Dropdown-->
             <ul class="pull-left dropdown-menu dropdown-tasks dropdown-arrow conversationOptions">
                 <li class="dropdown-header bordered-darkorange">
                     <i class="fa fa-gear"></i>
-                    Options
+                    {{trans('admin.settings')}}
                 </li>
                 @if(!$conversation->public)
                     <li id="changeName">
                         <button class="btn btn-default btn-block">
                             <i class="fa fa-pencil"></i>
-                            Change Name
+                            {{trans('chat.change-name')}}
                         </button>
                     </li>
                     <li id="addNewParticipant">
                         <button class="btn btn-success btn-block">
                             <i class="fa fa-user-plus"></i>
-                            Add New Participants
+                            {{trans('chat.add-participants')}}
                         </button>
                     </li>
                     @if($conversation->user_id === Auth::user()->id)
                         <li id="removeFromConversation">
                             <button class="btn btn-warning btn-block">
                                 <i class="fa fa-user-times"></i> 
-                                Remove Participants
+                                {{trans('chat.remove-participants')}}
                             </button>
                         </li>
                     @endif
@@ -39,19 +39,19 @@
                 <li class="seeParticipants">
                     <button class="btn btn-info btn-block">
                         <i class="fa fa-users"></i> 
-                        See Participants
+                        {{trans('chat.see-participants')}}
                     </button>
                 </li>
                 <br>
                 @if(!$conversation->public)
                     <li class="dropdown-header bordered-darkorange">
                         <i class="fa fa-warning"></i>
-                        Delete This Conversation?
+                        {{trans('chat.delete-this-conversation')}}
                     </li>
                     <li>
                         {!! Form::open(array('url' => route('admin.conversations.delete', [$conversationId]),'id'=>'deleteConversationForm', 'class' => 'deleteForm', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                             {!! Form::hidden('_method', 'DELETE') !!}
-                            {!! Form::button('<i class="fa fa-trash-o"></i> Delete Conversation', array('id'=>'confirmConversationDelete', 'class' => 'btn btn-danger btn-block','type' => 'submit')) !!}
+                            {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('chat.delete-conversation'), array('id'=>'confirmConversationDelete', 'class' => 'btn btn-danger btn-block','type' => 'submit')) !!}
                         {!! Form::close() !!}
                     </li>
                 @endif
@@ -216,8 +216,13 @@
     function showParticipantsModal(response){
         let body = makeParticipantsList(response);
         bootbox.alert({
-            title: "{{$conversation->name}} participants",
+            title: "{{trans('chat.list', ['name'=>$conversation->name])}}",
             message: body,
+            buttons: {
+              ok: {
+                label: "{{trans('admin.ok')}}"
+                },
+            },
         })
     }
 
@@ -229,7 +234,7 @@
                             <img src="${response[key].image}" style="width:65px; height:65px;">
                         </div>
                         <div class="databox-right padding-top-20">
-                            <div class="badge badge-info graded pull-right">${response[key].messagesNumber} messages</div>
+                            <div class="badge badge-info graded pull-right">${response[key].messagesNumber} {{trans('chat.messages')}}</div>
                             
                             <div class="databox-text darkgray">${response[key].name}</div>
                             <div class="databox-text darkgray">${response[key].level}</div>
@@ -264,17 +269,18 @@
     function callAddParticipantModal(body){
         bootbox.dialog({
             message: body,
-            title: "Add New Participants",
+            title: "{{trans('chat.add-new-participants')}}",
             className: "modal-darkorange",
             buttons: {
                 success: {
-                    label: "Add",
+                    label: "<i class='fa fa-plus'></i> {{trans('admin.add')}}",
                     className: "btn-success",
                     callback: function () {
                         storeNewParticipants();
                     }
                 },
                 "Cancel": {
+                    label: "<i class='fa fa-remove'></i> {{trans('admin.cancel')}}",
                     className: "btn-danger",
                     callback: function () { }
                 }
@@ -285,17 +291,18 @@
     function callRemoveParticipantModal(body){
         bootbox.dialog({
             message: body,
-            title: "Remove Participants",
+            title: "{{trans('chat.remove-participants')}}",
             className: "modal-darkorange",
             buttons: {
                 success: {
-                    label: "Remove",
+                    label: "<i class='fa fa-minus'></i> {{trans('admin.remove')}}",
                     className: "btn-warning",
                     callback: function () {
                         removeParticipants();
                     }
                 },
                 "Cancel": {
+                    label: "<i class='fa fa-remove'></i> {{trans('admin.cancel')}}",
                     className: "btn-danger",
                     callback: function () { }
                 }
@@ -363,11 +370,11 @@
     function callChangeNameModal(body){
         bootbox.dialog({
             message: body,
-            title: "Change Name",
+            title: "{{trans('chat.change-name')}}",
             className: "modal-darkorange",
             buttons: {
                 success: {
-                    label: "Save",
+                    label: "<i class='fa fa-save'></i> {{trans('admin.save')}}",
                     className: "btn-success",
                     callback: function () {
                         if($('#conversationNewName').length){
@@ -376,6 +383,7 @@
                     }
                 },
                 "Cancel": {
+                    label: "<i class='fa fa-remove'></i> {{trans('admin.cancel')}}",
                     className: "btn-danger",
                     callback: function () { }
                 }

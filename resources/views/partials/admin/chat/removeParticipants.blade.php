@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="removeParticipants"><h6>Select Participants</h6></label>
+    <label for="removeParticipants"><h6>{{trans('chat.remove-participants')}}</h6></label>
     <select id="removeParticipants" multiple="multiple" style="width: 100%;" required="">
         @foreach($users as $user)
             <option value="{{$user->id}}">
@@ -11,7 +11,7 @@
 
 <script>
     $("#removeParticipants").select2({
-        placeholder: "Remove Participants",
+        placeholder: "{{trans('chat.remove-participants')}}",
         allowClear: true
     })
 </script>

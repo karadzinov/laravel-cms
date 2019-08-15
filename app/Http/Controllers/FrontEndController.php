@@ -88,7 +88,7 @@ class FrontEndController extends Controller
             return redirect()->back();
         } catch (Exception $e) {
             
-            return redirect()->back()->with('error', 'Ooops! Something went wrong switching the language.');
+            return redirect()->back()->with('error', trans('admin.ops'));
         }
 
     }

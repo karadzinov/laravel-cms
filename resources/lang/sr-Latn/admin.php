@@ -51,5 +51,17 @@ return [
 	'cancel'		=> 'Odustani',
 	'confirm-delete'=> 'Potvrdi brisanje',
 	'same-name'		=> 'Već postoji kategorija ili stranica sa istim imenom.',
+	'search'		=> 'Pretraga',
+	'save'			=> 'Sačuvaj',
+	'add'			=> 'Dodaj',
+	'remove'		=> 'Remove',
+	'ok'			=> 'Ok',
+	'level'			=> 'nivo',
+	'online'		=> 'na mreži',
+	'offline'		=> 'nikog nema na mreži',
+	'ops'			=> 'Ups! Došlo je do greške!',
+
+
+
 	
 ];

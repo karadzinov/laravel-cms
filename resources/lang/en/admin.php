@@ -51,5 +51,14 @@ return [
 	'cancel'		=> 'Cancel',
 	'confirm-delete'=> 'Confirm Delete',
 	'same-name'		=> 'There is already a category or a page with the same name.',
+	'search'		=> 'Search',
+	'save'			=> 'Save',
+	'add'			=> 'Add',
+	'remove'		=> 'Remove',
+	'ok'			=> 'OK',
+	'level'			=> 'level',
+	'online'		=> 'Online',
+	'offline'		=> 'Offline',
+	'ops'			=> 'Ooops! Something went wrong!',
 	
 ];

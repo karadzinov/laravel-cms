@@ -2,12 +2,13 @@
 <div id="chatbar" class="page-chatbar">
     <div class="chatbar-contacts" style="display: block;">
         <div class="contacts-search">
-            <input id="search_conversations" type="text" class="searchinput" placeholder="Search Contacts">
+            <input id="search_conversations" type="text" class="searchinput" placeholder="{{trans('admin.search')}}">
             <i class="searchicon fa fa-search"></i>
             <div id="searchConversationsResults"></div>
         </div>
         <button class="btn btn-success btn-block" id="addConversationButton">
-            <i class="fa fa-plus"></i> Add New Conversation
+            <i class="fa fa-plus"></i> 
+            {{trans('chat.create-new')}}
         </button>
         <ul class="contacts-list"  style="overflow: hidden; width: auto; height: 841px;">
             @foreach($conversations as $conversation)
