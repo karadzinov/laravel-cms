@@ -97,22 +97,24 @@
                             <!-- /Account Area -->
                             <!--Note: notice that setting div must start right after account area list.
                             no space mu<input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher" value="sr">vost be between these elements-->
-                            <!-- Settings -->
+                        <!-- languages -->
                         </ul>
-                        <div class="setting">
-                            <a id="btn-setting" title="Language Switcher" href="javascript:void(0)">
-                                <i class="icon fa fa-globe"></i>
-                            </a>
-                        </div>
-                        <div class="setting-container">
-                            <form method="POST" action="{{route('switchLanguage')}}">
-                                @foreach($languages as $language)
-                                    @csrf
-                                    <input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
-                                @endforeach
-                            </form>
-                        </div>
-                        <!-- Settings -->
+                        @if($languages->count() > 1)
+                            <div class="setting">
+                                <a id="btn-setting" title="Language Switcher" href="javascript:void(0)">
+                                    <i class="icon fa fa-globe"></i>
+                                </a>
+                            </div>
+                            <div class="setting-container">
+                                <form method="POST" action="{{route('switchLanguage')}}">
+                                    @foreach($languages as $language)
+                                        @csrf
+                                        <input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
+                                    @endforeach
+                                </form>
+                            </div>
+                        @endif
+                        <!-- languages -->
                     @endguest
                                                                 <!-- Settings -->
                 </div>

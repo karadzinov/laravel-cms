@@ -119,21 +119,23 @@
 										</ul>
 
 									</div>
-									<div class="btn-group dropdown">
-										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" title="">
-											<i class="fa fa-globe"></i>
-										</button>
-										<ul class="dropdown-menu dropdown-animation language-switcher-area">
-											<li>
-												<form method="POST" action="switch-language">
-													@csrf
-													@foreach($languages as $language)
-														<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
-													@endforeach
-												</form>
-											</li>
-										</ul>
-									</div>
+									@if(count($languages)>1)
+										<div class="btn-group dropdown">
+											<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" title="">
+												<i class="fa fa-globe"></i>
+											</button>
+											<ul class="dropdown-menu dropdown-animation language-switcher-area">
+												<li>
+													<form method="POST" action="switch-language">
+														@csrf
+														@foreach($languages as $language)
+															<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
+														@endforeach
+													</form>
+												</li>
+											</ul>
+										</div>
+									@endif
 									@role('admin')
 										<a id="go-to-admin" href="{{route('admin.home')}}" class="btn btn-warning pull-rigth">{{trans('general.go-to-admin')}}</a>
 									@endrole
