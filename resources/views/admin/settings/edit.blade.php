@@ -295,9 +295,7 @@
 
         });
 
-        $("#languages").select2({
-          tags: true
-        });
+        $("#languages").select2();
     </script>
 
     </script>
