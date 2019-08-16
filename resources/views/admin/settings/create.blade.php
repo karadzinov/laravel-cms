@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
 @section('pageTitle')
     {{trans('settings.settings')}}
 @endsection
+
 @section('content')
     <div class="widget">
         <div class="widget-header bordered-bottom bordered-blue">

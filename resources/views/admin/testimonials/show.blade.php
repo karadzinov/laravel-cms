@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
 @section('pageTitle')
     {{trans('testimonials.testimonials')}}
 @endsection
+
 @section('content')
 	<div class="widget">
 

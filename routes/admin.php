@@ -31,13 +31,6 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         ],
     ]);
     Route::post('search-users', 'UsersManagementController@search')->name('search-users');
-    Route::resource('themes', 'ThemesManagementController', [
-        'names' => [
-            'index'   => 'themes',
-            'destroy' => 'themes.destroy',
-        ],
-]);
-    
       
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'AdminDetailsController@listRoutes');

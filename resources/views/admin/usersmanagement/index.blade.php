@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('usersmanagement.usersmanagement')}}
@@ -73,7 +73,7 @@
                 </div>
             </div>
             @if(config('usersmanagement.enableSearchUsers'))
-                @include('partials/admin/search-users-form')
+                @include('admin/partials/search-users-form')
             @endif
             <div class="table-responsive users-table">
                 <table class="table table-striped table-sm data-table">
@@ -155,20 +155,20 @@
         </div>
     </div>    
 
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
     @if ((count($users) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
-        @include('scripts.datatables')
+        @include('scripts/datatables')
     @endif
-    @include('scripts.delete-modal-script')
-    @include('scripts.save-modal-script')
+    @include('scripts/delete-modal-script')
+    @include('scripts/save-modal-script')
     @if(config('usersmanagement.tooltipsEnabled'))
-        @include('scripts.tooltips')
+        @include('scripts/tooltips')
     @endif
     @if(config('usersmanagement.enableSearchUsers'))
-        @include('scripts.search-users')
+        @include('scripts/search-users')
     @endif
 @endsection

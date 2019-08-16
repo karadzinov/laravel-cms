@@ -1,0 +1,146 @@
+article {
+    background: #f5f5f5;
+        min-height: 250px;
+    position: relative;
+    padding-top: .6em;
+    margin-left: 15px;
+
+     border: 1px solid #d4d4d4;
+ 
+    box-sizing: border-box;
+  
+    margin-bottom: 3em;
+}
+
+.subsc_orange_box {
+    background-color: #E55D33;
+    width: 100%;
+    min-height: 111px;
+    margin: 0px;
+}
+
+
+.our-partners-p {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    color: #FFFFFF;
+    font-size: 30px;
+    font-family: 'Archivo Narrow'!important;
+    font-weight: 700;
+}
+
+#articles article header {
+    padding: 8px;
+    box-sizing: border-box;
+    position: relative;
+    max-height: 360px;
+    overflow: hidden;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 2em
+}
+
+span {
+    color: #E55D33;
+}
+
+#article-background {
+    background-color: white;
+}
+
+
+
+
+
+.subs_box {
+        min-width: 210px!important;
+    border-style: solid;
+    border-color: #E55D33;
+    min-height: 236px;
+    margin-bottom: 35px;
+    border-top-width: 17px!important;
+    padding: 30px 0px;
+    overflow: hidden;
+    border-width: 1px;
+}
+
+.p-price, .p-price1 {
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-family: 'Roboto', sans-serif !important;
+    color: #E55D33;
+}
+
+.poss_cent_txt {
+    margin-left: 5%;
+    margin-right: 5px;
+}
+
+.p-price1 {
+    color: black;
+    margin-top: 5px;
+    color: #E55D33;
+}
+
+.montly_cb {
+    font-size: 19px;
+    color: #E55D33;
+    font-family: 'Archivo Narrow', sans-serif!important;
+    font-weight: 700;
+}
+
+.radio i, .checkbox i {
+    border-width: 1px;
+}
+
+.radio i, .checkbox i {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    display: block;
+    width: 19px;
+    padding-left: 5px;
+    zoom: 1.5;
+    height: 19px;
+    outline: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #E55D33;
+    background: rgba(255, 255, 255, 0.3);
+    /* background-color: #e55d33!important; */
+}
+
+.black_span
+{
+	color: #242424;
+}
+
+.input_submit_enter_voucher
+{
+	float: right;
+	width: 73%;
+	font-size: 21px;
+	height: 45px;
+}
+
+.btn-black_pos-sub {
+    margin-left: 13px;
+    padding: 4px 14px;
+    float: right;
+    font-weight: 700;
+    font-size: 21px;
+    border-radius: 1px;
+    height: 45px;
+}
+
+.newsletter_email
+{
+    margin-top: 35px;  
+    margin-left: 13px;
+
+}

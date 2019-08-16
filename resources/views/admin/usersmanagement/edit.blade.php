@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('usersmanagement.usersmanagement')}}
@@ -131,13 +131,13 @@
             {!! Form::close() !!}
         </div>
     </div>
-    @include('modals.modal-save')
-    @include('modals.modal-delete')
+    @include('modals/modal-save')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
-  @include('scripts.delete-modal-script')
-  @include('scripts.save-modal-script')
-  @include('scripts.check-changed')
+  @include('scripts/delete-modal-script')
+  @include('scripts/save-modal-script')
+  @include('scripts/check-changed')
 @endsection

@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\Post;
-use App\Models\About;
-use App\Models\Category;
-use App\Models\Settings;
-use App\Models\Testimonial;
+use App\Models\{About, Category, Settings, Post, Testimonial};
 
 class UserController extends Controller
 {
@@ -18,6 +14,8 @@ class UserController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+        
         $this->middleware('auth');
     }
 
@@ -34,6 +32,6 @@ class UserController extends Controller
         $testimonials = Testimonial::all();
         $about = About::first();
 
-        return view('user/home', compact('posts', 'settings', 'categories', 'testimonials', 'about'));
+        return view($this->path . 'home', compact('posts', 'settings', 'categories', 'testimonials', 'about'));
     }
 }

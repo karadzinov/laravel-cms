@@ -1,0 +1,262 @@
+.subsc_orange_box
+{
+	background-color: #E55D33;
+	    width: 100%;
+    min-height: 111px;
+    margin: 0px;
+    
+    
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.searchByCountry_sap
+{
+	padding: 35px 0px;
+        margin-left: 25px;
+}
+
+.select2-container--default {
+    width: 78%!important;
+    float: right;
+}
+
+.btn-black_pos-sub
+{
+	    margin-left: 13px;
+    padding: 4px 14px;
+    float: right;
+    font-weight: 700;
+        margin-right: 7px;
+    font-size: 21px;
+    border-radius: 1px;
+    height: 45px;
+}
+
+.our-partners-p
+{
+	margin-top: 33px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    color: #FFFFFF;
+    font-size: 30px;
+    font-family: 'Archivo Narrow'!important;
+    font-weight: 700;
+}
+
+.item_partners 
+{       background-color: #FFFFFF;
+    border-radius: 1px;
+    box-shadow: rgba(0,0,0,0.16) 0px 0px 2px;
+    border-width: medium;
+    text-align: center;
+    min-height: 205px;
+}
+
+.item_partner{
+        padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h2 {
+    
+    margin: 0px;
+}
+
+.item_source
+{
+        padding-left: 10px;
+    padding-right: 10px;
+     padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.col12orange 
+{
+    background-color: #f8f8f8;
+}
+
+.item_sources
+{
+	    background-color: #FFFFFF;
+    border-radius: 0px;
+    box-shadow: rgba(0,0,0,0.16) 0px 0px 3px;
+    border-width: medium;
+    text-align: center;
+        min-height: 145px;
+}
+
+.loadmore_row
+{
+	text-align: center;
+	    padding-top: 40px!important;
+            background-color: #f8f8f8;
+
+}
+.load_more_black
+{
+	padding: 7px 90px 35px 90px;
+	font-size: 20px;
+         border-radius: 0px; 
+}
+
+.item_img_partners
+{
+	/*max-width: 200px;*/
+    margin-left: 8%;
+    margin-right: 8%;
+    padding-top: 10px;
+    overflow: hidden;
+    min-height: 80px;
+        height: 110px;
+    position: relative;
+}
+
+.partners_description
+{
+	font-size: 18px;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif !important;
+    text-align: justify;
+    padding-left: 25px;
+    padding-right: 25px;
+    color: #4F4F4F;
+    overflow: hidden;
+    min-height: 80px;
+    line-height: 20px;
+    max-height: 80px;
+
+}
+
+.more_desc
+{
+	font-family: 'Roboto', sans-serif !important;
+	font-style: italic;
+	color: #E55D33;
+}
+.country_st
+{
+	    color: #E55D33;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.sources_poss
+{
+	   /* margin-top: 50px;*/
+           background-color: #f8f8f8;
+}
+
+.select2-selection__rendered 
+{
+	    font-size: 20px!important;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300!important;
+    height: 40px;
+    padding-top: 2px;
+    
+}
+.select2-selection--single
+{
+	height: 45px!important;
+    line-height: 40px!important;
+    -webkit-border-radius: 1px!important;
+    -moz-border-radius: 1px!important;;
+    border-radius: 1px!important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+
+.select2-results__option
+{
+	    font-family: 'Roboto', sans-serif !important;
+}
+
+.sourcepartners-label {
+        background-color: #f8f8f8;
+}
+
+.slika
+{
+
+   overflow: auto;
+   margin: auto;
+   position: absolute;
+   top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.img_source
+{
+
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.text-center
+{
+    background-color: #f8f8f8;
+}
+
+@media (max-width: 768px)
+{
+    .item_partner
+    {
+        padding-left: 40px;
+        padding-right: 40px;    
+    }
+    .item_source 
+    {
+        padding-left: 55px;
+        padding-right: 55px;
+      
+    }
+
+    .our-partners-p
+    {
+        padding-left: 30px;
+    }
+
+    .select2-container--default
+    {
+        width: 68%!important;
+        float: left;
+    }
+
+    .mobilePos
+    {
+        position: relative;
+    min-height: 1px;
+    padding-right: 4px!important;
+    padding-left: 6px!important;
+    }
+
+.btn-black_pos-sub {
+    padding: 0px 10px!important;
+    margin-right: 20px!important;
+    margin-left: 0px;
+}
+
+
+    .searchByCountry_sap {
+    padding: 35px 0px;
+    margin-left: 20px;
+}
+
+}

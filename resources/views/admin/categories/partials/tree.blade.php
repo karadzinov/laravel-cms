@@ -44,7 +44,7 @@
                      </span>
                  </li>
             @endif
-            @include('admin.categories.partials.tree', [ 'categories' => $category->children, 'nestedTable'=>true ])
+            @include('admin/categories/partials/tree', [ 'categories' => $category->children, 'nestedTable'=>true ])
         @endforeach
     </ul>
 @endif

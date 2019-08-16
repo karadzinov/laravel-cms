@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('categories.categories')}}
@@ -26,7 +26,7 @@
             <label for="tree"><strong>{{trans('categories.tree')}}</strong></label>
             <ul style="list-style-position: outside">
                  <li class="active">{{ $category->name }}</li>
-                @include('admin.categories.partials.path')
+                @include('admin/categories/partials/path')
             </ul>
         </div>
         <div class="row">
@@ -53,10 +53,10 @@
     </div>
 </div>
 
-@include('modals.modal-delete')
+@include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
-    @include('scripts.delete-modal-script')
+    @include('scripts/delete-modal-script')
 @endsection

@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
 @section('pageTitle')
     {{trans('settings.settings')}}
 @endsection
+
 @section('head')
     <style>
         .actionButton{
@@ -67,7 +69,10 @@
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('language_id', $avalilableLanguages,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
-
+                    <div class="col-md-12">
+                        <label for="theme-selector">THEME</label>
+                        {!! Form::text('theme', $theme->name,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
+                    </div>
                     {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('meta_description', $settings->meta_description, array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'readonly')) !!}
@@ -127,7 +132,6 @@
         </div>
     </div>
 
-    {{-- @include('modals.modal-delete-settings') --}}
 @endsection
 
 @section('footer_scripts')

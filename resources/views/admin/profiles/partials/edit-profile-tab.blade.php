@@ -35,24 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group has-feedback {{ $errors->has('theme') ? ' has-error ' : '' }}">
-        {!! Form::label('theme_id', trans('profile.label-theme') , array('class' => 'col-12 control-label')); !!}
-        <div class="col-12">
-            <select class="form-control" name="theme_id" id="theme_id">
-                @if ($themes->count())
-                    @foreach($themes as $theme)
-                      <option value="{{ $theme->id }}"{{ $currentTheme->id == $theme->id ? 'selected="selected"' : '' }}>{{ $theme->name }}</option>
-                    @endforeach
-                @endif
-            </select>
-            <span class="glyphicon {{ $errors->has('theme') ? ' glyphicon-asterisk ' : ' ' }} form-control-feedback" aria-hidden="true"></span>
-            @if ($errors->has('theme'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('theme') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
+    
     <div class="form-group has-feedback {{ $errors->has('location') ? ' has-error ' : '' }}">
         {!! Form::label('location', trans('profile.label-location') , array('class' => 'col-12 control-label')); !!}
         <div class="col-12">

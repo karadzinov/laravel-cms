@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use Validator;
-use App\Models\Language;
-use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\{Language, Settings, Theme};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
@@ -29,8 +28,9 @@ class SettingsController extends Controller
                                 ->toArray();
 
         $avalilableLanguages = implode(', ', $avalilableLanguages);
+        $theme = Theme::where('active', '=', 1)->first();
 
-        return view('admin.settings.index', compact('settings', 'avalilableLanguages'));
+        return view('admin.settings.index', compact('settings', 'avalilableLanguages', 'theme'));
 
     }
 
@@ -61,7 +61,6 @@ class SettingsController extends Controller
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
         $input['logo'] = $image;
-        $input['language'] = App::getLocale();
 
         Settings::create($input);
         
@@ -93,8 +92,9 @@ class SettingsController extends Controller
         $avalilableLanguages = Language::where('active', '=', 1)
                                 ->pluck('id')
                                 ->toArray();
+        $themes = Theme::all();
 
-        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages'));
+        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages', 'themes'));
  
     }
 
@@ -109,9 +109,12 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
         $input = $request->all();
+
         $langages = $this->updateAvailableLanguages($request->get('languages'));
-        $input['language'] = App::getLocale();
         unset($input['languages']);
+
+        $theme = $this->updateTheme($request->get('theme'));
+
         $image = $this->updateImageIfNecessary($request, $settings);
 
         if($image){
@@ -121,6 +124,19 @@ class SettingsController extends Controller
         
          return redirect('admin/meta/settings')
                 ->with('success', trans('settings.success.updated'));
+    }
+
+    public function updateTheme($theme){
+        $theme = Theme::findOrFail($theme);
+        $actives = Theme::where('active', '=', 1)->get();
+        if(!$actives->contains($theme)){
+            foreach($actives as $active){
+                $active->update(['active'=>0]);
+            }
+
+            $theme->update(['active'=>1]);
+        }
+        return;
     }
 
     public function updateAvailableLanguages($languages){

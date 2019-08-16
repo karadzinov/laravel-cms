@@ -15,42 +15,42 @@ class FrontEndController extends Controller
     	$page = Page::where('slug', '=', $slug)->first();
 
     	if($page){
-    		return view('user/pages/show', compact('page'));
+    		return view($this->path . 'pages/show', compact('page'));
     	}
 
     	$category = Category::where('slug', '=', $slug)->firstOrFail();
     	$posts = $category->posts()->latest()->where('workflow', '=', 'posted')->get();
     	$slider = $posts->where('image', '!=', null)->take(4);
 
-		return view('user/posts/index', compact('posts', 'slider'));
+		return view($this->path . 'posts/index', compact('posts', 'slider'));
     }
 
     public function posts(){
     	$posts = Post::latest()->where('workflow', '=', 'posted')->get();
     	$slider = $posts->where('image', '!=', null)->take(4);
 
-    	return view('user/posts/index', compact('posts', 'slider'));
+    	return view($this->path . 'posts/index', compact('posts', 'slider'));
     }
 
     public function postsShow($categorySlug, $slug){
     	
     	$post = Post::where('slug', '=', $slug)->firstOrFail();
     	
-    	return view('user/posts/show', compact('post'));
+    	return view($this->path . 'posts/show', compact('post'));
     }
 
     public function pages(){
     	
     	$pages = Page::all();
 
-    	return view('user/pages/index', compact('pages'));
+    	return view($this->path . 'pages/index', compact('pages'));
     }
 
     public function faqs(){
     	
     	$categories = FaqCategory::with('faqs')->has('faqs')->get();
 
-    	return view('user/faq/index', compact('categories'));
+    	return view($this->path . 'faq/index', compact('categories'));
     }
 
     public function tagPosts($slug){
@@ -58,14 +58,14 @@ class FrontEndController extends Controller
         $posts = $tag->posts()->get();
         $tag = $tag->name;
 
-        return view('user/posts/tags', compact('posts', 'tag'));
+        return view($this->path . 'posts/tags', compact('posts', 'tag'));
     }
 
     public function contact(){
         
        $settings = Settings::first();
 
-       return view('user/contact', compact('settings'));
+       return view($this->path . 'contact', compact('settings'));
     }
 
     public function about(){
@@ -74,7 +74,7 @@ class FrontEndController extends Controller
        $settings     = Settings::first();
        $testimonials = Testimonial::all();
        
-       return view('user/about', compact('about', 'settings', 'testimonials'));
+       return view($this->path . 'about', compact('about', 'settings', 'testimonials'));
     }
 
     public function switchLanguage(Request $request){

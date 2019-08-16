@@ -1,0 +1,46 @@
+.contact-submit {
+  margin-top: 80px;
+  padding: 4px 14px; 
+  font-weight: 700;
+  font-size: 21px;
+  border-radius: 1px;
+  height: 45px;
+  margin-left: -13px;
+}
+.form-control {
+  border-radius: 0 !important;
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-weight: 300;
+  color: #242424;
+}
+
+.form-control {
+    border-radius: 0 !important;
+    font-family: 'Roboto';
+    font-size: 20px;
+    height: 45px;
+    font-weight: 300;
+    color: #242424;
+}
+
+.contact-orange-bg
+{
+  height: 280px;
+}
+
+.contact-title
+{
+      font-size: 30px;
+}
+
+.colm_no_pad
+{
+        padding-left: 0px; 
+}
+
+.contact-find-us
+{
+      margin-left: 66px;
+      margin-top: 33px;
+}

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('usersmanagement.usersmanagement')}}
@@ -123,17 +123,17 @@
         </div>
     </div>
 
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
 
     @if (count($users) > 10)
-        @include('scripts.datatables')
+        @include('scripts/datatables')
     @endif
-    @include('scripts.delete-modal-script')
-    @include('scripts.save-modal-script')
-    @include('scripts.tooltips')
+    @include('scripts/delete-modal-script')
+    @include('scripts/save-modal-script')
+    @include('scripts/tooltips')
 
 @endsection

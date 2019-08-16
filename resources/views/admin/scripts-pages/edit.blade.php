@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('scripts.scripts')}}

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Image;
 
 class Profile extends Model
 {
@@ -29,7 +28,6 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'theme_id',
         'location',
         'bio',
         'twitter_username',
@@ -51,16 +49,6 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
-    }
-
-    /**
-     * Profile Theme Relationships.
-     *
-     * @var array
-     */
-    public function theme()
-    {
-        return $this->hasOne('App\Models\Theme');
     }
 
     public function getAvatarThumbnailAttribute(){

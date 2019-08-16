@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Language;
 use Illuminate\Database\Seeder;
 
 class SettingsTableSeeder extends Seeder
@@ -12,11 +11,9 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        $language = Language::where('active', '=', '1')->first()->code;
         
         $settings = array(
           array(
-            'language'=>$language,
             'main_url' => 'http://cms.test',
             'title' => 'CMS',
             'email' => 'cms@cms.com',

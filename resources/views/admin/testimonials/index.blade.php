@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
 @section('pageTitle')
     {{trans('testimonials.testimonials')}}
 @endsection
+
 @section('content')
 	    <div class="widget">
 
@@ -79,9 +81,9 @@
 	            @endif
 	        </div>
 	    </div>
-	    @include('modals.modal-delete')
+	    @include('modals/modal-delete')
 @endsection
 
 @section('footer_scripts')
-    @include('scripts.delete-modal-faq')
+    @include('scripts/delete-modal-faq')
 @endsection

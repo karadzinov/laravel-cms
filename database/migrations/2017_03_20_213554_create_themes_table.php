@@ -16,12 +16,10 @@ class CreateThemesTable extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->increments('id')->index();
             $table->string('name')->index()->unique();
-            $table->string('link')->unique();
-            $table->string('notes')->nullable();
-            $table->boolean('status')->default(1);
-            $table->morphs('taggable');
+            $table->boolean('active')->default(0);
+            $table->string('root_folder')->unique(); //in resources/views/user/, never change this
+
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

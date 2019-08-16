@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('usersmanagement.usersmanagement')}}
@@ -436,13 +436,13 @@
         </div>
       </div>
       
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
-    @include('scripts.delete-modal-script')
-    @include('scripts.tooltips')
+    @include('scripts/delete-modal-script')
+    @include('scripts/tooltips')
 @endsection

@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
 @section('pageTitle')
     {{trans('settings.settings')}}
 @endsection
+
 @section('head')
     <style>
         select{
@@ -121,6 +123,16 @@
                                     $languages, $avalilableLanguages,
                                     array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="theme-selector">THEME</label>
+                            <select id="theme-selector" name="theme">
+                             @foreach($themes as $theme)
+                                <option value="{{$theme->id}}" @if($theme->active) selected @endif>
+                                    {{$theme ->name}}
+                                </option>
+                             @endforeach
+                            </select>
                         </div>
 
                         {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
@@ -296,6 +308,7 @@
         });
 
         $("#languages").select2();
+        $("#theme-selector").select2();
     </script>
 
     </script>

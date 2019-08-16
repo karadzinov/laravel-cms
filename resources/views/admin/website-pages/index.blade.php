@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('pageTitle')
     {{trans('pages.pages')}}
@@ -73,10 +73,10 @@
             @endif
         </div>
     </div>
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
-    @include('scripts.delete-modal-script')
+    @include('scripts/delete-modal-script')
 @endsection

@@ -17,7 +17,6 @@ class Settings extends Model
      * @var array
      */
     protected $fillable = [
-        'language',
         'main_url',
         'title',
         'email',
@@ -38,9 +37,4 @@ class Settings extends Model
         'lat',
         'lng'
     ];
-
-    public function language(){
-        
-        return $this->belongsTo(Language::class, 'language_id', 'id');
-    }
 }
