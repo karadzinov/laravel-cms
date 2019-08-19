@@ -7,7 +7,7 @@
             <div class="loginbox-social">
                 <div class="social-title ">{{trans('auth.socialite-login')}}</div>
                 <div class="social-buttons">
-                    @include('partials/admin/socials-icons')
+                    @include('admin/partials/socials-icons')
                 </div>
             </div>
             <div class="loginbox-or">

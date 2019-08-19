@@ -78,7 +78,7 @@
                            <p class="text-center mb-4">
                                {{trans('auth.or-socialite')}}
                            </p>
-                           @include('partials/admin/socials')
+                           @include('admin/partials/socials')
                        </div>
                 </div>
             </form>
