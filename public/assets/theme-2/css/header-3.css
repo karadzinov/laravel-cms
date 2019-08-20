@@ -1,6 +1,6 @@
 #topMain>li>a {
 	height:96px;
-	line-height:76px;
+	line-height:96px;
 }
 #topMain.nav-pills>li {
 	margin-left:10px !important;
@@ -70,7 +70,6 @@
 		margin-left:0 !important;
 	}
 	#topMain>li>a>span.bordered {
-		color:#151515;
 		display:block !important;
 		padding-top:0;
 		height:40px;

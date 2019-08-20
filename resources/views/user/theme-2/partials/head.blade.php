@@ -1,16 +1,15 @@
-<meta charset="utf-8">
-<meta name="author" content="htmlcoder.me">
-
-<!-- Mobile Meta -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8" />
 <title>
 	@yield('title', $settings->title) | {{config('app.name')}}
 </title>
+<meta name="description" content="" />
+{{-- <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" /> --}}
 
+<!-- mobile settings -->
+<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 <meta property="fb:app_id" content="XXX">
 <meta name="description" content="{{$settings->meta_description}}">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="keywords" content="XXX">
 <!-- Open Graph Tags -->
 <meta property="og:title" content="{{$settings->meta_title}}">
@@ -27,22 +26,23 @@
 <meta name="twitter:domain" content="{{url()->current()}}">
 <meta name="_token" content="{{csrf_token()}}" />
 
+<!-- WEB FONTS : use %7C instead of | (pipe) -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+
+<!-- CORE CSS -->
+<link href="{{asset('assets/theme-2/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+
 <!-- Favicon -->
 <link rel="shortcut icon" href="{{asset('images/settings/medium/'. $settings->logo)}}">
-<!-- Web Fonts -->
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
 
+<!-- REVOLUTION SLIDER -->
+<link href="{{asset('assets/theme-2/plugins/slider.revolution/css/extralayers.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/theme-2/plugins/slider.revolution/css/settings.css')}}" rel="stylesheet" type="text/css" />
 
-<!-- The Project's Typography CSS file, includes used fonts -->
-<!-- Used font for body: Roboto -->
-<!-- Used font for headings: Raleway - asssets/css/typography-default.css-->
-<!-- Custom css - assets/css/custom.css--> 
-<link rel="stylesheet" href="{{mix('css/user-mix.css')}}">
+<!-- THEME CSS -->
+<link href="{{asset('assets/theme-2/css/essentials.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/theme-2/css/layout.css')}}" rel="stylesheet" type="text/css" />
 
-<!-- Color Scheme (In order to change the color scheme, replace the blue.css with the color scheme that you prefer)-->
-<link href="{{asset('assets/css/skins/light_blue.css')}}" rel="stylesheet">
-
-
+<!-- PAGE LEVEL SCRIPTS -->
+<link href="{{asset('assets/theme-2/css/header-1.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/theme-2/css/color_scheme/green.css')}}" rel="stylesheet" type="text/css" id="color_scheme" />

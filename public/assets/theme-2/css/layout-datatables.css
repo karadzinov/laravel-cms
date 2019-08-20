@@ -59,10 +59,10 @@ table.dataTable th {
 	box-sizing: content-box;
 }
 .dataTable .row-details.row-details-close {
-	background: url("../images/datatable-row-openclose.png") no-repeat 0 0;
+	background: url("../images/_smarty/datatable-row-openclose.png") no-repeat 0 0;
 }
 .dataTable .row-details.row-details-open {
-	background: url("../images/datatable-row-openclose.png") no-repeat 0 -23px;
+	background: url("../images/_smarty/datatable-row-openclose.png") no-repeat 0 -23px;
 }
 .dataTable .row-details {
 	margin-top: 3px;

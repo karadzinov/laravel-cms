@@ -1,122 +1,235 @@
 @extends($path . 'master')
 
 @section('content')
-	<div id="collapseMap" class="banner">
-		<!-- google map start -->
-		<!-- ================ -->
-		<div id="map-canvas"></div>
-		<!-- google maps end -->
-	</div>
-	<!-- banner end -->
+	<!-- 
+	Available heights
+		h-100
+		h-150
+		h-200
+		h-250
+		h-300
+		h-350
+		h-400
+		h-450
+		h-500
+		h-550
+		h-600
+	-->
+	<div id="map-canvas" class="h-400"></div>
 
-	<!-- breadcrumb start -->
-	<!-- ================ -->
-	<div class="breadcrumb-container">
-		<div class="container">
-			<ol class="breadcrumb">
-				<li><i class="fa fa-home pr-10"></i><a class="link-dark" href="{{route('public.home')}}">{{trans('general.home')}}</a></li>
+
+
+	<!-- 
+		PAGE HEADER 
+		
+		CLASSES:
+			.page-header-xs	= 20px margins
+			.page-header-md	= 50px margins
+			.page-header-lg	= 80px margins
+			.page-header-xlg= 130px margins
+			.dark			= dark page header
+
+			.shadow-before-1 	= shadow 1 header top
+			.shadow-after-1 	= shadow 1 header bottom
+			.shadow-before-2 	= shadow 2 header top
+			.shadow-after-2 	= shadow 2 header bottom
+			.shadow-before-3 	= shadow 3 header top
+			.shadow-after-3 	= shadow 3 header bottom
+	-->
+	<section class="page-header page-header-xs">
+		<div class="container text-right">
+
+			<!-- breadcrumbs -->
+			<ol class="breadcrumb  breadcrumb-inverse">
+				<li><a href="#">{{trans('general.navigation.home')}}</a></li>
+				<li><a href="#">{{trans('general.navigation.pages')}}</a></li>
 				<li class="active">{{trans('general.navigation.contact')}}</li>
-			</ol>
-		</div>
-	</div>
-	<!-- breadcrumb end -->
+			</ol><!-- /breadcrumbs -->
 
-	<!-- main-container start -->
-	<!-- ================ -->
-	<section class="main-container">
-
-		<div class="container">
-			<div class="row">
-
-				<!-- main start -->
-				<!-- ================ -->
-				<div class="main col-md-8">
-					<!-- page-title start -->
-					<!-- ================ -->
-					<h1 class="page-title">{{trans('general.contact_us')}}</h1>
-					<div class="separator-2"></div>
-					<!-- page-title end -->
-					<p>{{trans('general.contact_top_text')}}</p>
-					<div class="alert alert-success hidden" id="MessageSent">
-						{{trans('general.soon_response')}}
-					</div>
-					<div class="alert alert-danger hidden" id="MessageNotSent">
-						{{trans('general.error_message')}}
-					</div>
-					<div class="contact-form">
-						<form id="contact-form" class="margin-clear" role="form">
-							<div class="form-group has-feedback">
-								<label for="name">{{trans('general.name')}}*</label>
-								<input type="text" class="form-control" id="name" name="name" placeholder="">
-								<i class="fa fa-user form-control-feedback"></i>
-							</div>
-							<div class="form-group has-feedback">
-								<label for="email">{{trans('general.email')}}*</label>
-								<input type="email" class="form-control" id="email" name="email" placeholder="">
-								<i class="fa fa-envelope form-control-feedback"></i>
-							</div>
-							<div class="form-group has-feedback">
-								<label for="subject">{{trans('general.subject')}}*</label>
-								<input type="text" class="form-control" id="subject" name="subject" placeholder="">
-								<i class="fa fa-navicon form-control-feedback"></i>
-							</div>
-							<div class="form-group has-feedback">
-								<label for="message">{{trans('general.message')}}*</label>
-								<textarea class="form-control" rows="6" id="message" name="message" placeholder=""></textarea>
-								<i class="fa fa-pencil form-control-feedback"></i>
-							</div>
-							<div class="g-recaptcha" data-sitekey="your_site_key"></div>
-							<input type="submit" value="{{trans('general.submit')}}" class="submit-button btn btn-default">
-						</form>
-					</div>
-				</div>
-				<!-- main end -->
-
-				<!-- sidebar start -->
-				<!-- ================ -->
-				<aside class="col-md-4 col-lg-3 col-lg-offset-1">
-					<div class="sidebar">
-						<div class="block clearfix">
-							<h3 class="title">{{trans('general.find_us')}}</h3>
-							<div class="separator-2"></div>
-							<ul class="list">
-								<li>
-									<i class="fa fa-home pr-10"></i>
-									{{$settings->address}}
-								</li>
-								<li>
-									<i class="fa fa-phone pr-10"></i>
-									{{$settings->phone_number}}
-								</li>
-								<li>
-									<i class="fa fa-envelope pr-10"></i>
-									<a href="mailto:{{$settings->email}}">
-										{{$settings->email}}
-									</a>
-								</li>
-							</ul>
-							<a class="btn btn-gray collapsed map-show btn-animated" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">{{trans('general.show_map')}} <i class="fa fa-plus"></i></a>
-						</div>
-					</div>
-					<div class="sidebar">
-						<div class="block clearfix">
-							<h2 class="title">{{trans('general.follow_us')}}</h2>
-							<div class="separator-2"></div>
-							<ul class="social-links circle small margin-clear clearfix animated-effect-1">
-								<li class="twitter"><a target="_blank" href="//{{$settings->twitter}}"><i class="fa fa-twitter"></i></a></li>
-								<li class="linkedin"><a target="_blank" href="//{{$settings->linkedin}}"><i class="fa fa-linkedin"></i></a></li>
-								<li class="facebook"><a target="_blank" href="//{{$settings->facebook}}"><i class="fa fa-facebook"></i></a></li>
-								<li class="instagram"><a target="_blank" href="//{{$settings->instagram}}"><i class="fa fa-instagram"></i></a></li>
-								<li class="ios"><a target="_blank" href="//{{$settings->ios_app}}"><i class="fa fa-apple"></i></a></li>
-								<li class="android"><a target="_blank" href="//{{$settings->android_app}}"><i class="fa fa-android"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</aside>
-				<!-- sidebar end -->
-
-			</div>
 		</div>
 	</section>
-	<!-- main-container end -->
+	<!-- /PAGE HEADER -->
+
+
+
+	<!-- -->
+	<section>
+		<div class="container">
+			
+		<div class="row">
+
+				<!-- FORM -->
+				<div class="col-md-9">
+
+					<h3>{{trans('general.contact_us')}}</h3>
+
+					<!-- Alert Success -->
+					<div id="alert_success" class="alert alert-success mb-30">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{trans('general.soon_response')}}
+					</div><!-- /Alert Success -->
+
+
+					<!-- Alert Failed -->
+					<div id="alert_failed" class="alert alert-danger mb-30">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{trans('general.error_message')}}
+					</div><!-- /Alert Failed -->
+
+
+					<!-- Alert Mandatory -->
+					<div id="alert_mandatory" class="alert alert-danger mb-30">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{trans('general.validation_message')}}
+						<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
+					</div><!-- /Alert Mandatory -->
+
+
+					<form method="POST" enctype="multipart/form-data" id="contact-form">
+						{{csrf_field()}}
+						<fieldset>
+							<input type="hidden" name="action" value="contact_send" />
+
+							<div class="row">
+								<div class="col-md-6">
+									<label for="name">{{trans('general.name')}} *</label>
+									<input required type="text" value="" class="form-control" name="name" id="name">
+								</div>
+								<div class="col-md-6">
+									<label for="email">{{trans('general.email')}} *</label>
+									<input required type="email" value="" class="form-control" name="email" id="email">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label for="subject">{{trans('general.subject')}} *</label>
+									<input required type="text" value="" class="form-control" name="subject" id="subject">
+								</div>
+							</div>
+							<div class="clearfix">
+								<label for="message">{{trans('general.message')}} *</label>
+								<textarea required maxlength="10000" rows="8" class="form-control" name="message" id="message"></textarea>
+							</div>
+						</fieldset>
+
+						<div class="row">
+							<div class="col-md-12">
+								<button id="submit-contact-form" class="btn btn-primary">
+									<i class="fa fa-check"></i> {{trans('general.send-message')}}
+								</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<!-- /FORM -->
+
+
+				<!-- INFO -->
+				<div class="col-md-3">
+					
+					<p>
+						If You have any questions, do not hesitate to write to us. We will respond as soon as possible. Thank you!
+					</p>
+					<hr>
+					<h2>{{trans('general.find_us')}}</h2>
+					
+					<p>
+						<span class="block"><strong><i class="fa fa-map-marker"></i> {{trans('general.address')}}:</strong> {{$settings->address}}</span>
+						<span class="block">
+							<strong>
+								<i class="fa fa-phone"></i> {{trans('general.phone')}}:
+							</strong> 
+							<a href="tel:{{$settings->phone_number}}">
+								{{$settings->phone_number}}
+							</a>
+						</span>
+						<span class="block"><strong><i class="fa fa-envelope"></i> {{trans('general.email')}}:</strong> <a href="mailto:{{$settings->email}}">{{$settings->email}}</a></span>
+					</p>
+
+					<hr />
+					<div class="hidden-xs-down text-center">
+						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-facebook" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+							<i class="icon-facebook"></i>
+							<i class="icon-facebook"></i>
+						</a>
+
+						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-twitter" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+							<i class="icon-twitter"></i>
+							<i class="icon-twitter"></i>
+						</a>
+
+						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-linkedin" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+							<i class="icon-linkedin"></i>
+							<i class="icon-linkedin"></i>
+						</a>
+						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+							<i class="fa fa-instagram"></i>
+							<i class="fa fa-instagram"></i>
+						</a>
+						<a target="_blank" href="//www.ios.com" class="social-icon social-icon-border btn-round btn-shadow-1 social-ios" data-toggle="tooltip" data-placement="top" title="" data-original-title="IOS">
+							<i class="fa fa-apple"></i>
+							<i class="fa fa-apple"></i>
+						</a>
+						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-android" data-toggle="tooltip" data-placement="top" title="" data-original-title="Android">
+							<i class="fa fa-android"></i>
+							<i class="fa fa-android"></i>
+						</a>
+					</div>
+
+				</div>
+				<!-- /INFO -->
+
+			</div>
+
+		</div>
+	</section>
+	<!-- / -->
+@endsection
+
+@section('optionalScripts')
+	<script>
+		
+		$('#submit-contact-form').on('click', function(e){
+			e.preventDefault();
+			$.ajaxSetup({
+			    headers:
+			    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+			});
+			$.ajax({
+				type: "POST",
+				url: "{{route('contactEmail')}}",
+				data: {
+					"name": $("#contact-form #name").val(),
+					"email": $("#contact-form #email").val(),
+					"subject": $("#contact-form #subject").val(),
+					"message": $("#contact-form #message").val()
+				},
+				success: function (data) {
+					if (data.sent == "yes") {
+						$('#alert_success').slideDown();
+						$("#submit-contact-form").html('<i class="fa fa-check"></i> {{trans('general.message-sent')}}');
+						$("#contact-form .form-control").each(function() {
+							$(this).prop('value', '');
+						});
+						$('#submit-contact-form').attr('disabled', true);
+					}
+				},
+				error: function(response){
+					if(response.status === 422) {
+						slideDownAndUp('#alert_mandatory');
+					} else {
+						slideDownAndUp('#alert_failed');
+					}
+
+				},
+			});
+		});
+		function slideDownAndUp(tag){
+			$(tag).slideDown();
+			setTimeout(function(){
+				$(tag).slideUp();
+			}, 4000);
+		}
+	</script>
 @endsection

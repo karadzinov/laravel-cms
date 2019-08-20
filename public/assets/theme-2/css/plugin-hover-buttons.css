@@ -12,9 +12,9 @@
  */
  
 .btn-hvr {
-	display: inline-block; */
+	display: inline-block;
 	margin: .4em;
-	padding: 1em;
+	padding: .7em;
 	cursor: pointer;
 	background: #e1e1e1;
 	text-decoration: none;

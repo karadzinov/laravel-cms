@@ -11,9 +11,25 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
+Route::get('/changeTheme', function(){
+    try {
+       $active = App\Models\Theme::where('active', '=', 1)->first();
+       $newActive = App\Models\Theme::where('id', '!=', $active->id)->first();
+       $newActive->active = 1;
+       $newActive->save();
+       $active->active = 0;
+       $active->save();
+
+       return redirect()->back(); 
+    } catch (\Exception $e) {
+        dd($e);
+    }
+});
+
 Route::get('test', function(){
      dd('test');
 });
+
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');

@@ -42,7 +42,7 @@
 				error: 	function(XMLHttpRequest, textStatus, errorThrown) {
 
 					// usualy on headers 404 or Internal Server Error
-					_toastr("ERROR 404 - Item Not Added to Wishlit!","top-right","error",false);
+					_toastr("ERROR 404 - Item Not Added to wishlist!","top-right","error",false);
 
 				},
 
@@ -53,7 +53,7 @@
 					// PHP RETURN: INVALID ITEM ID
 					if(data == '_invalid_id_') {
 
-						_toastr("INVALID ID - Item Not Added to Wishlit!","top-right","error",false);
+						_toastr("INVALID ID - Item Not Added to wishlist!","top-right","error",false);
 
 					} else
 					
@@ -62,14 +62,14 @@
 					// PHP RETURN: OK, ADDED TO WISHLIST
 					if(data == '_ok_') {
 
-						_toastr("Item Added to Your Wishlit!","top-right","success",false);
+						_toastr("Item Added to Your wishlist!","top-right","success",false);
 
 
 
 					// PHP RETURN: SOMETHING ELSE THAN EXPECTED
 					} else {
 						// if the php output is not _invalid_id_ OR _ok_ - maybe you have a php errors/warnings
-						_toastr("UNKNOWN ERROR - Item Not Added to Wishlit!","top-right","error",false);
+						_toastr("UNKNOWN ERROR - Item Not Added to wishlist!","top-right","error",false);
 					}
 
 				}

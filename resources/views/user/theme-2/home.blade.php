@@ -1,177 +1,292 @@
 @extends($path . 'master')
+
+@section('optionalHead')
+	<style>
+		#header.translucent{
+			position: absolute;
+		}
+	</style>
+@endsection
+
 @section('content')
-	@include($path . 'partials/homepage/top-slider')
-	
-	<div id="page-start"></div>
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="light-gray-bg pv-30 clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2 class="text-center">Core <strong>Features</strong></h2>
-					<div class="separator"></div>
-					<p class="large text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam voluptas facere vero ex tempora saepe perspiciatis ducimus sequi animi.</p>
-				</div>
-				@foreach($categories as $category)
-					<div class="col-md-4 ">
-						<div class="pv-30 ph-20 feature-box bordered shadow text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
-							<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
-							<h3>{{$category->name}}</h3>
-							<div class="separator clearfix"></div>
-							<p>{{$category->description}}</p>
-							<a href="{{$category->showRoute}}">{{trans('general.read_more')}} <i class="pl-5 fa fa-angle-double-right"></i></a>
-						</div>
-					</div>
-				@endforeach
-			</div>
-		</div>
-	</section>
-	<!-- section end -->
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="section default-bg clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="call-to-action text-center">
-						<div class="row">
-							<div class="col-sm-8">
-								<h1 class="title">Contact Us</h1>
-								<p>If you have any questions or propositions please do not hesitate to contact us.</p>
-							</div>
-							<div class="col-sm-4">
-								<br>
-								<p><a href="{{route('contact')}}" class="btn btn-lg btn-gray-transparent btn-animated">Contact<i class="fa fa-arrow-right pl-20"></i></a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- section end -->
-
-	@include($path . 'partials/homepage/middle-slider')
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="light-gray-bg pv-20">
-	</section>
-	<!-- section end -->
-
-	<!-- section -->
-	<!-- ================ -->
-	@if($about)
-		@include($path . 'partials/homepage/about')
-	@endif
-	<!-- section end -->
-
-	<!-- section -->
-	<!-- ================ -->
-	<section class="pv-30 light-gray-bg padding-bottom-clear">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2 class="text-center">Latest <strong>Posts</strong></h2>
-					<div class="separator"></div>
-					<p class="large text-center">Atque ducimus velit, earum quidem, iusto dolorem. Ex ipsam totam quas blanditiis, pariatur maxime ipsa iste, doloremque neque doloribus, error. Corrupti, tenetur.</p>
-					<br>
-				</div>
-			</div>
-		</div>
-		<div class="space-bottom">
-			<div class="owl-carousel carousel">
-				@foreach($posts as $post)
-					<div class="image-box shadow text-center">
-						<div class="overlay-container">
-							<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
-							<div class="overlay-top">
-								<div class="text">
-									<h3><a href="portfolio-item.html">{{$post->title}}</a></h3>
-									<p class="small">{{$post->subtitle}}</p>
-								</div>
-							</div>
-							<div class="overlay-bottom">
-								<div class="links">
-									<a href="{{$post->showRoute}}" class="btn btn-gray-transparent btn-animated">View Details <i class="pl-10 fa fa-arrow-right"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-			@include($path . 'partials/homepage/testimonials-slider')
-			<div class="container">
-				<div class="clients-container">
-					<div class="clients">
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">
-							<a href="#"><img src="{{asset('assets/images/client-1.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="200">
-							<a href="#"><img src="{{asset('assets/images/client-2.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
-							<a href="#"><img src="{{asset('assets/images/client-3.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="400">
-							<a href="#"><img src="{{asset('assets/images/client-4.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="500">
-							<a href="#"><img src="{{asset('assets/images/client-5.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="600">
-							<a href="#"><img src="{{asset('assets/images/client-6.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="700">
-							<a href="#"><img src="{{asset('assets/images/client-7.png')}}" alt=""></a>
-						</div>
-						<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="800">
-							<a href="#"><img src="{{asset('assets/images/client-8.png')}}" alt=""></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- section end -->
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="pv-40 stats padding-bottom-clear dark-translucent-bg hovered background-img-7" style="background-position: 50% 50%;">
-		<div class="clearfix">
-			<div class="col-md-3 col-xs-6 text-center">
-				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
-					<span class="icon dark-bg large circle"><i class="fa fa-diamond"></i></span>
-					<h3><strong>{{trans('general.projects')}}</strong></h3>
-					<span class="counter" data-to="1525" data-speed="5000">0</span>
-				</div>
-			</div>
-			<div class="col-md-3 col-xs-6 text-center">
-				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
-					<span class="icon dark-bg large circle"><i class="fa fa-users"></i></span>
-					<h3><strong>{{trans('general.clients')}}</strong></h3>
-					<span class="counter" data-to="1225" data-speed="5000">0</span>
-				</div>
-			</div>
-			<div class="col-md-3 col-xs-6 text-center">
-				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
-					<span class="icon dark-bg large circle"><i class="fa fa-cloud-download"></i></span>
-					<h3><strong>{{trans('general.downloads')}}</strong></h3>
-					<span class="counter" data-to="12235" data-speed="5000">0</span>
-				</div>
-			</div>
-			<div class="col-md-3 col-xs-6 text-center">
-				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">
-					<span class="icon dark-bg large circle"><i class="fa fa-share"></i></span>
-					<h3><strong>{{trans('general.shares')}}</strong></h3>
-					<span class="counter" data-to="15002" data-speed="5000">0</span>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- section end -->
+	<!-- REVOLUTION SLIDER -->
+	<section id="slider" class="slider fullwidthbanner-container roundedcorners">
+		<!--
+			Navigation Styles:
 			
+				data-navigationStyle="" theme default navigation
+				
+				data-navigationStyle="preview1"
+				data-navigationStyle="preview2"
+				data-navigationStyle="preview3"
+				data-navigationStyle="preview4"
+				
+			Bottom Shadows
+				data-shadow="1"
+				data-shadow="2"
+				data-shadow="3"
+				
+			Slider Height (do not use on fullscreen mode)
+				data-height="300"
+				data-height="350"
+				data-height="400"
+				data-height="450"
+				data-height="500"
+				data-height="550"
+				data-height="600"
+				data-height="650"
+				data-height="700"
+				data-height="750"
+				data-height="800"
+		-->
+		<div class="fullscreenbanner" data-navigationStyle="preview1">
+			<ul class="hide">
+
+				<!-- SLIDE  -->
+				<li data-transition="random" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide title 1" data-thumb="{{asset('assets/theme-2/demo_files/images/1200x800/10-min.jpg')}}">
+
+					<img src="{{asset('assets/theme-2/images/_smarty/1x1.png')}}" data-lazyload="{{asset('assets/theme-2/demo_files/images/1200x800/10-min.jpg')}}" alt="" data-bgfit="cover" data-bgposition="center top" data-bgrepeat="no-repeat" />
+
+					<div class="tp-dottedoverlay twoxtwo"><!-- dotted overlay --></div>
+					<div class="overlay dark-3"><!-- dark overlay [1 to 9 opacity] --></div>
+
+					<div class="tp-caption customin ltl tp-resizeme text_white"
+						data-x="center"
+						data-y="205"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1000"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 10;">
+						<span class="fw-300">DEVELOPMENT / MARKETING / DESIGN / PHOTO</span>
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme large_bold_white"
+						data-x="center"
+						data-y="255"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1200"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 10;">
+						WELCOME TO SMARTY
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme small_light_white font-lato fs-20"
+						data-x="center"
+						data-y="345"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1400"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 10; width: 100%; max-width: 750px; white-space: normal; text-align:center;">
+						Fabulas definitiones ei pri per recteque hendrerit scriptorem in errem scribentur mel fastidii propriae philosophia cu mea.
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme"
+						data-x="center"
+						data-y="433"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1550"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 10;">
+						<a href="#purchase" class="btn btn-default btn-lg">
+							<span>Purchase Smarty Now</span> 
+						</a>
+					</div>
+
+				</li>
+
+				<!-- SLIDE  -->
+				<li data-transition="random" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide title 2" data-thumb="{{asset('assets/theme-2/demo_files/images/1200x800/24-min.jpg')}}">
+
+					<img src="{{asset('assets/theme-2/images/_smarty/1x1.png')}}" data-lazyload="{{asset('assets/theme-2/demo_files/images/1200x800/24-min.jpg')}}" alt="" data-bgposition="center center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="100" data-bgfitend="110" />
+
+					<div class="tp-caption very_large_text lfb ltt tp-resizeme"
+						data-x="right" data-hoffset="-100"
+						data-y="center" data-voffset="-100"
+						data-speed="600"
+						data-start="800"
+						data-easing="Power4.easeOut"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="500"
+						data-endeasing="Power4.easeIn">
+						RUN WILD
+					</div>
+
+					<div class="tp-caption medium_light_white lfb ltt tp-resizeme"
+						data-x="right" data-hoffset="-110"
+						data-y="center" data-voffset="10"
+						data-speed="600"
+						data-start="900"
+						data-easing="Power4.easeOut"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="500"
+						data-endeasing="Power4.easeIn">
+						Happiness is an accident of nature,<br/>
+						a beautiful and flawless aberration.<br/>
+						<span style="font-size:24px;font-weight:400;">&ndash; Pat Conroy</span>
+					</div>
+
+				</li>
+
+				<!-- SLIDE -->
+				<li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide title 3" data-thumb="{{asset('assets/theme-2/demo_files/images/video/neuron_thumb.jpg')}}">
+
+					<img src="{{asset('assets/theme-2/images/_smarty/1x1.png')}}" data-lazyload="{{asset('assets/theme-2/demo_files/images/video/neuron.jpg')}}" alt="video" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+					<div class="tp-caption tp-fade fadeout fullscreenvideo"
+						data-x="0"
+						data-y="100"
+						data-speed="1000"
+						data-start="1100"
+						data-easing="Power4.easeOut"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1500"
+						data-endeasing="Power4.easeIn"
+						data-autoplay="true"
+						data-autoplayonlyfirsttime="false"
+						data-nextslideatend="true"
+						data-volume="mute" 
+						data-forceCover="1" 
+						data-aspectratio="16:9" 
+						data-forcerewind="on" style="z-index: 2;">
+
+						<div class="tp-dottedoverlay twoxtwo"><!-- dotted overlay --></div>
+
+						<video class="" preload="none" width="100%" height="100%" poster="{{asset('assets/theme-2/demo_files/images/video/neuron.jpg')}}">
+							<source src="{{asset('assets/theme-2/demo_files/images/video/neuron.webm')}}" type="video/webm" />
+							<source src="{{asset('assets/theme-2/demo_files/images/video/neuron.mp4')}}" type="video/mp4" />
+						</video>
+
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme text_white"
+						data-x="center"
+						data-y="205"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1000"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 3;">
+						<span class="fw-300">DEVELOPMENT / MARKETING / DESIGN / PHOTO</span>
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme large_bold_white"
+						data-x="center"
+						data-y="255"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1200"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 3;">
+						WELCOME TO SMARTY
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme small_light_white font-lato fs-20"
+						data-x="center"
+						data-y="345"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1400"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 3; width: 100%; max-width: 750px; white-space: normal; text-align:center;">
+						Fabulas definitiones ei pri per recteque hendrerit scriptorem in errem scribentur mel fastidii propriae philosophia cu mea.
+					</div>
+
+					<div class="tp-caption customin ltl tp-resizeme"
+						data-x="center"
+						data-y="413"
+						data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-speed="800"
+						data-start="1550"
+						data-easing="easeOutQuad"
+						data-splitin="none"
+						data-splitout="none"
+						data-elementdelay="0.01"
+						data-endelementdelay="0.1"
+						data-endspeed="1000"
+						data-endeasing="Power4.easeIn" style="z-index: 3;">
+						<a href="#purchase" class="btn btn-default btn-lg">
+							<span>Purchase Smarty Now</span> 
+						</a>
+					</div>
+
+				</li>
+
+			</ul>
+			<div class="tp-bannertimer"></div>
+		</div>
+	</section>
+	<!-- /REVOLUTION SLIDER -->
+	<section class="info-bar info-bar-clean">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-sm-4">
+					<i class="glyphicon glyphicon-globe"></i>
+					<h3>FULLY RESPONSIVE</h3>
+					<p>Smarty Template is fully responsive</p>
+				</div>
+
+				<div class="col-sm-4">
+					<i class="glyphicon glyphicon-usd"></i>
+					<h3>ADMIN INCLUDED</h3>
+					<p>Smarty Template include admin</p>
+				</div>
+
+				<div class="col-sm-4">
+					<i class="glyphicon glyphicon-flag"></i>
+					<h3>ONLINE SUPPORT 24/7</h3>
+					<p>Free support via email</p>
+				</div>
+
+			</div>
+
+		</div>
+	</section>	
 @endsection

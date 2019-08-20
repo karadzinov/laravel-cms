@@ -1,6 +1,6 @@
 #topMain>li>a {
 	height:96px;
-	line-height:76px;
+	line-height:96px;
 }
 #topMain.nav-pills>li {
 	margin-left:10px !important;
@@ -13,13 +13,13 @@
 #topMain>li>a>span.topMain-icon {
 	padding:0 10px 0 10px;
 	display:block;
-	margin-top:15px;
+	padding-top:20px;
 }
 	#header.fixed #topMain>li>a>span.topMain-icon {
 		padding:0 15px;
 	}
 	#header.fixed #topMain>li>a>span.topMain-icon {
-		margin-top:13px;
+		padding-top:20px;
 	}
 
 #topMain.nav-pills>li>a {
@@ -75,7 +75,6 @@
 		margin-left:0 !important;
 	}
 	#topMain>li>a>span.topMain-icon {
-		color:#151515;
 		display:block !important;
 		padding-top:0;
 		margin-top:0;

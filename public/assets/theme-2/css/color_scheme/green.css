@@ -46,7 +46,7 @@
 	section div.theme-color, 
 	section p.theme-color,
 	.owl-carousel.featured a.figure>span>i,
-	.owl-carousel.featured a:hover,
+	.owl-carousel.featured a:hover:not(.btn),
 	figure.zoom>a.lightbox:hover,
 	#portfolio h2>a:hover,
 	#portfolio h3>a:hover,
@@ -73,7 +73,7 @@
 	.price-clean-popular h4,
 	.box-icon.box-icon-color i,
 	.switch-primary.switch-round > input:checked + .switch-label:after,
-	section.dark .nav-tabs.nav-clean>li.active>a { 
+	section.dark .nav-tabs.nav-clean>li>a.active { 
 		color: #8ab933; 
 	}
 	
@@ -81,15 +81,16 @@
 	div.alert.alert-theme-color,
 	div.alert.alert-primary,
 	span.badge-default,
-	span.label-default,
+	span.badge-default,
 	.list-group-item.active>.badge.badge-default,
-	.nav-tabs.nav-alternate>li.active>a,
+	.nav-tabs.nav-alternate>li>a.active,
 	.datepicker table tr td.active.active,
 	.callout-theme-color,
 	.progress-bar-primary,
 	.toast-primary,
 	.owl-theme .owl-controls .owl-page span,
 	.open>.dropdown-toggle.btn-primary,
+	.show>.btn-primary.dropdown-toggle,
 	.btn-primary,
 	.btn-primary:hover,
 	.btn-primary:active,
@@ -152,6 +153,7 @@
 	}
 
 	.open>.dropdown-toggle.btn-primary,
+	.show>.btn-primary.dropdown-toggle,
 	.btn-primary,
 	.btn-primary:active,
 	.btn-primary:focus,
@@ -192,7 +194,7 @@
 	}
 
 	#topNav div.submenu-color ul.dropdown-menu a.dropdown-toggle {
-		background-image: url('../../images/submenu_light.png');
+		background-image: url('../../images/_smarty/submenu_light.png');
 	}
 	#topNav div.submenu-color ul.dropdown-menu li.active>a, 
 	#topNav div.submenu-color ul.dropdown-menu li.active:hover>a, 
@@ -399,19 +401,20 @@ section.dark .pagination > li.active>a,
 	background-color:rgba(0,0,0,0.4);
 }
 
-ul.process-steps li.active a,
-ul.process-steps li.active a:focus,
-ul.process-steps li.active:hover>a {
+ul.process-steps li a.active,
+ul.process-steps li a.active:focus,
+ul.process-steps li:hover>a.active {
 	background-color:#8ab933 !important;
 	border-color:#8ab933 !important;
 }
 
-ul.process-steps li.active h1,
-ul.process-steps li.active h2,
-ul.process-steps li.active h3,
-ul.process-steps li.active h4,
-ul.process-steps li.active h5,
-ul.process-steps li.active h6 {
+
+ul.process-steps li a.active+h1,
+ul.process-steps li a.active+h2,
+ul.process-steps li a.active+h3,
+ul.process-steps li a.active+h4,
+ul.process-steps li a.active+h5,
+ul.process-steps li a.active+h6 {
 	color:#8ab933;
 }
 
@@ -444,18 +447,18 @@ i.ico-hover:hover {
 
 /** [Shortcode] Tabs
  **************************************************************** **/
-.nav-tabs.nav-top-border>li.active>a,
-.nav-tabs.nav-top-border>li.active>a:hover {
+.nav-tabs.nav-top-border>li>a.active,
+.nav-tabs.nav-top-border>li>a.active:hover {
 	border-top-color:#8ab933 !important;
 }
-.nav-tabs.nav-bottom-border>li.active>a,
-.nav-tabs.nav-bottom-border>li.active>a:hover {
+.nav-tabs.nav-bottom-border>li>a.active,
+.nav-tabs.nav-bottom-border>li>a.active:hover {
 	border-bottom-color:#8ab933 !important;
 }
-.nav-tabs.nav-alternate>li.active>a {
+.nav-tabs.nav-alternate>li>a.active {
 	background-color: #8ab933 !important;
 }
-.nav-tabs>li.active>a {
+.nav-tabs>li>a.active {
 	color: #8ab933 !important;
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Exception;
 use App\Models\Theme;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -27,8 +28,12 @@ class ViewServiceProvider extends ServiceProvider
     {
 
        
-        $theme = Theme::where('active', '=', 1)->first();
-        $path = 'user/'.$theme->root_folder . '/';
+       try {
+            $theme = Theme::where('active', '=', 1)->first();
+            $path = 'user/'.$theme->root_folder . '/';
+        } catch (Exception $e) {
+            $path = 'user/theme-1/';
+        }
         
         View::composer(
             [$path . 'partials/head',

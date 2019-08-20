@@ -1,3 +1,7 @@
+@php
+    $theme = App\Models\Theme::where('active', '=', 1)->first();
+    $path = 'user/'.$theme->root_folder . '/';
+@endphp
 @extends($path . 'master')
 
 @section('content')

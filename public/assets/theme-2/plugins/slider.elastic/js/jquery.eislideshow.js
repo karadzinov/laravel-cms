@@ -42,7 +42,7 @@
 	
 		this.$el			= $( element );
 		
-		/***** img ****/
+		/***** images ****/
 		
 		// list of image items
 		this.$list			= this.$el.find('ul.ei-slider-large');
@@ -50,7 +50,7 @@
 		this.$imgItems		= this.$list.children('li');
 		// total number of items
 		this.itemsCount		= this.$imgItems.length;
-		// img
+		// images
 		this.$images		= this.$imgItems.find('img:first');
 		
 		/***** thumbs ****/
@@ -106,7 +106,7 @@
 			
 			var _self			= this;
 			
-			// preload img
+			// preload images
 			// add loading status
 			this.$loading		= $('<div class="ei-slider-loading">Loading</div>').prependTo( _self.$el );
 			
@@ -142,7 +142,7 @@
 		},
 		_preloadImages		: function() {
 			
-			// preloads all the large img
+			// preloads all the large images
 			
 			var _self	= this,
 				loaded	= 0;
@@ -153,7 +153,7 @@
 			
 					_self.$images.each( function( i ) {
 						
-						$('<img/>').load( function() {
+						$('<img/>').on('load', function() {
 						
 							if( ++loaded === _self.itemsCount ) {
 							
@@ -332,7 +332,7 @@
 			// window resize
 			$(window).on( 'smartresize.eislideshow', function( event ) {
 				
-				// resize the img
+				// resize the images
 				_self._setImagesSize();
 			
 				// reset position of thumbs sliding div

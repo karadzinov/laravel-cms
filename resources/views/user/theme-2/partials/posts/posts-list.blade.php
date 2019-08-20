@@ -1,117 +1,150 @@
-<!-- masonry grid start -->
-<!-- ================ -->
-<div class="masonry-grid row">
 	@foreach($posts as $post)
 		@if($post->video)
-			<!-- masonry grid item start -->
-			<div class="masonry-grid-item col-sm-6 col-md-4">
-				<!-- blogpost start -->
-				<article class="blogpost shadow light-gray-bg bordered object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="100">
+			<!-- POST ITEM -->
+			<div class="blog-post-item">
+
+				<!-- VIDEO -->
+				<div class="mb-20">
 					<div class="embed-responsive embed-responsive-16by9">
 						{!!$post->videoPreview!!}
 					</div>
-					<header>
-						<h2><a href="{{$post->showRoute}}">{!!$post->title!!}</a></h2>
-						<div class="post-info">
-							<span class="post-date">
-								<i class="icon-calendar"></i>
-								<span class="day">{{$post->created_at->format('d')}}</span>
-								<span class="month">{{$post->created_at->format('M Y')}}</span>
-							</span>
-							<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
-						</div>
-					</header>
-					<div class="blogpost-content">
-						<p>{!!$post->subtitle!!}</p>
-					</div>
-					<footer class="clearfix">
-						@if($post->tags->isNotEmpty())
-							@foreach($post->tags as $tag)
-								<div class="tags pull-left">
-									<i class="icon-tags"></i> 
-									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-								</div>
-							@endforeach
-						@endif
-						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read_more')}}</a></div>
-					</footer>
-				</article>
-				<!-- blogpost end -->
+				</div>
+
+				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+
+				<ul class="blog-post-info list-inline">
+					<li>
+						<a href="#">
+							<i class="fa fa-clock-o"></i> 
+							<span class="font-lato">{{$post->created_at->format('M d, Y')}}</span>
+						</a>
+					</li>
+					@if($post->location)
+						<li>
+							<a href="#">
+								<i class="fa fa-map-marker"></i> 
+								<span class="font-lato">{{$post->location}}</span>
+							</a>
+						</li>
+					@endif
+					<li>
+						<i class="fa fa-folder-open-o"></i> 
+						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+							<span class="font-lato">{{$post->category->name}}</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-user"></i> 
+							<span class="font-lato">{{$post->author->name}}</span>
+						</a>
+					</li>
+				</ul>
+
+				<p>{{$post->subtitle}}</p>
+
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+					<i class="fa fa-plus"></i>
+					<span>Read More</span>
+				</a>
+
 			</div>
-			<!-- masonry grid item end -->
+			<!-- /POST ITEM -->
 		@elseif($post->image)
-			<!-- masonry grid item start -->
-			<div class="masonry-grid-item col-sm-6 col-md-4">
-				<!-- blogpost start -->
-				<article class="blogpost shadow light-gray-bg bordered">
-					<div class="overlay-container overlayContainerImages">
-						<img src="{{$post->thumbnailPath}}" alt="">
-						<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
-					</div>
-					<header>
-						<h2><a href="{{$post->showRoute}}">{!!$post->title!!}</a></h2>
-						<div class="post-info">
-							<span class="post-date">
-								<i class="icon-calendar"></i>
-								<span class="day">{{$post->created_at->format('d')}}</span>
-								<span class="month">{{$post->created_at->format('M Y')}}</span>
-							</span>
-							<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
-						</div>
-					</header>
-					<div class="blogpost-content">
-						<p>{!!$post->subtitle!!}</p>
-					</div>
-					<footer class="clearfix">
-						@if($post->tags->isNotEmpty())
-							@foreach($post->tags as $tag)
-								<div class="tags pull-left">
-									<i class="icon-tags"></i> 
-									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-								</div>
-							@endforeach
-						@endif
-						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read_more')}}</a></div>
-					</footer>
-				</article>
-				<!-- blogpost end -->
+			<!-- POST ITEM -->
+			<div class="blog-post-item">
+
+				<!-- IMAGE -->
+				<figure class="mb-20">
+					<img class="img-fluid post-with-image" src="{{$post->mediumPath}}" alt="">
+				</figure>
+
+				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+
+				<ul class="blog-post-info list-inline">
+					<li>
+						<a href="#">
+							<i class="fa fa-clock-o"></i> 
+							<span class="font-lato">{{$post->created_at->format('M d, Y')}}</span>
+						</a>
+					</li>
+					@if($post->location)
+						<li>
+							<a href="#">
+								<i class="fa fa-map-marker"></i> 
+								<span class="font-lato">{{$post->location}}</span>
+							</a>
+						</li>
+					@endif
+					<li>
+						<i class="fa fa-folder-open-o"></i> 
+
+						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+							<span class="font-lato">{{$post->category->name}}</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-user"></i> 
+							<span class="font-lato">{{$post->author->name}}</span>
+						</a>
+					</li>
+				</ul>
+
+				<p>{{$post->subtitle}}</p>
+
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+					<i class="fa fa-plus"></i>
+					<span>Read More</span>
+				</a>
+
 			</div>
-			<!-- masonry grid item end -->
+			<!-- /POST ITEM -->
 		@else
-			<!-- masonry grid item start -->
-			<div class="masonry-grid-item col-sm-6 col-md-4">
-				<!-- blogpost start -->
-				<article class="blogpost shadow light-gray-bg bordered object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="100">
-					<header>
-						<h2><a href="{{$post->showRoute}}">{!!$post->title!!}</a></h2>
-						<div class="post-info">
-							<span class="post-date">
-								<i class="icon-calendar"></i>
-								<span class="day">{{$post->created_at->format('d')}}</span>
-								<span class="month">{{$post->created_at->format('M Y')}}</span>
-							</span>
-							<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
-						</div>
-					</header>
-					<div class="blogpost-content">
-						<p>{!!$post->subtitle!!}</p>
-					</div>
-					<footer class="clearfix">
-						@if($post->tags->isNotEmpty())
-							@foreach($post->tags as $tag)
-								<div class="tags pull-left">
-									<i class="icon-tags"></i> 
-									<a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-								</div>
-							@endforeach
-						@endif
-						<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read_more')}}</a></div>
-					</footer>
-				</article>
-				<!-- blogpost end -->
+			<!-- POST ITEM -->
+			<div class="blog-post-item">
+
+				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+
+				<ul class="blog-post-info list-inline">
+					<li>
+						<a href="#">
+							<i class="fa fa-clock-o"></i> 
+							<span class="font-lato">{{$post->created_at->format('M d, Y')}}</span>
+						</a>
+					</li>
+					@if($post->location)
+						<li>
+							<a href="#">
+								<i class="fa fa-map-marker"></i> 
+								<span class="font-lato">{{$post->location}}</span>
+							</a>
+						</li>
+					@endif
+					<li>
+						<i class="fa fa-folder-open-o"></i> 
+
+						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+							<span class="font-lato">{{$post->category->name}}</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-user"></i> 
+							<span class="font-lato">{{$post->author->name}}</span>
+						</a>
+					</li>
+				</ul>
+
+				<p>{{$post->subtitle}}</p>
+
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+					<i class="fa fa-plus"></i>
+					<span>Read More</span>
+				</a>
+
 			</div>
-			<!-- masonry grid item end -->
+			<!-- /POST ITEM -->
 		@endif
 	@endforeach
 </div>
-<!-- masonry grid end -->

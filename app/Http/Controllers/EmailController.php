@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 use App\Mail\ContactPageEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Email\EmailRequest;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
-    public function faqEmail(EmailRequest $request){
-    	
+    public function faqEmail(Request $request){
+    	$validator = Validator::make($request->all(), [
+            'email' => 'email|required',
+            'message' => 'required',
+        ]);
+        $request->validate([
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status'=>422]);
+        }
+
     	try {
     		$settings = Settings::first();
 

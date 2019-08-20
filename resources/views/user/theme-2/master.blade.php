@@ -1,35 +1,112 @@
 <!DOCTYPE html>
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if gt IE 9]> <html lang="en" class="ie"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-	<!--<![endif]-->
 
+<html lang="en">
+	
 	<head>
 		@include($path . 'partials/head')
+		<style>
+			.social-icon .fa{
+				font-size: 24px
+			}
+			.social-icon .fa-instagram{
+				margin-right: 2px !important
+			}
+			.uppercase{
+				text-transform: uppercase;
+			}
+		</style>
 		@yield('optionalHead')
 	</head>
-
-	<!-- body classes:  -->
-	<!-- "boxed": boxed layout mode e.g. <body class="boxed"> -->
-	<!-- "pattern-1 ... pattern-9": background patterns for boxed layout mode e.g. <body class="boxed pattern-1"> -->
-	<!-- "transparent-header": makes the header transparent and pulls the banner to top -->
-	<!-- "gradient-background-header": applies gradient background to header -->
-	<!-- "page-loader-1 ... page-loader-6": add a page loader to the page (more info @components-page-loaders.html) -->
-	<body class="no-trans front-page transparent-header  ">
-
-		<div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
+	<!--
+		AVAILABLE BODY CLASSES:
 		
-		<div class="page-wrapper">
-			<div class="header-container">
-				@include($path . 'partials/header')
-				@include($path . 'partials/nav')
+		smoothscroll 			= create a browser smooth scroll
+		enable-animation		= enable WOW animations
+
+		bg-grey					= grey background
+		grain-grey				= grey grain background
+		grain-blue				= blue grain background
+		grain-green				= green grain background
+		grain-blue				= blue grain background
+		grain-orange			= orange grain background
+		grain-yellow			= yellow grain background
+		
+		boxed 					= boxed layout
+		pattern1 ... patern11	= pattern background
+		menu-vertical-hide		= hidden, open on click
+		
+		BACKGROUND IMAGE [together with .boxed class]
+		data-background="assets/images/_smarty/boxed_background/1.jpg"
+	-->
+	<body class="smoothscroll enable-animation grain-grey">
+		<!-- SLIDE TOP -->
+		<div id="slidetop">
+
+			<div class="container">
+				
+				<div class="row">
+
+					<div class="col-md-4">
+						<h6><i class="icon-heart"></i> WHY SMARTY?</h6>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. </p>
+					</div>
+
+					<div class="col-md-4">
+						<h6><i class="fa-facheck"></i> RECENTLY VISITED</h6>
+						<ul class="list-unstyled">
+							<li><a href="#"><i class="fa fa-angle-right"></i> Consectetur adipiscing elit amet</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> This is a very long text, very very very very very very very very very very very very </a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Lorem ipsum dolor sit amet</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Dolor sit amet,consectetur adipiscing elit amet</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Consectetur adipiscing elit amet,consectetur adipiscing elit</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-4">
+						<h6><i class="icon-envelope"></i> CONTACT INFO</h6>
+						<ul class="list-unstyled">
+							<li><b>Address:</b> PO Box 21132, Here Weare St, <br /> Melbourne, Vivas 2355 Australia</li>
+							<li><b>Phone:</b> 1-800-565-2390</li>
+							<li><b>Email:</b> <a href="mailto:support@yourname.com">support@yourname.com</a></li>
+						</ul>
+					</div>
+
+				</div>
+
 			</div>
 
-			@yield('content')
+			<a class="slidetop-toggle" href="#"><!-- toggle button --></a>
+
 		</div>
+		<!-- /SLIDE TOP -->
+
+		<!-- wrapper -->
+		<div id="wrapper">
+			@include($path . 'partials/nav')
+
+			@yield('content')
+			
+			@include($path . 'partials/footer')
+		</div>
+		<!-- /wrapper -->
+
+
+		<!-- SCROLL TO TOP -->
+		<a href="#" id="toTop"></a>
+
+
+		<!-- PRELOADER -->
+		<div id="preloader">
+			<div class="inner">
+				<span class="loader"></span>
+			</div>
+		</div><!-- /PRELOADER -->
 		
-		@include($path . 'partials/footer')
+		{{-- @include($path . 'partials/nav') --}}
+			
+
+		
+		
 		@include($path . 'partials/scripts')
 		@foreach($scripts as $script)
 			{!!$script ->code!!}

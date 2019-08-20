@@ -1,110 +1,220 @@
 @extends($path . 'master')
-{{-- {{dd(App::getLocale())}} --}}
+
+@section('optionalHead')
+	<style>
+		#header.translucent{
+			position: relative;
+		}
+		#contact-category{
+			display: block;
+		    box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    width: 100%;
+		    height: 40px;
+		    padding: 8px 10px;
+		    outline: 0;
+		    border-width: 2px;
+		    border-style: solid;
+		    border-radius: 0;
+		    background: #fff;
+		    font: 15px/19px 'Open Sans',Helvetica,Arial,sans-serif;
+		    color: #404040;
+		    appearance: normal;
+		    -moz-appearance: none;
+			padding-left: 40px;
+
+		}
+		#contact-category {
+		  color: #9C9F9F;
+		}
+		option:first-of-type{
+		  color: #9C9F9F;
+
+		}
+		option:not(:first-of-type) {
+		  color: #404040;
+		}
+	</style>
+@endsection
+
 @section('content')
-	{{-- <div class="breadcrumb-container">
-		<div class="container">
-			<ol class="breadcrumb">
-				<li><i class="fa fa-home pr-10"></i><a href="index.html">Home</a></li>
-				<li class="active">{{trans('general.faq')}}</li>
-			</ol>
-		</div>
-	</div> --}}
-	<!-- breadcrumb end -->
 
-	<!-- main-container start -->
-	<!-- ================ -->
-	<section class="main-container">
+	@if($categories->isNotEmpty())
+		<section class="page-header parallax parallax-3" style="background-image:url('{{asset('assets/theme-2/images/_smarty/imgpattern2.jpg')}}')">
+			<div class="overlay dark-0"><!-- dark overlay [0 to 9 opacity] --></div>
 
-		<div class="container">
-			@if($categories->isNotEmpty())
-				<div class="row">
+			<div class="container">
 
-					<!-- main start -->
-					<!-- ================ -->
-					<div class="main col-md-8">
+				<h1>FAQ</h1>
 
-						<!-- page-title start -->
-						<!-- ================ -->
-						<h1 class="page-title">{{trans('general.faq')}}</h1>
-						<div class="separator-2"></div>
-						<!-- page-title end -->
-						<p>{{trans('general.faq_top_text')}}</p>
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs style-1" role="tablist">
-							@foreach($categories as $category)
-								<li class="@if($loop->iteration === 1) active @endif">
-									<a href="#faqCategory-{{$category->id}}" role="tab" data-toggle="tab">
-										<i class="fa  fa-{{$category->icon}} pr-10"></i>
-										{{$category->name}}
-									</a>
-								</li>
-							@endforeach
-						</ul>
-						<!-- Tab panes -->
-						<div class="tab-content">
-							@foreach($categories as $category)
-								<div class="tab-pane @if($loop->iteration === 1) fade in active @endif" id="faqCategory-{{$category->id}}">
-									<!-- accordion start -->
-									<div class="panel-group collapse-style-1" id="accordion-faq-{{$category->id}}">
-										@foreach($category->faqs as $faq)
-											@include($path . 'partials/faqs/item')
-										@endforeach
+				<!-- breadcrumbs -->
+				<ol class="breadcrumb">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Pages</a></li>
+					<li class="active">Frequently Asked Questions</li>
+				</ol><!-- /breadcrumbs -->
+
+			</div>
+		</section>
+
+		<!-- -->
+		<section>
+			<div class="container">
+
+				<!-- FILTER -->
+				<ul class="nav nav-pills mix-filter mb-30">
+					<li data-filter="all" class="filter active"><a href="#">All</a></li>
+					@foreach($categories as $category)
+						<li data-filter="{{$category->name}}" class="filter"><a href="#">{{$category->name}}</a></li>
+					@endforeach
+				</ul>
+				<!-- /FILTER -->
+
+				<div class="row mix-grid">
+
+					<!-- LEFT COLUMNS -->
+					<div class="col-md-9">
+
+						<!-- TOGGLES -->
+						<div class="toggle toggle-transparent toggle-bordered-simple">
+							@foreach($faqs as $faq)
+								<div class="toggle mix {{$faq->category->name}}"><!-- toggle -->
+									<label>{{$loop->iteration}}. {{$faq->question}} ?</label>
+									<div class="toggle-content">
+										<p class="clearfix">
+											{{$faq->answer}}
+										</p>
+
 									</div>
-									<!-- accordion end -->
-								</div>
+								</div><!-- /toggle -->
+
 							@endforeach
 						</div>
+						<!-- /TOGGLES -->
+
 					</div>
-					<!-- main end -->
+					<!-- /LEFT COLUMNS -->
 
-					<!-- sidebar start -->
-					<!-- ================ -->
-					<aside class="col-md-4 col-lg-3 col-lg-offset-1">
-						<div class="sidebar">
-							<div class="block clearfix">
-								<h3 class="title">{{trans('general.submit_question')}}</h3>
-								<div class="separator-2"></div>
-								<div class="alert alert-success hidden" id="MessageSent3">
-									{{trans('general.soon_response')}}
-								</div>
-								<div class="alert alert-danger hidden" id="MessageNotSent3">
-									{{trans('general.error_response')}}
-								</div>
-								<form role="form" id="sidebar-form" class="margin-clear">
-									<div class="form-group has-feedback">
-										<label for="name3">{{trans('general.name')}}</label>
-										<input type="text" class="form-control" id="name3" placeholder="{{trans('general.enter_your_name')}}" name="name3">
-										<i class="fa fa-user form-control-feedback"></i>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="email3">{{trans('general.email')}}</label>
-										<input type="email" class="form-control" id="email3" placeholder="{{trans('general.enter_your_email')}}" name="email3">
-										<i class="fa fa-envelope form-control-feedback"></i>
-									</div>
-									<div class="form-group">
-										<label>{{trans('general.category')}}</label>
-										<select class="form-control" id="category">
-											@foreach($categories as $category)
-												<option value="{{$category->name}}">{{$category->name}}</option>
-											@endforeach
-										</select>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="message3">{{trans('general.message')}}</label>
-										<textarea class="form-control" rows="4" id="message3" placeholder="" name="message3"></textarea>
-										<i class="fa fa-pencil form-control-feedback"></i>
-									</div>
-									<input type="submit" value="{{trans('general.submit')}}" class="submit-button btn btn-default">
-								</form>
-							</div>													
-						</div>
-					</aside>
-					<!-- sidebar end -->
+					<!-- RIGHT COLUMNS -->
+					<div class="col-md-3">
+						<!-- Alert Success -->
+						<div id="alert_success" class="alert alert-success mb-30">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{trans('general.soon_response')}}
+						</div><!-- /Alert Success -->
+
+
+						<!-- Alert Failed -->
+						<div id="alert_failed" class="alert alert-danger mb-30">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{trans('general.error_message')}}
+						</div><!-- /Alert Failed -->
+
+
+						<!-- Alert Mandatory -->
+						<div id="alert_mandatory" class="alert alert-danger mb-30">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{trans('general.validation_message')}}
+							<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
+						</div><!-- /Alert Mandatory -->
+						<!-- ASK A QUSTION -->
+						<h4>{{trans('general.ask-question')}}</h4>
+						<form id="#contact-form" class="sky-form clearfix">
+
+							<label class="input">
+								<i class="ico-prepend fa fa-user"></i>
+								<input class="form-field" id="contact-name" type="text" placeholder="{{trans('general.name')}}">
+							</label>
+
+							<label class="input">
+								<i class="ico-prepend fa fa-envelope"></i>
+								<input class="form-field" id="contact-email" type="text" placeholder="{{trans('general.email')}}*">
+							</label>
+
+							<label class="input">
+								<i class="ico-prepend fa fa-bars"></i>
+								<select id="contact-category" class="form-field">
+									<option id="select-placeholder" value="" disabled selected>{{trans('general.select-category')}}</option>
+									@foreach($categories as $category)
+										<option value="{{$category->name}}">{{$category->name}}</option>
+									@endforeach
+								</select>
+							</label>
+
+							<label class="textarea">
+								<i class="ico-prepend fa fa-comment"></i>
+								<textarea id="contact-message" rows="3" placeholder="{{trans('general.type-question')}}*" class="form-field"></textarea>
+							</label>
+
+							<button id="submit-contact-form" class="btn btn-primary btn-sm float-right">{{trans('general.submit-question')}}</button>
+
+						</form>
+
+					</div>
+					<!-- /RIGHT COLUMNS -->
+
 				</div>
-			@else
-				@include($path . 'comingSoon')
-			@endif
-		</div>
-	</section>
-	<!-- main-container end -->
+				
+			</div>
+		</section>
+		<!-- / -->
+	@else
+		HERE
+	@endif
+		
+@endsection
+
+@section('optionalScripts')
+	<script>
+		$('#contact-category').on('change', function(){
+			$(this).css('color', '#404040');
+		});
+
+		$('#submit-contact-form').on('click', function(e){
+			e.preventDefault();
+			var url = window.location.host + '/faqs';
+			var faqpageUrl = ' [Faq Page](//' + url + ')';
+			$.ajaxSetup({
+			    headers:
+			    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+			});
+			$.ajax({
+				type: "POST",
+				url: "{{route('faqEmail')}}",
+				data: {
+					"name": $("#contact-name").val(),
+					"email": $("#contact-email").val(),
+					"category": $("#contact-category").val(),
+					"message": $("#contact-message").val(),
+					"subject": "Message from" + faqpageUrl,
+				},
+				success: function (data) {
+					if (data.sent == "yes") {
+						let submitButton = $("#submit-contact-form");
+						$('#alert_success').slideDown();
+						submitButton.html('<i class="fa fa-check"></i> {{trans('general.message-sent')}}');
+						$(".form-field").each(function() {
+							$(this).val('');
+						});
+						submitButton.addClass('btn-success');
+						submitButton.attr('disabled', true);
+					}
+				},
+				error: function(response){
+					if(response.status === 422) {
+						slideDownAndUp('#alert_mandatory');
+					} else {
+						slideDownAndUp('#alert_failed');
+					}
+
+				},
+			});
+		});
+		function slideDownAndUp(tag){
+			$(tag).slideDown();
+			setTimeout(function(){
+				$(tag).slideUp();
+			}, 4000);
+		}
+	</script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Theme;
 use Illuminate\Support\Facades\View;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,8 +18,12 @@ class Controller extends BaseController
 
 	public function __construct()
 	{
-		$theme = Theme::where('active', '=', 1)->first();
-		$path = 'user/'.$theme->root_folder . '/';
+		try {
+			$theme = Theme::where('active', '=', 1)->first();
+			$path = 'user/'.$theme->root_folder . '/';
+		} catch (Exception $e) {
+			$path = 'user/theme-1/';
+		}
 		
 		$this->path = $path;
 		View::share('path', $path);

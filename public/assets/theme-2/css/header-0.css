@@ -34,11 +34,14 @@
 
 
 /* Shown Menu */
+body.show-menu {
+	overflow: hidden;
+}
 body.show-menu #topMain {
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
-    -webkit-transition: -webkit-transform 0.8s;
-    transition: transform 0.8s;
+    -webkit-transition: -webkit-transform 0.34s;
+    transition: transform 0.34s;
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
@@ -80,7 +83,7 @@ ul.topNavBtn {
 	margin:0;
 }
 
-#menu_overlay_open {
+#menu_overlay_open:not(.custom-button) {
     display: block;
     border: none;
     padding: 0;
@@ -105,12 +108,12 @@ ul.topNavBtn {
 		margin-top:8px;
 	}
 
-#menu_overlay_open:hover{
+#menu_overlay_open:not(.custom-button):hover{
     border: 0;
     box-shadow:none;
 }
 
-#menu_overlay_open>span {
+#menu_overlay_open:not(.custom-button)>span {
     -webkit-transition: all 0.1s ease 0s;
     transition: all 0.1s ease 0s;
     display: block;
@@ -124,8 +127,8 @@ ul.topNavBtn {
     background: #545454;
 }
 
-#menu_overlay_open>span:before,
-#menu_overlay_open>span:after {
+#menu_overlay_open:not(.custom-button)>span:before,
+#menu_overlay_open:not(.custom-button)>span:after {
     -webkit-transition: all 0.2s ease 0s;
     transition: all 0.2s ease 0s;
     position: absolute;
@@ -136,26 +139,26 @@ ul.topNavBtn {
     left: 0;
 }
 
-#menu_overlay_open>span:after{
+#menu_overlay_open:not(.custom-button)>span:after{
     top: -5px;
 }
 
-#menu_overlay_open>span:before{
+#menu_overlay_open:not(.custom-button)>span:before{
     bottom: -5px;
 }
 
-#menu_overlay_open>span:before {
+#menu_overlay_open:not(.custom-button)>span:before {
   bottom: -5px;
 }
-#menu_overlay_open>span:after {
+#menu_overlay_open:not(.custom-button)>span:after {
   top: -5px;
 }
 
-html.no-touch #menu_overlay_open:hover>span:after {
+html.no-touch #menu_overlay_open:not(.custom-button):hover>span:after {
     top: -7px;
 }
 
-html.no-touch #menu_overlay_open:hover>span:before {
+html.no-touch #menu_overlay_open:not(.custom-button):hover>span:before {
     bottom: -7px;
 }
 
@@ -233,9 +236,11 @@ form.mobile-search {
 
 
 @media only screen and (max-width: 768px) {
+	/*
 	#topMain {
 		position:absolute;
 	}
+	*/
 	#menu_overlay_close {
 		left: auto; right:0;
 		margin-left:0;

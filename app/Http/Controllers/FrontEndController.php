@@ -6,7 +6,7 @@ use App;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
+use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
 
 class FrontEndController extends Controller
 {
@@ -28,15 +28,19 @@ class FrontEndController extends Controller
     public function posts(){
     	$posts = Post::latest()->where('workflow', '=', 'posted')->get();
     	$slider = $posts->where('image', '!=', null)->take(4);
-
+        
     	return view($this->path . 'posts/index', compact('posts', 'slider'));
     }
 
     public function postsShow($categorySlug, $slug){
     	
     	$post = Post::where('slug', '=', $slug)->firstOrFail();
-    	
-    	return view($this->path . 'posts/show', compact('post'));
+    	$categories = Category::has('posts')->inRandomOrder()->take(6)->get();
+        $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
+        $popular = Post::inRandomOrder()->take(3)->get();
+        $facebook = Settings::first()->facebook;
+
+    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'facebook'));
     }
 
     public function pages(){
@@ -49,8 +53,15 @@ class FrontEndController extends Controller
     public function faqs(){
     	
     	$categories = FaqCategory::with('faqs')->has('faqs')->get();
+        $data = ['categories'=>$categories];
+        
+        if($this->path == 'user/theme-2/'){
 
-    	return view($this->path . 'faq/index', compact('categories'));
+            $faqs = Faq::all()->shuffle();
+            $data['faqs'] = $faqs;
+        }
+
+    	return view($this->path . 'faq/index', $data);
     }
 
     public function tagPosts($slug){
