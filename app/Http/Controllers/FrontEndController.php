@@ -17,19 +17,43 @@ class FrontEndController extends Controller
     	if($page){
     		return view($this->path . 'pages/show', compact('page'));
     	}
-
-    	$category = Category::where('slug', '=', $slug)->firstOrFail();
-    	$posts = $category->posts()->latest()->where('workflow', '=', 'posted')->get();
+        $category = Category::where('slug', '=', $slug)->with('descendants')->firstOrFail();
+        $posts = $this->getAllCategoryPosts($category);
     	$slider = $posts->where('image', '!=', null)->take(4);
+        $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
+        $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
+        $popular = Post::inRandomOrder()->take(3)->get();
+        $facebook = Settings::first()->facebook;
 
-		return view($this->path . 'posts/index', compact('posts', 'slider'));
+		return view($this->path . 'categories/index', compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook'));
+    }
+
+    public function getAllCategoryPosts(Category $category){
+            
+        $posts = $category->posts()->latest()->where('workflow', '=', 'posted')->paginate(5);
+
+        foreach($category->descendants as $child){
+          $itsPosts = $child->posts()->latest()->where('workflow', '=', 'posted')->paginate(5);
+
+          if($itsPosts->isNotEmpty()){
+            foreach($itsPosts as $post){
+                $posts->push($post);
+            }
+          } 
+        }
+
+        return $posts;
     }
 
     public function posts(){
-    	$posts = Post::latest()->where('workflow', '=', 'posted')->get();
+    	$posts = Post::latest()->where('workflow', '=', 'posted')->paginate(8);
     	$slider = $posts->where('image', '!=', null)->take(4);
-        
-    	return view($this->path . 'posts/index', compact('posts', 'slider'));
+        $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
+        $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
+        $popular = Post::inRandomOrder()->take(3)->get();
+        $facebook = Settings::first()->facebook;
+
+    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'facebook'));
     }
 
     public function postsShow($categorySlug, $slug){
@@ -45,7 +69,7 @@ class FrontEndController extends Controller
 
     public function pages(){
     	
-    	$pages = Page::all();
+    	$pages = Page::paginate(8);
 
     	return view($this->path . 'pages/index', compact('pages'));
     }

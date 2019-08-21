@@ -1,12 +1,13 @@
+<div class="row">
 	@foreach($posts as $post)
 		@if($post->video)
 			<!-- POST ITEM -->
-			<div class="blog-post-item">
+			<div class="blog-post-item col-md-6 col-sm-6 grid-sizer">
 
 				<!-- VIDEO -->
 				<div class="mb-20">
 					<div class="embed-responsive embed-responsive-16by9">
-						{!!$post->videoPreview!!}
+						<iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/xT4DD-z312Q"></iframe>
 					</div>
 				</div>
 
@@ -29,7 +30,8 @@
 					@endif
 					<li>
 						<i class="fa fa-folder-open-o"></i> 
-						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+
+						<a class="category" href="{{$post->category->showRoute}}">
 							<span class="font-lato">{{$post->category->name}}</span>
 						</a>
 					</li>
@@ -43,23 +45,23 @@
 
 				<p>{{$post->subtitle}}</p>
 
-				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default b-0 btn-shadow-1">
 					<i class="fa fa-plus"></i>
-					<span>Read More</span>
+					<span>{{trans('general.read-more')}}</span>
 				</a>
 
 			</div>
 			<!-- /POST ITEM -->
 		@elseif($post->image)
 			<!-- POST ITEM -->
-			<div class="blog-post-item">
+			<div class="blog-post-item col-md-6 col-sm-6">
 
 				<!-- IMAGE -->
 				<figure class="mb-20">
-					<img class="img-fluid post-with-image" src="{{$post->mediumPath}}" alt="">
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/content_slider/10-min.jpg')}}" alt="">
 				</figure>
 
-				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+				<h2><a href="{{$post->showRoute}}">BLOG IMAGE POST</a></h2>
 
 				<ul class="blog-post-info list-inline">
 					<li>
@@ -70,16 +72,16 @@
 					</li>
 					@if($post->location)
 						<li>
-							<a href="#">
-								<i class="fa fa-map-marker"></i> 
-								<span class="font-lato">{{$post->location}}</span>
-							</a>
-						</li>
+						<a href="#">
+							<i class="fa fa-map-marker"></i> 
+							<span class="font-lato">{{$post->location}}</span>
+						</a>
+					</li>
 					@endif
 					<li>
 						<i class="fa fa-folder-open-o"></i> 
 
-						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+						<a class="category" href="{{$post->category->showRoute}}">
 							<span class="font-lato">{{$post->category->name}}</span>
 						</a>
 					</li>
@@ -93,16 +95,16 @@
 
 				<p>{{$post->subtitle}}</p>
 
-				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default b-0 btn-shadow-1">
 					<i class="fa fa-plus"></i>
-					<span>Read More</span>
+					<span>{{trans('general.read-more')}}</span>
 				</a>
 
 			</div>
 			<!-- /POST ITEM -->
 		@else
 			<!-- POST ITEM -->
-			<div class="blog-post-item">
+			<div class="blog-post-item col-md-6 col-sm-6">
 
 				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
 
@@ -115,16 +117,16 @@
 					</li>
 					@if($post->location)
 						<li>
-							<a href="#">
-								<i class="fa fa-map-marker"></i> 
-								<span class="font-lato">{{$post->location}}</span>
-							</a>
-						</li>
+						<a href="#">
+							<i class="fa fa-map-marker"></i> 
+							<span class="font-lato">{{$post->location}}</span>
+						</a>
+					</li>
 					@endif
 					<li>
 						<i class="fa fa-folder-open-o"></i> 
 
-						<a class="category" href="{{route('categories.pages.show', $post->category->slug)}}">
+						<a class="category" href="{{$post->category->showRoute}}">
 							<span class="font-lato">{{$post->category->name}}</span>
 						</a>
 					</li>
@@ -138,9 +140,9 @@
 
 				<p>{{$post->subtitle}}</p>
 
-				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default">
+				<a href="{{$post->showRoute}}" class="btn btn-reveal btn-default b-0 btn-shadow-1">
 					<i class="fa fa-plus"></i>
-					<span>Read More</span>
+					<span>{{trans('general.read-more')}}</span>
 				</a>
 
 			</div>

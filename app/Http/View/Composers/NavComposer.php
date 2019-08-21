@@ -13,7 +13,7 @@ class NavComposer
 
     public function __construct()
     {
-        $categories = Category::all()->where('parent_id','=',NULL);
+        $categories = Category::where('parent_id','=',NULL)->get();
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();

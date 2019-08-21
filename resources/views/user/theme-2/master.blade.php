@@ -14,6 +14,20 @@
 			.uppercase{
 				text-transform: uppercase;
 			}
+
+			.language-switcher form, .language-switcher li, .language-switcher ul .language-switcher input{
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			.language-switcher .btn{
+				border-radius: 0;
+			}
+			.dropdown-toggle::after{
+				display:none;
+			}
+			.language-switcher ul.dropdown-menu{
+				border: 0px !important;
+			}
 		</style>
 		@yield('optionalHead')
 	</head>

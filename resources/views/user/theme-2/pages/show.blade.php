@@ -1,96 +1,65 @@
 @extends($path . 'master')
+
 @section('optionalHead')
 	<style>
-		#mainImage{
-			max-height: 600px;
-			margin: 0 auto;
-		}
-		.bottomImage{
-			height: 167.5px !important;
-			object-fit: cover;
+		.slider-image{
+			height: 475px;
 			width: 100%;
-			padding-top: 20px;
+			object-fit: cover;
 		}
 	</style>
 @endsection
+
 @section('content')
-	<!-- breadcrumb start -->
-	<!-- ================ -->
-	<div class="breadcrumb-container">
+	<!-- -->
+	<section>
 		<div class="container">
-			<ol class="breadcrumb">
-				<li>
-					<i class="fa fa-home pr-10"></i>
-					<a href="/">
-						{{trans('general.home')}}
-					</a>
-				</li>
-				<li>
-					<a href="{{route('pages.index')}}">
-						{{trans('general.navigation.pages')}}
-					</a>
-				</li>
-				<li class="active">{!!$page->title!!}</li>
-			</ol>
-		</div>
-	</div>
-	<!-- breadcrumb end -->
 
-	<!-- main-container start -->
-	<!-- ================ -->
-	<section class="main-container">
 
-		<div class="container">
+			@if($page->images->isNotEmpty())
+				<div class="clearfix mb-60">
+					<!-- OWL SLIDER -->
+					<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
+						@foreach($page->images as $image)
+							<a class="lightbox" href="{{$page->mediumPath . $image->name}}" data-plugin-options='{"type":"image"}'>
+								<img class="img-fluid slider-image" src="{{$page->originalPath . $image->name}}" alt="" />
+							</a>
+						@endforeach
+					</div>
+					<!-- /OWL SLIDER -->
+				</div>
+			@endif
+
+
 			<div class="row">
 
-				<!-- main start -->
-				<!-- ================ -->
-				<div class="main col-md-12">
+				<!-- LEFT -->
+				<div class="col-md-12 col-sm-12">
 
-					<!-- page-title start -->
-					<!-- ================ -->
-					<h1 class="page-title">{!!$page->title!!}</h1>
-					<div class="separator-2"></div>
-					<p class="lead">{!!$page->subtitle!!}</p>
-					<div class="separator-2"></div>
-					
-					<p>
-						{!!$page->main_text!!}
-					</p>
+					<h1 class="blog-post-title">{{$page->title}}</h1>
+					<ul class="blog-post-info list-inline">
+						<li>
+							<a href="#">
+								<i class="fa fa-clock-o"></i> 
+								<span class="font-lato">{{$page->created_at->format('M d, Y')}}</span>
+							</a>
+						</li>
+					</ul>
 
-					@if($page->images->isNotEmpty())
-						<div class="shadow bordered">
-							<div class="overlay-container">
-								<img id="mainImage" src="{{$page->originalPath . $page->images()->first()->name}}" alt="">
-								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img">
-									<i class="fa fa-plus"></i>
-								</a>
-							</div>
-							@php
-								$page->images->shift()
-							@endphp
-						</div>
-						<div class="space-bottom"></div>
-						<div class="row grid-space-20">
-							@foreach($page->images as $image)
-								<div class="col-xs-3">
-									<div class="overlay-container">
-										<img class="bottomImage" src="{{$page->thumbnailPath . $image->name}}" alt="">
-										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img">
-											<i class="fa fa-plus"></i>
-										</a>
-									</div>
-								</div>
-							@endforeach
-						</div>
-						<br>
-						<br>
-					@endif
+
+					<!-- article content -->
+					{!!$page->main_text!!}
+					<!-- /article content -->
+
+
+					<div class="divider divider-dotted"><!-- divider --></div>
+
 				</div>
-				<!-- main end -->
 
 			</div>
+
+
 		</div>
 	</section>
-	<!-- main-container end -->
+	<!-- / -->
 @endsection

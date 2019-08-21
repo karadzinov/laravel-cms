@@ -81,7 +81,6 @@
 					<div id="alert_mandatory" class="alert alert-danger mb-30">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						{{trans('general.validation_message')}}
-						<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
 					</div><!-- /Alert Mandatory -->
 
 
@@ -129,7 +128,7 @@
 				<div class="col-md-3">
 					
 					<p>
-						If You have any questions, do not hesitate to write to us. We will respond as soon as possible. Thank you!
+						{{trans('general.if-questions')}}
 					</p>
 					<hr>
 					<h2>{{trans('general.find_us')}}</h2>

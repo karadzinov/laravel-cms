@@ -31,6 +31,7 @@
                                 <th>Id</th>
                                 <th>{{trans('admin.title')}}</th>
                                 <th>{{trans('admin.subtitle')}}</th>
+                                <th>{{trans('admin.category')}}</th>
                                 <th>{{trans('admin.location')}}</th>
                                 <th>{{trans('admin.workflow')}}</th>
                                 <th>{{trans('admin.author')}}</th>
@@ -47,6 +48,7 @@
                                     <td>{{$post->id}}</td>
                                     <td>{!!$post->title!!}</td>
                                     <td>{!!$post->subtitle!!}</td>
+                                    <td>{{$post->category->name}}</td>
                                     <td>{{$post->location}}</td>
                                     <td>
                                         @if($post->workflow === 'pending')

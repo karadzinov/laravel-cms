@@ -45,13 +45,12 @@
 
 			<div class="container">
 
-				<h1>FAQ</h1>
+				<h1>{{trans('general.faq')}}</h1>
 
 				<!-- breadcrumbs -->
 				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Pages</a></li>
-					<li class="active">Frequently Asked Questions</li>
+					<li><a href="#">{{trans('general.navigation.home')}}</a></li>
+					<li class="active">{{trans('general.faq')}}</li>
 				</ol><!-- /breadcrumbs -->
 
 			</div>
@@ -115,7 +114,6 @@
 						<div id="alert_mandatory" class="alert alert-danger mb-30">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							{{trans('general.validation_message')}}
-							<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
 						</div><!-- /Alert Mandatory -->
 						<!-- ASK A QUSTION -->
 						<h4>{{trans('general.ask-question')}}</h4>
@@ -159,7 +157,7 @@
 		</section>
 		<!-- / -->
 	@else
-		HERE
+		@include($path . 'comingSoon')
 	@endif
 		
 @endsection
@@ -188,8 +186,9 @@
 					"message": $("#contact-message").val(),
 					"subject": "Message from" + faqpageUrl,
 				},
-				success: function (data) {
-					if (data.sent == "yes") {
+				success: function (response) {
+					
+					if (response.sent == "yes") {
 						let submitButton = $("#submit-contact-form");
 						$('#alert_success').slideDown();
 						submitButton.html('<i class="fa fa-check"></i> {{trans('general.message-sent')}}');
@@ -198,15 +197,13 @@
 						});
 						submitButton.addClass('btn-success');
 						submitButton.attr('disabled', true);
+					}else if(response.status === 422) {
+						slideDownAndUp('#alert_mandatory');
 					}
 				},
 				error: function(response){
-					if(response.status === 422) {
-						slideDownAndUp('#alert_mandatory');
-					} else {
-						slideDownAndUp('#alert_failed');
-					}
-
+					
+					slideDownAndUp('#alert_failed');
 				},
 			});
 		});

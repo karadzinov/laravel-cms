@@ -18,43 +18,22 @@
 @endsection
 
 @section('content')
-	<!-- 
-					PAGE HEADER 
-					
-					CLASSES:
-						.page-header-xs	= 20px margins
-						.page-header-md	= 50px margins
-						.page-header-lg	= 80px margins
-						.page-header-xlg= 130px margins
-						.dark			= dark page header
+	
+	<section class="page-header dark page-header-xs">
+		<div class="container">
 
-						.shadow-before-1 	= shadow 1 header top
-						.shadow-after-1 	= shadow 1 header bottom
-						.shadow-before-2 	= shadow 2 heapder top
-						.shadow-after-2 	= shadow 2 header bottom
-						.shadow-before-3 	= shadow 3 header top
-						.shadow-after-3 	= shadow 3 header bottom
-				-->
-				<section class="page-header dark page-header-xs">
-				<div class="container">
+			<h1 class="uppercase">{{trans('general.navigation.posts')}}</h1>
 
-					<h1 class="uppercase">{{trans('general.navigation.posts')}}</h1>
+			<!-- breadcrumbs -->
+			<ol class="breadcrumb">
+				<li><a href="/home">{{trans('general.home')}}</a></li>
+				<li><a href="{{route('posts.index')}}">{{trans('general.navigation.posts')}}</a></li>
+				<li class="active">{{$post->title}}</li>
+			</ol><!-- /breadcrumbs -->
 
-					<!-- breadcrumbs -->
-					<ol class="breadcrumb">
-						<li><a href="/home">{{trans('general.home')}}</a></li>
-						<li><a href="{{route('posts.index')}}">{{trans('general.navigation.posts')}}</a></li>
-						<li class="active">{{$post->title}}</li>
-					</ol><!-- /breadcrumbs -->
+		</div>
+	</section>
 
-				</div>
-			</section>
-				<!-- /PAGE HEADER -->
-
-
-
-
-	<!-- -->
 	<section>
 		<div class="container">
 
@@ -133,7 +112,7 @@
 					<div class="clearfix mt-30">
 
 						<span class="float-left mt-6 bold hidden-xs-down">
-							Share Post: 
+							{{trans('general.share')}}
 						</span>
 
 						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-right" data-toggle="tooltip" data-placement="top" title="Facebook">

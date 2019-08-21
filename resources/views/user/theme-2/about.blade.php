@@ -123,8 +123,6 @@
 	</section>
 
 @else
-	<div class="main-container">
-		@include($path . 'partials/comingSoon')
-	</div>
+	@include($path . 'comingSoon')
 @endif
 @endsection

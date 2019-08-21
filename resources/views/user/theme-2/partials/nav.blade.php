@@ -46,21 +46,36 @@
 					<div class="search-box">
 						<form action="page-search-result-1.html" method="get">
 							<div class="input-group">
-								<input type="text" name="src" placeholder="Search" class="form-control" />
+								<input type="text" name="src" placeholder="{{trans('general.search')}}" class="form-control" />
 								<span class="input-group-btn">
-									<button class="btn btn-primary" type="submit">Search</button>
+									<button class="btn btn-primary" type="submit">{{trans('general.search')}}</button>
 								</span>
 							</div>
 						</form>
 					</div> 
 				</li>
-				<!-- /SEARCH -->
-
+				@if($languages->count()>1)
+					<li class="nav-item dropdown language-switcher">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-globe"></i> </a>
+						<ul class="dropdown-menu dropdown-animation language-switcher-area">
+							{{-- <li> --}}
+								<form method="POST" action="/switch-language">
+									@csrf
+									@foreach($languages as $language)
+										<li>
+											<input type="submit" name="language" class="btn btn-primary btn-block @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
+										</li>
+									@endforeach
+								</form>
+							{{-- </li> --}}
+						</ul>
+					</li>
+				@endif
 			</ul>
 			<!-- /BUTTONS -->
 
 			<!-- Logo -->
-			<a class="logo float-left" href="index.html">
+			<a class="logo float-left" href="{{route('public.home')}}">
 				<img src="{{asset('assets/theme-2/images/_smarty/logo_light.png')}}" alt="" />
 			</a>
 
@@ -83,8 +98,11 @@
 							<a href="#">HOME</a>
 						</li>
 					-->
-					<ul id="topMain" class="nav nav-pills nav-main">
-						<li class="dropdown active"><!-- POSTS -->
+					<ul id="topMain" class="nav nav-pills nav-main uppercase">
+						<li>
+							<a href="/home">{{trans('general.navigation.home')}}</a>
+						</li>
+						<li class="dropdown {{-- active --}}"><!-- POSTS -->
 							<a class="dropdown-toggle" href="{{route('posts.index')}}">
 								{{trans('general.navigation.posts')}}
 							</a>
