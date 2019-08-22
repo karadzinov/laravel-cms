@@ -134,6 +134,12 @@ return [
 	'written-by'=>'written by',
 	'search-results-for'=>'Search Results For',
 	'no-results-for'=>'Sorry! We Couldn\'t find any results for',
-	''=>'',
+	'contact-info'=>'Contact Info',
+	'our-home'=> 'Our Home Page',
+	'our-posts'=> 'Our Page with Posts',
+	'our-about'=> 'Our About Page',
+	'our-search-results'=> 'Our Search results Page',
+	'our-contact'=> 'Our Contact Page',
+	'most-visited'=>'Out Most Visited Pages',
 	''=>'',
 ];
