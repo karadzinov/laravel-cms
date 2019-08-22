@@ -39,21 +39,25 @@
 			<ul class="float-right nav nav-pills nav-second-main">
 
 				<!-- SEARCH -->
-				<li class="search">
+				<li class="search fullscreen dark">
 					<a href="javascript:;">
 						<i class="fa fa-search"></i>
 					</a>
 					<div class="search-box">
-						<form action="page-search-result-1.html" method="get">
+						<a id="closeSearch" href="#">X</a>
+
+						<form action="{{route('search')}}" method="get">
 							<div class="input-group">
-								<input type="text" name="src" placeholder="{{trans('general.search')}}" class="form-control" />
+								<input id="search_box" type="text" placeholder="{{trans('general.search')}}" name="search" class="form-control" placeholder="{{trans('general.search')}}..." />
 								<span class="input-group-btn">
-									<button class="btn btn-primary" type="submit">{{trans('general.search')}}</button>
+									<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
 								</span>
+								<div id="searchResponse"></div>
 							</div>
 						</form>
 					</div> 
 				</li>
+				<!-- /SEARCH -->
 				@if($languages->count()>1)
 					<li class="nav-item dropdown language-switcher">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-globe"></i> </a>
@@ -137,8 +141,13 @@
 								{{trans('general.navigation.faq')}}
 							</a>
 						</li>
+						@role('admin')
+							<li>
+								<a href="{{route('admin.home')}}">{{trans('general.go-to-admin')}}</a>
+							</li>
+						@endrole
 						<li>
-							<a href="/changeTheme">Change Theme</a>
+							<a href="/changeTheme">Theme</a>
 						</li>
 					</ul>
 

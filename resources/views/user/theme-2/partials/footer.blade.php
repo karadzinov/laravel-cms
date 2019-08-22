@@ -124,14 +124,15 @@
 				<br>
 				<br>
 				<br>
-				<form action="".box-shadow- method="post">
+				<form action="{{route('search')}}" method="GET">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
-						<input type="text" id="text" name="search" class="form-control" placeholder="{{trans('general.search')}}" required="required">
+						<input type="text" name="search" class="form-control" placeholder="{{trans('general.search')}}" required="required">
 						<span class="input-group-btn">
 							<button class="btn btn-success" type="submit">{{trans('general.search')}}</button>
 						</span>
 					</div>
+					<div id="footerSearchResults"></div>
 				</form>
 			</div>
 

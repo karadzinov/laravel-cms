@@ -80,7 +80,7 @@ return [
 	'error_response'  	=> 'Ups! Došlo ej do greške, molim Vas refrešujte stranicu i pokušajte ponovo.',
 	'no_questions'	 	=> 'Nema pitanja.',
 	'search'	 	 	=> 'Traži',
-	'go-to-admin'	 	=> 'Idi na admin panel',
+	'go-to-admin'	 	=> 'Admin panel',
 	'coming-soon'	 	=> 'Uskoro',
 
 

@@ -133,7 +133,7 @@
 						<div class="owl-carousel content-slider-with-controls">
 							@for($i=0; $i<$about->images->count(); $i++)
 								<div class="overlay-container overlay-visible">
-									<img class="about-images-slider-item" src="{{$about->originalPath . $about->images[$i]->name}}\" alt="">
+									<img class="about-images-slider-item" src="{{$about->originalPath . $about->images[$i]->name}}" alt="">
 									<a href="{{$about->originalPath . $about->images[$i]->name}}" class="popup-img overlay-link" title="image title"><i class="icon-plus-1"></i></a>
 								</div>
 							@endfor

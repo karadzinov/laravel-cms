@@ -26,8 +26,7 @@
 
 			<!-- breadcrumbs -->
 			<ol class="breadcrumb">
-				<li><a href="#">{{trans('general.navigation.home')}}</a></li>
-				<li><a href="#">{{trans('general.navigation.pages')}}</a></li>
+				<li><a href="{{route('public.home')}}">{{trans('general.navigation.home')}}</a></li>
 				<li class="active">{{trans('general.navigation.about')}}</li>
 			</ol><!-- /breadcrumbs -->
 

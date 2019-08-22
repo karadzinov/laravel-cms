@@ -21,7 +21,7 @@ class SearchController extends Controller
     	$faqs = $this->searchInFaqsForAjax($searchTerm);
         $faqs = $this->makeSearchMenuItems($faqs, 'faq');
 
-    	$items = array_merge($posts, $pages, $faqs);
+        $items = compact('posts', 'pages', 'faqs');
 
     	return $items;
     }
@@ -40,7 +40,7 @@ class SearchController extends Controller
             $faqs = $this->searchInFaqs($searchTerm);
         }
 
-        return view('user/search/index', compact('posts', 'pages', 'faqs', 'search'));
+        return view($this->path . 'search/index', compact('posts', 'pages', 'faqs', 'search'));
 
         
     }

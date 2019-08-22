@@ -118,5 +118,22 @@ return [
 	'linkedin'				=> 'LinkedIn',
 	'instagram'				=> 'Instagram',
 	'rss'					=> 'Rss Feed',
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	'written-by'=>'written by',
+	'search-results-for'=>'Search Results For',
+	'no-results-for'=>'Sorry! We Couldn\'t find any results for',
+	''=>'',
 	''=>'',
 ];

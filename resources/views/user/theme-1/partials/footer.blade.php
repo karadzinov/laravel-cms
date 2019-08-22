@@ -79,7 +79,7 @@
 						<div class="footer-content">
 							<h2 class="title">{{trans('general.find_us')}}</h2>
 							<div class="separator-2"></div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+							<p>{{trans('general.follow-us-on')}}</p>
 							<ul class="social-links circle animated-effect-1">
 								<li class="facebook"><a target="_blank" href="{{$settings->facebook}}"><i class="fa fa-facebook"></i></a></li>
 								<li class="instagram"><a target="_blank" href="{{$settings->instagram}}"><i class="fa fa-instagram"></i></a></li>
