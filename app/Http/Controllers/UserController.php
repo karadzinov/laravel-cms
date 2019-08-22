@@ -29,7 +29,7 @@ class UserController extends Controller
         $posts = Post::latest()->take(4)->get();
         $settings = Settings::first();
         $categories = Category::take(3)->get();
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::take(4)->get();
         $about = About::first();
 
         return view($this->path . 'home', compact('posts', 'settings', 'categories', 'testimonials', 'about'));

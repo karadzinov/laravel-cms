@@ -77,20 +77,6 @@
 				
 		</section>
 		<!-- /SLIDER -->
-
-
-
-		<!-- BUTTON CALLOUT -->
-		<a href="#" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
-			<span class="font-lato fs-30">
-				Did Smarty convinced you? 
-				<strong>Contact us &raquo;</strong>
-			</span>
-		</a>
-		<!-- /BUTTON CALLOUT -->
-
-
-
 		<!-- -->
 		<section>
 			<div class="container">

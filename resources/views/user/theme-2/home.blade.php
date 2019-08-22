@@ -5,6 +5,25 @@
 		#header.translucent{
 			position: absolute;
 		}
+		.premium-thumbnail-circle figure img{
+			height: 230px;
+			object-fit: cover;
+			max-width: 300px;
+			-webkit-border-radius: 50%
+		}
+		.homepage-post-image{
+			height: 190px;
+			width: 100%;
+			object-fit: cover;
+		}
+		.about-slider-text p{
+			overflow-wrap: break-word;
+			max-width: 100px !important;
+
+			word-break: break-all;
+
+
+		}
 	</style>
 @endsection
 
@@ -262,31 +281,157 @@
 		</div>
 	</section>
 	<!-- /REVOLUTION SLIDER -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center ">
+				<h1 class="mt-70 mb-40 text-6xl">Welcome to {{$settings->title}}!</h1>
+				<p class="mb-40">{{$about->welcome_note}}</p>
+				<h3>Check Our Categories</h3>
+			</div>
+		</div>
+	</div>
 	<section class="info-bar info-bar-clean">
 		<div class="container">
-
 			<div class="row">
 
-				<div class="col-sm-4">
-					<i class="glyphicon glyphicon-globe"></i>
-					<h3>FULLY RESPONSIVE</h3>
-					<p>Smarty Template is fully responsive</p>
-				</div>
+				@foreach($categories as $category)
+					<div class="col-sm-4 testimonial homepageCategories">
+						<figure class="float-left">
+							<img class="rounded" src="{{$category->thumbnailPath}}" alt="">
+						</figure>
+						<div class="testimonial-content">
+		                    <cite>
+		                        {{$category->name}}
+		                        {{-- <span>{{$testimonial->comapny}}</span> --}}
+		                    </cite>
+		                    <p>{{$category->description}}</p>
+		                </div>
+					</div>
+				@endforeach
+			</div>
+		</div>
 
-				<div class="col-sm-4">
-					<i class="glyphicon glyphicon-usd"></i>
-					<h3>ADMIN INCLUDED</h3>
-					<p>Smarty Template include admin</p>
-				</div>
+				<!--  -->
+			<section>
+				<div class="container">
+					<h1 class="text-center">
+						Why would you choose {{$settings->title}}
+					</h1>
+					<br><br>
 
-				<div class="col-sm-4">
-					<i class="glyphicon glyphicon-flag"></i>
-					<h3>ONLINE SUPPORT 24/7</h3>
-					<p>Free support via email</p>
+					@include($path . 'partials/homepage/about-slider')
+
+
+					<div class="divider double-line mt-80 mb-80"><!-- divider --></div>
+
+					<!-- 
+						controlls-over		= navigation buttons over the image 
+						buttons-autohide 	= navigation buttons visible on mouse hover only
+						
+						data-plugin-options:
+							"singleItem": true
+							"autoPlay": true (or ms. eg: 4000)
+							"navigation": true
+							"pagination": true
+					-->
+					<div class="text-center">
+						<div class="owl-carousel m-0" data-plugin-options='{"singleItem": false, "autoPlay": true}'>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/1.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/2.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/3.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/4.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/5.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/6.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/7.jpg')}}" alt="">
+							</div>
+							<div>
+								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/8.jpg')}}" alt="">
+							</div>
+						</div>
+					</div>
+
 				</div>
+			</section>
+			<!-- / -->
+
+			<section>
+				<div class="container">
+					<div class="row">
+						@foreach($testimonials as $testimonial)
+							<div class="col-md-3 col-sm-12">
+								<div class="premium-thumbnail-circle">
+									<a href="#">
+
+										<div class="spinner"></div>
+
+												<figure>
+													<img class="testimonialImage" src="{{$testimonial->thumbnailPath}}" alt="img">
+												</figure>
+
+											<div class="info">
+												<div class="info-back">
+													<h3 class="uppercase">
+														{{$testimonial->title}}
+													</h3>
+
+													<p>
+														{{$testimonial->name}}
+														<br>
+														<strong>{{$testimonial->company}}</strong>
+													</p>
+											</div>
+
+										</div>
+
+									</a>
+								</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
+			</section>
 
 			</div>
 
 		</div>
-	</section>	
+	</section>
+	<section>
+		<div class="container">
+			<h2 class="text-center">{{trans('general.navigation.posts')}}</h2>
+			<div class="row">
+				@foreach($posts as $post)
+					<div class="col-sm-6 col-md-3 text-center">
+						<div class="thumbnail">
+							<a href="{{$post->showRoute}}">
+								<img class="homepage-post-image img-fluid grayscale-hover-color" src="{{$post->thumbnailPath}}" alt="" />
+							</a>
+						</div>
+						<h4 class="mt-6 uppercase">{{$post->title}}</h4>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	</section>
+
+	<!-- BUTTON CALLOUT -->
+	<a href="#" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
+		<span class="font-lato fs-30">
+			Did Smarty convinced you? 
+			<strong>Contact us &raquo;</strong>
+		</span>
+	</a>
+	<!-- /BUTTON CALLOUT -->
 @endsection

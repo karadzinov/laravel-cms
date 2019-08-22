@@ -18,7 +18,7 @@
 							{{$settings->address}}
 						</li>
 						<li class="footer-sprite phone">
-							{{trans('general.phone')}}: {{$settings->phone}}
+							{{trans('general.phone')}}: {{$settings->phone_number}}
 						</li>
 						<li class="footer-sprite email">
 							<a href="mailto:{{$settings->email}}">{{$settings->email}}</a>
@@ -34,7 +34,7 @@
 				<!-- Latest Blog Posts -->
 				<h4 class="letter-spacing-1 uppercase">{{trans('general.latest-posts')}}</h4>
 				<ul class="footer-posts list-unstyled">
-					@foreach($posts->take(3) as $post)
+					@foreach($posts as $post)
 						<li>
 							<a href="{{$post->showRoute}}">{{$post->title}}</a>
 							<small>{{$post->created_at->format('M d, Y')}}</small>

@@ -44,6 +44,11 @@
 				z-index: 100;
 				margin-top: -30px;
 			}
+			.homepageCategories img{
+				margin-right: 20px;
+				width: 100%;
+				object-fit: cover
+			}
 		</style>
 		@yield('optionalHead')
 	</head>
