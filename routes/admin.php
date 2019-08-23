@@ -158,3 +158,23 @@ Route::group(["prefix" => "testimonials", "as"=>"testimonials.", 'middleware' =>
     Route::put('update/{testimonial}', 'TestimonialsController@update')->name('update');
     Route::delete('delete/{testimonial}', 'TestimonialsController@delete')->name('delete');
 });
+
+Route::group(["prefix" => "partners", "as"=>"partners.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'PartnersController@index')->name('index');
+    Route::get('show/{partner}', 'PartnersController@show')->name('show');
+    Route::get('create', 'PartnersController@create')->name('create');
+    Route::post('store', 'PartnersController@store')->name('store');
+    Route::get('edit/{partner}', 'PartnersController@edit')->name('edit');
+    Route::put('update/{partner}', 'PartnersController@update')->name('update');
+    Route::delete('delete/{partner}', 'PartnersController@delete')->name('delete');
+});
+
+Route::group(["prefix" => "slides", "as"=>"slides.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'SlidesController@index')->name('index');
+    Route::get('show/{slide}', 'SlidesController@show')->name('show');
+    Route::get('create', 'SlidesController@create')->name('create');
+    Route::post('store', 'SlidesController@store')->name('store');
+    Route::get('edit/{slide}', 'SlidesController@edit')->name('edit');
+    Route::put('update/{slide}', 'SlidesController@update')->name('update');
+    Route::delete('delete/{slide}', 'SlidesController@delete')->name('delete');
+});

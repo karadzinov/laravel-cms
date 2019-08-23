@@ -410,30 +410,13 @@
 		-->
 		<div class="text-center">
 			<div class="owl-carousel m-0" data-plugin-options='{"singleItem": false, "autoPlay": true}'>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/1.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/2.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/3.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/4.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/5.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/6.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/7.jpg')}}" alt="">
-				</div>
-				<div>
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/8.jpg')}}" alt="">
-				</div>
+				@foreach($partners as $partner)
+					<div title='{{$partner->name}}'>
+						<a href="{{$partner->link}}" target="_blank">
+							<img class="img-fluid" src="{{$partner->thumbnailPath}}" alt="">
+						</a>
+					</div>
+				@endforeach
 			</div>
 		</div>
 	</section>

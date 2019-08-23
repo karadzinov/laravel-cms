@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\{About, Category, Settings, Post, Testimonial};
+use App\Models\{About, Category, Settings, Partner, Post, Testimonial};
 
 class UserController extends Controller
 {
@@ -31,7 +31,8 @@ class UserController extends Controller
         $categories = Category::take(3)->get();
         $testimonials = Testimonial::take(4)->get();
         $about = About::first();
-
-        return view($this->path . 'home', compact('posts', 'settings', 'categories', 'testimonials', 'about'));
+        $partners = Partner::all();
+        
+        return view($this->path . 'home', compact('posts', 'settings', 'categories', 'testimonials', 'about', 'partners'));
     }
 }
