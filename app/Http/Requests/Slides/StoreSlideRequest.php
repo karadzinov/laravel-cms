@@ -26,8 +26,7 @@ class StoreSlideRequest extends FormRequest
         return [
             'title'     => 'required|max:255',
             'subtitle'  => 'required|max:255',
-            'image'     => 'required_without:video',
-            'video'     => 'required_without:image',
+            'image'     => 'required_without',
         ];
     }
 }

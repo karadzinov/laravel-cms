@@ -24,11 +24,11 @@
 					        <thead class="thead">
 					            <tr>
 					                <th>Id</th>
+				                	<th>{{trans('admin.top-title')}}</th>
 					                <th>{{trans('admin.title')}}</th>
 					                <th>{{trans('admin.subtitle')}}</th>
 					                <th>{{trans('admin.video')}}</th>
 					                <th>{{trans('admin.link')}}</th>
-				                	<th>{{trans('admin.active')}}</th>
 					                <th>{{trans('admin.created-at')}}</th>
 					                <th>{{trans('admin.updated-at')}}</th>
 					                <th>{{trans('admin.actions')}}</th>
@@ -41,13 +41,13 @@
 					                <tr>
 					                    <td>{{$slide->id}}</td>
 					                    <td>
+                                            {{$slide->top_title}}
+                                        </td>
+					                    <td>
                                             {{$slide->title}}
                                         </td>
                                         <td>
                                             {{$slide->subtitle}}
-                                        </td>
-					                    <td>
-                                            {{$slide->video}}
                                         </td>
                                         <td>
                                             {{$slide->link}}

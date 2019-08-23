@@ -25,6 +25,10 @@
                 {{trans('slides.edit')}}
             </a>
             <div>
+                <label for="top_title"><strong>{{trans('admin.top-title')}}:</strong></label>
+                <div id="top_title">{!!$slide->top_title!!}</div>
+            </div>
+            <div>
                 <label for="title"><strong>{{trans('admin.title')}}:</strong></label>
                 <p id="title">{{$slide->title}}</p>
             </div>
@@ -40,10 +44,6 @@
                 <img src="{{$slide->thumbnailPath}}" alt="{{$slide->image}}" id="image">
             </div>
             <br>
-            <div>
-                <label for="video"><strong>{{trans('admin.video')}}:</strong></label>
-                <div id="video">{!!$slide->videoPreview!!}</div>
-            </div>
             <div>
                 <label><strong>{{trans('admin.link')}}:</strong></label>
                 <p>{{$slide->link}}</p>

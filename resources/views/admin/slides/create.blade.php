@@ -19,6 +19,12 @@
         </div>
         <div class="widget-body">
             {!! Form::open(array('route' => 'admin.slides.store', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
+
+                <div class="form-group">
+                    {!! Form::label('top_title', trans('admin.top-title')) !!}
+                    {!! Form::text('top_title', null, ['id'=>'top_title', 'class' => 'form-control', 'placeholder'=>trans('admin.top-title'), 'autofocus' => true ]) !!}
+                    {!! $errors->first('top_title') !!}
+                </div>
                 <div class="form-group">
                     {!! Form::label('title1', trans('admin.title')) !!}
                     {!! Form::text('title', null, ['id'=>'title1', 'class' => 'form-control', 'placeholder'=>trans('admin.title'), 'autofocus' => true ]) !!}
@@ -35,12 +41,6 @@
                     {{Form::label('image', trans('admin.image') . ' (1200x800px)')}}
                     {!! Form::file('image', null,['class'=>'form-control']) !!}
                     {!! $errors->first('image') !!}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('video', trans('admin.video')) !!}
-                    {!! Form::text('video', null, ['id'=>'video', 'class' => 'form-control', 'placeholder'=>trans('admin.video'), 'autofocus' => true ]) !!}
-                    {!! $errors->first('video') !!}
                 </div>
 
                 <div class="form-group">

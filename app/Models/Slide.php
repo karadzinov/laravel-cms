@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Helpers\{ImagesPaths, ModelIsTranslatable};
+use App\Models\Helpers\ImagesPaths;
 
 class Slide extends Model
 {
-	use ImagesPaths, ModelIsTranslatable;
+	use ImagesPaths;
 
     protected $table = 'slides';
     protected $guarded = [];

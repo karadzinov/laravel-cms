@@ -22,6 +22,13 @@
         </div>
         <div class="widget-body">
             {!! Form::open(array('route' => ['admin.slides.update', $slide->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
+
+                <div class="form-group">
+                    {!! Form::label('top_title', trans('admin.top-title')) !!}
+                    {!! Form::text('top_title', $slide->top_title, ['id'=>'top_title', 'class' => 'form-control', 'placeholder'=>trans('admin.top-title')]) !!}
+                    {!! $errors->first('top_title') !!}
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('title1', trans('admin.title')) !!}
                     {!! Form::text('title', $slide->title, ['id'=>'title1', 'class' => 'form-control', 'placeholder'=>trans('admin.title')]) !!}
@@ -45,11 +52,6 @@
                     {{Form::label('image', trans('admin.image'))}}
                     {!! Form::file('image', null,['class'=>'form-control']) !!}
                     {!! $errors->first('image') !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('video', trans('admin.video')) !!}
-                    {!! Form::text('video', $slide->video, ['id'=>'video', 'class' => 'form-control', 'placeholder'=>trans('admin.video')]) !!}
-                    {!! $errors->first('video') !!}
                 </div> 
 
                 <div class="form-group">
