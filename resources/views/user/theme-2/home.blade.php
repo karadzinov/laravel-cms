@@ -1,6 +1,9 @@
 @extends($path . 'master')
 
 @section('optionalHead')
+		<!-- LAYER SLIDER -->
+		<link href="{{asset('assets/theme-2/plugins/slider.layerslider/css/layerslider.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('assets/theme-2/plugins/slider.layerslider/plugins/origami/layerslider.origami.css')}}" rel="stylesheet" type="text/css" />
 	<style>
 		#header.translucent{
 			position: absolute;
@@ -16,13 +19,16 @@
 			width: 100%;
 			object-fit: cover;
 		}
-		.about-slider-text p{
-			overflow-wrap: break-word;
-			max-width: 100px !important;
-
-			word-break: break-all;
-
-
+		.section-title{
+			margin-top:50px !important;
+			margin-bottom:-50px !important;
+			text-transform: uppercase;
+		}
+		.alternate{
+			border: 0;
+		}
+		.info-bar .about-welcome{
+			line-height: 1.5em;
 		}
 	</style>
 @endsection
@@ -281,17 +287,13 @@
 		</div>
 	</section>
 	<!-- /REVOLUTION SLIDER -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 text-center ">
-				<h1 class="mt-70 mb-40 text-6xl">Welcome to {{$settings->title}}!</h1>
-				<p class="mb-40">{{$about->welcome_note}}</p>
-				<h3>Check Our Categories</h3>
-			</div>
-		</div>
-	</div>
+	<h2 class="text-center mt-50 text-muted uppercase">
+		{{trans('welcome') . ' '. trans('to') . ' ' . $settings->title}}
+	</h2>
 	<section class="info-bar info-bar-clean">
 		<div class="container">
+			<p class="about-welcome fs-17 text-center mb-50">{{$about->welcome_note}}</p>
+			<h2 class="text-center text-muted mb-40">Check Our Latest News</h2>
 			<div class="row">
 
 				@foreach($categories as $category)
@@ -300,117 +302,188 @@
 							<img class="rounded" src="{{$category->thumbnailPath}}" alt="">
 						</figure>
 						<div class="testimonial-content">
-		                    <cite>
-		                        {{$category->name}}
-		                        {{-- <span>{{$testimonial->comapny}}</span> --}}
-		                    </cite>
-		                    <p>{{$category->description}}</p>
+		                    <a href="{{$category->showRoute}}" class="text-muted">
+		                    	<cite>
+		                    	    {{$category->name}}
+		                    	    {{-- <span>{{$testimonial->comapny}}</span> --}}
+		                    	</cite>
+		                    	<p>{{$category->description}}</p>
+		                    </a>
 		                </div>
 					</div>
 				@endforeach
 			</div>
 		</div>
-
-				<!--  -->
-			<section>
-				<div class="container">
-					<h1 class="text-center">
-						Why would you choose {{$settings->title}}
-					</h1>
-					<br><br>
-
-					@include($path . 'partials/homepage/about-slider')
-
-
-					<div class="divider double-line mt-80 mb-80"><!-- divider --></div>
-
-					<!-- 
-						controlls-over		= navigation buttons over the image 
-						buttons-autohide 	= navigation buttons visible on mouse hover only
-						
-						data-plugin-options:
-							"singleItem": true
-							"autoPlay": true (or ms. eg: 4000)
-							"navigation": true
-							"pagination": true
-					-->
-					<div class="text-center">
-						<div class="owl-carousel m-0" data-plugin-options='{"singleItem": false, "autoPlay": true}'>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/1.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/2.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/3.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/4.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/5.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/6.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/7.jpg')}}" alt="">
-							</div>
-							<div>
-								<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/8.jpg')}}" alt="">
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</section>
-			<!-- / -->
-
-			<section>
-				<div class="container">
-					<div class="row">
-						@foreach($testimonials as $testimonial)
-							<div class="col-md-3 col-sm-12">
-								<div class="premium-thumbnail-circle">
-									<a href="#">
-
-										<div class="spinner"></div>
-
-												<figure>
-													<img class="testimonialImage" src="{{$testimonial->thumbnailPath}}" alt="img">
-												</figure>
-
-											<div class="info">
-												<div class="info-back">
-													<h3 class="uppercase">
-														{{$testimonial->title}}
-													</h3>
-
-													<p>
-														{{$testimonial->name}}
-														<br>
-														<strong>{{$testimonial->company}}</strong>
-													</p>
-											</div>
-
-										</div>
-
-									</a>
-								</div>
-							</div>
-						@endforeach
-					</div>
-				</div>
-			</section>
-
-			</div>
-
-		</div>
 	</section>
+
+		<!--  -->
+	<h2 class="text-center section-title text-muted">
+		{{trans('general.why-would-you', ['name'=>$settings->title])}}
+	</h2>
 	<section>
 		<div class="container">
-			<h2 class="text-center">{{trans('general.navigation.posts')}}</h2>
+			<div class="row">
+			
+				<div class="col-md-4">
+					
+					<div class="heading-title heading-border-bottom heading-color">
+						<h3 class="text-muted">{{trans('general.about_us') . ' ' . $settings->title}}</h3>
+					</div>
+					
+					<p>{{substr(strip_tags($about->why_us), 0, 200) }}...</p>
+					
+					<a href="{{route('about')}}">
+						{{trans('general.read')}}
+						<!-- /word rotator -->
+						<span class="word-rotator" data-delay="2000">
+							<span class="items">
+								<span>{{trans('general.more')}}</span>
+								<span>{{trans('general.now')}}</span>
+							</span>
+						</span><!-- /word rotator -->
+						<i class="glyphicon glyphicon-menu-right fs-12"></i>
+					</a>
+
+				</div>
+
+				<div class="col-md-4">
+					<div class="heading-title heading-border-bottom heading-color">
+						<h3 class="text-muted">{{trans('general.what_we') .  ' ' . trans('general.offer')}}</h3>
+					</div>
+					<p>{{substr(strip_tags($about->offer), 0, 200) }}...</p>
+
+					<a href="{{route('about')}}">
+						{{trans('general.read')}}
+						<!-- /word rotator -->
+						<span class="word-rotator" data-delay="2000">
+							<span class="items">
+								<span>{{trans('general.more')}}</span>
+								<span>{{trans('general.now')}}</span>
+							</span>
+						</span><!-- /word rotator -->
+						<i class="glyphicon glyphicon-menu-right fs-12"></i>
+					</a>
+
+				</div>
+
+				<div class="col-md-4">
+					<div class="heading-title heading-border-bottom heading-color">
+						<h3 class="text-muted">{{trans('general.why') . ' ' . trans('general.choose_us')}}</h3>
+					</div>
+					<p>{{substr(strip_tags($about->why_us), 0, 200) }}...</p>
+
+					<a href="{{route('about')}}">
+						{{trans('general.read')}}
+						<!-- /word rotator -->
+						<span class="word-rotator" data-delay="2000">
+							<span class="items">
+								<span>{{trans('general.more')}}</span>
+								<span>{{trans('general.now')}}</span>
+							</span>
+						</span><!-- /word rotator -->
+						<i class="glyphicon glyphicon-menu-right fs-12"></i>
+					</a>
+
+				</div>
+
+			</div>
+			@if($about->images->isNotEmpty())
+				@include($path . 'partials/homepage/about-slider')
+			@endif
+		</div>
+	</section>
+	<!-- / -->
+	
+	<h2 class="text-center section-title text-muted">
+		{{trans('general.our-partners')}}
+	</h2>
+	<section>
+		<!-- 
+			controlls-over		= navigation buttons over the image 
+			buttons-autohide 	= navigation buttons visible on mouse hover only
+			
+			data-plugin-options:
+				"singleItem": true
+				"autoPlay": true (or ms. eg: 4000)
+				"navigation": true
+				"pagination": true
+		-->
+		<div class="text-center">
+			<div class="owl-carousel m-0" data-plugin-options='{"singleItem": false, "autoPlay": true}'>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/1.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/2.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/3.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/4.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/5.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/6.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/7.jpg')}}" alt="">
+				</div>
+				<div>
+					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/brands/8.jpg')}}" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<h2 class="text-center section-title text-muted">
+		{{trans('general.our-clients-about-us')}}
+	</h2>
+	<section>
+		<div class="container">
+			<div class="row">
+				@foreach($testimonials as $testimonial)
+					<div class="col-md-3 col-sm-12">
+						<div class="premium-thumbnail-circle">
+							<a href="#">
+
+								<div class="spinner"></div>
+
+										<figure>
+											<img class="testimonialImage" src="{{$testimonial->thumbnailPath}}" alt="img">
+										</figure>
+
+									<div class="info">
+										<div class="info-back">
+											<h3 class="uppercase">
+												{{$testimonial->title}}
+											</h3>
+
+											<p>
+												{{$testimonial->name}}
+												<br>
+												<strong>{{$testimonial->company}}</strong>
+											</p>
+									</div>
+
+								</div>
+
+							</a>
+						</div>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	</section>
+
+	<h2 class="text-center section-title text-muted">
+		{{trans('general.navigation.posts')}}
+	</h2>
+	<section>
+		<div class="container">
+			<p class="text-center">Check Our Latest news.</p>
 			<div class="row">
 				@foreach($posts as $post)
 					<div class="col-sm-6 col-md-3 text-center">
@@ -419,7 +492,7 @@
 								<img class="homepage-post-image img-fluid grayscale-hover-color" src="{{$post->thumbnailPath}}" alt="" />
 							</a>
 						</div>
-						<h4 class="mt-6 uppercase">{{$post->title}}</h4>
+						<h4 class="mt-6 uppercase text-muted">{{$post->title}}</h4>
 					</div>
 				@endforeach
 			</div>
@@ -429,9 +502,30 @@
 	<!-- BUTTON CALLOUT -->
 	<a href="#" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
 		<span class="font-lato fs-30">
-			Did Smarty convinced you? 
-			<strong>Contact us &raquo;</strong>
+			{{trans('general.did-conviced-you', ['name'=>$settings->title])}}
+			<strong>{{trans('general.contact_us')}} &raquo;</strong>
 		</span>
 	</a>
 	<!-- /BUTTON CALLOUT -->
+@endsection
+
+@section('optionalScripts')
+	<!-- LAYER SLIDER -->
+		<script src="{{asset('assets/theme-2/plugins/slider.layerslider/js/layerslider_pack.js')}}"></script>
+		<script src="{{asset('assets/theme-2/plugins/slider.layerslider/plugins/origami/layerslider.origami.js')}}"></script>
+		<script src="{{asset('assets/theme-2/js/view/demo.layerslider_slider.js')}}"></script>
+
+		<script>
+				var layer_options = {
+
+		                sliderVersion: '6.1.0',
+		                pauseOnHover: 'disabled',
+		                navStartStop: false,
+		                hoverBottomNav: true,
+		                showCircleTimer: false,
+		                skinsPath: '{{asset('assets/theme-2/plugins/slider.layerslider/skins')}}'+'/',
+		                plugins: ["origami"]
+
+				}
+			</script>
 @endsection
