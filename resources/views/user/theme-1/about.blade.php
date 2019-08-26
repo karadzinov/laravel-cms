@@ -70,7 +70,7 @@
 
 	<!-- section start -->
 	<!-- ================ -->
-	<section class="pv-40 stats padding-bottom-clear light-translucent-bg hovered background-img-5">
+	<section class="pv-40 stats padding-bottom-clear light-translucent-bg hovered" style="background-image:url('{{asset('images/about/originals/'.$about->image)}}');background-position: 50% 50%;">
 		<div class="clearfix">
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">

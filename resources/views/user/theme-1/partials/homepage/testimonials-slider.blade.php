@@ -1,4 +1,6 @@
 @if($testimonials->isNotEmpty())
+<h2 class="text-center section-title">{{trans('general.our-clients-about-us')}}</h2>
+<div class="separator"></div>
 	<div class="owl-carousel content-slider">
 		@foreach($testimonials as $testimonial)
 			<div class="container">

@@ -199,36 +199,6 @@
 								data-endspeed="600">{{$slide->subtitle}}
 							</div>
 
-							{{-- <!-- LAYER NR. 3 -->
-							<div class="tp-caption sfb fadeout text-right medium_white"
-								data-x="right"
-								data-y="260" 
-								data-speed="500"
-								data-start="1600"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-check"></i></span> Bootstrap Based
-							</div>
-
-							LAYER NR. 4
-							<div class="tp-caption sfb fadeout text-right medium_white"
-								data-x="right"
-								data-y="320" 
-								data-speed="500"
-								data-start="1900"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-gift"></i></span> Packed Full of Features
-							</div>
-
-							<!-- LAYER NR. 5 -->
-							<div class="tp-caption sfb fadeout text-right medium_white"
-								data-x="right"
-								data-y="380" 
-								data-speed="500"
-								data-start="2200"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-hourglass"></i></span> Very Easy to Customize
-							</div> --}}
-
 							@if($slide->link)
 								<!-- LAYER NR. 6 -->
 								<div class="tp-caption sfb fadeout small_white"
@@ -237,7 +207,7 @@
 									data-speed="500"
 									data-start="2500"
 									data-easing="easeOutQuad"
-									data-endspeed="600"><a href="{{$slide->link}}" class="btn btn-default btn-lg btn-animated">{{trans('general.more')}} <i class="fa fa-cart-arrow-down"></i></a>
+									data-endspeed="600"><a href="{{$slide->link}}" class="btn btn-default btn-lg btn-animated">{{trans('general.more')}} <i class="fa fa-plus"></i></a>
 								</div>
 							@endif
 							</li>
@@ -289,36 +259,6 @@
 								data-endspeed="600">{{$slide->subtitle}}
 							</div>
 
-							{{-- <!-- LAYER NR. 3 -->
-							<div class="tp-caption sfb fadeout text-left medium_white"
-								data-x="left"
-								data-y="260" 
-								data-speed="500"
-								data-start="1600"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-check"></i></span> Bootstrap Based
-							</div>
-
-							<!-- LAYER NR. 4 -->
-							<div class="tp-caption sfb fadeout text-left medium_white"
-								data-x="left"
-								data-y="320" 
-								data-speed="500"
-								data-start="1900"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-gift"></i></span> Packed Full of Features
-							</div>
-
-							<!-- LAYER NR. 5 -->
-							<div class="tp-caption sfb fadeout text-left medium_white"
-								data-x="left"
-								data-y="380" 
-								data-speed="500"
-								data-start="2200"
-								data-easing="easeOutQuad"
-								data-endspeed="600"><span class="icon default-bg circle small hidden-xs"><i class="icon-hourglass"></i></span> Very Easy to Customize
-							</div> --}}
-
 							@if($slide->link)
 								<!-- LAYER NR. 6 -->
 								<div class="tp-caption sfb fadeout small_white"
@@ -327,15 +267,13 @@
 									data-speed="500"
 									data-start="2500"
 									data-easing="easeOutQuad"
-									data-endspeed="600"><a href="{{$slide->link}}" class="btn btn-default btn-lg btn-animated">{{trans('general.more')}} <i class="fa fa-cart-arrow-down"></i></a>
+									data-endspeed="600"><a href="{{$slide->link}}" class="btn btn-default btn-lg btn-animated">{{trans('general.more')}} <i class="fa fa-plus"></i></a>
 								</div>
 							@endif
 							</li>
 							<!-- slide 2 end -->
 						@endif
 					@endforeach
-					
-
 					
 				</ul>
 				<div class="tp-bannertimer"></div>

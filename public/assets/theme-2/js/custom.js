@@ -21,7 +21,7 @@ $(document).ready(function(){
         }
     }));
 
-    //footer search
+    //sidebar search
     $('#sidebar_search').keyup($.debounce(700, function (e) {
 		var responseDiv = $('#sidebarSearchResults');
 		var search = $('#sidebar_search').val();
@@ -73,7 +73,7 @@ $(document).ready(function(){
      	faqs.length ? results += appendResults(faqs, translations.faqs) : null;
 
      	results += `
-			<small class="m-0 text-muted fs-11"> 
+			<small class="text-muted fs-11"> 
 				${translations.total}
 			</small>
      	`;
@@ -84,7 +84,7 @@ $(document).ready(function(){
     	results = `<h4 class="list-group-item searchResultsTitle">${title}</h4>`;
     	for(var i = 0; i<items.length; i++){
     		results += 
-    			`<a class="list-group-item list-group-item-action href="${items[i].route}">
+    			`<a class="list-group-item list-group-item-action" href="${items[i].route}">
     				${items[i].title}
     			</a>`;
     	}

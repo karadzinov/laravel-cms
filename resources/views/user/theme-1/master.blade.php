@@ -8,6 +8,11 @@
 	<head>
 		@include($path . 'partials/head')
 		@yield('optionalHead')
+		<style>
+			footer .overlay-container{
+				height: auto;
+			}
+		</style>
 	</head>
 
 	<!-- body classes:  -->

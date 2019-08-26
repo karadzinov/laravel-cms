@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends($path.'master')
 @section('optionalHead')
 	<style>
 		.overlay-container{

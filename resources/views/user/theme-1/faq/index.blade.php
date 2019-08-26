@@ -62,7 +62,7 @@
 					<aside class="col-md-4 col-lg-3 col-lg-offset-1">
 						<div class="sidebar">
 							<div class="block clearfix">
-								<h3 class="title">{{trans('general.as-question')}}</h3>
+								<h3 class="title">{{trans('general.ask-question')}}</h3>
 								<div class="separator-2"></div>
 								<div class="alert alert-success hidden" id="MessageSent3">
 									{{trans('general.soon_response')}}

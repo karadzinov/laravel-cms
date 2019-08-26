@@ -54,8 +54,8 @@ return [
 	'we_love' 			=> 'We Love',
 	'what' 				=> 'What',
 	'we_do' 			=> 'We Do',
-	'latest' 		=> 'Latest',
-	'posts' 		=> 'Posts',
+	'latest' 			=> 'Latest',
+	'posts' 			=> 'Posts',
 	//posts
 	'out_posts' 	  => 'Our Posts', 
 	'posts_top_text'  => 'This is default english text for posts page.', 
@@ -86,11 +86,6 @@ return [
 	'go-to-admin'	  => 'Go to Admin',
 	'coming-soon'	  => 'Coming Soon',
 
-
-
-
-
-
 	'check-later' 	=> 'Please, check back again, page is under construction.',
 	'read-more'				=> 'Read More',
 	'popular'				=> 'Popular',
@@ -110,7 +105,7 @@ return [
 	'submit-question'		=> 'Submit Question',
 	'ask-question'			=> 'Ask Question',
 	'validation_message'	=> 'Sorry! You need to complete all mandatory (*) fields!',
-	'latest-posts'			=> 'Latest posts',
+	'latest-posts'			=> 'Latest posts should have some longer text describing main subjects and similar stuff.',
 	'explore'				=> 'Explore',
 	'follow-us-on'			=> 'Follow us on socials networks',
 	'facebook'				=> 'Facebook',
@@ -135,6 +130,13 @@ return [
 	'our-partners'			=> 'Our Partner Companies',
 	'why-would-you'			=> 'Why Would You Choose :name',
 	'check-news'			=> 'Check Our News',
-	'check-latest-news'		=> 'Check Our Latest news',
+	'check-latest-news'		=> 'Latest news should have some longer text describing main subjects of categories, their logic and stuff like that.',
 	'total-results'			=> 'about<span class="text-success"> :count results </span>total',
+
+
+
+
+
+	'if-questions-contact' => 'If you have any questions or propositions please do not hesitate to contact us.',
+	'why-us-subtitle'	   => 'This is just the exemple of translatable why choose us section, and that should be longer, like And Quiet Flows the Don.',
 ];

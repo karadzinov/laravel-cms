@@ -3,6 +3,8 @@
 	<style>
 		#mainImage{
 			max-height: 600px;
+			width: 100%;
+			object-fit: cover;
 			margin: 0 auto;
 		}
 		.bottomImage{
@@ -21,7 +23,7 @@
 			<ol class="breadcrumb">
 				<li>
 					<i class="fa fa-home pr-10"></i>
-					<a href="/">
+					<a href="{{route('public.home')}}">
 						{{trans('general.home')}}
 					</a>
 				</li>

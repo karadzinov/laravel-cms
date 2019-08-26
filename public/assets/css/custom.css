@@ -391,8 +391,8 @@ footer #map-canvas{
 }
 
 .embed-responsive-16by9{
-  height: 266px;
-  padding-bottom: 0;
+  /*height: 266px;*/
+  /*padding-bottom: 0;*/
 }
 
 .admin-language-switcher{
@@ -405,8 +405,6 @@ footer #map-canvas{
 }
 .language-switcher{
   text-transform: uppercase;
-}
-.testingImg{
 }
 .circle .img-circle{
   height: 63px !important;

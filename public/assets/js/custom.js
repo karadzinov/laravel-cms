@@ -81,22 +81,34 @@ $(document).ready( function() {
 		}
 		
 	});
-	//nav bar live search functionality
+	
+	////nav bar live search functionality
 	$('#search_box').keyup($.debounce(700, function (e) {
-		var responseDiv = $('#searchResponse');;
+		var responseDiv = $('#searchResponse');
 		var search = $('#search_box').val();
-        if(search!=''){
+        if(search.length > 2){
 	        searchInDatabase(search, responseDiv);
         }else{
             responseDiv.html('');
         }
     }));
 
-    //main search on errors pages
+    //large page search
     $('#main_search_box').keyup($.debounce(700, function (e) {
-		var responseDiv = $('#mainSearchResponse');;
+		var responseDiv = $('#mainSearchResponse');
 		var search = $('#main_search_box').val();
-        if(search){
+        if(search.length > 2){
+	        searchInDatabase(search, responseDiv);
+        }else{
+            responseDiv.html('');
+        }
+    }));
+
+    //sidebar search
+    $('#sidebar_search').keyup($.debounce(700, function (e) {
+		var responseDiv = $('#sidebarSearchResults');
+		var search = $('#sidebar_search').val();
+        if(search.length > 2){
 	        searchInDatabase(search, responseDiv);
         }else{
             responseDiv.html('');
@@ -112,28 +124,55 @@ $(document).ready( function() {
                 search: search
                 },
             success: function(response){
-            	responseDiv.html('');
-				if(response.length == 0){
-					var htmlResponse = '<ul class="list-group">';
-					htmlResponse+= '<li class="list-group-item alert alert-warning">There is no results.</li> ';
+            	responseDiv.html('');console.log(response)
+				if(!response.posts.length && !response.pages.length && !response.faqs.length){
+					var htmlResponse = 
+						`
+						<h4 class="list-group-item searchResultsTitle">
+							<i class="et-sad"></i> 
+							${response.translations.noResults}
+						</h4>`;
 	                responseDiv.append(htmlResponse);
 				}else{
-					var resultsList = '<ul class="list-group">';
-	                for(var i = 0; i<response.length; i++){
-	                	var tagClass = response[i].type + 'Response';
-	                	resultsList += '<li class="list-group-item"><a href="' + response[i].route + '" class="searchResults">';
-	                	resultsList +=  '<span class="'+tagClass+'"> ' + response[i].type;
-	                	resultsList += '</span> '+ response[i].title + '</a> <br/>';
-
-	                }
-	                	resultsList += '</ul>'
-	                	responseDiv.append(resultsList);
+					var resultsList = prepareList(response);
+	                responseDiv.append(resultsList);
 				}
             },
             error: function(response){
                 console.log('Something went wrong.');
             }
        });
+    }
+
+    function prepareList(response){
+    	var results = '';
+    	var posts = response.posts;
+    	var pages = response.pages;
+    	var faqs = response.faqs;
+        var translations = response.translations;
+
+     	posts.length ? results += appendResults(posts, translations.posts) : null; 
+     	pages.length ? results += appendResults(pages, translations.pages) : null; 
+     	faqs.length ? results += appendResults(faqs, translations.faqs) : null;
+
+     	results += `
+			<small class="m-0 text-muted fs-11"> 
+				${translations.total}
+			</small>
+     	`;
+    	return results;
+    }
+
+    function appendResults(items, title){
+    	results = `<h4 class="list-group-item searchResultsTitle">${title}</h4>`;
+    	for(var i = 0; i<items.length; i++){
+    		results += 
+    			`<a class="list-group-item list-group-item-action" href="${items[i].route}">
+    				${items[i].title}
+    			</a>`;
+    	}
+
+    	return results;
     }
 });
 

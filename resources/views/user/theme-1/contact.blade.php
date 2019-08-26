@@ -76,6 +76,9 @@
 				<!-- ================ -->
 				<aside class="col-md-4 col-lg-3 col-lg-offset-1">
 					<div class="sidebar">
+						<p>
+							{{trans('general.if-questions')}}
+						</p>
 						<div class="block clearfix">
 							<h3 class="title">{{trans('general.find_us')}}</h3>
 							<div class="separator-2"></div>

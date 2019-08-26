@@ -23,6 +23,13 @@
 							<div class="masonry-grid row">
 								@include($path . 'partials/pages/pages-list')
 							</div>
+							<!-- pagination start -->
+							<nav class="text-center">
+								<ul class="pagination">
+									{{$pages->links()}}
+								</ul>
+							</nav>
+							<!-- pagination end -->
 					</div>
 				</div>
 			@else

@@ -1,7 +1,7 @@
 @extends($path . 'master')
 @section('optionalHead')
 	<style>
-		.light-gray-bg{
+		.page-starts{
 			margin-top: 65px;
 		}
 	</style>
@@ -10,7 +10,7 @@
 	@if($posts->isNotEmpty())
 		<!-- banner start -->
 		<!-- ================ -->
-		<div class="light-gray-bg banner pv-40">
+		<div class="page-starts banner pv-40">
 			<div class="container clearfix">
 
 				<!-- slideshow start -->
@@ -101,7 +101,7 @@
 		<!-- banner end -->
 		<section class="main-container">
 
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 
 					<!-- main start -->
@@ -120,7 +120,13 @@
 						<!-- page-title end -->
 
 						@include($path . 'partials/posts/posts-list')
-
+						<!-- pagination start -->
+						<nav class="text-center">
+							<ul class="pagination">
+								{{$posts->links()}}
+							</ul>
+						</nav>
+						<!-- pagination end -->
 					</div>
 					<!-- main end -->
 
