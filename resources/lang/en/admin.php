@@ -60,5 +60,6 @@ return [
 	'online'		=> 'Online',
 	'offline'		=> 'Offline',
 	'ops'			=> 'Ooops! Something went wrong!',
+	'top-title'		=> 'Top title'
 	
 ];

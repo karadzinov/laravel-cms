@@ -41,13 +41,13 @@ $(document).ready(function(){
                 search: search
                 },
             success: function(response){
-            	responseDiv.html('');
+            	responseDiv.html('');console.log(response)
 				if(!response.posts.length && !response.pages.length && !response.faqs.length){
 					var htmlResponse = 
 						`
 						<h4 class="list-group-item searchResultsTitle">
 							<i class="et-sad"></i> 
-							We couldn't find any results
+							${response.translations.noResults}
 						</h4>`;
 	                responseDiv.append(htmlResponse);
 				}else{
@@ -66,15 +66,15 @@ $(document).ready(function(){
     	var posts = response.posts;
     	var pages = response.pages;
     	var faqs = response.faqs;
+        var translations = response.translations;
 
-     	posts.length ? results += appendResults(posts, 'Posts') : null; 
-     	pages.length ? results += appendResults(pages, 'Pages') : null; 
-     	faqs.length ? results += appendResults(faqs, 'FAQs') : null;
+     	posts.length ? results += appendResults(posts, translations.posts) : null; 
+     	pages.length ? results += appendResults(pages, translations.pages) : null; 
+     	faqs.length ? results += appendResults(faqs, translations.faqs) : null;
 
-     	var total = posts.length + pages.length + faqs.length;
      	results += `
 			<small class="m-0 text-muted fs-11"> 
-				about<span class="text-success"> ${total} results </span>total
+				${translations.total}
 			</small>
      	`;
     	return results;

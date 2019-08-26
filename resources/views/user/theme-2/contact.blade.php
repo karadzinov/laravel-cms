@@ -41,8 +41,7 @@
 
 			<!-- breadcrumbs -->
 			<ol class="breadcrumb  breadcrumb-inverse">
-				<li><a href="#">{{trans('general.navigation.home')}}</a></li>
-				<li><a href="#">{{trans('general.navigation.pages')}}</a></li>
+				<li><a href="{{route('public.home')}}">{{trans('general.navigation.home')}}</a></li>
 				<li class="active">{{trans('general.navigation.contact')}}</li>
 			</ol><!-- /breadcrumbs -->
 

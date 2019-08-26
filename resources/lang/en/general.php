@@ -118,19 +118,6 @@ return [
 	'linkedin'				=> 'LinkedIn',
 	'instagram'				=> 'Instagram',
 	'rss'					=> 'Rss Feed',
-	
-
-
-
-
-
-
-
-
-
-
-
-
 	'written-by'			=> 'written by',
 	'search-results-for'	=> 'Search Results For',
 	'no-results-for'		=> 'Sorry! We Couldn\'t find any results for',
@@ -148,6 +135,6 @@ return [
 	'our-partners'			=> 'Our Partner Companies',
 	'why-would-you'			=> 'Why Would You Choose :name',
 	'check-news'			=> 'Check Our News',
-	''=>'',
-	''=>'',
+	'check-latest-news'		=> 'Check Our Latest news',
+	'total-results'			=> 'about<span class="text-success"> :count results </span>total',
 ];

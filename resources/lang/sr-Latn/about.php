@@ -20,6 +20,5 @@ return [
         'updated' => 'Stranica \'O nama\' uspešno ažurirana.',
         'deleted' => 'Stranica \'O nama\' uspešno izbrisana.',
     ],
-    'error'         => 'We are experiencing some issues, please try again later.',
-
+    'error'         => 'Došlo je do greške prilikom procesa, molimo Vas pokušajte ponovo kasnije.' 
 ];

@@ -20,8 +20,11 @@ class SearchController extends Controller
 
     	$faqs = $this->searchInFaqsForAjax($searchTerm);
         $faqs = $this->makeSearchMenuItems($faqs, 'faq');
+        
+        $count = count($posts) + count($pages) + count($faqs);
+        $translations = $this->getTitlesTranslations($request->get('search'), $count);
 
-        $items = compact('posts', 'pages', 'faqs');
+        $items = compact('posts', 'pages', 'faqs', 'translations');
 
     	return $items;
     }
@@ -101,5 +104,18 @@ class SearchController extends Controller
     	$items = $items->toArray();
 
     	return $items;
+    }
+
+    public function getTitlesTranslations($term, $count){
+        
+        $translations = [
+            'posts'          => trans('general.navigation.posts'),
+            'pages'          => trans('general.navigation.pages'),
+            'faqs'           => trans('general.navigation.faq'),
+            'noResults'      => trans('general.no-results-for') . ' ' . $term,
+            'total'          => trans('general.total-results', compact('count')),
+        ];
+
+        return $translations;
     }
 }

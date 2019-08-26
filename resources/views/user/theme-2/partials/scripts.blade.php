@@ -1,12 +1,12 @@
 <!-- JAVASCRIPT FILES -->
 <script>var plugin_path = '{{asset('assets/theme-2/plugins/')}}/';</script>
 <script src="{{asset('assets/theme-2/plugins/jquery/jquery-3.3.1.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js')}}"></script>
 
 <!-- REVOLUTION SLIDER -->
 <script src="{{asset('assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.tools.min.js')}}"></script>
 <script src="{{asset('assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
 <script src="{{asset('assets/theme-2/js/view/demo.revolution_slider.js')}}"></script>
-<script src="{{asset('assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js')}}"></script>
 <!-- SCRIPTS -->
 <script src="{{asset('assets/theme-2/js/scripts.js')}}"></script>
 

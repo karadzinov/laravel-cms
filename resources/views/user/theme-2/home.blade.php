@@ -269,7 +269,7 @@
 				<div class="col-md-4">
 					
 					<div class="heading-title heading-border-bottom heading-color">
-						<h3 class="text-muted">{{trans('general.about_us') . ' ' . $settings->title}}</h3>
+						<h3 class="text-muted">{{trans('general.about_us')}}</h3>
 					</div>
 					
 					<p>{{substr(strip_tags($about->why_us), 0, 200) }}...</p>
@@ -408,7 +408,7 @@
 	</h2>
 	<section>
 		<div class="container">
-			<p class="text-center">Check Our Latest news.</p>
+			<p class="text-center">{{trans('general.check-latest-news')}}</p>
 			<div class="row">
 				@foreach($posts as $post)
 					<div class="col-sm-6 col-md-3 text-center">

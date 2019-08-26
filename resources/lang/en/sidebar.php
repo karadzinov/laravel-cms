@@ -20,4 +20,6 @@ return [
 	'logs' 			=> 'Logs',
 	'routes' 		=> 'Routes',
 	'online-users' 	=> 'Online Users',
+	'partners' 		=> 'Partners',
+	'slides' 		=> 'Slides',
 ];
