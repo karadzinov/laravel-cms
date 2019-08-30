@@ -22,4 +22,5 @@ return [
 	'online-users' 	=> 'Korisnici na mreži',
 	'partners' 		=> 'Partneri',
 	'slides' 		=> 'Slajdovi',
+	'translations' 	=> 'Prevodi',
 ];

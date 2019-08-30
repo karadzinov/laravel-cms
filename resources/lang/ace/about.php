@@ -1,6 +1,6 @@
 <?php return
 array (
-  'about' => 'ABOUT',
+  'about' => 'About',
   'create-new' => 'Create About Page For Chosen Language',
   'edit' => 'Edit',
   'delete' => 'Delete',
