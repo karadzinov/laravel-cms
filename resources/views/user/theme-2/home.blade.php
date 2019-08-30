@@ -230,7 +230,7 @@
 	</section>
 	<!-- /REVOLUTION SLIDER -->
 	<h2 class="text-center mt-50 text-muted uppercase">
-		{{trans('welcome') . ' '. trans('to') . ' ' . $settings->title}}
+		{{trans('general.welcome') . ' '. trans('general.to') . ' ' . $settings->title}}
 	</h2>
 	<section class="info-bar info-bar-clean">
 		<div class="container">

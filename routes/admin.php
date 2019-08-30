@@ -178,3 +178,13 @@ Route::group(["prefix" => "slides", "as"=>"slides.", 'middleware' => ['auth', 'a
     Route::put('update/{slide}', 'SlidesController@update')->name('update');
     Route::delete('delete/{slide}', 'SlidesController@delete')->name('delete');
 });
+
+Route::group(["prefix" => "translations", "as"=>"translations.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::post('update/{language}/{file}', 'TranslationsController@update')->name('update');
+    Route::get('index', 'TranslationsController@index')->name('index');
+    Route::get('show/{language}', 'TranslationsController@show')->name('show');
+    Route::get('create', 'TranslationsController@create')->name('create');
+    Route::post('store', 'TranslationsController@store')->name('store');
+    Route::get('edit/{language}/{file}', 'TranslationsController@edit')->name('edit');
+    // Route::delete('delete/{language}', 'TranslationsController@delete')->name('delete');
+});

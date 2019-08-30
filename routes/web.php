@@ -27,8 +27,9 @@ Route::get('/changeTheme', function(){
 });
 
 Route::get('test', function(){
-     dd('test');
+dd('test')  ;
 });
+
 
 
 // Homepage Route
