@@ -44,7 +44,7 @@ return [
             If you find words starting with ":" (ex. :name, :title), leave them as they are, they are dynamic.
           </li>
           <li>
-            If you find parts of translation starting with <code><span class="exemple-class" id="just-an-exemple-id">This is just an exemple</span></code> change only the part between span tags, so in this case "This is just an exemple" is changable.
+            If you find parts of translation starting with <code><_span class="exemple-class" id="just-an-exemple-id">This is just an exemple<_/span></code> change only the part between span tags, so in this case "This is just an exemple" is changable.
           </li>
           <li>
             If you find letters with no sense to you (ex. <code>"&_laquo";</code>) leave it as it is, those are specials characters written for your machine. This character, for exemple is &laquo;
@@ -55,5 +55,6 @@ return [
         </ul>
     </div>
   ',
-  'how-to'          => 'How To Translate',
+  'how-to'                  => 'How To Translate',
+  'missing-enabled-language' => 'You have :count languages without translation files. Please make them on translation page.'
 ];

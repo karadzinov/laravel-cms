@@ -65,7 +65,7 @@ class TranslationsController extends Controller
     }
 
     public function create(){
-        $languages = Language::select('native', 'id')->get();
+        $languages = Language::where('folder', '=', 0)->orderByDesc('active')->select('native', 'id')->get();
 
         $view = view('admin/partials/translations/languageSelector', compact('languages'))->render();
         

@@ -2,13 +2,24 @@
 
 namespace App\Helpers\Translations;
 
-class Translation{
-	public $name;
-	public $files;
+use App\Models\Language;
 
-	public function __construct($name, $files)
+class Translation{
+	public $folder;
+	public $files;
+	public $name;
+
+	public function __construct($folder, $files)
 	{
-		$this->name = $name;
+		$this->folder = $folder;
+		$this->name = $this->findInLanguagesTable($this->folder);
 		$this->files = $files;
+	}
+
+	public function findInLanguagesTable($folder){
+		
+		$name = Language::where('code', '=', $folder)->first()->name;
+
+		return $name;
 	}
 }

@@ -314,6 +314,11 @@ class LanguagesTableSeeder extends Seeder
 
         $enableEnglish = Language::where('code', '=', 'en')->first();
         $enableEnglish->active = true;
+        $enableEnglish->folder = true;
         $enableEnglish->save();
+
+        $serbianFolder = Language::where('code', '=', 'sr-Latn')->first();
+        $serbianFolder->folder = true;
+        $serbianFolder->save();
     }
 }

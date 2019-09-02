@@ -1,6 +1,6 @@
 <div class="my-alerts">
   @if (session('message'))
-    <div class="alert alert-{{ Session::get('status') }} status-box alert-dismissable {{-- fade --}} show" role="alert">
+    <div class="alert alert-warning alert-{{ Session::get('status') }} status-box alert-dismissable {{-- fade --}} show" role="alert">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;<span class="sr-only">{{trans('admin.close')}}</span></a>
       {{ session('message') }}
     </div>

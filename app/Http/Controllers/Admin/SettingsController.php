@@ -110,7 +110,7 @@ class SettingsController extends Controller
         $settings = Settings::firstOrFail();
         $input = $request->all();
 
-        $langages = $this->updateAvailableLanguages($request->get('languages'));
+        $languages = $this->updateAvailableLanguages($request->get('languages'));
         unset($input['languages']);
 
         $theme = $this->updateTheme($request->get('theme'));
@@ -121,9 +121,13 @@ class SettingsController extends Controller
             $input['logo'] = $image;
         }
         $settings->update($input);
-        
-         return redirect('admin/meta/settings')
-                ->with('success', trans('settings.success.updated'));
+        $formStatusMessage = ['success'=>trans('settings.success.updated')];
+        if(count($languages)){
+            $formStatusMessage['message'] = trans('translations.missing-enabled-language', ['count'=>count($languages)]);
+        }
+       
+        return redirect('admin/meta/settings')
+                ->with($formStatusMessage);
     }
 
     public function updateTheme($theme){
@@ -142,16 +146,22 @@ class SettingsController extends Controller
     public function updateAvailableLanguages($languages){
         
         $avalilableLanguages = Language::where('active', '=', '1')->get();
+
         foreach($avalilableLanguages as $language){
             $language->active = false;
             $language->save();
         }
-
+        $withoutFolder = [];
         foreach($languages as $id){
             $language = Language::findOrFail($id);
             $language->active = true;
             $language->save();
+            if(!$language->folder){
+                $withoutFolder[] = $language->name;
+            }
         }
+
+        return $withoutFolder;
     }
 
     /**

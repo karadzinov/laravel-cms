@@ -44,7 +44,7 @@ return [
             Ukoliko naiđete na reči koje počinju sa ":" (npr. :name, :title), ostavite ih u tom obliku jer su to mesta gde se reči dodaju dinamički.
           </li>
           <li>
-          Ukoliko naiđete na delove prevoda koji počinju sa <code><span class="exemple-class" id="just-an-exemple-id">This is just an exemple</span></code> promenite samo deo između tagova "span", tj. u ovom primeru "This is just an exemple" može da se promeni.
+          Ukoliko naiđete na delove prevoda koji počinju sa <code><_span class="exemple-class" id="just-an-exemple-id">This is just an exemple<_/span></code> promenite samo deo između tagova "span", tj. u ovom primeru "This is just an exemple" može da se promeni.
           </li>
           <li>
             Ukoliko naiđete na reči bez smisla, (npr. <code>"&_laquo";</code>) ostavite ih u tom obliku, to su specijalni znaci pisani za kompjuter. Prethodni znak npr. označava &laquo;
@@ -55,5 +55,6 @@ return [
         </ul>
     </div>
   ',
-  'how-to'          => 'How To Translate',
+  'how-to'                   => 'Kako prevesti',
+  'missing-enabled-language' => 'Imate :count jezika bez prevedenih fajlova. Molimo Vas da ih napravite na stranici Prevodi.'
 ];
