@@ -1,6 +1,6 @@
 <?php return
 array (
-  'about' => 'O nama',
+  'about' => 'O nama...',
   'create-new' => 'Napravi stranicu \'O nama\' za izabrani jezik',
   'edit' => 'Ispravi stranicu \'O nama\'',
   'delete' => 'Brisanje stranice',

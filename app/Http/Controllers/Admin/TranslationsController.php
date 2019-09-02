@@ -65,7 +65,10 @@ class TranslationsController extends Controller
     }
 
     public function create(){
-        $languages = Language::where('folder', '=', 0)->orderByDesc('active')->select('native', 'id')->get();
+        $languages = Language::where('folder', '=', 0)
+                        ->orderByDesc('active')
+                        ->select('native', 'id')
+                        ->get();
 
         $view = view('admin/partials/translations/languageSelector', compact('languages'))->render();
         
@@ -85,56 +88,60 @@ class TranslationsController extends Controller
 
         $language = Language::findOrFail($request->get('id'));
 
-        //copy english directory with new language code name
-        $src = self::EN_DIR;
-        $dst = self::LANG_DIR . $language->code;
-        $newDirectory = $this->copyEnglishDirectory($src, $dst);
+       try {
+            //copy english directory with new language code name
+            $src = self::EN_DIR;
+            $dst = self::LANG_DIR . $language->code;
+            $newDirectory = $this->copyEnglishDirectory($src, $dst);
+            $language->update(['folder'=>true]);
+            return response()->json(
+                [
+                    'status'        => 200,
+                    'language'      =>$language->native,
+                    'redirectRoute' => route('admin.translations.show', $language->code)
+                ]);
+       } catch (Exception $e) {
+           
+            return response()->json(['status'=>500]);
+       }
 
-        if($newDirectory === true){
-            return response()->json([
-                                'status'        => 200,
-                                'language'      =>$language->native,
-                                'redirectRoute' => route('admin.translations.show', $language->code)
-                            ]);
-        }
-
-        return response()->json(['status'=>500]);
     }
 
     public function copyEnglishDirectory($src, $dst) {
-       try {
-           $dir = opendir($src); 
-           @mkdir($dst); 
-           while(false !== ( $file = readdir($dir)) ) { 
-               if (( $file != '.' ) && ( $file != '..' )) { 
-                   if ( is_dir($src . '/' . $file) ) { 
-                       copyEnglishDirectory($src . '/' . $file,$dst . '/' . $file); 
-                   } 
-                   else { 
-                       copy($src . '/' . $file,$dst . '/' . $file); 
-                   } 
+       $dir = opendir($src); 
+       @mkdir($dst); 
+       while(false !== ( $file = readdir($dir)) ) { 
+           if (( $file != '.' ) && ( $file != '..' )) { 
+               if ( is_dir($src . '/' . $file) ) { 
+                   copyEnglishDirectory($src . '/' . $file,$dst . '/' . $file); 
+               } 
+               else { 
+                   copy($src . '/' . $file,$dst . '/' . $file); 
                } 
            } 
-           closedir($dir);
+       } 
+       closedir($dir);
 
-           return true;
-       } catch (Exception $e) {
-           
-           return $e->getMessage();
-       }
+       return true;
     }
 
     public function edit($language, $file, Request $request){
     	
-    	$content = include(self::LANG_DIR . $language . '/'.$file.'.php');
-    	$arrayDepth = $this->array_depth($content);
-        $data = compact('content', 'language', 'file', 'arrayDepth');
-    	if($request->ajax()){
-            $data['parent'] = null;
-            return view('admin/partials/translations/items', $data)->render();
-        }
+    	try {
+            $content = include(self::LANG_DIR . $language . '/'.$file.'.php');
+            $arrayDepth = $this->array_depth($content);
+               $data = compact('content', 'language', 'file', 'arrayDepth');
+            
+               if($request->ajax()){
+                   $data['parent'] = null;
+                   return view('admin/partials/translations/items', $data)->render();
+               }
 
-    	return view('admin/translations/edit', $data);
+            return view('admin/translations/edit', $data); 
+        } catch (Exception $e) {
+            
+            return redirect()->route('admin.translations.index')->with('error', '404 error');
+        }
     }
 
     public function update($language, $file, Request $request){

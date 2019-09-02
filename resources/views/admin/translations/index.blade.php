@@ -90,7 +90,7 @@
 		    width:10px;
 		    height:0;
 		    border-top:1px solid;
-		    margin-top:-1px;
+		    /*margin-top:-1px;*/
 		    position:absolute;
 		    top:1em;
 		    left:0
@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col-md-12">
                         		<div id="loader"></div>
-                                <ul  style="display:none;" id="folders-container" class="animate-bottom">
+                                <ul id="folders-container" class="animate-bottom">
 
 	                               	@foreach($translations as $translation)
 										<li>
