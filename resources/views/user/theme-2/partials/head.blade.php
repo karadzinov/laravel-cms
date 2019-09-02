@@ -29,20 +29,8 @@
 <!-- WEB FONTS : use %7C instead of | (pipe) -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
-<!-- CORE CSS -->
-<link href="{{asset('assets/theme-2/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-
 <!-- Favicon -->
 <link rel="shortcut icon" href="{{asset('images/settings/medium/'. $settings->logo)}}">
 
-<!-- REVOLUTION SLIDER -->
-<link href="{{asset('assets/theme-2/plugins/slider.revolution/css/extralayers.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/theme-2/plugins/slider.revolution/css/settings.css')}}" rel="stylesheet" type="text/css" />
-
-<!-- THEME CSS -->
-<link href="{{asset('assets/theme-2/css/essentials.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/theme-2/css/layout.css')}}" rel="stylesheet" type="text/css" />
-
-<!-- PAGE LEVEL SCRIPTS -->
-<link href="{{asset('assets/theme-2/css/header-1.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/theme-2/css/color_scheme/green.css')}}" rel="stylesheet" type="text/css" id="color_scheme" />
+<!-- Mix -->
+<link rel="stylesheet" href="{{mix('css/theme-2-mix.css')}}">

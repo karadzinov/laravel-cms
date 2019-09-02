@@ -36,7 +36,7 @@ mix.styles([
          // 'public/assets/js/chat.js',
          // 'public/assets/js/admin-custom.js',
 			], 'public/js/mix.js')
-   .styles([
+   .styles([ //theme-1
          'public/assets/bootstrap/css/bootstrap.css',
          'public/assets/fonts/font-awesome/css/font-awesome.css',
          'public/assets/fonts/fontello/css/fontello.css',
@@ -70,6 +70,39 @@ mix.styles([
          'public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/js/custom.js',
          ], 'public/js/user-mix.js')
+   .styles([ //theme-2
+         //CORE CSS 
+         "public/assets/theme-2/plugins/bootstrap/css/bootstrap.min.css",
+
+         // REVOLUTION SLIDER
+         "public/assets/theme-2/plugins/slider.revolution/css/extralayers.css",
+         "public/assets/theme-2/plugins/slider.revolution/css/settings.css",
+
+         // THEME CSS
+         "public/assets/theme-2/css/essentials.css",
+         "public/assets/theme-2/css/layout.css",
+
+         // PAGE LEVEL SCRIPTS
+         "public/assets/theme-2/css/header-1.css",
+         "public/assets/theme-2/css/color_scheme/green.css",
+         ], 'public/css/theme-2-mix.css')
+   .babel([
+         "public/assets/theme-2/plugins/jquery/jquery-3.3.1.min.js",
+
+         // search helper package
+         "public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js",
+
+         // REVOLUTION SLIDER
+         "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.tools.min.js",
+         "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js",
+         "public/assets/theme-2/js/view/demo.revolution_slider.js",
+
+         // SCRIPTS
+         "public/assets/theme-2/js/scripts.js",
+
+         // custom
+         // "public/assets/theme-2/js/custom.js",
+         ], 'public/js/theme-2-mix.js')
    .js('resources/assets/js/app.js', 'public/js')
    .version();
 
