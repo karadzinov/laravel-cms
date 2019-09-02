@@ -6,7 +6,7 @@
                 <select id="languageSelector" multiple="multiple" style="width: 100%;" required="">
                     @foreach($languages as $language)
                         <option value="{{$language->id}}">
-                            {{$language->native}}
+                            {{$language->name}}
                         </option>
                     @endforeach
                 </select>

@@ -51,23 +51,28 @@ class TranslationsController extends Controller
     }
 
     public function show($language){
- 		$directory = self::LANG_DIR.$language;
- 		$items = array_diff(scandir($directory), ['.', '..']);
-        $files = [];
-        foreach($items as $file){
-            $file = str_replace('.php', '', $file);
-            $route = route('admin.translations.edit', compact('language', 'file'));
-            $file = new TranslationFile($file, $route);
-            $files[] = $file;
-        }
+ 		try {
+            $directory = self::LANG_DIR.$language;
+            $items = array_diff(scandir($directory), ['.', '..']);
+            $files = [];
+            foreach($items as $file){
+                $file = str_replace('.php', '', $file);
+                $route = route('admin.translations.edit', compact('language', 'file'));
+                $file = new TranslationFile($file, $route);
+                $files[] = $file;
+            }
 
- 		return view('admin/translations/show', compact('language','files'));  	
+            return view('admin/translations/show', compact('language','files'));       
+            } catch (Exception $e) {
+                return redirect()->route('admin.translations.index')->with('error', '404 error');
+                
+            }  	
     }
 
     public function create(){
         $languages = Language::where('folder', '=', 0)
                         ->orderByDesc('active')
-                        ->select('native', 'id')
+                        ->select('name', 'id')
                         ->get();
 
         $view = view('admin/partials/translations/languageSelector', compact('languages'))->render();

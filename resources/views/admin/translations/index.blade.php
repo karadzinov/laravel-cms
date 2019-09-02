@@ -117,6 +117,9 @@
 		    padding:0px 0px 0px 0px;
 		    outline: 0;
 		}
+		.tree li .btn{
+			color: white;
+		}
 	</style>
 @endsection
 @section('content')
@@ -147,6 +150,7 @@
 											</a>
 										    @if(count($translation->files))
 												<ul>
+													<li><a class="btn btn-sm btn-warning" href="{{route('admin.translations.show', ['language'=>$translation->folder])}}">Edit all files</a></li>
 													@foreach($translation->files as $file)
 														    <li>
 														    	<a href="{{$file->route}}">
