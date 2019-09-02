@@ -26,20 +26,20 @@
         </div>
         <div class="widget-body">
             <div>
-                <label for="title"><strong>Title:</strong></label>
+                <label for="title"><strong>{{trans('admin.title')}}:</strong></label>
                 <p>{!!$page->title!!}</p>
             </div>
             <div>
-                <label for="subtitle">Subtitle:</label>
+                <label for="subtitle">{{trans('admin.subtitle')}}:</label>
                 <pre><code>{!!$page->subtitle!!}</code></pre>
             </div>
             <div>
-                <label for="main_text">Main Text:</label>
+                <label for="main_text">{{trans('admin.main-text')}}:</label>
                 <pre id="main_text"><code>{!!$page->main_text!!}</code></pre>
             </div>
 
             @if($page->images->isNotEmpty())
-                <label for="gallery">Images:</label>
+                <label for="gallery">{{trans('admin.images')}}:</label>
 
                 <div id="gallery">
                     @foreach($page->images as $image)

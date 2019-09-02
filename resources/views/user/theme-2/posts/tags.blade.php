@@ -46,8 +46,8 @@
 
 			<!-- breadcrumbs -->
 			<ol class="breadcrumb">
-				<li><a href="#">{{trans('general.home')}}</a></li>
-				<li><a href="#">{{trans('general.posts')}}</a></li>
+				<li><a href="javascript:void(0)">{{trans('general.home')}}</a></li>
+				<li><a href="javascript:void(0)">{{trans('general.posts')}}</a></li>
 				<li class="active">{{$tag}}</li>
 			</ol><!-- /breadcrumbs -->
 

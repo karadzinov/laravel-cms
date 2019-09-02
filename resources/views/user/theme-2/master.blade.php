@@ -28,11 +28,16 @@
 			.language-switcher ul.dropdown-menu{
 				border: 0px !important;
 			}
-			#searchResponse{
+			#searchResponse, #mainSearchResponse{
 				width: 100%;
 			}
+			#mainSearchResponse{
+				position:absolute;
+				max-width: 500px;
 
-			#searchResponse .searchResultsTitle{
+			}
+
+			#searchResponse .searchResultsTitle, #mainSearchResponse .searchResultsTitle{
 				background-color: #8AB933;
 				color: white;
 			}
@@ -89,7 +94,7 @@
 
 
 		<!-- SCROLL TO TOP -->
-		<a href="#" id="toTop"></a>
+		<a href="javascript:void(0)" id="toTop"></a>
 
 
 		<!-- PRELOADER -->

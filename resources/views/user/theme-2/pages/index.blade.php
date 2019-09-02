@@ -62,7 +62,7 @@
 
 							<ul class="blog-post-info list-inline">
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<i class="fa fa-clock-o"></i> 
 										<span class="font-lato">{{$page->created_at->format('M d, Y')}}</span>
 									</a>
@@ -86,7 +86,7 @@
 
 							<ul class="blog-post-info list-inline">
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<i class="fa fa-clock-o"></i> 
 										<span class="font-lato">{{$page->created_at->format('M d, Y')}}</span>
 									</a>

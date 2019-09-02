@@ -102,7 +102,7 @@
 					<!-- sidebar end -->
 				</div>
 			@else
-				@include($path . 'comingSoon')
+				@include($path . 'partials/comingSoon')
 			@endif
 		</div>
 	</section>

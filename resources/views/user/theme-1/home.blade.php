@@ -37,7 +37,9 @@
 @endsection
 
 @section('content')
-	@include($path . 'partials/homepage/top-slider')
+	@if($slides->isNotEmpty())
+		@include($path . 'partials/homepage/top-slider')
+	@endif
 	
 	<div id="page-start"></div>
 
@@ -51,19 +53,28 @@
 						{{trans('welcome') . ' '. trans('to') . ' ' . $settings->title}}
 					</h2>
 					<div class="separator"></div>
-					<p class="large text-center">{{$about->welcome_note}}</p>
+					@if($about)
+						<p class="large text-center">
+							{{$about->welcome_note}}
+						</p>
+					@endif
 				</div>
-				@foreach($categories as $category)
-					<div class="col-md-4 ">
-						<div class="pv-30 ph-20 feature-box bordered shadow text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
-							<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
-							<h3>{{$category->name}}</h3>
-							<div class="separator clearfix"></div>
-							<p>{{$category->description}}</p>
-							<a href="{{$category->showRoute}}">{{trans('general.read_more')}} <i class="pl-5 fa fa-angle-double-right"></i></a>
-						</div>
+			</div>
+				@if($categories->isNotEmpty())
+					<div class="row">
+						@foreach($categories as $category)
+							<div class="col-md-4 ">
+								<div class="pv-30 ph-20 feature-box bordered shadow text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
+									<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
+									<h3>{{$category->name}}</h3>
+									<div class="separator clearfix"></div>
+									<p>{{$category->description}}</p>
+									<a href="{{$category->showRoute}}">{{trans('general.read_more')}} <i class="pl-5 fa fa-angle-double-right"></i></a>
+								</div>
+							</div>
+						@endforeach
 					</div>
-				@endforeach
+				@endif
 			</div>
 		</div>
 	</section>
@@ -93,13 +104,9 @@
 	</section>
 	<!-- section end -->
 
-	@include($path . 'partials/homepage/middle-slider')
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="pv-20">
-	</section>
-	<!-- section end -->
+	@if($about)
+		@include($path . 'partials/homepage/middle-slider')
+	@endif
 
 	<!-- section -->
 	<!-- ================ -->
@@ -108,72 +115,74 @@
 	@endif
 	<!-- section end -->
 
-	<!-- section -->
-	<!-- ================ -->
-	<section class="pv-30 padding-bottom-clear">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2 class="text-center">{{trans('general.navigation.posts')}}</h2>
-					<div class="separator"></div>
-					<p class="large text-center">
-						{{trans('general.check-latest-news')}}
-					</p>
-					<br>
-				</div>
-			</div>
-		</div>
-		<div class="space-bottom">
-			<div class="owl-carousel carousel">
-				@foreach($posts as $post)
-					<div class="image-box shadow text-center">
-						<div class="overlay-container">
-							<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
-							<div class="overlay-top">
-								<div class="text">
-									<h3><a href="portfolio-item.html">{{$post->title}}</a></h3>
-									<p class="small">{{$post->subtitle}}</p>
-								</div>
-							</div>
-							<div class="overlay-bottom">
-								<div class="links">
-									<a href="{{$post->showRoute}}" class="btn btn-gray-transparent btn-animated">{{trans('general.read-more')}} <i class="pl-10 fa fa-arrow-right"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-
-			@include($path . 'partials/homepage/testimonials-slider')
-			
-			<h2 class="text-center section-title">{{trans('general.our-partners')}}</h2>
-			<div class="separator"></div>
+	@if($posts->isNotEmpty())
+		<!-- section -->
+		<!-- ================ -->
+		<section class="pv-30 padding-bottom-clear">
 			<div class="container">
-				<div class="clients-container">
-					<div class="clients">
-						@php
-							$effectDelay = 200;
-						@endphp
-						@foreach($partners as $partner)
-							<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="{{$effectDelay}}">
-							<a href="{{$partner->link}}"><img src="{{$partner->thumbnailPath}}" alt=""></a>
-						</div>
-						@php
-							$effectDelay += 200;
-						@endphp
-						@endforeach
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<h2 class="text-center">{{trans('general.navigation.posts')}}</h2>
+						<div class="separator"></div>
+						<p class="large text-center">
+							{{trans('general.check-latest-news')}}
+						</p>
+						<br>
 					</div>
 				</div>
 			</div>
+			<div class="space-bottom">
+				<div class="owl-carousel carousel">
+					@foreach($posts as $post)
+						<div class="image-box shadow text-center">
+							<div class="overlay-container">
+								<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
+								<div class="overlay-top">
+									<div class="text">
+										<h3><a href="portfolio-item.html">{{$post->title}}</a></h3>
+										<p class="small">{{$post->subtitle}}</p>
+									</div>
+								</div>
+								<div class="overlay-bottom">
+									<div class="links">
+										<a href="{{$post->showRoute}}" class="btn btn-gray-transparent btn-animated">{{trans('general.read-more')}} <i class="pl-10 fa fa-arrow-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
 
-		</div>
-	</section>
-	<!-- section end -->
+				@include($path . 'partials/homepage/testimonials-slider')
+				
+				<h2 class="text-center section-title">{{trans('general.our-partners')}}</h2>
+				<div class="separator"></div>
+				<div class="container">
+					<div class="clients-container">
+						<div class="clients">
+							@php
+								$effectDelay = 200;
+							@endphp
+							@foreach($partners as $partner)
+								<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="{{$effectDelay}}">
+								<a href="{{$partner->link}}"><img src="{{$partner->thumbnailPath}}" alt=""></a>
+							</div>
+							@php
+								$effectDelay += 200;
+							@endphp
+							@endforeach
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- section end -->
+	@endif
 
 	<!-- section start -->
 	<!-- ================ -->
-	<section class="pv-40 stats padding-bottom-clear dark-translucent-bg hovered" style="background-image:url('{{asset('images/about/originals/'.$about->image)}}');background-position: 50% 50%;">
+	<section class="pv-40 stats padding-bottom-clear dark-translucent-bg hovered" style="background-image:url('{{asset('images/about/originals/'.optional($about)->image)}}');background-position: 50% 50%;">
 		<div class="clearfix">
 			<div class="col-md-3 col-xs-6 text-center">
 				<div class="feature-box object-non-visible" data-animation-effect="fadeIn" data-effect-delay="300">

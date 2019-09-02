@@ -44,7 +44,7 @@
 						<i class="fa fa-search"></i>
 					</a>
 					<div class="search-box">
-						<a id="closeSearch" href="#">X</a>
+						<a id="closeSearch" href="javascript:void(0)">X</a>
 
 						<form action="{{route('search')}}" method="get">
 							<div class="input-group">
@@ -99,7 +99,7 @@
 						Direct Link Example: 
 
 						<li>
-							<a href="#">HOME</a>
+							<a href="javascript:void(0)">HOME</a>
 						</li>
 					-->
 					<ul id="topMain" class="nav nav-pills nav-main uppercase">

@@ -147,21 +147,21 @@
 
 					<hr />
 					<div class="hidden-xs-down text-center">
-						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-facebook" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+						<a target="_blank" href="javascript:void(0)" class="social-icon social-icon-border btn-round btn-shadow-1 social-facebook" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
 							<i class="icon-facebook"></i>
 							<i class="icon-facebook"></i>
 						</a>
 
-						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-twitter" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+						<a target="_blank" href="javascript:void(0)" class="social-icon social-icon-border btn-round btn-shadow-1 social-twitter" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
 							<i class="icon-twitter"></i>
 							<i class="icon-twitter"></i>
 						</a>
 
-						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-linkedin" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+						<a target="_blank" href="javascript:void(0)" class="social-icon social-icon-border btn-round btn-shadow-1 social-linkedin" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
 							<i class="icon-linkedin"></i>
 							<i class="icon-linkedin"></i>
 						</a>
-						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
+						<a target="_blank" href="javascript:void(0)" class="social-icon social-icon-border btn-round btn-shadow-1 social-instagram" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
 							<i class="fa fa-instagram"></i>
 							<i class="fa fa-instagram"></i>
 						</a>
@@ -169,7 +169,7 @@
 							<i class="fa fa-apple"></i>
 							<i class="fa fa-apple"></i>
 						</a>
-						<a target="_blank" href="#" class="social-icon social-icon-border btn-round btn-shadow-1 social-android" data-toggle="tooltip" data-placement="top" title="" data-original-title="Android">
+						<a target="_blank" href="javascript:void(0)" class="social-icon social-icon-border btn-round btn-shadow-1 social-android" data-toggle="tooltip" data-placement="top" title="" data-original-title="Android">
 							<i class="fa fa-android"></i>
 							<i class="fa fa-android"></i>
 						</a>

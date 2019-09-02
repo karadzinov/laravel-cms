@@ -70,14 +70,14 @@
 
 							<ul class="blog-post-info list-inline">
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<i class="fa fa-clock-o"></i> 
 										<span class="font-lato">{{$post->created_at->format('M d, Y')}}</span>
 									</a>
 								</li>
 								@if($post->location)
 									<li>
-										<a href="#">
+										<a href="javascript:void(0)">
 											<i class="fa fa-map-marker"></i> 
 											<span class="font-lato">{{$post->location}}</span>
 										</a>
@@ -86,12 +86,12 @@
 								<li>
 									<i class="fa fa-folder-open-o"></i> 
 
-									<a class="category" href="#">
+									<a class="category" href="javascript:void(0)">
 										<span class="font-lato">{{$post->category->name}}</span>
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<i class="fa fa-user"></i> 
 										<span class="font-lato">{{$post->author->name}}</span>
 									</a>

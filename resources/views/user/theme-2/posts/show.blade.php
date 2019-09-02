@@ -45,14 +45,14 @@
 					<h1 class="blog-post-title">{{$post->title}}</h1>
 					<ul class="blog-post-info list-inline">
 						<li>
-							<a href="#">
+							<a href="javascript:void(0)">
 								<i class="fa fa-clock-o"></i> 
 								<span class="font-lato">{{$post->created_at->format('M d, Y')}}</span>
 							</a>
 						</li>
 						@if($post->location)
 							<li>
-								<a href="#">
+								<a href="javascript:void(0)">
 									<i class="fa fa-map-marker"></i> 
 									<span class="font-lato">{{$post->location}}</span>
 								</a>
@@ -64,7 +64,7 @@
 							{{$post->category->name}}
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:void(0)">
 								<i class="fa fa-user"></i> 
 								<span class="font-lato">{{$post->author->name}}</span>
 							</a>
@@ -79,7 +79,7 @@
 
 					<!-- VIDEO -->
 					
-					@if($post->videoPreview)
+					@if($post->video)
 						<div class="mb-20 embed-responsive embed-responsive-16by9">
 							{!!$post->videoPreview!!}
 						</div>
@@ -115,32 +115,32 @@
 							{{trans('general.share')}}
 						</span>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-right" data-toggle="tooltip" data-placement="top" title="Facebook">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-right" data-toggle="tooltip" data-placement="top" title="Facebook">
 							<i class="icon-facebook"></i>
 							<i class="icon-facebook"></i>
 						</a>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-right" data-toggle="tooltip" data-placement="top" title="Twitter">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-right" data-toggle="tooltip" data-placement="top" title="Twitter">
 							<i class="icon-twitter"></i>
 							<i class="icon-twitter"></i>
 						</a>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-right" data-toggle="tooltip" data-placement="top" title="Google plus">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-right" data-toggle="tooltip" data-placement="top" title="Google plus">
 							<i class="icon-gplus"></i>
 							<i class="icon-gplus"></i>
 						</a>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
 							<i class="icon-linkedin"></i>
 							<i class="icon-linkedin"></i>
 						</a>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-pinterest float-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-pinterest float-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
 							<i class="icon-pinterest"></i>
 							<i class="icon-pinterest"></i>
 						</a>
 
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-call float-right" data-toggle="tooltip" data-placement="top" title="Email">
+						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-call float-right" data-toggle="tooltip" data-placement="top" title="Email">
 							<i class="icon-email3"></i>
 							<i class="icon-email3"></i>
 						</a>
@@ -153,8 +153,8 @@
 
 					
 					<ul class="pager">
-						<li class="previous"><a class="b-0" href="#">&larr; Previous Post</a></li>
-						<li class="next"><a class="b-0" href="#">Next Post &rarr;</a></li>
+						<li class="previous"><a class="b-0" href="javascript:void(0)">&larr; Previous Post</a></li>
+						<li class="next"><a class="b-0" href="javascript:void(0)">Next Post &rarr;</a></li>
 					</ul>
 
 				</div>

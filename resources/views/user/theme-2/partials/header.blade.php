@@ -36,7 +36,7 @@
 
 	</div>
 
-	<a class="slidetop-toggle" href="#"><!-- toggle button --></a>
+	<a class="slidetop-toggle" href="javascript:void(0)"><!-- toggle button --></a>
 
 </div>
 <!-- /SLIDE TOP -->

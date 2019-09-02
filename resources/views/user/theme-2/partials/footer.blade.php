@@ -32,7 +32,7 @@
 			<div class="col-md-3">
 
 				<!-- Latest Blog Posts -->
-				<h4 class="letter-spacing-1 uppercase">{{trans('general.latest-posts')}}</h4>
+				<h4 class="letter-spacing-1 uppercase">{{trans('general.check-news')}}</h4>
 				<ul class="footer-posts list-unstyled">
 					@foreach($posts as $post)
 						<li>

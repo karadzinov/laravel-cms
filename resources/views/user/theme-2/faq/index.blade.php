@@ -49,7 +49,7 @@
 
 				<!-- breadcrumbs -->
 				<ol class="breadcrumb">
-					<li><a href="#">{{trans('general.navigation.home')}}</a></li>
+					<li><a href="javascript:void(0)">{{trans('general.navigation.home')}}</a></li>
 					<li class="active">{{trans('general.faq')}}</li>
 				</ol><!-- /breadcrumbs -->
 
@@ -62,9 +62,9 @@
 
 				<!-- FILTER -->
 				<ul class="nav nav-pills mix-filter mb-30">
-					<li data-filter="all" class="filter active"><a href="#">All</a></li>
+					<li data-filter="all" class="filter active"><a href="javascript:void(0)">All</a></li>
 					@foreach($categories as $category)
-						<li data-filter="{{$category->name}}" class="filter"><a href="#">{{$category->name}}</a></li>
+						<li data-filter="{{$category->name}}" class="filter"><a href="javascript:void(0)">{{$category->name}}</a></li>
 					@endforeach
 				</ul>
 				<!-- /FILTER -->
