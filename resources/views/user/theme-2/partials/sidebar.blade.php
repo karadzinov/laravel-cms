@@ -100,16 +100,16 @@
 @if(isset($post))
 	@if($post->tags->isNotEmpty())
 	<h3 class="hidden-xs-down fs-16 mb-20 uppercase">{{trans('general.tags')}}</h3>
-		@foreach($post->tags as $tag)
-			<!-- TAGS -->
-			<div class="hidden-xs-down mb-60">
+		<!-- TAGS -->
+		<div class="hidden-xs-down mb-60">
+			@foreach($post->tags as $tag)
 
 				<a class="tag" href="{{$tag->showRoute}}">
 					<span class="txt">{{$tag->name}}</span>
 					<span class="num">{{$tag->posts->count()}}</span>
 				</a>
-			</div>
-		@endforeach
+			@endforeach
+		</div>
 	@endif
 @endif
 @if($facebook)
