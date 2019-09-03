@@ -17,6 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->nestedSet();
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->string('link')->nullable();
+            $table->string('slug');
+            
             $table->timestamps();
         });
     }

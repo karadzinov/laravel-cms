@@ -23,6 +23,7 @@ class CreateLanguagesTable extends Migration
             $table->string('native');
             $table->string('regional')->nullable();
             $table->string('active')->default(false);
+            $table->boolean('folder')->default(0); //checks if folder with name of language code exists
 
             $table->timestamps();
         });
