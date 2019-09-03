@@ -17,6 +17,11 @@
 		.btn{
 			margin-top: 40px;
 		}
+		.post-image{
+			height: 305px;
+			width: 100%;
+			object-fit: cover;
+		}
 	</style>
 @endsection
 
@@ -46,8 +51,8 @@
 
 			<!-- breadcrumbs -->
 			<ol class="breadcrumb">
-				<li><a href="javascript:void(0)">{{trans('general.home')}}</a></li>
-				<li><a href="javascript:void(0)">{{trans('general.posts')}}</a></li>
+				<li><a href="{{route('public.home')}}">{{trans('general.home')}}</a></li>
+				<li><a href="{{route('posts.index')}}">{{trans('general.posts')}}</a></li>
 				<li class="active">{{$tag}}</li>
 			</ol><!-- /breadcrumbs -->
 

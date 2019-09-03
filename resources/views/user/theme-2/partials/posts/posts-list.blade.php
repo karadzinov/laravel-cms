@@ -7,7 +7,7 @@
 				<!-- VIDEO -->
 				<div class="mb-20">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/xT4DD-z312Q"></iframe>
+						{!!$post->videoPreview!!}
 					</div>
 				</div>
 
@@ -58,10 +58,10 @@
 
 				<!-- IMAGE -->
 				<figure class="mb-20">
-					<img class="img-fluid" src="{{asset('assets/theme-2/demo_files/images/content_slider/10-min.jpg')}}" alt="">
+					<img class="post-image img-fluid" src="{{$post->thumbnailPath}}" alt="">
 				</figure>
 
-				<h2><a href="{{$post->showRoute}}">BLOG IMAGE POST</a></h2>
+				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
 
 				<ul class="blog-post-info list-inline">
 					<li>

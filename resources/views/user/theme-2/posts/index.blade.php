@@ -9,6 +9,12 @@
 				object-fit: cover;
 				widows: 100%;
 			}
+
+			.post-image{
+				height: 305px;
+				width: 100%;
+				object-fit: cover;
+			}
 		</style>
 @endsection
 
