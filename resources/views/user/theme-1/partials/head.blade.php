@@ -43,6 +43,6 @@
 <link rel="stylesheet" href="{{mix('css/theme-1-mix.css')}}">
 
 <!-- Color Scheme (In order to change the color scheme, replace the blue.css with the color scheme that you prefer)-->
-<link href="{{asset('assets/css/skins/light_blue.css')}}" rel="stylesheet">
+{{-- <link href="{{asset('assets/theme-1/css/skins/light_blue.css')}}" rel="stylesheet"> --}}
 
 

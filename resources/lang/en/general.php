@@ -53,7 +53,7 @@ array (
   'we_do' => 'We Do',
   'latest' => 'Latest',
   'posts' => 'Posts',
-  'out_posts' => 'Our Posts',
+  'our_posts' => 'Our Posts',
   'posts_top_text' => 'This is default english text for posts page.',
   'pages' => 'Pages',
   'pages_top_text' => 'This is default english top text.',

@@ -12,8 +12,8 @@ let mix = require('laravel-mix');
  */
 //admin panel, some of the assets integrated in theme-1, they are the same
 mix.styles([
-   		'public/assets/theme-1/css/bootstrap.min.css',
-         'public/assets/theme-1/fonts/font-awesome/css/font-awesome.css',
+   		'public/assets/common/css/bootstrap.min.css',
+         'public/assets/common/fonts/font-awesome/css/font-awesome.css',
    		'public/assets/admin/css/weather-icons.min.css', 
    		'public/assets/admin/css/beyond.min.css',
    		'public/assets/admin/css/demo.min.css',
@@ -23,23 +23,23 @@ mix.styles([
    		'public/assets/theme-1/css/custom.css',
    		], 'public/css/admin-mix.css')
    .babel([
-	   	'public/assets/theme-1/js/jquery.min.js',
+	   	'public/assets/common/js/jquery.min.js',
 	   	'public/assets/admin/js/slimscroll/jquery.slimscroll.js',
-         'public/assets/theme-1/js/bootstrap.js',
+         'public/assets/common/js/bootstrap.js',
 	   	'public/assets/admin/js/beyond.js',
 	   	'public/assets/admin/js/bootbox/bootbox.js',
 	   	'public/assets/admin/js/ckeditor/ckeditor.js',
 	   	'public/assets/admin/js/ckconf.js',
          'public/assets/admin/js/Socket.IO-master/socket.io.min.js',//
          // 'public/assets/admin/js/select2/select2.js',//
-         // 'public/assets/theme-1/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
+         // 'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          // 'public/assets/admin/js/chat.js',//
          // 'public/assets/admin/js/admin-custom.js',//
 			], 'public/js/admin-mix.js')
    //theme-1
    .styles([
-         'public/assets/theme-1/bootstrap/css/bootstrap.css',
-         'public/assets/theme-1/fonts/font-awesome/css/font-awesome.css',
+         'public/assets/common/bootstrap/css/bootstrap.css',
+         'public/assets/common/fonts/font-awesome/css/font-awesome.css',
          'public/assets/theme-1/fonts/fontello/css/fontello.css',
          'public/assets/theme-1/plugins/magnific-popup/magnific-popup.css',
          'public/assets/theme-1/plugins/rs-plugin/css/settings.css',
@@ -52,8 +52,8 @@ mix.styles([
          'public/assets/theme-1/css/custom.css',
          ], 'public/css/theme-1-mix.css')
    .babel([
-         'public/assets/theme-1/plugins/jquery.min.js',
-         'public/assets/theme-1/bootstrap/js/bootstrap.min.js',
+         'public/assets/common/js/jquery.min.js',
+         'public/assets/common/bootstrap/js/bootstrap.min.js',
          'public/assets/theme-1/plugins/modernizr.js',
          'public/assets/theme-1/plugins/rs-plugin/js/jquery.themepunch.tools.min.js',
          'public/assets/theme-1/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js',
@@ -68,7 +68,7 @@ mix.styles([
          'public/assets/theme-1/plugins/jquery.browser.js',
          // 'public/assets/plugins/SmoothScroll.js',
          'public/assets/theme-1/js/template.js',
-         'public/assets/theme-1/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
+         'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/theme-1/js/custom.js',
          ], 'public/js/theme-1-mix.js')
    //theme-2
@@ -93,7 +93,7 @@ mix.styles([
          "public/assets/theme-2/plugins/jquery/jquery-3.3.1.min.js",
 
          // search helper package
-         "public/assets/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js",
+         "public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js",
 
          // REVOLUTION SLIDER
          "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.tools.min.js",
