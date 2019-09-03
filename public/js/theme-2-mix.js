@@ -4045,69 +4045,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return e.$ === w && (e.$ = Kt), t && e.jQuery === w && (e.jQuery = Jt), w;
   }, t || (e.jQuery = e.$ = w), w;
 });
-/*
- * jQuery throttle / debounce - v1.1 - 3/7/2010
- * http://benalman.com/projects/jquery-throttle-debounce-plugin/
- * 
- * Copyright (c) 2010 "Cowboy" Ben Alman
- * Dual licensed under the MIT and GPL licenses.
- * http://benalman.com/about/license/
- */
-
-(function (b, c) {
-  var $ = b.jQuery || b.Cowboy || (b.Cowboy = {}),
-      a;
-
-  $.throttle = a = function a(e, f, j, i) {
-    var h,
-        d = 0;
-
-    if (typeof f !== "boolean") {
-      i = j;
-      j = f;
-      f = c;
-    }
-
-    function g() {
-      var o = this,
-          m = +new Date() - d,
-          n = arguments;
-
-      function l() {
-        d = +new Date();
-        j.apply(o, n);
-      }
-
-      function k() {
-        h = c;
-      }
-
-      if (i && !h) {
-        l();
-      }
-
-      h && clearTimeout(h);
-
-      if (i === c && m > e) {
-        l();
-      } else {
-        if (f !== true) {
-          h = setTimeout(i ? k : l, i === c ? e - m : e);
-        }
-      }
-    }
-
-    if ($.guid) {
-      g.guid = j.guid = j.guid || $.guid++;
-    }
-
-    return g;
-  };
-
-  $.debounce = function (d, e, f) {
-    return f === c ? a(d, e, false) : a(d, f, e !== false);
-  };
-})(this);
 /********************************************
 	-	THEMEPUNCH TOOLS Ver. 1.0     -
 	 Last Update of Tools 17.11.2014
@@ -4126,7 +4063,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 * Dual licensed under the MIT or GPL Version 2 licenses.
 *
 */
-
 
 (function (a) {
   if (typeof define === "function" && define.amd && define.amd.jQuery) {
@@ -16632,87 +16568,3 @@ Number.prototype.formatMoney = function (e, t, n) {
 
   e.Modernizr = g;
 }(window, document);
-$(document).ready(function () {
-  //nav bar live search functionality
-  $('#search_box').keyup($.debounce(700, function (e) {
-    var responseDiv = $('#searchResponse');
-    var search = $('#search_box').val();
-
-    if (search.length > 2) {
-      searchInDatabase(search, responseDiv);
-    } else {
-      responseDiv.html('');
-    }
-  })); //large page search
-
-  $('#main_search_box').keyup($.debounce(700, function (e) {
-    var responseDiv = $('#mainSearchResponse');
-    var search = $('#main_search_box').val();
-
-    if (search.length > 2) {
-      searchInDatabase(search, responseDiv);
-    } else {
-      responseDiv.html('');
-    }
-  })); //sidebar search
-
-  $('#sidebar_search').keyup($.debounce(700, function (e) {
-    var responseDiv = $('#sidebarSearchResults');
-    var search = $('#sidebar_search').val();
-
-    if (search.length > 2) {
-      searchInDatabase(search, responseDiv);
-    } else {
-      responseDiv.html('');
-    }
-  }));
-
-  function searchInDatabase(search, responseDiv) {
-    responseDiv.html('');
-    $.ajax({
-      type: 'GET',
-      url: '/search-ajax',
-      data: {
-        search: search
-      },
-      success: function success(response) {
-        responseDiv.html('');
-        console.log(response);
-
-        if (!response.posts.length && !response.pages.length && !response.faqs.length) {
-          var htmlResponse = "\n\t\t\t\t\t\t<h4 class=\"list-group-item searchResultsTitle\">\n\t\t\t\t\t\t\t<i class=\"et-sad\"></i> \n\t\t\t\t\t\t\t".concat(response.translations.noResults, "\n\t\t\t\t\t\t</h4>");
-          responseDiv.append(htmlResponse);
-        } else {
-          var resultsList = prepareList(response);
-          responseDiv.append(resultsList);
-        }
-      },
-      error: function error(response) {
-        console.log('Something went wrong.');
-      }
-    });
-  }
-
-  function prepareList(response) {
-    var results = '';
-    var posts = response.posts;
-    var pages = response.pages;
-    var faqs = response.faqs;
-    var translations = response.translations;
-    posts.length ? results += appendResults(posts, translations.posts) : null;
-    pages.length ? results += appendResults(pages, translations.pages) : null;
-    faqs.length ? results += appendResults(faqs, translations.faqs) : null;
-    results += "\n\t\t\t<small class=\"text-muted fs-11\"> \n\t\t\t\t".concat(translations.total, "\n\t\t\t</small>\n     \t");
-    return results;
-  }
-
-  function appendResults(items, title) {
-    results = "<h4 class=\"list-group-item searchResultsTitle\">".concat(title, "</h4>");
-
-    for (var i = 0; i < items.length; i++) {
-      results += "<a class=\"list-group-item list-group-item-action\" href=\"".concat(items[i].route, "\">\n    \t\t\t\t").concat(items[i].title, "\n    \t\t\t</a>");
-    }
-
-    return results;
-  }
-});

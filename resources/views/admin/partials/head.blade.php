@@ -23,7 +23,7 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
 {{-- Styles --}}
-<link href="{{ mix('/css/mix.css') }}" rel="stylesheet">
+<link href="{{ mix('/css/admin-mix.css') }}" rel="stylesheet">
 
 <style type="text/css">
 
@@ -43,7 +43,7 @@
     ]) !!};
     window.User = {!! json_encode(Auth::user()) !!}
 </script>
-<script src="/assets/js/skins.min.js"></script>
+<script src="{{asset('assets/theme-1/js/skins.min.js')}}"></script>
 
 @if (Auth::User() && (Auth::User()->profile) && (isset($theme) && $theme->link!='null'))
     <link rel="stylesheet" type="text/css" href="{{ $theme->link }}">

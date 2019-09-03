@@ -1,7 +1,7 @@
 <!-- JavaScript files placed at the end of the document so the pages load faster -->
 <!-- ================================================== -->
-<script src="{{mix('js/user-mix.js')}}"></script>
-<script src="{{asset('assets/js/custom.js')}}"></script>
+<script src="{{mix('js/theme-1-mix.js')}}"></script>
+<script src="{{asset('assets/theme-1/js/custom.js')}}"></script>
 @if(config('settings.googleMapsAPIStatus'))
 	<script src="//maps.googleapis.com/maps/api/js?key={{config("settings.googleMapsAPIKey")}}&libraries=places&dummy=.js"></script>
 @endif

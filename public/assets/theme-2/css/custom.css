@@ -1,0 +1,49 @@
+.social-icon .fa{
+	font-size: 24px
+}
+.social-icon .fa-instagram{
+	margin-right: 2px !important
+}
+.uppercase{
+	text-transform: uppercase;
+}
+
+.language-switcher form, .language-switcher li, .language-switcher ul .language-switcher input{
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.language-switcher .btn{
+	border-radius: 0;
+}
+.dropdown-toggle::after{
+	display:none;
+}
+.language-switcher ul.dropdown-menu{
+	border: 0px !important;
+}
+#searchResponse, #mainSearchResponse{
+	width: 100%;
+}
+#mainSearchResponse{
+	position:absolute;
+	max-width: 500px;
+
+}
+
+#searchResponse .searchResultsTitle, #mainSearchResponse .searchResultsTitle{
+	background-color: #8AB933;
+	color: white;
+}
+
+#sidebarSearchResults{
+	width: 90%;
+	position: absolute;
+	background: white;
+	z-index: 100;
+	margin-top: -30px;
+}
+.homepageCategories img{
+	margin-right: 20px;
+	width: 100%;
+	object-fit: cover
+}

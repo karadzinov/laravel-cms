@@ -1,5 +1,6 @@
 <!-- JAVASCRIPT FILES -->
 <script>var plugin_path = '{{asset('assets/theme-2/plugins/')}}/';</script>
+
 <script src="{{mix('js/theme-2-mix.js')}}"></script>
 <script src="{{asset('assets/theme-2/js/custom.js')}}"></script>
 

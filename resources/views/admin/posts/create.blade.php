@@ -10,7 +10,7 @@
             width:100%;
         }
     </style>
-    <script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('assets/admin/js/ckeditor/ckeditor.js')}}"></script>
 
 @endsection
 @section('content')

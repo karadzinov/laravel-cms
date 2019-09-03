@@ -28,7 +28,7 @@
 
             </a>
         </li>
-        <li class="{{ Request::is('admin/meta/settings') ? 'active' : null }}">
+        <li class="{{ Request::is('admin/meta/settings*') ? 'active' : null }}">
             <a href="{{ url('admin/meta/settings') }}" class="menu">
                 <i class="menu-icon fa fa-gear"></i>
                 <span class="menu-text"> {{trans('sidebar.settings')}} </span>

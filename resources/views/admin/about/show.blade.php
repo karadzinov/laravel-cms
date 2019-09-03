@@ -5,7 +5,7 @@
 @endsection
 
 @section('head')
-    <link rel='stylesheet' href='{{asset('assets/js/unitegallery/dist/css/unite-gallery.css')}}' type='text/css' /> 
+    <link rel='stylesheet' href='{{asset('assets/admin/js/unitegallery/dist/css/unite-gallery.css')}}' type='text/css' /> 
 @endsection
 @section('content')
     <div class="widget">
@@ -77,8 +77,8 @@
     </div>
 @endsection
 @section('footer_scripts')
-    <script src='{{asset('assets/js/unitegallery/dist/js/unitegallery.min.js')}}'></script> 
-    <script src='{{asset('assets/js/unitegallery/dist/themes/compact/ug-theme-compact.js')}}'></script> 
+    <script src='{{asset('assets/admin/js/unitegallery/dist/js/unitegallery.min.js')}}'></script> 
+    <script src='{{asset('assets/admin/js/unitegallery/dist/themes/compact/ug-theme-compact.js')}}'></script> 
     <script type="text/javascript"> 
         jQuery("#gallery").unitegallery({
             gallery_theme: "compact"
