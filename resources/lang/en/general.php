@@ -20,7 +20,7 @@ array (
   array (
     'logout' => 'Logout',
     'Login' => 'Login',
-    'Register' => 'Register',
+    'register' => 'Register',
   ),
   'navigation' => 
   array (

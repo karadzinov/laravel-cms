@@ -21,19 +21,6 @@
                 <span class="menu-text"> {{trans('sidebar.user-home-page')}} </span>
             </a>
         </li>
-        <li class="{{ Request::is('admin/node/category*') ? 'active' : null }}">
-            <a href="{{route('admin.category.index')}}" class="menu">
-                <i class="menu-icon fa fa-list-ol"></i>
-                <span class="menu-text"> {{trans('sidebar.categories')}} </span>
-
-            </a>
-        </li>
-        <li class="{{ Request::is('admin/meta/settings*') ? 'active' : null }}">
-            <a href="{{ url('admin/meta/settings') }}" class="menu">
-                <i class="menu-icon fa fa-gear"></i>
-                <span class="menu-text"> {{trans('sidebar.settings')}} </span>
-            </a>
-        </li>
         <li class="{{Request::is('profile/'.Auth::user()->name . '/*') ? 'active' : null}}">
             <a href="{{ url('/profile/'.Auth::user()->name) }}" class="menu">
                 <i class="menu-icon fa fa-user"></i>
@@ -46,10 +33,10 @@
                 <span class="menu-text"> {{trans('sidebar.users')}} </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/scripts/*') ? 'active' : null}}">
-            <a href="{{ route('admin.scripts.index')}}" class="menu">
-                <i class="menu-icon fa fa-code"></i>
-                <span class="menu-text"> {{trans('sidebar.scripts')}} </span>
+        <li class="{{Request::is('admin/slides*') ? 'active' : null}}">
+            <a href="{{ route('admin.slides.index')}}" class="menu">
+                <i class="menu-icon fa fa-sliders"></i>
+                <span class="menu-text"> {{trans('sidebar.slides')}} </span>
             </a>
         </li>
         <li class="{{Request::is('admin/posts/*') ? 'active' : null}}">
@@ -58,16 +45,17 @@
                 <span class="menu-text"> {{trans('sidebar.posts')}} </span>
             </a>
         </li>
+        <li class="{{ Request::is('admin/node/category*') ? 'active' : null }}">
+            <a href="{{route('admin.category.index')}}" class="menu">
+                <i class="menu-icon fa fa-list-ol"></i>
+                <span class="menu-text"> {{trans('sidebar.categories')}} </span>
+
+            </a>
+        </li>
         <li class="{{Request::is('admin/pages/*') ? 'active' : null}}">
             <a href="{{ route('admin.pages.index')}}" class="menu">
                 <i class="menu-icon fa fa-newspaper-o"></i>
                 <span class="menu-text"> {{trans('sidebar.pages')}} </span>
-            </a>
-        </li>
-        <li class="{{Request::is('admin/testimonials/*') ? 'active' : null}}">
-            <a href="{{ route('admin.testimonials.index')}}" class="menu">
-                <i class="menu-icon fa fa-comments"></i>
-                <span class="menu-text"> {{trans('sidebar.testimonials')}} </span>
             </a>
         </li>
         <li class="{{Request::is('admin/about*') ? 'active' : null}}">
@@ -76,22 +64,22 @@
                 <span class="menu-text"> {{trans('sidebar.about')}} </span>
             </a>
         </li>
+        <li class="{{ Request::is('admin/meta/settings*') ? 'active' : null }}">
+            <a href="{{ url('admin/meta/settings') }}" class="menu">
+                <i class="menu-icon fa fa-gear"></i>
+                <span class="menu-text"> {{trans('sidebar.settings')}} </span>
+            </a>
+        </li>
         <li class="{{Request::is('admin/partners*') ? 'active' : null}}">
             <a href="{{ route('admin.partners.index')}}" class="menu">
                 <i class="menu-icon fa fa-handshake-o"></i>
                 <span class="menu-text"> {{trans('sidebar.partners')}} </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/slides*') ? 'active' : null}}">
-            <a href="{{ route('admin.slides.index')}}" class="menu">
-                <i class="menu-icon fa fa-sliders"></i>
-                <span class="menu-text"> {{trans('sidebar.slides')}} </span>
-            </a>
-        </li>
-        <li class="{{Request::is('admin/translations*') ? 'active' : null}}">
-            <a href="{{ route('admin.translations.index')}}" class="menu">
-                <i class="menu-icon fa fa-book"></i>
-                <span class="menu-text"> {{trans('sidebar.translations')}} </span>
+        <li class="{{Request::is('admin/testimonials/*') ? 'active' : null}}">
+            <a href="{{ route('admin.testimonials.index')}}" class="menu">
+                <i class="menu-icon fa fa-comments"></i>
+                <span class="menu-text"> {{trans('sidebar.testimonials')}} </span>
             </a>
         </li>
         <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">
@@ -114,6 +102,18 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="{{Request::is('admin/scripts/*') ? 'active' : null}}">
+            <a href="{{ route('admin.scripts.index')}}" class="menu">
+                <i class="menu-icon fa fa-code"></i>
+                <span class="menu-text"> {{trans('sidebar.scripts')}} </span>
+            </a>
+        </li>
+        <li class="{{Request::is('admin/translations*') ? 'active' : null}}">
+            <a href="{{ route('admin.translations.index')}}" class="menu">
+                <i class="menu-icon fa fa-book"></i>
+                <span class="menu-text"> {{trans('sidebar.translations')}} </span>
+            </a>
         </li>
         @php
             $systemRoutes = ['/activity', '/phpinfo', '/admin/logs', '/admin/active-users'];

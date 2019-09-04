@@ -83,7 +83,20 @@
                 </div>
             </form>
         </div>
-        <div class="logobox">
+        <div class="bottom" style="width: 100%">
+            @php
+                $languages = App\Models\Language::where('active', '=', 1)->get();
+            @endphp
+            @if($languages->count() > 1)
+                <p class="text-center">{{trans('general.navigation.change_language')}}</p>
+                <form class="text-center" method="POST" action="{{route('switchLanguage')}}">
+                    @foreach($languages as $language)
+                        @csrf
+                        <input type="submit" name="language" class="btn btn-default @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
+                    @endforeach
+                </form>
+            @endif
+            
         </div>
     </div>
 

@@ -31,14 +31,14 @@ return [
             Svi fajlovi treba da budu sačuvani posebno, odnosno svaki fajl ima svoje dugme "sačuvaj".
           </li>
           <li>
-            Naš "glavni" fajl je <code>general</code>. Sva njegova polja se odnose samo na korisnički dio vebsajta, tako da bi ovaj fajl bilo najbolje da bude preveden prvi. 
-              OStali fajlovi čija sadržina se nalazi na korisničkom dijelu sajta su:
+            Naš "glavni" fajl je <code>general</code>. Sva njegova polja se odnose samo na korisnički dio vebsajta, tako da bi bilo najbolje da ovaj fajl bude prvi preveden. 
+              Ostali fajlovi čija sadržina se nalazi na korisničkom dijelu sajta su:
               <code>validation</code>, <code>auth</code>, <code>passwords</code>, <code>register</code> and <code>socials</code>.
               Svi ostali fajlovi se odnose na admin panel, tako da ukoliko razumete engleski jezik, nema potrebe za njihovim prevođenjem.
           </li>
           <li>Imena fajlova se ne mogu menjati.</li>
           <li>
-            Možete da se zaustavite i nastavite neki drugi put, samo treba da vodite računa ukoliko je odabrani jezik aktiviran u podešavanjima sajta. Budite oprezni i kada idete sa jednog fajla na drugi, jer će sve promene prethodno napravljene biti obrisane u procesu prelaska sa jednog na drugi.
+            Možete da se zaustavite i nastavite neki drugi put, samo treba da vodite računa ukoliko je odabrani jezik aktiviran u podešavanjima sajta. Budite oprezni i kada idete sa jednog fajla na drugi, jer će sve prethodno napravljene promene biti obrisane u procesu prelaska sa jednog na drugi.
           </li>
           <li>
             Ukoliko naiđete na reči koje počinju sa ":" (npr. :name, :title), ostavite ih u tom obliku jer su to mesta gde se reči dodaju dinamički.

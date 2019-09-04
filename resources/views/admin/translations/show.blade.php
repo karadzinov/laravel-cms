@@ -42,6 +42,14 @@
 		  -webkit-animation: spin 2s linear infinite;
 		  animation: spin 2s linear infinite;
 		}
+		@media only screen and (max-width: 600px) {
+			.translations-explication{
+				font-size: inherit;
+			}
+			.translations-explication li{
+				margin-top: 10px;
+			}
+		}
 	</style>
 @endsection
 @section('content')
