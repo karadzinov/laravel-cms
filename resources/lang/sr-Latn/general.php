@@ -41,6 +41,15 @@ array (
     'terms' => 'Uslovi korišćenja',
     'about' => 'O nama',
   ),
+  'errors' => 
+  array (
+    '403-forbiden' => 'Zabranjeno!',
+    '404-not-found' => 'Ups! Strana nije pronađena',
+    '404-not-found-explication' => 'Traženi url nije pronađen na ovom serveru. Proverite da li je adresa sajta tačno napisana.',
+    '500-internal-error' => 'Sistemska greška',
+    '503-right-back' => 'Vraćamo se brzo!',
+  ),
+  'back-to-home' => 'nazad na početnu stranu',
   'more' => 'Više',
   'if_questions' => 'Ukoliko imate pitanje za nas, molimo Vas da nam pišete, sa yadovoljstvom ćemo Vam odgovoriti.',
   'what_we' => 'Šta',

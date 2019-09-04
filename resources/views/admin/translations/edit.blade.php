@@ -47,7 +47,6 @@
 
 				var levels = $('#arrayDepth').val();
 				var data = makeArray(levels)
-				console.log(data);
 				$.ajaxSetup({
 				    headers:
 				    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }

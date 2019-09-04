@@ -41,6 +41,15 @@ array (
     'terms' => 'Terms',
     'about' => 'About',
   ),
+  'errors' => 
+  array (
+    '403-forbiden' => 'Forbiden',
+    '404-not-found' => 'Ooops! Page Not Found',
+    '404-not-found-explication' => 'The requested URL was not found on this server. Make sure that the Web site address displayed in the address bar of your browser is spelled and formatted correctly.',
+    '500-internal-error' => 'Internal Server Error',
+    '503-right-back' => 'Be right back!',
+  ),
+  'back-to-home' => 'back to homepage',
   'more' => 'More',
   'if_questions' => 'If you have any questions or propositions please do not hesitate to contact us.',
   'contact_us' => 'Contact Us',

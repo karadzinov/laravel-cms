@@ -80,7 +80,8 @@
 
 			<!-- Logo -->
 			<a class="logo float-left" href="{{route('public.home')}}">
-				<img src="{{asset('assets/theme-2/images/_smarty/logo_light.png')}}" alt="" />
+				{{-- <img src="{{asset('assets/theme-2/images/_smarty/logo_light.png')}}" alt="" /> --}}
+				<img class="nav-logo" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="" />
 			</a>
 
 			<!-- 

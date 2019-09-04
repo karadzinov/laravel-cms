@@ -190,7 +190,7 @@ class SettingsController extends Controller
             $image->move($paths->original, $imageName);
 
             $findimage = $paths->original . $imageName;
-            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
+            $imagethumb = Image::make($findimage)->resize(125, 80, function ($constraint) {
                 $constraint->aspectRatio();
             });
 

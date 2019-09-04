@@ -29560,3 +29560,13 @@ i.ico-hover:hover {
 	width: 100%;
 	object-fit: cover
 }
+.footer-logo{
+	height: 39px;
+	width: 125px;
+	object-fit: cover;
+}
+.nav-logo{
+	width: 125px;
+	height: 80px;
+	object-fit: cover;
+}

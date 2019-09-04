@@ -135,7 +135,6 @@
 			$('.content').on('click', '#updateTranslation', function(){
 
 				var data = makeArray()
-				console.log(data);
 				$.ajaxSetup({
 				    headers:
 				    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
