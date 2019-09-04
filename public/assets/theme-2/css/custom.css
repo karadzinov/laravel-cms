@@ -15,11 +15,11 @@
 .language-switcher .btn{
 	border-radius: 0;
 }
-.dropdown-toggle::after{
-	display:none;
+.language-switcher .dropdown-toggle::after {
+    display:none;
 }
-.language-switcher ul.dropdown-menu{
-	border: 0px !important;
+.language-switcher .dropdown-menu{
+	padding: 0px;
 }
 #searchResponse, #mainSearchResponse{
 	width: 100%;

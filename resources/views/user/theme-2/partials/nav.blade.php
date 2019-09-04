@@ -60,20 +60,20 @@
 				<!-- /SEARCH -->
 				@if($languages->count()>1)
 					<li class="nav-item dropdown language-switcher">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-globe"></i> </a>
-						<ul class="dropdown-menu dropdown-animation language-switcher-area">
-							{{-- <li> --}}
-								<form method="POST" action="/switch-language">
-									@csrf
-									@foreach($languages as $language)
-										<li>
-											<input type="submit" name="language" class="btn btn-primary btn-block @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
-										</li>
-									@endforeach
-								</form>
-							{{-- </li> --}}
-						</ul>
-					</li>
+				        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="language-switcher" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <i class="fa fa-globe"></i> 
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="language-switcher">
+				        	<form method="POST" action="/switch-language">
+				        		@csrf
+				        		@foreach($languages as $language)
+				        			<li>
+				        				<input type="submit" name="language" class="btn btn-primary btn-block @if(App::getLocale() === $language->code) active @endif dropdown-item" value="{{$language->native}}">
+				        			</li>
+				        		@endforeach
+				        	</form>
+				        </div>
+				   	</li>
 				@endif
 			</ul>
 			<!-- /BUTTONS -->
