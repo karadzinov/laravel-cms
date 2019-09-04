@@ -21,6 +21,7 @@
         "jeremykenedy/laravel-roles": "^1.2",
         "jeremykenedy/laravel2step": "^1.0",
         "jeremykenedy/uuid": "^3.1",
+        "jorenvanhocht/laravel-share": "^3.0",
         "kalnoy/nestedset": "^4.3",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^3.0",

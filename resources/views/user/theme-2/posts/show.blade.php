@@ -109,43 +109,7 @@
 
 
 					<!-- SHARE POST -->
-					<div class="clearfix mt-30">
-
-						<span class="float-left mt-6 bold hidden-xs-down">
-							{{trans('general.share')}}
-						</span>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-right" data-toggle="tooltip" data-placement="top" title="Facebook">
-							<i class="icon-facebook"></i>
-							<i class="icon-facebook"></i>
-						</a>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-right" data-toggle="tooltip" data-placement="top" title="Twitter">
-							<i class="icon-twitter"></i>
-							<i class="icon-twitter"></i>
-						</a>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-right" data-toggle="tooltip" data-placement="top" title="Google plus">
-							<i class="icon-gplus"></i>
-							<i class="icon-gplus"></i>
-						</a>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
-							<i class="icon-linkedin"></i>
-							<i class="icon-linkedin"></i>
-						</a>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-pinterest float-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
-							<i class="icon-pinterest"></i>
-							<i class="icon-pinterest"></i>
-						</a>
-
-						<a href=javascript:void(0)#" class="social-icon social-icon-sm social-icon-transparent social-call float-right" data-toggle="tooltip" data-placement="top" title="Email">
-							<i class="icon-email3"></i>
-							<i class="icon-email3"></i>
-						</a>
-
-					</div>
+					@include($path.'partials/share')
 					<!-- /SHARE POST -->
 
 
@@ -171,4 +135,8 @@
 		</div>
 	</section>
 	<!-- / -->
+@endsection
+
+@section('optionalScripts')
+	<script src="{{ asset('js/share.js') }}"></script>
 @endsection

@@ -5,6 +5,10 @@
 	<head>
 		@include($path . 'partials/head')
 		@yield('optionalHead')
+		<style>
+			.social-whatsapp:hover { background-color: #00E676 !important; }
+			.social-whatsapp { background-color: #3B5998; }
+		</style>
 	</head>
 	<!--
 		AVAILABLE BODY CLASSES:

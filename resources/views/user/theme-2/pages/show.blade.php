@@ -14,8 +14,6 @@
 	<!-- -->
 	<section>
 		<div class="container">
-
-
 			@if($page->images->isNotEmpty())
 				<div class="clearfix mb-60">
 					<!-- OWL SLIDER -->
@@ -29,10 +27,7 @@
 					<!-- /OWL SLIDER -->
 				</div>
 			@endif
-
-
 			<div class="row">
-
 				<!-- LEFT -->
 				<div class="col-md-12 col-sm-12">
 
@@ -45,21 +40,21 @@
 							</a>
 						</li>
 					</ul>
-
-
 					<!-- article content -->
 					{!!$page->main_text!!}
 					<!-- /article content -->
-
-
 					<div class="divider divider-dotted"><!-- divider --></div>
-
+					<!-- SHARE POST -->
+					@include($path.'partials/share')
+					<!-- /SHARE POST -->
 				</div>
 
 			</div>
-
-
 		</div>
 	</section>
 	<!-- / -->
+@endsection
+
+@section('optionalScripts')
+	<script src="{{ asset('js/share.js') }}"></script>
 @endsection
