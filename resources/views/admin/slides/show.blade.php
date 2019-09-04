@@ -4,6 +4,14 @@
     {{trans('slides.slides')}}
 @endsection
 
+@section('head')
+    <style>
+        .field{
+            margin-top: 10px;
+        }
+    </style>
+@endsection
+
 @section('content')
 	<div class="widget">
 
@@ -24,31 +32,37 @@
                 <i class="fa fa-edit"></i> 
                 {{trans('slides.edit')}}
             </a>
-            <div>
-                <label for="top_title"><strong>{{trans('admin.top-title')}}:</strong></label>
-                <div id="top_title">{!!$slide->top_title!!}</div>
-            </div>
-            <div>
-                <label for="title"><strong>{{trans('admin.title')}}:</strong></label>
-                <p id="title">{{$slide->title}}</p>
-            </div>
-
-            <div>
-                <label for="subtitle"><strong>{{trans('admin.subtitle')}}:</strong></label>
-                <p id="subtitle">{{$slide->subtitle}}</p>
+            @if($slide->top_title)
+                <div class="field">
+                    <label for="top_title"><strong>{{trans('admin.top-title')}}:</strong></label>
+                    <div id="top_title">{!!$slide->top_title!!}</div>
+                </div>
+            @endif
+            <div class="field">
+                <label for="title1"><strong>{{trans('admin.title')}}:</strong></label>
+                <p id="title1">{{$slide->title}}</p>
             </div>
 
-            <div>
+            @if($slide->subtitle)
+                <div class="field">
+                    <label for="subtitle1"><strong>{{trans('admin.subtitle')}}:</strong></label>
+                    <p id="subtitle1">{{$slide->subtitle}}</p>
+                </div>
+            @endif
+
+            <div class="field">
                 <label for="image"><strong>{{trans('admin.image')}}:</strong></label>
                 <br>
                 <img src="{{$slide->thumbnailPath}}" alt="{{$slide->image}}" id="image">
             </div>
             <br>
-            <div>
-                <label><strong>{{trans('admin.link')}}:</strong></label>
-                <p>{{$slide->link}}</p>
-            </div>
-            <div>
+            @if($slide->link)
+                <div class="field">
+                    <label><strong>{{trans('admin.link')}}:</strong></label>
+                    <p>{{$slide->link}}</p>
+                </div>
+            @endif
+            <div class="field">
                 <label for="active">{{trans('admin.active')}}:</label>
                 <div>
                     @if($slide->active)
@@ -60,6 +74,14 @@
                             {{trans('admin.not-active')}}
                         </span>
                     @endif
+                </div>
+            </div>
+            <div class="field">
+                <label for="position">
+                    <strong>{{trans('admin.position')}}</strong>
+                </label>
+                <div>
+                    {{$slide->position}}
                 </div>
             </div>
         </div>

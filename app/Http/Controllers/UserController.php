@@ -32,7 +32,7 @@ class UserController extends Controller
         $testimonials = Testimonial::take(4)->get();
         $about = About::first();
         $partners = Partner::all();
-        $slides = Slide::where('active', '=', 1)->get();
+        $slides = Slide::where('active', '=', 1)->orderBy('position')->get();
         
         return view($this->path . 'home', compact('posts', 'settings', 'categories', 'testimonials', 'about', 'partners', 'slides'));
     }

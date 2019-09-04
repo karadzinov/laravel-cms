@@ -25,9 +25,15 @@
 					            <tr>
 					                <th>Id</th>
 					                <th>{{trans('admin.name')}}</th>
-					                <th>{{trans('admin.link')}}</th>
-					                <th>{{trans('admin.created-at')}}</th>
-					                <th>{{trans('admin.updated-at')}}</th>
+					                <th class="hidden-xs">
+					                	{{trans('admin.link')}}
+					                </th>
+					                <th class="hidden-xs hidden-md">
+					                	{{trans('admin.created-at')}}
+					                </th>
+					                <th class="hidden-xs hidden-md">
+					                	{{trans('admin.updated-at')}}
+					                </th>
 					                <th>{{trans('admin.actions')}}</th>
 					                <th></th> 
 					                <th></th> 
@@ -40,13 +46,13 @@
 					                    <td>
                                             {{$partner->name}}
                                         </td>
-					                    <td>
+					                    <td class="hidden-xs">
                                             {{$partner->link}}
                                         </td>
-	                                    <td>
+	                                    <td class="hidden-xs hidden-md">
 	                                    	{{$partner->created_at->format('d-m-Y, H:i')}}
 	                                    </td>
-					                    <td>{{$partner->updated_at->format('d-m-Y, H:i')}}</td>
+					                    <td class="hidden-xs hidden-md">{{$partner->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
 					                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.partners.show', [$partner->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 					                        	<i class="fa fa-eye"></i> 

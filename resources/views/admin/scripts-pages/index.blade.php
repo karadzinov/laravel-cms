@@ -27,11 +27,11 @@
 				        </caption>
 				        <thead class="thead">
 				            <tr>
-				                <th>Id</th>
+				                <th>{{trans('admin.id')}}</th>
 				                <th>{{trans('admin.name')}}</th>
 				                <th>{{trans('admin.active')}}</th>
-				                <th>{{trans('admin.created-at')}}</th>
-				                <th>{{trans('admin.updated-at')}}</th>
+				                <th class="hidden-xs hidden-md">{{trans('admin.created-at')}}</th>
+				                <th class="hidden-xs hidden-md">{{trans('admin.updated-at')}}</th>
 				                <th>{{trans('admin.actions')}}</th>
 				                <th></th>
 				                <th></th> 
@@ -53,8 +53,12 @@
 							                </span>
 						        		@endif
 				                    </td>
-				                    <td>{{$script->created_at->format('d-m-Y, H:i')}}</td>
-				                    <td>{{$script->updated_at->format('d-m-Y, H:i')}}</td>
+				                    <td class="hidden-xs hidden-md">
+				                    	{{$script->created_at->format('d-m-Y, H:i')}}
+				                    </td>
+				                    <td class="hidden-xs hidden-md">
+				                    	{{$script->updated_at->format('d-m-Y, H:i')}}
+				                    </td>
 				                    <td>
 				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.scripts.show', [$script->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 				                        	<i class="fa fa-eye"></i> 

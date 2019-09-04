@@ -170,6 +170,8 @@ Route::group(["prefix" => "partners", "as"=>"partners.", 'middleware' => ['auth'
 });
 
 Route::group(["prefix" => "slides", "as"=>"slides.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('change-order', 'SlidesController@changeOrder')->name('changeOrder');
+    Route::post('store-order', 'SlidesController@storeOrder')->name('storeOrder');
     Route::get('index', 'SlidesController@index')->name('index');
     Route::get('show/{slide}', 'SlidesController@show')->name('show');
     Route::get('create', 'SlidesController@create')->name('create');

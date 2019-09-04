@@ -56,5 +56,7 @@ return [
     </div>
   ',
   'how-to'                   => 'Kako prevesti',
-  'missing-enabled-language' => 'Imate :count jezika bez prevedenih fajlova. Molimo Vas da ih napravite na stranici Prevodi.'
+  'missing-enabled-language' => 'Imate :count jezika bez prevedenih fajlova. Molimo Vas da ih napravite na stranici Prevodi.',
+  'drag-and-drop' => 'Prevucite slajdove od vrha prema dnu tako da prikazuju željeni redosled.',
+  'change-order'  => 'Izmeni redosled',
 ];

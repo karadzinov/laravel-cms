@@ -23,12 +23,16 @@
 				    <table class="table table-striped table-sm data-table">
 				        <thead class="thead">
 				            <tr>
-				                <th>Id</th>
+				                <th>{{trans('admin.id')}}</th>
 				                <th>{{trans('admin.question')}}</th>
-				                <th>{{trans('admin.category')}}</th>
-				                <th>{{trans('admin.answer')}}</th>
-				                <th>{{trans('admin.created-at')}}</th>
-				                <th>{{trans('admin.updated-at')}}</th>
+				                <th class="hidden-xs">{{trans('admin.category')}}</th>
+				                <th class="hidden-xs">{{trans('admin.answer')}}</th>
+				                <th class="hidden-xs hidden-md">
+				                	{{trans('admin.created-at')}}
+				                </th>
+				                <th class="hidden-xs hidden-md">
+				                	{{trans('admin.updated-at')}}
+				                </th>
 				                <th>{{trans('admin.actions')}}</th>
 				                <th></th>
 				                <th></th> 
@@ -45,16 +49,20 @@
                                             {!! $faq->question !!}
                                         @endif
                                     </td>
-				                    <td>
+				                    <td class="hidden-xs">
                                         @if (strlen($faq->answer)> 250)
                                             {!! substr($faq->answer, 0 , 250)." ..."!!}
                                         @else 
                                             {!!$faq->answer!!}
                                         @endif
                                     </td>
-                                    <td>{{$faq->category->name}}</td>
-                                    <td>{{$faq->created_at->format('d-m-Y, H:i')}}</td>
-				                    <td>{{$faq->updated_at->format('d-m-Y, H:i')}}</td>
+                                    <td class="hidden-xs">{{$faq->category->name}}</td>
+                                    <td class="hidden-xs hidden-md">
+                                    	{{$faq->created_at->format('d-m-Y, H:i')}}
+                                    </td>
+				                    <td class="hidden-xs hidden-md">
+				                    	{{$faq->updated_at->format('d-m-Y, H:i')}}
+				                    </td>
 				                    <td>
 				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.faq.show', [$faq->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 				                        	<i class="fa fa-eye"></i> 

@@ -60,5 +60,7 @@ return [
 	'online'		=> 'na mreži',
 	'offline'		=> 'nikog nema na mreži',
 	'ops'			=> 'Ups! Došlo je do greške!',
-	'top-title'		=> 'Natpis iznad naslova'
+	'top-title'		=> 'Natpis iznad naslova',
+	'position'		=> 'Redosled',
+	'id'			=> 'Id',
 ];

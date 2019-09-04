@@ -23,13 +23,13 @@
 					    <table class="table table-striped table-sm data-table">
 					        <thead class="thead">
 					            <tr>
-					                <th>Id</th>
-					                <th>{{trans('admin.title')}}</th>
+					                <th>{{trans('admin.id')}}</th>
+					                <th class="hidden-xs">{{trans('admin.title')}}</th>
 					                <th>{{trans('admin.name')}}</th>
-					                <th>{{trans('admin.company')}}</th>
-					                <th>{{trans('admin.content')}}</th>
-					                <th>{{trans('admin.created-at')}}</th>
-					                <th>{{trans('admin.updated-at')}}</th>
+					                <th class="hidden-xs">{{trans('admin.company')}}</th>
+					                <th class="hidden-xs hidden-md">{{trans('admin.content')}}</th>
+					                <th class="hidden-xs hidden-md">{{trans('admin.created-at')}}</th>
+					                <th class="hidden-xs">{{trans('admin.updated-at')}}</th>
 					                <th>{{trans('admin.actions')}}</th>
 					                <th></th> 
 					                <th></th> 
@@ -39,22 +39,22 @@
 					            @foreach($testimonials as $testimonial)
 					                <tr>
 					                    <td>{{$testimonial->id}}</td>
-					                    <td>
+					                    <td class="hidden-xs">
                                             {{$testimonial->title}}
                                         </td>
 					                    <td>
                                             {{$testimonial->name}}
                                         </td>
-                                        <td>
+                                        <td class="hidden-xs">
                                             {{$testimonial->company}}
                                         </td>
-                                        <td>
+                                        <td class="hidden-xs">
                                             {{$testimonial->content}}
                                         </td>
-	                                    <td>
+	                                    <td class="hidden-xs hidden-md">
 	                                    	{{$testimonial->created_at->format('d-m-Y, H:i')}}
 	                                    </td>
-					                    <td>{{$testimonial->updated_at->format('d-m-Y, H:i')}}</td>
+					                    <td class="hidden-xs hidden-md">{{$testimonial->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
 					                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.testimonials.show', [$testimonial->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 					                        	<i class="fa fa-eye"></i> 

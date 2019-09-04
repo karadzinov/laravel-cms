@@ -23,11 +23,15 @@
 					    <table class="table table-striped table-sm data-table">
 					        <thead class="thead">
 					            <tr>
-					                <th>Id</th>
+					                <th>{{trans('admin.id')}}</th>
 					                <th>{{trans('admin.name')}}</th>
 					                <th>{{trans('admin.icon')}}</th>
-					                <th>{{trans('admin.created-at')}}</th>
-					                <th>{{trans('admin.updated-at')}}</th>
+					                <th class="hidden-xs hidden-md">
+					                	{{trans('admin.created-at')}}
+					                </th>
+					                <th class="hidden-xs hidden-md">
+					                	{{trans('admin.updated-at')}}
+					                </th>
 					                <th>{{trans('admin.actions')}}</th>
 					                <th></th>
 					                <th></th> 
@@ -43,10 +47,10 @@
 					                    <td>
                                             <i class="fa fa-{{$category->icon}}" aria-hidden="true"></i>
                                         </td>
-	                                    <td>
+	                                    <td class="hidden-xs hidden-md">
 	                                    	{{$category->created_at->format('d-m-Y, H:i')}}
 	                                    </td>
-					                    <td>{{$category->updated_at->format('d-m-Y, H:i')}}</td>
+					                    <td class="hidden-xs hidden-md">{{$category->updated_at->format('d-m-Y, H:i')}}</td>
 					                    <td>
 					                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.faq-categories.show', [$category->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 					                        	<i class="fa fa-eye"></i> 

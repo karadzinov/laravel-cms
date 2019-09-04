@@ -29,9 +29,9 @@
 				            <tr>
 				                <th>Id</th>
 				                <th>{{trans('admin.title')}}</th>
-				                <th>{{trans('admin.subtitle')}}</th>
-				                <th>{{trans('admin.created-at')}} At</th>
-				                <th>{{trans('admin.updated-at')}} At</th>
+				                <th class="hidden-xs">{{trans('admin.subtitle')}}</th>
+				                <th class="hidden-xs hidden-md">{{trans('admin.created-at')}} At</th>
+				                <th class="hidden-xs hidden-md">{{trans('admin.updated-at')}} At</th>
 				                <th>{{trans('admin.actions')}}</th>
 				                <th></th>
 				                <th></th> 
@@ -42,11 +42,15 @@
 				                <tr>
 				                    <td>{{$page->id}}</td>
 				                    <td>{!!$page->title!!}</td>
-				                    <td>
+				                    <td class="hidden-xs">
 						        		{!!$page->subtitle!!}
 				                    </td>
-				                    <td>{{$page->created_at->format('d-m-Y, H:i')}}</td>
-				                    <td>{{$page->updated_at->format('d-m-Y, H:i')}}</td>
+				                    <td class="hidden-xs hidden-md">
+				                    	{{$page->created_at->format('d-m-Y, H:i')}}
+				                    </td>
+				                    <td class="hidden-xs hidden-md">
+				                    	{{$page->updated_at->format('d-m-Y, H:i')}}
+				                    </td>
 				                    <td>
 				                        <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.pages.show', [$page->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
 				                        	<i class="fa fa-eye"></i> 

@@ -28,15 +28,27 @@
                         </caption>
                         <thead class="thead">
                             <tr>
-                                <th>Id</th>
+                                <th>{{trans('admin.id')}}</th>
                                 <th>{{trans('admin.title')}}</th>
-                                <th>{{trans('admin.subtitle')}}</th>
-                                <th>{{trans('admin.category')}}</th>
-                                <th>{{trans('admin.location')}}</th>
+                                <th class="hidden-xs">
+                                    {{trans('admin.subtitle')}}
+                                </th>
+                                <th class="hidden-xs">
+                                    {{trans('admin.category')}}
+                                </th>
+                                <th class="hidden-xs">
+                                    {{trans('admin.location')}}
+                                </th>
                                 <th>{{trans('admin.workflow')}}</th>
-                                <th>{{trans('admin.author')}}</th>
-                                <th>{{trans('admin.created-at')}}</th>
-                                <th>{{trans('admin.updated-at')}}</th>
+                                <th class="hidden-xs">
+                                    {{trans('admin.author')}}
+                                </th>
+                                <th class="hidden-xs hidden-md">
+                                    {{trans('admin.created-at')}}
+                                </th>
+                                <th class="hidden-xs hidden-md">
+                                    {{trans('admin.updated-at')}}
+                                </th>
                                 <th>{{trans('admin.actions')}}</th>
                                 <th></th>
                                 <th></th> 
@@ -47,9 +59,9 @@
                                 <tr>
                                     <td>{{$post->id}}</td>
                                     <td>{!!$post->title!!}</td>
-                                    <td>{!!$post->subtitle!!}</td>
-                                    <td>{{$post->category->name}}</td>
-                                    <td>{{$post->location}}</td>
+                                    <td class="hidden-xs">{!!$post->subtitle!!}</td>
+                                    <td class="hidden-xs">{{$post->category->name}}</td>
+                                    <td class="hidden-xs">{{$post->location}}</td>
                                     <td>
                                         @if($post->workflow === 'pending')
                                             <span class="label label-warning">
@@ -65,9 +77,15 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td>{{optional($post->author)->name}}</td>
-                                    <td>{{$post->created_at->format('d-m-Y, H:i')}}</td>
-                                    <td>{{$post->updated_at->format('d-m-Y, H:i')}}</td>
+                                    <td class="hidden-xs">
+                                        {{optional($post->author)->name}}
+                                    </td>
+                                    <td class="hidden-xs hidden-md">
+                                        {{$post->created_at->format('d-m-Y, H:i')}}
+                                    </td>
+                                    <td class="hidden-xs hidden-md">
+                                        {{$post->updated_at->format('d-m-Y, H:i')}}
+                                    </td>
                                     <td>
                                         <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.posts.show', [$post->id])}}" data-toggle="tooltip" title="{{trans('admin.show')}}">
                                             <i class="fa fa-eye"></i> 

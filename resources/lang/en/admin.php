@@ -60,6 +60,8 @@ return [
 	'online'		=> 'Online',
 	'offline'		=> 'Offline',
 	'ops'			=> 'Ooops! Something went wrong!',
-	'top-title'		=> 'Top title'
+	'top-title'		=> 'Top title',
+	'position'		=> 'Postition',
+	'id'			=> 'Id',
 	
 ];

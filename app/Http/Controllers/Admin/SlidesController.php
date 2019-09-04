@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use File;
+use Exception;
 use App\Models\Slide;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class SlidesController extends Controller
      */
     public function index()
     {
-    	$slides = Slide::all();
+    	$slides = Slide::orderBy('active', 'DESC')->orderBy('position')->get();
 
         return view('admin/slides/index', compact('slides'));
     }
@@ -172,6 +173,33 @@ class SlidesController extends Controller
         } catch (Exception $e) {
             
             return false;
+        }
+    }
+
+    public function changeOrder(){
+        $slides = Slide::where('active', '=', 1)
+                    ->select(['id', 'title', 'image'])
+                    ->orderBy('position')
+                    ->get();
+        $view = view('admin/partials/slides/changeOrder', compact('slides'))->render();
+
+        return response()->json(['status'=>200, 'view'=>$view]);
+    }
+
+    public function storeOrder(Request $request){
+        $positions = json_decode($request->get('data'));
+
+        try {
+            for($i = 0; $i< count($positions); $i++){
+                $slide = Slide::findOrFail($positions[$i]);
+                $slide->position = $i+1;
+                $slide->save();
+            }
+
+            return response()->json(['status'=>200]);
+        } catch (Exception $e) {
+            return $e->getMessage();
+            return response()->json(['status'=>500]);
         }
     }
 
