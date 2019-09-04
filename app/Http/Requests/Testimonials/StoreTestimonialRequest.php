@@ -24,10 +24,11 @@ class StoreTestimonialRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'  => 'required',
+            'title'  => 'required|max:150',
             'image'  => 'required',
             'content'=> 'required',
-            'name'   => 'required'
+            'name'   => 'required|max:190',
+            'company'=> 'max:190',
         ];
     }
 }

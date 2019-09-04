@@ -48,8 +48,7 @@
       </ul>
     </div>
   @endif
-
-  <div class="alert fade in flashNotification">
-      <span class="flashNotificationContent"></span>
-  </div>
+</div>
+<div class="alert fade in flashNotification">
+    <span class="flashNotificationContent"></span>
 </div>

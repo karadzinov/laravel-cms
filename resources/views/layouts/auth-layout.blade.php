@@ -17,7 +17,6 @@
             }
             .bottom{
                 width: 100%;
-                /*height: 50px !important;*/
                 padding: 5px;
                 margin-top: 15px;
                 -webkit-box-shadow: 0 0 14px rgba(0,0,0,.1);

@@ -70,18 +70,6 @@
                 <span class="menu-text"> {{trans('sidebar.settings')}} </span>
             </a>
         </li>
-        <li class="{{Request::is('admin/partners*') ? 'active' : null}}">
-            <a href="{{ route('admin.partners.index')}}" class="menu">
-                <i class="menu-icon fa fa-handshake-o"></i>
-                <span class="menu-text"> {{trans('sidebar.partners')}} </span>
-            </a>
-        </li>
-        <li class="{{Request::is('admin/testimonials/*') ? 'active' : null}}">
-            <a href="{{ route('admin.testimonials.index')}}" class="menu">
-                <i class="menu-icon fa fa-comments"></i>
-                <span class="menu-text"> {{trans('sidebar.testimonials')}} </span>
-            </a>
-        </li>
         <li class="{{(Request::is('admin/faq/*') || Request::is('admin/faq-categories/*')) ? 'open active' : null}}">
             <a href="#" class="menu-dropdown">
                 <i class="menu-icon fa fa-question"></i>
@@ -102,6 +90,18 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="{{Request::is('admin/partners*') ? 'active' : null}}">
+            <a href="{{ route('admin.partners.index')}}" class="menu">
+                <i class="menu-icon fa fa-handshake-o"></i>
+                <span class="menu-text"> {{trans('sidebar.partners')}} </span>
+            </a>
+        </li>
+        <li class="{{Request::is('admin/testimonials/*') ? 'active' : null}}">
+            <a href="{{ route('admin.testimonials.index')}}" class="menu">
+                <i class="menu-icon fa fa-comments"></i>
+                <span class="menu-text"> {{trans('sidebar.testimonials')}} </span>
+            </a>
         </li>
         <li class="{{Request::is('admin/scripts/*') ? 'active' : null}}">
             <a href="{{ route('admin.scripts.index')}}" class="menu">

@@ -24,9 +24,10 @@ class UpdateTestimonialRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'  => 'required',
+            'title'  => 'required|max:150',
             'content'=> 'required',
-            'name'   => 'required'
+            'name'   => 'required|max:190',
+            'company'=> 'max:190'
         ];
     }
 }

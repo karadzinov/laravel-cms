@@ -24,8 +24,9 @@ class StorePartnerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required',
+            'name'  => 'required|max:180',
             'image' => 'required',
+            'link'  => 'max:190',
         ];
     }
 }

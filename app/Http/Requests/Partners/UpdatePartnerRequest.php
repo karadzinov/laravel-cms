@@ -24,7 +24,8 @@ class UpdatePartnerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|max:190',
+            'link' => 'max:190'
         ];
     }
 }
