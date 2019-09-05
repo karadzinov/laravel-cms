@@ -45,7 +45,7 @@
 					<!-- /article content -->
 					<div class="divider divider-dotted"><!-- divider --></div>
 					<!-- SHARE POST -->
-					@include($path.'partials/share')
+					@include($path.'partials/share', ['title'=>$page->title])
 					<!-- /SHARE POST -->
 				</div>
 

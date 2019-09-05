@@ -98,7 +98,7 @@
 								@endif
 							</div>
 							<div class="link pull-right">
-								@include($path . 'partials/share')
+								@include($path . 'partials/share', ['title'=>$post->title])
 							</div>
 						</footer>
 					</article>

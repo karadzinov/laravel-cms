@@ -109,7 +109,7 @@
 
 
 					<!-- SHARE POST -->
-					@include($path.'partials/share')
+					@include($path.'partials/share', ['title'=>$post->title])
 					<!-- /SHARE POST -->
 
 

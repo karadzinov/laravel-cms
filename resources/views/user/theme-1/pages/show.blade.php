@@ -99,7 +99,7 @@
 			<div class="row">
 				<div class="col-md-8"></div>
 				<div class="col-md-4 pull-right">
-					@include($path . 'partials/share')
+					@include($path . 'partials/share', ['title'=>$page->title])
 				</div>
 			</div>
 		</div>

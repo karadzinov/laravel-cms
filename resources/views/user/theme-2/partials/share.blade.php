@@ -3,7 +3,7 @@
 	<span class="float-left mt-6 bold hidden-xs-down">
 		{{trans('general.share')}}
 	</span>
-	<a href="javascript:void(0)" class="social-icon social-icon-sm social-icon-transparent social-call float-right" data-toggle="tooltip" data-placement="top" title="Email">
+	<a href="mailto:?subject=@if(isset($title)){{$title}}@endif&body={{url()->current()}}" class="social-icon social-icon-sm social-icon-transparent social-call float-right" data-toggle="tooltip" data-placement="top" title="Email">
 		<i class="icon-email3"></i>
 		<i class="icon-email3"></i>
 	</a> 
