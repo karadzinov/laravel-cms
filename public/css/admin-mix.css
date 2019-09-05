@@ -3049,6 +3049,48 @@ footer #map-canvas{
   margin-left: 30px
 }
 
+footer .overlay-container{
+  height: auto;
+}
+.social-share.small li a i:nth-child(2){
+  display: none;
+}
+.social-links.animated-effect-1 li.linkedin a:hover {
+  border-color: #0E76A8;
+}
+.social-links:not(.animated-effect-1) li.linkedin a:hover,
+.colored.social-links li.linkedin a,
+.social-links.animated-effect-1 li.linkedin a:after,
+.btn.linkedin {
+  background-color: #0E76A8;
+  border-color: #0E76A8;
+  color: #fff;
+}
+
+.social-links.animated-effect-1 li.whatsapp a:hover {
+  border-color: #00E676;
+}
+.social-links:not(.animated-effect-1) li.whatsapp a:hover,
+.colored.social-links li.whatsapp a,
+.social-links.animated-effect-1 li.whatsapp a:after,
+.btn.whatsapp {
+  background-color: #00E676;
+  border-color: #00E676;
+  color: #fff;
+}
+
+.social-links.animated-effect-1 li.email-share a:hover {
+  border-color: #444444;
+}
+.social-links:not(.animated-effect-1) li.email-share a:hover,
+.colored.social-links li.email-share a,
+.social-links.animated-effect-1 li.email-share a:after,
+.btn.email-share {
+  background-color: #444444;
+  border-color: #444444;
+  color: #fff;
+}
+
 @media only screen and (max-width: 600px) {
   .embed-responsive-16by9 {
     height: 100%;

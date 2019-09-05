@@ -98,11 +98,7 @@
 								@endif
 							</div>
 							<div class="link pull-right">
-								<ul class="social-links circle small colored clearfix margin-clear text-right animated-effect-1">
-									<li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-									<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-									<li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-								</ul>
+								@include($path . 'partials/share')
 							</div>
 						</footer>
 					</article>
@@ -113,4 +109,11 @@
 		</div>
 	</section>
 	<!-- main-container end -->
+@endsection
+
+@section('optionalScripts')
+	<script src="{{ asset('js/share.js') }}"></script>
+	<script>
+		$('.social-links.small li a i:nth-child(2)').remove()
+	</script>
 @endsection

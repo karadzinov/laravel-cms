@@ -13,6 +13,10 @@
 			width: 100%;
 			padding-top: 20px;
 		}
+		.facebook{
+			content: 'hahahah' !important;
+			/*content: '<i class="icon-pinterest"></i>';*/
+		}
 	</style>
 @endsection
 @section('content')
@@ -92,7 +96,17 @@
 				<!-- main end -->
 
 			</div>
+			<div class="row">
+				<div class="col-md-8"></div>
+				<div class="col-md-4 pull-right">
+					@include($path . 'partials/share')
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- main-container end -->
+@endsection
+
+@section('optionalScripts')
+	<script src="{{ asset('js/share.js') }}"></script>
 @endsection

@@ -7,8 +7,7 @@
 		<i class="icon-email3"></i>
 		<i class="icon-email3"></i>
 	</a> 
-	{!!Share::page(url()->current(), null, [], '<div>', '</div>')
-		->whatsapp()
+	{!!Share::page(url()->current(), null, ['class'=>'social-icon social-icon-sm social-icon-transparent float-right'], '<div>', '</div>')
 		->linkedin()
 		->twitter()
 		->facebook()!!}
