@@ -1,8 +1,6 @@
 <div class="card">
     <div class="card-header @role('admin', true) bg-secondary text-white @endrole">
 
-        {{trans('dashboard.welcome')}} {{ Auth::user()->name }}
-
         @role('admin', true)
             <span class="pull-right badge badge-primary" style="margin-top:4px">
                 {{trans('admin.admin-access')}}
@@ -16,7 +14,7 @@
     </div>
     <div class="card-body">
         <h2 class="lead">
-            {{ trans('dashboard.logged-in') }}
+            {{trans('dashboard.welcome')}}, {{ Auth::user()->name }}!
         </h2>
 
         <hr>

@@ -35,6 +35,7 @@
         "socialiteproviders/instagram": "^3.0",
         "socialiteproviders/twitch": "^3.0",
         "socialiteproviders/youtube": "^3.0",
+        "spatie/laravel-analytics": "3.6.2",
         "spatie/laravel-sitemap": "5.2.11"
     },
     "require-dev": {
