@@ -17,7 +17,7 @@
 			background-color: white;
 			padding: 20px;
 			
-		}
+	}
 		.world-map{
 			width: 100%
 		}
@@ -28,7 +28,7 @@
 @endsection
 @section('content')
 	<div class="widget-body">
-	    <div class="container">
+	    <div class="container-fluid">
 	        <div class="row">
 	            <div class="col-12 col-lg-10 offset-lg-1">
 

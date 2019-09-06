@@ -1,4 +1,3 @@
-@include('google/google-analytics')
 <meta charset="utf-8">
 <meta name="author" content="htmlcoder.me">
 

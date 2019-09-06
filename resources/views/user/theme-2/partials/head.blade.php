@@ -1,4 +1,3 @@
-@include('google/google-analytics')
 <meta charset="utf-8" />
 <title>
 	@yield('title', $settings->title) | {{config('app.name')}}

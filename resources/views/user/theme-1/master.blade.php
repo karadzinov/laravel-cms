@@ -6,6 +6,7 @@
 	<!--<![endif]-->
 
 	<head>
+		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
 	</head>

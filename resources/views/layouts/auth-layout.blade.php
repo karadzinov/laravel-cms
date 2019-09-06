@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        
+        @include('google/google-analytics')
         @include('admin/partials/head')
         @yield('head')
         <style>
