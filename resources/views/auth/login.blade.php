@@ -63,7 +63,10 @@
                     @endforeach
                 </form>
             @endif
-            
+            <hr class="bottom-separator">
+            <div class="text-center mt-30 register-instead">
+                {!!trans('auth.or-register')!!}
+            </div>
         </div>
     </div>
 @endsection

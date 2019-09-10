@@ -78,7 +78,7 @@
                            <p class="text-center mb-4">
                                {{trans('auth.or-socialite')}}
                            </p>
-                           @include('admin/partials/socials')
+                           @include('admin/partials/socials-icons')
                        </div>
                 </div>
             </form>
@@ -96,7 +96,11 @@
                     @endforeach
                 </form>
             @endif
-            
+            <hr class="bottom-separator">
+            <div class="text-center mt-30 register-instead">
+                {!!trans('auth.or-login')!!}
+            </div>
+            </div>
         </div>
     </div>
 

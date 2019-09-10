@@ -47,6 +47,12 @@ return [
         'redirect'      => env('TW_REDIRECT'),
     ],
 
+    'linkedin' => [
+        'client_id'     => env('LINKEDIN_ID'),
+        'client_secret' => env('LINKEDIN_SECRET'),
+        'redirect'      => env('LINKEDIN_REDIRECT'),
+    ],
+
     'google' => [
         'client_id'     => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_SECRET'),
@@ -57,6 +63,18 @@ return [
         'client_id'     => env('GITHUB_ID'),
         'client_secret' => env('GITHUB_SECRET'),
         'redirect'      => env('GITHUB_REDIRECT'),
+    ],
+
+    'gitlab' => [
+        'client_id'     => env('GITLAB_ID'),
+        'client_secret' => env('GITLAB_SECRET'),
+        'redirect'      => env('GITLAB_REDIRECT'),
+    ],
+
+    'bitbucket' => [
+        'client_id'     => env('BITBUCKET_ID'),
+        'client_secret' => env('BITBUCKET_SECRET'),
+        'redirect'      => env('BITBUCKET_REDIRECT'),
     ],
 
     'youtube' => [
