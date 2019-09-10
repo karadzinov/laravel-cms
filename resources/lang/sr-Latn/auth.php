@@ -82,7 +82,7 @@ return [
     'remember-me'       => 'Zapamti me',
     'forgot-password'   => 'Zaboravili ste lozinku?',
     'fill-info'         => 'Molimo Vas da popunite sledeće informacije',
-    'or-socialite'      => 'Ili koristite neku od društvenih za najavu',
+    'or-socialite'      => 'Ili koristite neku od društvenih mreža za najavu',
     'or-register'       => 'Možda nemate nalog i želite da <a href="/register">otvorite nalog</a>?',
     'or-login'          => 'Možda već imate nalog i želite <a href="/login">se najavite</a>?',
 
