@@ -3,17 +3,6 @@
     <head>
         @include('admin/partials/head')
         @yield('head')
-        <style>
-            @media only screen and (max-width: 600px){
-                .hide-on-mobile{
-                    display: none;
-                }
-                .table-responsive>.table>tbody>tr>td{
-                    padding-right: 0px;
-                    word-break: break-all !important;
-                }
-            }
-        </style>
     </head>
     <body>
         <div class="loading-container loading-inactive">

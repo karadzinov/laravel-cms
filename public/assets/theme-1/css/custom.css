@@ -394,6 +394,12 @@ footer #map-canvas{
     text-transform: uppercase;
 }
 
+#language-switcher-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .language-switcher-area {
   min-width: auto !important;
 }

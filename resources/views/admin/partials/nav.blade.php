@@ -106,7 +106,7 @@
                                 </a>
                             </div>
                             <div class="setting-container">
-                                <form method="POST" action="{{route('switchLanguage')}}">
+                                <form id="language-switcher-form" method="POST" action="{{route('switchLanguage')}}">
                                     @foreach($languages as $language)
                                         @csrf
                                         <input type="submit" name="language" class="btn btn-warning btn-sm admin-language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">

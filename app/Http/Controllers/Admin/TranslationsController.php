@@ -137,12 +137,12 @@ class TranslationsController extends Controller
             if(!$language->active){
                $language->update(['active'=>true]);
             }
-            if(!$language->folder){
-               $src = self::EN_DIR;
-               $dst = self::LANG_DIR . $language->code;
-               $newDirectory = $this->copyEnglishDirectory($src, $dst);
-               $language->update(['folder'=>true]);
-            }
+            // if(!$language->folder){
+            //    $src = self::EN_DIR;
+            //    $dst = self::LANG_DIR . $language->code;
+            //    $newDirectory = $this->copyEnglishDirectory($src, $dst);
+            //    $language->update(['folder'=>true]);
+            // }
         }
 
         return response()->json(['status'=>200]);
