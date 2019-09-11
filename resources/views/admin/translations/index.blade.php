@@ -134,9 +134,17 @@
             	</div>
                 <div class="widget-body">
                 	<a id="addTranslation" href="javascript:void(0)" class="btn btn-success btn-lg">
-	        		<i class="fa fa-edit"></i> 
-	        	    {{trans('translations.create-new')}}
-	        	</a>
+	        			<i class="fa fa-language"></i> 
+	        	   		{{trans('translations.add-remove')}}
+	        		</a>
+                	@if(count($withoutFiles))
+	                	@foreach($withoutFiles as $folderless)
+		                	<a href="javascript:void(0)" data-language="{{$folderless->id}}" class="btn btn-warning btn-lg addRemoveLanguage">
+			        			<i class="fa fa-edit"></i> 
+			        	   		{{trans('translations.add-translation-for')}} {{$folderless->name}}
+			        		</a>
+	                	@endforeach
+                	@endif
                     <div class="container-fluid" style="margin-top:30px;">
                         <div class="row">
                             <div class="col-md-12">
@@ -265,30 +273,58 @@
 				    }
 				});
 			});
+
+			// add remove language
+			$('.addRemoveLanguage').on('click', function(){
+				var langId = $(this).data('language');
+				if(langId){
+					storeTranslation(langId);
+				}
+			});
 			
 			function callAddLanguageModal(body){
 				bootbox.dialog({
 			        message: body,
-			        title: "Add New Translation",
+			        title: "{{trans('translations.add-remove')}}",
 			        className: "modal-darkorange",
 			        buttons: {
 			            success: {
-			                label: "<i class='fa fa-save'></i> Create",
+			                label: "<i class='fa fa-save'></i> {{trans('admin.save')}}",
 			                className: "btn-success",
 			                callback: function () {
-			                	var pp = $('#languageSelector').val();
-			                	if(pp){
-			                		storeTranslation(pp);
+			                	var ids = $('#languageSelector').val();
+			                	if(ids.length){
+			                		addRemoveLanguages(ids);
 			                	}
 			                }
 			            },
 			            "Cancel": {
-			            	label: "<i class='fa fa-remove'></i> Cancel",
+			            	label: "<i class='fa fa-remove'></i> {{trans('admin.cancel')}}",
 			                className: "btn-danger",
 			                callback: function () { }
 			            }
 			        }
 			    });
+			}
+
+			function addRemoveLanguages(ids){
+				$.ajaxSetup({
+				    headers:
+				    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+				});
+				$.ajax({
+					type: 'POST',
+					url: "{{route('admin.translations.addRemoveLanguages')}}",
+					data:{
+						ids: ids,
+					},
+					success: function(response){
+						location.reload();
+					},
+					error: function(response){
+						bootbox.alert("Error.");
+					},
+				})
 			}
 
 			function storeTranslation(id){

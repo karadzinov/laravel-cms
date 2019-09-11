@@ -11,35 +11,53 @@ use App\Helpers\Translations\{Translation, TranslationFile};
 
 class TranslationsController extends Controller
 {
-	const LANG_DIR = '../resources/lang/';
-    const EN_DIR = '../resources/lang/en/';
+	const LANG_DIR  = '../resources/lang/';
+    const EN_DIR    = '../resources/lang/en/';
 
     public function index(){
-    	
     	$translations = $this->findLanguagesAndFiles();
+
+        $activeLanguages = Language::where('active', '=', 1)->get();
+        $activeCodes = $activeLanguages->pluck('code')->toArray();
+        $availableFolders = $this->scanLangFolder();
+        $difference = array_diff($activeCodes, $availableFolders);
+        $withoutFiles = [];
+        foreach($difference as $diff){
+            $withoutFiles[]=$activeLanguages->where('code', '=', $diff)->first();
+        }
         
-	  	return view('admin/translations/index', compact('translations'));
+	  	return view('admin/translations/index', compact('translations', 'withoutFiles'));
+    }
+
+    public function scanLangFolder(){
+        
+        $folders = array_diff(scandir(self::LANG_DIR), ['.', '..', 'vendor']);
+
+        return $folders;
     }
 
     public function findLanguagesAndFiles(){
         
-        $languages = array_diff(scandir(self::LANG_DIR), ['.', '..', 'vendor']);
+        $languages = $this->scanLangFolder();
+        $activeLangs = Language::where('active', '=', 1)->pluck('code')->toArray();
         $translations = [];
         foreach($languages as $language){
-            $files = array_diff(scandir(self::LANG_DIR . $language), ['.', '..', 'vendor']);
-            $items = [];
-            foreach($files as $file){
-                $file = str_replace('.php', '', $file);
-                $route = route('admin.translations.edit', compact('language', 'file'));
-                $item = new TranslationFile($file, $route);
-                $items[] = $item;
-            }
-            $translation = new Translation($language, $items);
+           if(in_array($language, $activeLangs)){
+                $files = array_diff(scandir(self::LANG_DIR . $language), ['.', '..', 'vendor']);
+                $items = [];
+                foreach($files as $file){
+                    $file = str_replace('.php', '', $file);
+                    $route = route('admin.translations.edit', compact('language', 'file'));
+                    $item = new TranslationFile($file, $route);
+                    $items[] = $item;
+                }
+                $translation = new Translation($language, $items);
 
-            $translations[] = $translation;
+                $translations[] = $translation;
+           }
         }
 
-        return $translations;
+        return collect($translations);
     }
 
     public function writeToFile($array, $file){
@@ -70,10 +88,7 @@ class TranslationsController extends Controller
     }
 
     public function create(){
-        $languages = Language::where('folder', '=', 0)
-                        ->orderByDesc('active')
-                        ->select('name', 'id')
-                        ->get();
+        $languages = Language::all();
 
         $view = view('admin/partials/translations/languageSelector', compact('languages'))->render();
         
@@ -88,12 +103,12 @@ class TranslationsController extends Controller
             'id' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => 403]);
+            return response()->json(['status' => 404]);
         }
 
         $language = Language::findOrFail($request->get('id'));
-
-       try {
+        (!$language->active) ? $language->update(['active' => 1]) : '';
+        try {
             //copy english directory with new language code name
             $src = self::EN_DIR;
             $dst = self::LANG_DIR . $language->code;
@@ -106,10 +121,47 @@ class TranslationsController extends Controller
                     'redirectRoute' => route('admin.translations.show', $language->code)
                 ]);
        } catch (Exception $e) {
-           
+
             return response()->json(['status'=>500]);
        }
 
+    }
+
+    public function addRemoveLanguages(Request $request){
+        
+        $ids = $request->get('ids');
+        $deactivate = $this->deactivateLanguagesIfNecessary($ids);
+
+        foreach($ids as $key => $id){
+            $language = Language::findOrFail($id);
+            if(!$language->active){
+               $language->update(['active'=>true]);
+            }
+            if(!$language->folder){
+               $src = self::EN_DIR;
+               $dst = self::LANG_DIR . $language->code;
+               $newDirectory = $this->copyEnglishDirectory($src, $dst);
+               $language->update(['folder'=>true]);
+            }
+        }
+
+        return response()->json(['status'=>200]);
+    }
+
+    public function deactivateLanguagesIfNecessary($ids){
+        
+        $activeLangs = Language::where('active', '=', 1)->get();
+        $active = $activeLangs->pluck('id')->toArray();
+        $difference = array_diff($active, $ids);
+
+        if(count($difference)){
+            foreach($difference as $id){
+                $language = $activeLangs->where('id', '=', $id)->first();
+                $language->update(['active'=>false]);
+            }
+        }
+
+        return true;
     }
 
     public function copyEnglishDirectory($src, $dst) {

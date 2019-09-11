@@ -50,7 +50,7 @@ return [
             Ukoliko naiđete na reči bez smisla, (npr. <code>"&_laquo";</code>) ostavite ih u tom obliku, to su specijalni znaci pisani za kompjuter. Prethodni znak npr. označava &laquo;
           </li>
           <li>
-            Budite uporni, ponavljamo da ukoliko ostavite neprevedene, sadržiana će biti prikazana na engleskom.
+            Budite uporni, ponavljamo da ukoliko ostavite neprevedene, sadržina će biti prikazana na engleskom.
           </li>
         </ul>
     </div>
@@ -59,4 +59,6 @@ return [
   'missing-enabled-language' => 'Imate :count jezika bez prevedenih fajlova. Molimo Vas da ih napravite na stranici Prevodi.',
   'drag-and-drop' => 'Prevucite slajdove od vrha prema dnu tako da prikazuju željeni redosled.',
   'change-order'  => 'Izmeni redosled',
+  'add-translation-for'     => 'Dodaj prevod za',
+  'add-remove'              => 'Dodaj/ukloni jezik',
 ];

@@ -188,5 +188,6 @@ Route::group(["prefix" => "translations", "as"=>"translations.", 'middleware' =>
     Route::get('create', 'TranslationsController@create')->name('create');
     Route::post('store', 'TranslationsController@store')->name('store');
     Route::get('edit/{language}/{file}', 'TranslationsController@edit')->name('edit');
+    Route::post('addRemoveLanguages', 'TranslationsController@addRemoveLanguages')->name('addRemoveLanguages');
     // Route::delete('delete/{language}', 'TranslationsController@delete')->name('delete');
 });

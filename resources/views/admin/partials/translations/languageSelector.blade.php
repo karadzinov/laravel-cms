@@ -5,7 +5,7 @@
                 <label for="languageSelector"><h6>{{trans('translations.choose-language')}}</h6></label>
                 <select id="languageSelector" multiple="multiple" style="width: 100%;" required="">
                     @foreach($languages as $language)
-                        <option value="{{$language->id}}">
+                        <option @if($language->active) selected @endif value="{{$language->id}}">
                             {{$language->name}}
                         </option>
                     @endforeach
@@ -17,8 +17,8 @@
 
 <script>
     $("#languageSelector").select2({
-        placeholder: '{{trans('translations.choose-language')}}',
-        allowClear: true,
-        multiple: false
+        {{-- placeholder: '{{trans('translations.choose-language')}}', --}}
+        // allowClear: true,
+        multiple: true
     })
 </script>

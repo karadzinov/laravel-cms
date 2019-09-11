@@ -56,8 +56,10 @@ return [
     </div>
   ',
   'how-to'                  => 'How To Translate',
-  'missing-enabled-language' => 'You have :count languages without translation files. Please make them on translation page.',
-  'drag-and-drop' => 'Drag slides from top to nottom so that they reflect your desired order',
-  'change-order'  => 'Change Order',
+  'missing-enabled-language'=> 'You have :count languages without translation files. Please make them on translation page.',
+  'drag-and-drop'           => 'Drag slides from top to nottom so that they reflect your desired order',
+  'change-order'            => 'Change Order',
+  'add-translation-for'     => 'Add translation for',
+  'add-remove'              => 'Add/Remove Language',
 
 ];
