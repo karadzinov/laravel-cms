@@ -17,7 +17,6 @@
 			}
 		</style>
 @endsection
-
 @section('content')
 	@if($posts->isNotEmpty())
 		<!-- 

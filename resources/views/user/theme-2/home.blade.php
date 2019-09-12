@@ -33,7 +33,7 @@
 		}
 	</style>
 @endsection
-
+@section('title', trans('general.navigation.home'))
 @section('content')
 	<!-- REVOLUTION SLIDER -->
 	<section id="slider" class="slider fullwidthbanner-container roundedcorners">
@@ -69,7 +69,7 @@
 			<div class="fullscreenbanner" data-navigationStyle="preview1">
 				<ul class="hide">
 					@foreach($slides as $slide)
-						@if($loop->iteration%2===0)
+						@if($loop->iteration%2!==0)
 							<!-- SLIDE  -->
 							<li data-transition="random" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="{{$slide->title}}" data-thumb="{{$slide->thumbnailPath}}">
 

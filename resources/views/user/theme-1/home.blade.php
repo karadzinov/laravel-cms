@@ -139,7 +139,7 @@
 								<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
 								<div class="overlay-top">
 									<div class="text">
-										<h3><a href="portfolio-item.html">{{$post->title}}</a></h3>
+										<h3><a href="{{$post->showRoute}}">{{$post->title}}</a></h3>
 										<p class="small">{{$post->subtitle}}</p>
 									</div>
 								</div>

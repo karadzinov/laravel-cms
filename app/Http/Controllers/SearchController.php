@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Post, FAQ, Page};
+use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -42,6 +43,7 @@ class SearchController extends Controller
             $pages = $this->searchInPages($searchTerm);
             $faqs = $this->searchInFaqs($searchTerm);
         }
+        $metadata = new Metadata(trans('general.search'));
 
         return view($this->path . 'search/index', compact('posts', 'pages', 'faqs', 'search'));
 

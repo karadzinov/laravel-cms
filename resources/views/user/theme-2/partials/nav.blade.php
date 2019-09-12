@@ -64,7 +64,7 @@
 				          <i class="fa fa-globe"></i> 
 				        </a>
 				        <div class="dropdown-menu" aria-labelledby="language-switcher">
-				        	<form method="POST" action="/switch-language">
+				        	<form method="POST" action="{{route('switchLanguage')}}">
 				        		@csrf
 				        		@foreach($languages as $language)
 				        			<li>

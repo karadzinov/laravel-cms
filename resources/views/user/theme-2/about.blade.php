@@ -13,6 +13,7 @@
 		}
 	</style>
 @endsection
+@section('title', trans('general.navigation.about'))
 @section('content')
 @if($about)
 	<!-- PAGE HEADER -->

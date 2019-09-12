@@ -23,7 +23,7 @@
 		}
 	</style>
 @endsection
-
+@section('title', trans('general.search'))
 @section('content')
 
 	

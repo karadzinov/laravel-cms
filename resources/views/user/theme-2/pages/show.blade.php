@@ -2,10 +2,14 @@
 
 @section('optionalHead')
 	<style>
-		.slider-image{
+		.slider-image-container{
+
+			display: flex;
+		    flex-direction: row;
+		    justify-content: space-around;
+		}
+		.slider-image-container img{
 			height: 475px;
-			width: 100%;
-			object-fit: cover;
 		}
 	</style>
 @endsection
@@ -19,8 +23,8 @@
 					<!-- OWL SLIDER -->
 					<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
 						@foreach($page->images as $image)
-							<a class="lightbox" href="{{$page->mediumPath . $image->name}}" data-plugin-options='{"type":"image"}'>
-								<img class="img-fluid slider-image" src="{{$page->originalPath . $image->name}}" alt="" />
+							<a class="lightbox slider-image-container" href="{{$page->mediumPath . $image->name}}" data-plugin-options='{"type":"image"}'>
+								<img class="img-fluid" src="{{$page->originalPath . $image->name}}" alt="" />
 							</a>
 						@endforeach
 					</div>
@@ -32,6 +36,7 @@
 				<div class="col-md-12 col-sm-12">
 
 					<h1 class="blog-post-title">{{$page->title}}</h1>
+					<small class="text-small">{{$page->subtitle}}</small>
 					<ul class="blog-post-info list-inline">
 						<li>
 							<a href="javascript:void(0)">

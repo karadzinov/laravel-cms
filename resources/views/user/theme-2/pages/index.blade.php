@@ -14,10 +14,14 @@
 		    color: #fff;
 		    background-color: #151515 !important;
 		}
-		.page-image{
-			width: 100%;
+		.page-image-container{
+
+			display: flex;
+		    flex-direction: row;
+		    justify-content: space-around;
+		}
+		.page-image-container img{
 			height: 380px;
-			object-fit: cover;
 		}
 	</style>
 @endsection
@@ -51,8 +55,8 @@
 							<!-- OWL SLIDER -->
 							<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 3000, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
 								@foreach($page->images as $image)
-									<div>
-										<img class="img-fluid page-image" src="{{$page->originalPath . $image->name}}" alt="">
+									<div class="page-image-container">
+										<img class="img-fluid" src="{{$page->originalPath . $image->name}}" alt="">
 									</div>
 								@endforeach
 							</div>

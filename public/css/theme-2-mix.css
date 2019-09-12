@@ -29527,6 +29527,7 @@ i.ico-hover:hover {
 }
 .language-switcher .btn{
 	border-radius: 0;
+	color:white;
 }
 .language-switcher .dropdown-toggle::after {
     display:none;

@@ -1,5 +1,5 @@
 @extends($path . 'master')
-
+@section('title', trans('general.navigation.contact'))
 @section('content')
 	<!-- 
 	Available heights

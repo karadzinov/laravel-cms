@@ -126,7 +126,7 @@
 											</button>
 											<ul class="dropdown-menu dropdown-animation language-switcher-area">
 												<li>
-													<form method="POST" action="switch-language">
+													<form method="POST" action="{{route('switchLanguage')}}">
 														@csrf
 														@foreach($languages as $language)
 															<input type="submit" name="language" class="btn btn-default btn-sm language-switcher @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">

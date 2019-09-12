@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use Exception;
 use Illuminate\Http\Request;
+use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
 
@@ -15,8 +16,17 @@ class FrontEndController extends Controller
     	$page = Page::where('slug', '=', $slug)->first();
 
     	if($page){
-    		return view($this->path . 'pages/show', compact('page'));
+            try {
+                $image = optional($page->images)->first();
+                $image = $page->mediumPath . $image->name;
+            } catch (Exception $e) {
+                $image = null;
+            }
+
+            $metadata = new Metadata($page->title, $page->subtitle, $image);
+    		return view($this->path . 'pages/show', compact('page', 'metadata'));
     	}
+        
         $category = Category::where('slug', '=', $slug)->with('descendants')->firstOrFail();
         $posts = $this->getAllCategoryPosts($category);
     	$slider = $posts->where('image', '!=', null)->take(4);
@@ -24,8 +34,9 @@ class FrontEndController extends Controller
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
         $facebook = Settings::first()->facebook;
+        $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
-		return view($this->path . 'categories/index', compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook'));
+		return view($this->path . 'categories/index', compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook', 'metadata'));
     }
 
     public function getAllCategoryPosts(Category $category){
@@ -52,8 +63,9 @@ class FrontEndController extends Controller
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
         $facebook = Settings::first()->facebook;
+        $metadata = new Metadata(trans('general.navigation.posts'));
 
-    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'facebook'));
+    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
     }
 
     public function postsShow($categorySlug, $slug){
@@ -63,21 +75,24 @@ class FrontEndController extends Controller
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
         $facebook = Settings::first()->facebook;
+        $metadata = new Metadata($post->title, $post->subtitle, $post->thumbnailPath);
 
-    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'facebook'));
+    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
     }
 
     public function pages(){
     	
     	$pages = Page::paginate(8);
+        $metadata = new Metadata(trans('general.navigation.pages'));
 
-    	return view($this->path . 'pages/index', compact('pages'));
+    	return view($this->path . 'pages/index', compact('pages', 'metadata'));
     }
 
     public function faqs(){
     	
     	$categories = FaqCategory::with('faqs')->has('faqs')->get();
-        $data = ['categories'=>$categories];
+        $metadata = new Metadata(trans('general.navigation.faq'));
+        $data = ['categories'=>$categories, 'metadata' => $metadata];
         
         if($this->path == 'user/theme-2/'){
 
@@ -92,15 +107,17 @@ class FrontEndController extends Controller
         $tag = Tag::where('slug', '=',$slug)->firstOrFail();
         $posts = $tag->posts()->get();
         $tag = $tag->name;
+        $metadata = new Metadata($tag);
 
         return view($this->path . 'posts/tags', compact('posts', 'tag'));
     }
 
     public function contact(){
         
-       $settings = Settings::first();
+        $settings = Settings::first();
+        $metadata = new Metadata(trans('general.navigation.contact'));
 
-       return view($this->path . 'contact', compact('settings'));
+       return view($this->path . 'contact', compact('settings', 'metadata'));
     }
 
     public function about(){
@@ -108,8 +125,9 @@ class FrontEndController extends Controller
        $about        = About::first();
        $settings     = Settings::first();
        $testimonials = Testimonial::all();
+       $metadata = new Metadata(trans('general.navigation.about'));
        
-       return view($this->path . 'about', compact('about', 'settings', 'testimonials'));
+       return view($this->path . 'about', compact('about', 'settings', 'testimonials', 'metadata'));
     }
 
     public function switchLanguage(Request $request){
