@@ -29,7 +29,7 @@
 					                <th class="hidden-xs">{{trans('admin.company')}}</th>
 					                <th class="hidden-xs hidden-md">{{trans('admin.content')}}</th>
 					                <th class="hidden-xs hidden-md">{{trans('admin.created-at')}}</th>
-					                <th class="hidden-xs">{{trans('admin.updated-at')}}</th>
+					                <th class="hidden-xs">{{trans('admin.content')}}</th>
 					                <th>{{trans('admin.actions')}}</th>
 					                <th></th> 
 					                <th></th> 

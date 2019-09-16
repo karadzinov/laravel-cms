@@ -254,7 +254,7 @@
 			                    	    {{$category->name}}
 			                    	    {{-- <span>{{$testimonial->comapny}}</span> --}}
 			                    	</cite>
-			                    	<p>{{$category->description}}</p>
+			                    	<p>{{ substr($category->description, 0, 200) }}...</p>
 			                    </a>
 			                </div>
 						</div>

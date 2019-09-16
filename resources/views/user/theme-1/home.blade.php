@@ -68,7 +68,7 @@
 									<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
 									<h3>{{$category->name}}</h3>
 									<div class="separator clearfix"></div>
-									<p>{{$category->description}}</p>
+									<p>{{ substr($category->description, 0, 200) }}...</p>
 									<a href="{{$category->showRoute}}">{{trans('general.read_more')}} <i class="pl-5 fa fa-angle-double-right"></i></a>
 								</div>
 							</div>

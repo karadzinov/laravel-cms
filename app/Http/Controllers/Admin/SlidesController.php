@@ -92,7 +92,6 @@ class SlidesController extends Controller
         $request->merge(['active'=>$request->has('active')]);
 		$slide = Slide::findOrFail($slide);
 	    $image = $this->updateImageIfNecessary($request, $slide);
-	    
 	    $input = $request->all();
 	    $input['image'] = $image;
 	    $input['language'] = App::getLocale();
@@ -163,8 +162,8 @@ class SlidesController extends Controller
      * @return bool
      */
     public function deleteImages(Slide $slide){
-        $paths = $this->makePaths();
         $image = $slide->image;
+        $paths = $this->makePaths();
         try {
             @unlink($paths->original.$image);
             @unlink($paths->thumbnail.$image);

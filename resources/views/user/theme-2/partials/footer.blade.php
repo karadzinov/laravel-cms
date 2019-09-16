@@ -108,7 +108,7 @@
 
 					<a href="//{{$settings->instagram}}" class="social-icon social-icon-border social-instagram float-left" data-toggle="tooltip" data-placement="top" title="{{trans('general.instagram')}}">
 						<i class="icon-instagram"></i>
-						<i class="icon-instagram"></i>
+						<i class="icon-instagram hover-instagram"></i>
 					</a>
 
 					<a href="//{{$settings->linkedin}}" class="social-icon social-icon-border social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="{{trans('general.linkedin')}}">
