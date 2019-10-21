@@ -1,4 +1,16 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('settings.settings')}}
+@endsection
+
+@section('head')
+    <style>
+        select{
+            width:100%;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="widget">
@@ -73,7 +85,7 @@
                             @endif
                         </div>
 
-                        {!! Form::label('phone_number', 'Phone Number', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        {!! Form::label('phone_number', trans('forms.settings-phone-number'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('phone_number', $settings->phone_number, array('id' => 'phone_number', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Phone Number')) !!}
                             @if ($errors->has('phone_number'))
@@ -94,7 +106,7 @@
                             @endif
                         </div>
 
-                        {!! Form::label('slogan', 'Company Slogan', array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        {!! Form::label('slogan', trans('forms.settings-company-slogan'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                         <div class="col-md-12"  style="font-size: 14px">
                             {!! Form::text('slogan', $settings->slogan, array('id' => 'slogan', 'class' => 'form-control','style'=>'font-size:14px; line-height:18px;', 'placeholder' => 'Company Slogan')) !!}
                             @if ($errors->has('slogan'))
@@ -102,6 +114,25 @@
                                     <strong>{{ $errors->first('slogan') }}</strong>
                                 </span>
                             @endif
+                        </div>
+                        <div class="col-md-12"  style="font-size: 14px">
+
+                            <div class="form-group">
+                                {!! Form::label('languages', trans('forms.settings-languages-available') , array('class' => 'control-label')); !!}
+                                {{Form::select('languages[]', 
+                                    $languages, $avalilableLanguages,
+                                    array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="theme-selector">THEME</label>
+                            <select id="theme-selector" name="theme">
+                             @foreach($themes as $theme)
+                                <option value="{{$theme->id}}" @if($theme->active) selected @endif>
+                                    {{$theme ->name}}
+                                </option>
+                             @endforeach
+                            </select>
                         </div>
 
                         {!! Form::label('meta_description', trans('forms.settings-meta-description'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
@@ -215,7 +246,7 @@
                     <input type="hidden" id="lng" class="form-control" name="lng" value="{{ $settings->lng }}">
                     
                 </div>
-                {!! Form::button(trans('forms.edit_settings_button_text'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('settings.update-settings'), array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','style'=>'margin-top: 8px;', 'type' => 'submit',  )) !!}
             {!! Form::close() !!}
         </div>
     </div>      
@@ -275,6 +306,10 @@
             });
 
         });
+
+        $("#languages").select2();
+        $("#theme-selector").select2();
+    </script>
 
     </script>
 @endsection

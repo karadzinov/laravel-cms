@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call([
+            LanguagesTableSeeder::class,
             ConversationTableSeeder::class,
             ConversationUserTableSeeder::class,
             MessagesTableSeeder::class,
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             PostTagTableSeeder::class,
             ScriptsTableSeeder::class,
             SettingsTableSeeder::class,
+            AboutTableSeeder::class,
         ]);
 
         Model::reguard();

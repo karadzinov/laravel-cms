@@ -14,12 +14,15 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
+            
             $table->integer('id')->default(1);
             $table->string('main_url');
             $table->string('title');
             $table->string('email');
+            $table->string('phone_number');
             $table->string('address');
             $table->string('logo');
+            $table->string('slogan')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('meta_image')->nullable();
             $table->string('meta_title')->nullable();
@@ -30,6 +33,9 @@ class CreateSettingsTable extends Migration
             $table->string('ios_app')->nullable();
             $table->string('android_app')->nullable();
             $table->text('google_map')->nullable();
+            $table->double('lat',20,10);
+            $table->double('lng',20,10);
+
             $table->timestamps();
         });
     }

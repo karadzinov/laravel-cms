@@ -3,7 +3,7 @@
         <li>
             {{$t->name}}
             @if($t->children) 
-                @include('admin.categories.partials.path', [ 'tree' => $t->children ])
+                @include('admin/categories/partials.path', [ 'tree' => $t->children ])
             @endif 
         </li>
     @endforeach

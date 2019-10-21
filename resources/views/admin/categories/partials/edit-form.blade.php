@@ -1,18 +1,18 @@
 {!!Form::hidden('id', $category->id)!!}
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', trans('admin.name')) !!}
     {!! Form::text('name', $category->name, [ 'class' => 'form-control']) !!}
     {!! $errors->first('name') !!}
 </div>
 
 <div class="form-group">
-    {!! Form::label('parent_id', 'Parent:') !!}
+    {!! Form::label('parent_id', trans('categories.parent')) !!}
     {!! Form::select('parent_id', $categories, $category->parent_id, [ 'class' => 'form-control' ]) !!}
     {!! $errors->first('parent_id') !!}
 </div>
 
 <div class="form-group">
-    {!! Form::label('image', 'Image:') !!}
+    {!! Form::label('image', trans('admin.image')) !!}
     @if($category->image)
         <div>
             <img src="{{$category->thumbnailPath}}" style="max-width: 200px">
@@ -25,7 +25,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
+    {!! Form::label('description', trans('admin.description')) !!}
     <span class="input-icon icon-right">
         {!! Form::textarea('description', $category->description, [ 'class' => 'form-control' ]) !!}
         <i class="fa fa-pencil darkorange"></i>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('link', 'Link:') !!}
+    {!! Form::label('link', trans('admin.link')) !!}
     <span class="input-icon icon-right">
         {!! Form::text('link', $category->link, [ 'class' => 'form-control' ]) !!}
         <i class="fa fa-external-link circular"></i>

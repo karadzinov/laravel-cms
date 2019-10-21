@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
 
 @php
   $levelAmount = trans('usersmanagement.labelUserLevel');
@@ -74,7 +78,7 @@
 
                   {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => trans('usersmanagement.deleteUser'))) !!}
                     {!! Form::hidden('_method', 'DELETE') !!}
-                    {!! Form::button('<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <span class="hidden-xs hidden-sm hidden-md">' . trans('usersmanagement.deleteUser') . '</span>' , array('class' => 'btn btn-danger btn-sm pull-right','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user?')) !!}
+                    {!! Form::button('<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <span class="hidden-xs hidden-sm hidden-md">' . trans('usersmanagement.deleteUser') . '</span>' , array('class' => 'btn btn-danger btn-sm pull-right','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('usersmanagement.modals.delete-user'), 'data-message' => trans('usersmanagement.modals.delete_user_message', ['user'=>$user->name]))) !!}
                   {!! Form::close() !!}
                 @endif
               </div>
@@ -465,13 +469,13 @@
       </div>
     </div>
     
-  @include('modals.modal-delete')
+  @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
-  @include('scripts.delete-modal-script')
+  @include('scripts/delete-modal-script')
   @if(config('usersmanagement.tooltipsEnabled'))
-    @include('scripts.tooltips')
+    @include('scripts/tooltips')
   @endif
 @endsection

@@ -44,7 +44,7 @@ class ConversationsController extends Controller
         
         $conversation = Conversation::findOrFail($request->get('conversation'));
 
-        return view('partials/admin/chat/changeName', ['name'=>$conversation->name]);
+        return view('admin/partials/chat/changeName', ['name'=>$conversation->name]);
     }
 
     public function storeNewName(Request $request){
@@ -54,7 +54,7 @@ class ConversationsController extends Controller
             $conversation = Conversation::findOrFail($request->get('conversation'));
             $conversation->name = $name;
             $conversation->save();
-            $content = 'I just changed the name of the conversation to ' . $conversation->title;
+            $content = trans('chat.just-changed', ['title' => $conversation->title]);
             $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             $message->name = $name;
             return json_encode($message);
@@ -68,7 +68,7 @@ class ConversationsController extends Controller
     	    $role->where('name', 'admin');
     	}])->where('id', '!=', Auth()->user()->id)->get();
 
-    	return view('partials/admin/conversations/addNewConversation', compact('users'));
+    	return view('admin/partials/chat/addNewConversation', compact('users'));
     }
 
     public function addNewParticipants(Request $request){
@@ -80,7 +80,7 @@ class ConversationsController extends Controller
             $role->where('name', 'admin');
             }])->whereNotIn('id', $existingParticipants)->get();
 
-        return view('partials/admin/chat/addParticipants', compact('users'));
+        return view('admin/partials/chat/addParticipants', compact('users'));
         
     }
 
@@ -121,7 +121,7 @@ class ConversationsController extends Controller
             try {
                 $conversation->participants()->attach($participant);
                 $participant = User::findOrFail($participant);
-                $content = 'I just added ' . $participant->name . ' to the conversation.';
+                $content = trans('chat.just-added', ['name'=>$participant->name]);
                 $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
                 $names[] = $participant->name;
             } catch (Exception $e) {
@@ -139,7 +139,7 @@ class ConversationsController extends Controller
         $conversation = Conversation::findOrFail($request->get('conversation'));
         $users = $conversation->participants->where('id', '!=', Auth::user()->id);
         
-        return view('partials/admin/chat/removeParticipants', compact('users'));
+        return view('admin/partials/chat/removeParticipants', compact('users'));
     }
 
     public function deleteParticipants(Request $request){
@@ -153,7 +153,7 @@ class ConversationsController extends Controller
             try {
                 $conversation->participants()->detach($participant);
                 $participant = User::findOrFail($participant);
-                $content = 'I just removed ' . $participant->name . ' from this conversation.';
+                $content = trans('chat.just-removed', ['name' => $participant->name]);
                 $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
                 $names[] = $participant->name;
             } catch (Exception $e) {
@@ -174,7 +174,7 @@ class ConversationsController extends Controller
 
     public function notifyNewcomersAndPrepareData($participants, $user, $conversation){
         
-        $view = view('partials/admin/chat/contact', compact('conversation'))->render();
+        $view = view('admin/partials/chat/contact', compact('conversation'))->render();
         $data = [
             'view' => $view,
             'conversationId' => $conversation->id
@@ -207,7 +207,7 @@ class ConversationsController extends Controller
         });
         if($request->get('page')){ //paginator
             $authId = Auth::user()->id;
-            $view = view('partials/chat/messages-list', compact('messages', 'authId'))->render();
+            $view = view('admin/partials/chat/messages-list', compact('messages', 'authId'))->render();
             return response()->json(compact('view', 'next'));
         }
         if($messages->last()){
@@ -215,7 +215,7 @@ class ConversationsController extends Controller
         }
         $conversationId = $conversation->id;
 
-        return view('partials/admin/chat/history', 
+        return view('admin/partials/chat/history', 
                     compact('conversation', 'messages', 'next', 'conversationId')
                 );
     }
@@ -235,10 +235,10 @@ class ConversationsController extends Controller
         $user = Auth::user();
         if($conversation->participants->contains($user)){
             $conversation->participants()->detach($user);
-            $content = "{$user->name} left the conversation.";
+            $content = trans('chat.user-left', ['name'=>$user->name]);
             $message = $this->makeAndBroadcastMessage($conversation, $user, $content);
             
-            return back()->with('success', 'You Successfully removed this conversation.');
+            return back()->with('success', trans('chat.success-removed'));
         }else{
 
             return response()->json(403);

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/master')
 
 @section('template_title')
 	See Message
@@ -12,7 +12,7 @@
  <div class="container">
 	<div class="row">
 	    <div class="col-md-12">
-			 @include('partials.form-status')
+			 @include('admin/partials/form-status')
         </div>
     </div>
 </div>

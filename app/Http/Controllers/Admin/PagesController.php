@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{Category, Page};
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\{Category, Page};
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Helpers\UsesSlider;
 use App\Http\Requests\Pages\StorePageRequest;
@@ -54,10 +55,12 @@ class PagesController extends UsesSlider
     {
         $title = $request->get('title');
         $input = $request->all();
+        $input['language'] = App::getLocale();
+
         $slug = Str::slug(strip_tags($title));
 
         if($this->slugExists($slug)){
-            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
 
         $input['slug'] = $slug;
@@ -65,7 +68,7 @@ class PagesController extends UsesSlider
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
-                    ->with('success', 'Page Successfully Created.');
+                    ->with('success', trans('pages.success.created'));
     }
 
     /**
@@ -74,8 +77,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show($page)
     {
+        $page = Page::findOrFail($page);
         return view('admin.website-pages/show', compact('page'));
     }
 
@@ -85,8 +89,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($page)
     {
+        $page = Page::findOrFail($page);
         $this->cleanSession();
         return view('admin.website-pages/edit', compact('page'));
     }
@@ -98,13 +103,16 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePageRequest $request, Page $page)
+    public function update(StorePageRequest $request, $page)
     {
+        $page = Page::findOrFail($page);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+        
         $title = $request->get('title');
         $slug = Str::slug(strip_tags($title));
         if($this->slugExists($slug, $page->id)){
-            return redirect()->back()->with('error', 'There is a page or a category with the same name.');
+            return redirect()->back()->with('error', trans('admin.same-name'));
         }
         $input['slug'] = $slug;
 
@@ -113,7 +121,7 @@ class PagesController extends UsesSlider
         $images = $this->updateImages($page, $request, $title);
 
         return redirect()->route('admin.pages.index')
-                    ->with('success', 'Page Successfully Updated.');
+                    ->with('success', trans('pages.success.updated'));
     }
 
     public function slugExists($slug, $id=null){
@@ -139,8 +147,9 @@ class PagesController extends UsesSlider
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Page $page)
+    public function delete($page)
     {
+        $page = Page::findOrFail($page);
         $images = $page->images;
 
         if($images){
@@ -150,7 +159,7 @@ class PagesController extends UsesSlider
         $page->delete();
 
         return redirect()->route('admin.pages.index')
-                ->with('success', 'Page Successfully Deleted.');
+                ->with('success', trans('pages.success.deleted'));
     }
 
     

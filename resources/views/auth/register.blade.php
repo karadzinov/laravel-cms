@@ -3,13 +3,13 @@
 @section('content')
     <div class="register-container animated fadeInDown">
         <div class="registerbox bg-white">
-            <div class="registerbox-title">Register</div>
+            <div class="registerbox-title">{{trans('general.header.register')}}</div>
 
-            <div class="registerbox-caption ">Please fill in your information</div>
+            <div class="registerbox-caption ">{{trans('auth.fill-info')}}</div>
             <form role="form" method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="registerbox-textbox">
-                    <label for="name">{{ __('Username') }}</label>
+                    <label for="name">{{ trans('admin.username') }}</label>
                     <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Name">
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
@@ -18,8 +18,8 @@
                     @endif
                 </div>
                 <div class="registerbox-textbox">
-                    <label for="first_name">{{ __('First Name') }}</label>
-                    <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus placeholder="First Name">
+                    <label for="first_name">{{ trans('admin.first-name') }}</label>
+                    <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus placeholder="{{ trans('admin.first-name') }}">
                     @if ($errors->has('first_name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('first_name') }}</strong>
@@ -27,8 +27,8 @@
                     @endif
                 </div>
                 <div class="registerbox-textbox">
-                    <label for="last_name">{{ __('Last Name') }}</label>
-                    <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus placeholder="Last Name">
+                    <label for="last_name">{{ trans('admin.last-name') }}</label>
+                    <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus placeholder="{{ trans('admin.last-name') }}">
                     @if ($errors->has('last_name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('last_name') }}</strong>
@@ -36,8 +36,8 @@
                     @endif
                 </div>
                 <div class="registerbox-textbox">
-                    <label for="email">{{ __('E-Mail Address') }}</label>
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+                    <label for="email">{{ trans('admin.email') }}</label>
+                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="{{ trans('admin.email') }}">
                     @if ($errors->has('email'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -45,8 +45,8 @@
                     @endif
                 </div>
                 <div class="registerbox-textbox">
-                    <label for="password">{{ __('Password') }}</label>
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+                    <label for="password">{{ trans('admin.password') }}</label>
+                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ trans('admin.password') }}">
                     @if ($errors->has('password'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -54,8 +54,8 @@
                     @endif
                 </div>
                 <div class="registerbox-textbox">
-                    <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password">
+                    <label for="password-confirm">{{ trans('admin.confirm-pass') }}</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="{{ trans('admin.confirm-pass') }}">
                     @if ($errors->has('password'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -71,19 +71,36 @@
                     </div>
                 @endif
                 <div class="registerbox-submit">
-                    <input type="submit" class="btn btn-primary pull-right" value="{{ __('Register') }}">
+                    <input type="submit" class="btn btn-primary pull-right" value="{{ trans('general.header.register') }}">
                 </div>
                 <div class="row">
                        <div class="useSocial col-lg-12 offset-lg-1 col-xl-8 offset-xl-2 text-center">
                            <p class="text-center mb-4">
-                               Or Use Social Logins to Register
+                               {{trans('auth.or-socialite')}}
                            </p>
-                           @include('partials/admin/socials')
+                           @include('admin/partials/socials-icons')
                        </div>
                 </div>
             </form>
         </div>
-        <div class="logobox">
+        <div class="bottom" style="width: 100%">
+            @php
+                $languages = App\Models\Language::where('active', '=', 1)->get();
+            @endphp
+            @if($languages->count() > 1)
+                <p class="text-center">{{trans('general.navigation.change_language')}}</p>
+                <form class="text-center" method="POST" action="{{route('switchLanguage')}}">
+                    @foreach($languages as $language)
+                        @csrf
+                        <input type="submit" name="language" class="btn btn-default @if(App::getLocale() === $language->code) active @endif" value="{{$language->native}}">
+                    @endforeach
+                </form>
+            @endif
+            <hr class="bottom-separator">
+            <div class="text-center mt-30 register-instead">
+                {!!trans('auth.or-login')!!}
+            </div>
+            </div>
         </div>
     </div>
 

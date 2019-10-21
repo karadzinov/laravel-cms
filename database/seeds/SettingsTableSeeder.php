@@ -11,8 +11,10 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
+        
         $settings = array(
-          array('main_url' => 'http://cms.test',
+          array(
+            'main_url' => 'http://cms.test',
             'title' => 'CMS',
             'email' => 'cms@cms.com',
             'address' => 'Israel',

@@ -1,4 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('posts.posts')}}
+@endsection
+
 @section('head')
     <style>
         label{
@@ -15,47 +20,49 @@
             	{!!$post->title!!}
             </span>
             <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">
-                Edit Post
+                <i class="fa fa-edit"></i> 
+                {{trans('posts.edit')}}
             </a>
             <a href="{{route('admin.posts.index')}}" class="btn btn-deafult pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
-                Back To Posts
+                {{trans('posts.back-to')}}
             </a>
         </div>
 
         <div class="widget-body">
             <div>
-                <label for="name"><strong>Title:</strong></label>
+                <label for="name"><strong>{{trans('admin.title')}}:</strong></label>
                 <p id="name">{!!$post->title!!}</p>
             </div>
 
             <div>
-                <label for="name"><strong>Subtitle:</strong></label>
+                <label for="name"><strong>{{trans('admin.subtitle')}}:</strong></label>
                 <p id="name">{!!$post->subtitle!!}</p>
             </div>
 
             <div>
-                <label for="name"><strong>Workflow:</strong></label>
-                @php
-                   if($post->workflow === 'pending'){
-                       $labelClass = 'warning';
-                   }elseif($post->workflow === 'posted'){
-                       $labelClass = 'success';
-                   }else{
-                       $labelClass = 'danger';
-                   }
-               @endphp
+                <label for="name"><strong>{{trans('admin.workflow')}}:</strong></label>
                <div>
-                    <span class="label label-{{$labelClass}}">
-                        {{$post->workflow}}
-                    </span>
+                    @if($post->workflow === 'pending')
+                        <span class="label label-warning">
+                            {{trans('posts.pending')}}
+                        </span>
+                    @elseif($post->workflow === 'posted')
+                        <span class="label label-success">
+                            {{trans('posts.posted')}}
+                        </span>
+                    @else
+                        <span class="label label-danger">
+                            {{trans('posts.redjected')}}
+                        </span>
+                    @endif
                </div>
                <br>
             </div>
 
             @if($post->image)
                 <div>
-                    <label for="image"><strong>Image:</strong></label>
+                    <label for="image"><strong>{{trans('admin.image')}}:</strong></label>
                     <br>
                     <img src="{{$post->thumbnailPath}}" alt="{{$post->image}}" id="image">
                 </div>
@@ -63,7 +70,7 @@
 
             @if($post->video)
                 <div>
-                    <label for="video"><strong>Video:</strong></label>
+                    <label for="video"><strong>{{trans('admin.video')}}:</strong></label>
                     <a href="{{$post->video}}" target="_blank">
                         <img src="{{$post->videoPreviewImage}}" alt="">
                     </a>
@@ -72,30 +79,30 @@
             @endif
 
             <div>
-                <label for="main_text"><strong>Main Text:</strong></label>
+                <label for="main_text"><strong>{{trans('admin.main-text')}}:</strong></label>
                 <pre id="main_text"><code>{!!$post->main_text!!}</code></pre>
             </div>
 
             @if($post->location)
                 <div>
-                    <label for="location"><strong>Location:</strong></label>
+                    <label for="location"><strong>{{trans('admin.location')}}:</strong></label>
                     <p id="location">{{$post->location}}</p>
                 </div>
             @endif
 
             <div>
-                <label for="category"><strong>Category:</strong></label>
+                <label for="category"><strong>{{trans('admin.category')}}:</strong></label>
                 <p id="category">{{$post->category->name}}</p>
             </div>
             @if($post->author)
                 <div>
-                    <label for="author"><strong>Author:</strong></label>
+                    <label for="author"><strong>{{trans('admin.author')}}:</strong></label>
                     <p id="author">{{$post->author->name}}</p>
                 </div>
             @endif
             @if($post->users->isNotEmpty())
                 <div>
-                    <label for="assigned_users"><strong>Assigned Users:</strong></label>
+                    <label for="assigned_users"><strong>{{trans('posts.assigned-users')}}:</strong></label>
                     <ul id="assigned_users">
                         @foreach($post->users()->get() as $user)
                             <li>{{$user->name}}</li>
@@ -105,7 +112,7 @@
             @endif
             @if($post->tags->isNotEmpty())
                 <div>
-                    <label for="tags"><strong>Tags:</strong></label>
+                    <label for="tags"><strong>{{trans('admin.tags')}}:</strong></label>
                     <ul id="tags">
                         @foreach($post->tags()->get() as $tag)
                             <li>{{$tag->name}}</li>

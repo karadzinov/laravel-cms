@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use  App\Http\Requests\FAQ\FAQCategoryRequest;
 
@@ -39,10 +40,13 @@ class FAQCategoriesController extends Controller
      */
     public function store(FAQCategoryRequest $request)
     {
-        $category = FAQCategory::create($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $category = FAQCategory::create($input);
        
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Created Category.');
+                ->with('success', trans('faq-categories.success.created'));
     }
 
     /**
@@ -51,8 +55,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(FaqCategory $category)
+    public function show($category)
     {
+        $category = FaqCategory::findOrFail($category);
         return view('admin/FAQCategories/show', compact('category'));
     }
 
@@ -62,8 +67,9 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(FaqCategory $category)
+    public function edit($category)
     {
+        $category = FaqCategory::findOrFail($category);
         return view('admin/FAQCategories/edit', compact('category'));
     }
 
@@ -74,12 +80,16 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQCategoryRequest $request, FaqCategory $category)
+    public function update(FAQCategoryRequest $request, $category)
     {
-        $category->update($request->all());
+        $category = FaqCategory::findOrFail($category);
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $category->update($input);
 
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Updated Category.');
+                ->with('success', trans('faq-categories.success.updated'));
     }
 
     /**
@@ -88,11 +98,12 @@ class FAQCategoriesController extends Controller
      * @param  int  $category
      * @return \Illuminate\Http\Response
      */
-    public function delete(FaqCategory $category)
+    public function delete($category)
     {
+        $category = FaqCategory::findOrFail($category);
         $category->delete();
 
         return redirect()->route('admin.faq-categories.index')
-                ->with('success', 'Successifully Deleted Category.');
+                ->with('success', trans('faq-categories.success.deleted'));
     }
 }

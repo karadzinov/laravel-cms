@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('profile.profile')}}
+@endsection
 
 @section('head')
 
@@ -81,7 +85,9 @@
                                 @if ($user->profile)
 	                                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 stats-col">
 	                                    <div class="stats-value pink">{{ trans('profile.showProfileTheme') }}</div>
-	                                    <div class="stats-title">{{ $currentTheme->name }}</div>
+	                                    <div class="stats-title">
+	                                    	TEST
+	                                    </div>
 	                                </div>
 								@endif
                             </div>

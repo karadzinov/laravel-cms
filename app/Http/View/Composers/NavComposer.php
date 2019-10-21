@@ -2,6 +2,7 @@
 
 namespace App\Http\View\Composers;
 
+use App\Models\Language;
 use Illuminate\View\View;
 use App\Models\{Category, Page};
 
@@ -12,10 +13,15 @@ class NavComposer
 
     public function __construct()
     {
-        $categories = Category::all()->where('parent_id','=',NULL);
+        $categories = Category::where('parent_id','=',NULL)->get();
+        $languages = Language::where('active','=','1')
+                        ->select('code','native')
+                        ->get();
+                        
         $pages = $this->preparePagesForNav();
         $this->categories = $categories;
         $this->pages = $pages;
+        $this->languages = $languages;
     }
 
     /**
@@ -29,6 +35,7 @@ class NavComposer
         $view->with([
             'categories' => $this->categories,
             'pages' => $this->pages,
+            'languages' => $this->languages,
         ]);
     }
 

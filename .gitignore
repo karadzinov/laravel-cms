@@ -42,6 +42,7 @@ composer.lock
 /storage/framework
 /storage/logs
 /storage/users
+/storage/app
 packages/
 
 ###laravel echo server files

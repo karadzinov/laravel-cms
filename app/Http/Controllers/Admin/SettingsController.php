@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use Validator;
-use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\{Language, Settings, Theme};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
@@ -22,8 +23,14 @@ class SettingsController extends Controller
     {
         
         $settings = Settings::first();
-        
-        return view('admin.settings.index', compact('settings'));
+        $avalilableLanguages = Language::where('active', '=', 1)
+                                ->pluck('name')
+                                ->toArray();
+
+        $avalilableLanguages = implode(', ', $avalilableLanguages);
+        $theme = Theme::where('active', '=', 1)->first();
+
+        return view('admin.settings.index', compact('settings', 'avalilableLanguages', 'theme'));
 
     }
 
@@ -58,7 +65,7 @@ class SettingsController extends Controller
         Settings::create($input);
         
         return redirect('admin/meta/settings')
-                ->with('success', 'Settings Successfully Created.');
+                ->with('success', trans('settings.success.created'));
     }
 
     /**
@@ -81,8 +88,13 @@ class SettingsController extends Controller
     public function edit()
     {
         $settings = Settings::firstOrFail();
+        $languages = Language::pluck('name', 'id');
+        $avalilableLanguages = Language::where('active', '=', 1)
+                                ->pluck('id')
+                                ->toArray();
+        $themes = Theme::all();
 
-        return view('admin.settings.edit', compact('settings'));
+        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages', 'themes'));
  
     }
 
@@ -96,18 +108,60 @@ class SettingsController extends Controller
     public function update(UpdateSettingsRequest $request, $id=1)
     {
         $settings = Settings::firstOrFail();
-          
-        $input = $request->all(); 
-        
+        $input = $request->all();
+
+        $languages = $this->updateAvailableLanguages($request->get('languages'));
+        unset($input['languages']);
+
+        $theme = $this->updateTheme($request->get('theme'));
+
         $image = $this->updateImageIfNecessary($request, $settings);
 
         if($image){
             $input['logo'] = $image;
         }
         $settings->update($input);
+        $formStatusMessage = ['success'=>trans('settings.success.updated')];
+        if(count($languages)){
+            $formStatusMessage['message'] = trans('translations.missing-enabled-language', ['count'=>count($languages)]);
+        }
+       
+        return redirect('admin/meta/settings')
+                ->with($formStatusMessage);
+    }
+
+    public function updateTheme($theme){
+        $theme = Theme::findOrFail($theme);
+        $actives = Theme::where('active', '=', 1)->get();
+        if(!$actives->contains($theme)){
+            foreach($actives as $active){
+                $active->update(['active'=>0]);
+            }
+
+            $theme->update(['active'=>1]);
+        }
+        return;
+    }
+
+    public function updateAvailableLanguages($languages){
         
-         return redirect('admin/meta/settings')
-                ->with('success', 'Settings Successfully Updated.');
+        $avalilableLanguages = Language::where('active', '=', '1')->get();
+
+        foreach($avalilableLanguages as $language){
+            $language->active = false;
+            $language->save();
+        }
+        $withoutFolder = [];
+        foreach($languages as $id){
+            $language = Language::findOrFail($id);
+            $language->active = true;
+            $language->save();
+            if(!$language->folder){
+                $withoutFolder[] = $language->name;
+            }
+        }
+
+        return $withoutFolder;
     }
 
     /**
@@ -136,7 +190,7 @@ class SettingsController extends Controller
             $image->move($paths->original, $imageName);
 
             $findimage = $paths->original . $imageName;
-            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
+            $imagethumb = Image::make($findimage)->resize(125, 80, function ($constraint) {
                 $constraint->aspectRatio();
             });
 

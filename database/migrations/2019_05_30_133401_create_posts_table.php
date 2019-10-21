@@ -15,6 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedInteger('category_id');
             $table->string('title');
             $table->text('subtitle', 500);
@@ -23,12 +24,15 @@ class CreatePostsTable extends Migration
             $table->string('location')->nullable();
             $table->text('main_text');
             $table->enum('workflow', ['redjected', 'pending', 'posted'])
-                  ->default('pending');    
+                  ->default('pending');
+            $table->string('slug');    
 
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')
                     ->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')
+                    ->on('users')->onDelete('cascade');
         });
     }
 

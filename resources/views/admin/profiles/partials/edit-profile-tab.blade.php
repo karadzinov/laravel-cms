@@ -24,35 +24,18 @@
             <div class="row" data-toggle="buttons">
                 <div class="col-6 col-xs-6 right-btn-container">
                     <label class="btn btn-primary @if($user->profile->avatar_status == 0) active @endif btn-block btn-sm" data-toggle="collapse" data-target=".collapseOne:not(.show), .collapseTwo.show">
-                        <input type="radio" name="avatar_status" id="option1" autocomplete="off" value="0" @if($user->profile->avatar_status == 0) checked @endif> Use Gravatar
+                        <input type="radio" name="avatar_status" id="option1" autocomplete="off" value="0" @if($user->profile->avatar_status == 0) checked @endif> {{trans('profile.use-gravatar')}}
                     </label>
                 </div>
                 <div class="col-6 col-xs-6 left-btn-container">
                     <label class="btn btn-primary @if($user->profile->avatar_status == 1) active @endif btn-block btn-sm" data-toggle="collapse" data-target=".collapseOne.show, .collapseTwo:not(.show)">
-                        <input type="radio" name="avatar_status" id="option2" autocomplete="off" value="1" @if($user->profile->avatar_status == 1) checked @endif> Use My Image
+                        <input type="radio" name="avatar_status" id="option2" autocomplete="off" value="1" @if($user->profile->avatar_status == 1) checked @endif> {{trans('profile.use-my-image')}}
                     </label>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-group has-feedback {{ $errors->has('theme') ? ' has-error ' : '' }}">
-        {!! Form::label('theme_id', trans('profile.label-theme') , array('class' => 'col-12 control-label')); !!}
-        <div class="col-12">
-            <select class="form-control" name="theme_id" id="theme_id">
-                @if ($themes->count())
-                    @foreach($themes as $theme)
-                      <option value="{{ $theme->id }}"{{ $currentTheme->id == $theme->id ? 'selected="selected"' : '' }}>{{ $theme->name }}</option>
-                    @endforeach
-                @endif
-            </select>
-            <span class="glyphicon {{ $errors->has('theme') ? ' glyphicon-asterisk ' : ' ' }} form-control-feedback" aria-hidden="true"></span>
-            @if ($errors->has('theme'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('theme') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
+    
     <div class="form-group has-feedback {{ $errors->has('location') ? ' has-error ' : '' }}">
         {!! Form::label('location', trans('profile.label-location') , array('class' => 'col-12 control-label')); !!}
         <div class="col-12">

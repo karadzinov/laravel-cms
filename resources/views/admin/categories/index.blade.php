@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('categories.categories')}}
+@endsection
 
 @section('content')
     <div class="widget">
@@ -11,19 +15,19 @@
         </div>
         <div class="widget-body">
             <a href="{{ route('admin.category.create') }}" class="btn btn-success btn-lg">
+                <i class="fa fa-plus"></i> 
                 {!! trans('categories.create-category') !!}
             </a>
             <br>
             <br>
-            @include('admin.categories.partials.tree')
+            @include('admin/categories/partials/tree')
         
         </div>
     </div>    
-    @include('modals.modal-delete-settings')
-    
+    @include('modals.modal-delete')
+
 @endsection
 
 @section('footer_scripts')
-
     @include('scripts.delete-modal-script')
 @endsection

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Traits\CaptureIpTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\Models\{User, Theme, Profile};
+use App\Models\{User, Profile};
 use App\Notifications\SendGoodbyeEmail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -77,11 +77,8 @@ class ProfilesController extends Controller
 
         $user = $this->getUserByUsername($username);
 
-        $currentTheme = Theme::find($user->profile->theme_id);
-
         $data = [
             'user'         => $user,
-            'currentTheme' => $currentTheme,
         ];
 
         return view('admin/profiles/show')->with($data);
@@ -107,17 +104,8 @@ class ProfilesController extends Controller
                 ->with('error_title', trans('profile.notYourProfileTitle'));
         }
 
-        $themes = Theme::where('status', 1)
-                        ->orderBy('name', 'asc')
-                        ->get();
-
-        $currentTheme = Theme::find($user->profile->theme_id);
-
         $data = [
             'user'         => $user,
-            'themes'       => $themes,
-            'currentTheme' => $currentTheme,
-
         ];
 
         return view('admin/profiles/edit')->with($data);
@@ -137,7 +125,7 @@ class ProfilesController extends Controller
     {
         $user = $this->getUserByUsername($username);
 
-        $input = Input::only('theme_id', 'location', 'bio', 'twitter_username', 'github_username', 'avatar_status');
+        $input = Input::only('location', 'bio', 'twitter_username', 'github_username', 'avatar_status');
 
         $ipAddress = new CaptureIpTrait();
 

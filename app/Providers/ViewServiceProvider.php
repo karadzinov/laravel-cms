@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Exception;
+use App\Models\Theme;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,32 +26,41 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(
-            'layouts.app', 'App\Http\View\Composers\ThemeComposer'
-        );
 
+       
+       try {
+            $theme = Theme::where('active', '=', 1)->first();
+            $path = 'user/'.$theme->root_folder . '/';
+        } catch (Exception $e) {
+            $path = 'user/theme-1/';
+        }
+        
         View::composer(
-            ['partials/user/head',
-            'partials/user/header',
-            'partials/user/footer',
-            'partials/user/nav',
+            [$path . 'partials/head',
+            $path . 'partials/header',
+            $path . 'partials/footer',
+            $path . 'partials/nav',
             ], 'App\Http\View\Composers\SettingsComposer'
         );
 
         View::composer(
-            'partials/user/nav', 'App\Http\View\Composers\NavComposer'
+            $path . 'partials/nav', 'App\Http\View\Composers\NavComposer'
         );
 
         View::composer(
-            'layouts/master', 'App\Http\View\Composers\MasterComposer'
+            $path . 'master', 'App\Http\View\Composers\MasterComposer'
         );
 
         View::composer(
-            'partials/admin/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
+            'admin/partials/chat/chatbar', 'App\Http\View\Composers\ChatbarComposer'
         );
 
         View::composer(
-            'partials/user/footer', 'App\Http\View\Composers\FooterComposer'
+            $path . 'partials/footer', 'App\Http\View\Composers\FooterComposer'
+        );
+
+        View::composer(
+            'admin/partials/nav', 'App\Http\View\Composers\AdminNavComposer'
         );
     }
 }

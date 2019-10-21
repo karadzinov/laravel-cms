@@ -1,4 +1,9 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('profile.profile')}}
+@endsection
+
 @section('head')
     <style>
         .tab-pane .row {
@@ -75,7 +80,9 @@
                                 @if ($user->profile)
                                     <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 stats-col">
                                         <div class="stats-value pink">{{ trans('profile.showProfileTheme') }}</div>
-                                        <div class="stats-title">{{ $currentTheme->name }}</div>
+                                        <div class="stats-title">
+                                            TEST
+                                        </div>
                                     </div>
                                 @endif
                             </div>
@@ -88,17 +95,17 @@
                                         <ul class="nav nav-tabs tabs-flat  nav-justified" id="myTab11">
                                             <li class="active">
                                                 <a data-toggle="tab" href="#edit-profile-tab" aria-expanded="true">
-                                                    Profile Settings
+                                                    {{trans('profile.profile-settings')}}
                                                 </a>
                                             </li>
                                             <li class="tab-palegreen">
                                                 <a data-toggle="tab" href="#edit-settings-tab" aria-expanded="true">
-                                                    Settings
+                                                    {{trans('profile.settings')}}
                                                 </a>
                                             </li>
                                             <li class="tab-red">
                                                 <a data-toggle="tab" href="#edit-account-tab" aria-expanded="true">
-                                                    Account
+                                                    {{trans('profile.account')}}
                                                 </a>
                                             </li>
                                         </ul>

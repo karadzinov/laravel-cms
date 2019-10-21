@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\ModelIsTranslatable;
 
 class Tag extends Model
 {
+    use ModelIsTranslatable;
+    
 	protected $guarded = [];
 	
     public function posts(){

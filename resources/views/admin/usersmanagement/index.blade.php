@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
 
 @section('head')
     @if(config('usersmanagement.enabledDatatablesJs'))
@@ -69,7 +73,7 @@
                 </div>
             </div>
             @if(config('usersmanagement.enableSearchUsers'))
-                @include('partials/admin/search-users-form')
+                @include('admin/partials/search-users-form')
             @endif
             <div class="table-responsive users-table">
                 <table class="table table-striped table-sm data-table">
@@ -116,20 +120,22 @@
                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->created_at}}</td>
                                 <td class="hidden-sm hidden-xs hidden-md">{{$user->updated_at}}</td>
                                 <td>
-                                    {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                    <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id) }}" data-toggle="tooltip" title="{{trans('admin.show')}}">
+                                        <i class="fa fa-eye"></i> 
+                                        {!! trans('admin.show') !!}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="{{trans('admin.edit')}}">
+                                        <i class="fa fa-pencil"></i> 
+                                        {!! trans('admin.edit') !!}
+                                    </a>
+                                </td>
+                                <td>
+                                    {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'))) !!}
                                         {!! Form::hidden('_method', 'DELETE') !!}
-                                        {!! Form::button(trans('usersmanagement.buttons.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?')) !!}
+                                        {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('admin.delete'), array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('usersmanagement.modals.delete-user'), 'data-message' => trans('usersmanagement.modals.delete_user_message', ['user'=>$user->name]))) !!}
                                     {!! Form::close() !!}
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id) }}" data-toggle="tooltip" title="Show">
-                                        {!! trans('usersmanagement.buttons.show') !!}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-warning btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
-                                        {!! trans('usersmanagement.buttons.edit') !!}
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -149,20 +155,20 @@
         </div>
     </div>    
 
-    @include('modals.modal-delete')
+    @include('modals/modal-delete')
 
 @endsection
 
 @section('footer_scripts')
     @if ((count($users) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
-        @include('scripts.datatables')
+        @include('scripts/datatables')
     @endif
-    @include('scripts.delete-modal-script')
-    @include('scripts.save-modal-script')
+    @include('scripts/delete-modal-script')
+    @include('scripts/save-modal-script')
     @if(config('usersmanagement.tooltipsEnabled'))
-        @include('scripts.tooltips')
+        @include('scripts/tooltips')
     @endif
     @if(config('usersmanagement.enableSearchUsers'))
-        @include('scripts.search-users')
+        @include('scripts/search-users')
     @endif
 @endsection

@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('usersmanagement.usersmanagement')}}
+@endsection
 
 @section('content')
     <div class="widget">

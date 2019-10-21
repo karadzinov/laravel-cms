@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Post, FAQ, Page};
+use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -20,8 +21,11 @@ class SearchController extends Controller
 
     	$faqs = $this->searchInFaqsForAjax($searchTerm);
         $faqs = $this->makeSearchMenuItems($faqs, 'faq');
+        
+        $count = count($posts) + count($pages) + count($faqs);
+        $translations = $this->getTitlesTranslations($request->get('search'), $count);
 
-    	$items = array_merge($posts, $pages, $faqs);
+        $items = compact('posts', 'pages', 'faqs', 'translations');
 
     	return $items;
     }
@@ -39,8 +43,9 @@ class SearchController extends Controller
             $pages = $this->searchInPages($searchTerm);
             $faqs = $this->searchInFaqs($searchTerm);
         }
+        $metadata = new Metadata(trans('general.search'));
 
-        return view('user/search/index', compact('posts', 'pages', 'faqs', 'search'));
+        return view($this->path . 'search/index', compact('posts', 'pages', 'faqs', 'search'));
 
         
     }
@@ -101,5 +106,18 @@ class SearchController extends Controller
     	$items = $items->toArray();
 
     	return $items;
+    }
+
+    public function getTitlesTranslations($term, $count){
+        
+        $translations = [
+            'posts'          => trans('general.navigation.posts'),
+            'pages'          => trans('general.navigation.pages'),
+            'faqs'           => trans('general.navigation.faq'),
+            'noResults'      => trans('general.no-results-for') . ' ' . $term,
+            'total'          => trans('general.total-results', compact('count')),
+        ];
+
+        return $translations;
     }
 }

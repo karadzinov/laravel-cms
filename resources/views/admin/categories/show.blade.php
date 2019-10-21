@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('categories.categories')}}
+@endsection
 
 @section('content')
 
@@ -13,34 +17,35 @@
             {!! trans('categories.back-to-categories') !!}
         </a>
         <a href="{{ route('admin.category.edit', [ $category->getKey() ]) }}" class="btn btn-warning pull-right">
-            Edit Script
+            <i class="fa fa-edit"></i> 
+            {{trans('categories.edit-category')}}
         </a>
     </div>
     <div class="widget-body">
         <div>
-            <label for="tree"><strong>Category Tree</strong></label>
+            <label for="tree"><strong>{{trans('categories.tree')}}</strong></label>
             <ul style="list-style-position: outside">
                  <li class="active">{{ $category->name }}</li>
-                @include('admin.categories.partials.path')
+                @include('admin/categories/partials/path')
             </ul>
         </div>
         <div class="row">
             @if($category->description)
                 <div class="col-md-8">
-                    <label for="description"><strong>Descritpion:</strong></label>
+                    <label for="description"><strong>{{trans('admin.description')}}:</strong></label>
                     <p id="description">{{$category->description}}</p>
                 </div>
             @endif
             @if($category->link)
                 <div class="col-md-8">
-                    <a href="{{$category->link}}" target="_blank">Link</a>
+                    <a href="{{$category->link}}" target="_blank">{{trans('admin.link')}}</a>
                     <br>
                     <br>
                 </div>
             @endif
             @if($category->image)
                 <div class="col-md-8">
-                    <label for="image"><strong>Image:</strong></label> <br>
+                    <label for="image"><strong>{{trans('admin.image')}}:</strong></label> <br>
                 <img src="{{$category->thumbnailPath}}" alt="">
                 </div>
             @endif
@@ -48,9 +53,10 @@
     </div>
 </div>
 
-@include('modals.modal-delete-category')
+@include('modals/modal-delete')
+
 @endsection
 
 @section('footer_scripts')
-    @include('scripts.delete-modal-script')
+    @include('scripts/delete-modal-script')
 @endsection

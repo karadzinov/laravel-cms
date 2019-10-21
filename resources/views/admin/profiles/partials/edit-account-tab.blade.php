@@ -75,7 +75,7 @@
         </h3>
         <p class="margin-bottom-2 text-center">
             <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>
-                <strong>Deleting</strong> your account is <u><strong>permanent</strong></u> and <u><strong>cannot</strong></u> be undone.
+                {!!trans('profile.delete-account-warning')!!}
             <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i>
         </p>
         <hr>
@@ -89,7 +89,7 @@
                             <input type="checkbox" name='checkConfirmDelete' id="checkConfirmDelete">
                             <i id="unchecked" class="fa fa-square-o fa-fw fa-2x"></i>
                             <i id="checked" class="fa fa-check-square-o fa-fw fa-2x"></i>
-                            <span class="margin-left-2"> Confirm Account Deletion</span>
+                            <span class="margin-left-2"> {{trans('profile.confirm-delete-check')}}</span>
                         </label>
                     </div>
 

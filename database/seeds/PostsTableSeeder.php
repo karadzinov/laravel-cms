@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Language;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
@@ -11,8 +12,10 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        $language = Language::where('active', '=', '1')->first()->code;
+
         $posts = array(
-          array('user_id' => '1','category_id' => '1','title' => 'First Post','subtitle' => 'Subtite For First Post','image' => 'first-post.png','video' => 'https://www.youtube.com/watch?v=C0DPdy98e4c','location' => NULL,'main_text' => '<ul>
+          array('language'=>$language, 'user_id' => '1','category_id' => '1','title' => 'First Post','subtitle' => 'Subtite For First Post','image' => 'first-post.png','video' => 'https://www.youtube.com/watch?v=C0DPdy98e4c','location' => NULL,'main_text' => '<ul>
         	<li>
         	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus fringilla venenatis. Fusce vehicula leo in justo malesuada, sit amet dictum mauris tincidunt. Vivamus mollis, magna non tincidunt dictum, urna purus iaculis dui, quis bibendum mauris diam ac elit. Curabitur sed sem nec nunc posuere commodo. Donec sagittis diam non leo vulputate, aliquet molestie purus porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus varius ante eget odio pharetra, et laoreet ex hendrerit. Sed ullamcorper lacinia turpis, id imperdiet nulla egestas in. Vivamus porttitor nisl in mollis interdum. Praesent euismod suscipit neque nec consequat. Etiam luctus id metus at molestie. Praesent pharetra dolor enim.</p>
 

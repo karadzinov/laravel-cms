@@ -1,6 +1,11 @@
-@extends('layouts.app')
+@extends('admin/master')
+
+@section('pageTitle')
+    {{trans('pages.pages')}}
+@endsection
+
 @section('head')
-    <script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('assets/admin/js/ckeditor/ckeditor.js')}}"></script>
 @endsection
 @section('content')
     <div class="widget">
@@ -8,11 +13,11 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-newspaper-o"></i> 
-                Pages
+                {{trans('pages.pages')}}
             </span>
             <a href="{{route('admin.pages.index')}}" class="btn btn-default pull-right">
                 <i class="fa fa-fw fa-reply-all"></i> 
-                Back To Pages
+                {{trans('pages.back-to')}}
             </a>
         </div>
         <div class="widget-body">
@@ -20,35 +25,35 @@
                 {!! Form::open(array('route' => ['admin.pages.update', $page->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true, 'id'=>'main_form')) !!}
                     {!!Form::hidden('id', $page->id)!!}
                     <div class="form-group">
-                        {!! Form::label('name', 'Title:') !!}
-                        {!! Form::textarea('title', $page->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>'Title', 'autofocus' => true ]) !!}
+                        {!! Form::label('name', trans('admin.title')) !!}
+                        {!! Form::textarea('title', $page->title, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('admin.title'), 'autofocus' => true ]) !!}
                         {!! $errors->first('title') !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('code', 'Subtitle:') !!}
+                        {!! Form::label('code', trans('admin.subtitle')) !!}
                          <span class="input-icon icon-right">
-                            {!! Form::textarea('subtitle', $page->subtitle, ['id'=>'subtitle', 'class' => 'form-control', 'placeholder'=>'Subtitle']) !!}
+                            {!! Form::textarea('subtitle', $page->subtitle, ['id'=>'subtitle', 'class' => 'form-control', 'placeholder'=>trans('admin.subtitle')]) !!}
                             <i class="fa fa-pencil darkorange"></i>
                         </span>
                         {!! $errors->first('subtitle') !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('main_text', 'Main Text:') !!}
+                        {!! Form::label('main_text', trans('admin.main-text')) !!}
                          <span class="input-icon icon-right">
-                            {!! Form::textarea('main_text', $page->main_text, ['id'=>'elm1', 'class' => 'form-control', 'placeholder'=>'Main Text']) !!}
+                            {!! Form::textarea('main_text', $page->main_text, ['id'=>'elm1', 'class' => 'form-control', 'placeholder'=>trans('admin.main-text')]) !!}
                             <i class="fa fa-pencil darkorange"></i>
                         </span>
                         {!! $errors->first('main_text') !!}
                     </div>
                     
                 {!! Form::close() !!}
-                {!! Form::label('images', 'Images:') !!}
+                {!! Form::label('images', trans('admin.images')) !!}
                 {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                 {!! Form::close() !!}
 
-                {!! Form::button('Edit Page', array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('pages.update'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
             </div>
         </div>
     </div>

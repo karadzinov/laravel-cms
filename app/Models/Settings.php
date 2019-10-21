@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Helpers\ModelIsTranslatable;
 
 class Settings extends Model
 {
+    // use ModelIsTranslatable;
+    
     protected $table = 'settings';
 
     /**

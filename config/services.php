@@ -47,6 +47,12 @@ return [
         'redirect'      => env('TW_REDIRECT'),
     ],
 
+    'linkedin' => [
+        'client_id'     => env('LINKEDIN_ID'),
+        'client_secret' => env('LINKEDIN_SECRET'),
+        'redirect'      => env('LINKEDIN_REDIRECT'),
+    ],
+
     'google' => [
         'client_id'     => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_SECRET'),
@@ -59,28 +65,28 @@ return [
         'redirect'      => env('GITHUB_REDIRECT'),
     ],
 
+    'gitlab' => [
+        'client_id'     => env('GITLAB_ID'),
+        'client_secret' => env('GITLAB_SECRET'),
+        'redirect'      => env('GITLAB_REDIRECT'),
+    ],
+
+    'bitbucket' => [
+        'client_id'     => env('BITBUCKET_ID'),
+        'client_secret' => env('BITBUCKET_SECRET'),
+        'redirect'      => env('BITBUCKET_REDIRECT'),
+    ],
+
     'youtube' => [
         'client_id'     => env('YOUTUBE_KEY'),
         'client_secret' => env('YOUTUBE_SECRET'),
         'redirect'      => env('YOUTUBE_REDIRECT_URI'),
     ],
 
-    'twitch' => [
-        'client_id'     => env('TWITCH_KEY'),
-        'client_secret' => env('TWITCH_SECRET'),
-        'redirect'      => env('TWITCH_REDIRECT_URI'),
-    ],
-
     'instagram' => [
         'client_id'     => env('INSTAGRAM_KEY'),
         'client_secret' => env('INSTAGRAM_SECRET'),
         'redirect'      => env('INSTAGRAM_REDIRECT_URI'),
-    ],
-
-    '37signals' => [
-        'client_id'     => env('37SIGNALS_KEY'),
-        'client_secret' => env('37SIGNALS_SECRET'),
-        'redirect'      => env('37SIGNALS_REDIRECT_URI'),
     ],
 
 ];

@@ -11,7 +11,8 @@ use App\Traits\CaptureIpTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use jeremykenedy\LaravelRoles\Models\Role;
-use Laravel\Socialite\Facades\Socialite;
+// use Laravel\Socialite\Facades\Socialite;
+use Socialite;
 
 class SocialController extends Controller
 {
@@ -27,11 +28,12 @@ class SocialController extends Controller
     public function getSocialRedirect($provider)
     {
         $providerKey = Config::get('services.'.$provider);
-
         if (empty($providerKey)) {
+
             return view('admin/status')
                 ->with('error', trans('socials.noProvider'));
         }
+
 
         return Socialite::driver($provider)->redirect();
     }
@@ -46,6 +48,7 @@ class SocialController extends Controller
     public function getSocialHandle($provider)
     {
         if (Input::get('denied') != '') {
+
             return redirect()->to('login')
                 ->with('status', 'danger')
                 ->with('message', trans('socials.denied'));
@@ -116,7 +119,7 @@ class SocialController extends Controller
 
                 // Twitter User Object details: https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object
                 if ($socialData->provider == 'twitter') {
-                    $user->profile()->twitter_username = $socialUserObject->screen_name;
+                    $user->profile()->twitter_username = $socialUserObject->nickname;
                 }
                 $user->profile->save();
 

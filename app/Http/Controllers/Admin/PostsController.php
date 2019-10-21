@@ -5,6 +5,7 @@ use File;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
@@ -45,10 +46,12 @@ class PostsController extends Controller
     {
         $image = $this->updateImageIfNecessary($request);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug)){
-            return redirect()->back()->with('error', 'The title has already been taken.');
+            return redirect()->back()->with('error', trans('posts.name-taken'));
         }
         $input['slug'] = $slug;
         
@@ -74,7 +77,7 @@ class PostsController extends Controller
         }
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Created.');
+                ->with('success', trans('posts.success.created'));
     }
 
     public function updateTags($post, $tags){
@@ -90,7 +93,7 @@ class PostsController extends Controller
                 $newTag = $alreadyExistingTags->find($differentTag);
                 if(!$newTag){
                     $slug = Str::slug(strip_tags($differentTag));
-                    $newTag = Tag::create(['name'=>$differentTag, 'slug' => $slug]);
+                    $newTag = Tag::create(['language'=>App::getLocale(), 'name'=>$differentTag, 'slug' => $slug]);
                 }
 
                 try {
@@ -109,8 +112,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($post)
     {
+        $post = Post::findOrFail($post);
+
         return view('admin.posts/show', compact('post'));
     }
     /**
@@ -119,8 +124,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($post)
     {
+        $post = Post::findOrFail($post);
+
         $categories = Category::pluck('name', 'id')->toArray();
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
@@ -139,14 +146,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, Post $post)
+    public function update(StorePostRequest $request, $post)
     {
+        $post = Post::findOrFail($post);
         $image = $this->updateImageIfNecessary($request, $post);
         $input = $request->all();
+        $input['language'] = App::getLocale();
+        
         $slug = Str::slug(strip_tags($request->get('title')));
 
         if($this->slugExists($slug, $post->id)){
-            return redirect()->back()->with('error', 'The title has already been taken.');
+            return redirect()->back()->with('error', trans('posts.name-taken'));
         }
 
         $input['slug'] = $slug;
@@ -175,7 +185,7 @@ class PostsController extends Controller
         }
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Updated.');
+                ->with('success', trans('posts.success.updated'));
     }
 
     public function slugExists($slug, $id=null){
@@ -219,13 +229,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Post $post)
+    public function delete($post)
     {
+        $post = Post::findOrFail($post);
+
         $this->deleteImages($post);
         $post->delete();
 
         return redirect()->route('admin.posts.index')
-                ->with('success', 'Post Successfully Deleted.');
+                ->with('success', trans('posts.success.deleted'));
     }
     /**
      * Uploads the logo if there is any, and deletes previous one.

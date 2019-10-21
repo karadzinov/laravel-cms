@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\{FAQ, FaqCategory};
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FAQ\FAQRequest;
 
@@ -43,10 +44,13 @@ class FAQsController extends Controller
      */
     public function store(FAQRequest $request)
     {
-        $faq = FAQ::create($request->all());
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $faq = FAQ::create($input);
 
     	return redirect(route('admin.faq.index'))
-    			->with('success', 'Successifully Created FAQ.');
+    			->with('success', trans('faqs.success.created'));
     }
 
     /**
@@ -55,8 +59,9 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function show(FAQ $faq)
+    public function show($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         return view('admin.FAQ/show', compact('faq'));
     }
 
@@ -66,8 +71,9 @@ class FAQsController extends Controller
      
      * @return \Illuminate\Http\Response
      */
-    public function edit(FAQ $faq)
+    public function edit($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         $categories = FaqCategory::pluck('name', 'id')->toArray();
 
         return view('admin.FAQ/edit', compact('faq', 'categories'));
@@ -80,12 +86,16 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQ $faq, FAQRequest $request)
+    public function update($faq, FAQRequest $request)
     {
-        $faq->update($request->all());
+        $faq = FAQ::findOrFail($faq);
+        $input = $request->all();
+        $input['language'] = App::getLocale();
+
+        $faq->update($input);
     	
     	return redirect(route('admin.faq.index'))
-    			     ->with('success', 'FAQ Successfully Updated');
+    			     ->with('success', trans('faqs.success.updated'));
     }
 
 
@@ -95,11 +105,12 @@ class FAQsController extends Controller
      * @param  \App\FAQ  $fAQ
      * @return \Illuminate\Http\Response
      */
-    public function delete(FAQ $faq)
+    public function delete($faq)
     {
+        $faq = FAQ::findOrFail($faq);
         $faq->delete();
     	
     	return redirect(route('admin.faq.index'))
-                    ->with('success', 'Successfully Deleted FAQ'); 
+                    ->with('success', trans('faqs.success.deleted')); 
     }
 }

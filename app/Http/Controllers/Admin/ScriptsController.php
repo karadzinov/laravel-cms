@@ -31,7 +31,7 @@ class ScriptsController extends Controller
     	$script = Script::create($request->all());
 
     	return redirect()->route('admin.scripts.index')
-    				->with('success', 'Script Successifully Created.');
+    				->with('success', trans('scripts.success.created'));
     }
 
     public function edit(Script $script){
@@ -45,7 +45,7 @@ class ScriptsController extends Controller
         $script->update($request->all());
     	
     	return redirect()->route('admin.scripts.index')
-    			     ->with('success', 'Script Successfully Updated.');
+    			     ->with('success', trans('scripts.success.updated'));
     }
 
     public function delete(Script $script){
@@ -53,6 +53,6 @@ class ScriptsController extends Controller
     	$script->delete();
     	
     	return redirect()->route('admin.scripts.index')
-                    ->with('success', 'Script Successfully Deleted.');
+                    ->with('success', trans('scripts.success.deleted'));
     }
 }

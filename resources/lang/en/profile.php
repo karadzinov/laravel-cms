@@ -85,4 +85,16 @@ return [
     'errorRestoreUserTime' => 'Sorry, account cannot be restored',
     'successUserRestore'   => 'Welcome back :username! Account Successfully Restored',
 
+    //tabs
+    'profile-settings' => 'Profile Settings',
+    'settings' => 'Settings',
+    'account' => 'Account',
+
+    'use-gravatar' => 'Use Gravatar',
+    'use-my-image' => 'Use My Image',
+
+    'delete-account-warning' => '<strong>Deleting</strong> your account is <u><strong>permanent</strong></u> and <u><strong>cannot</strong></u> be undone.',
+    'confirm-delete-check' => 'Confirm delete',
+    'profile'              => 'Profile',
+
 ];
