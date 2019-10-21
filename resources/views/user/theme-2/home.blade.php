@@ -265,10 +265,10 @@
 	</section>
 
 		<!--  -->
+	@if($about)
 	<h2 class="text-center section-title text-muted">
 		{{trans('general.why-would-you', ['name'=>$settings->title])}}
 	</h2>
-	@if($about)
 		<section>
 			<div class="container">
 				<div class="row">
