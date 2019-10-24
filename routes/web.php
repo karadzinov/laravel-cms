@@ -1,4 +1,5 @@
 <?php
+use App\Helpers\TwoCheckout\Twocheckout;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,10 +28,11 @@ Route::get('/changeTheme', function(){
 });
 
 Route::get('test', function(){
-dd('test')  ;
+    //https://github.com/2checkout/2checkout-php
+dd(Twocheckout::privateKey('sandbox-private-key') )  ;
 });
 
-
+Route::get('/test-charge', 'PaymentController@test');
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
