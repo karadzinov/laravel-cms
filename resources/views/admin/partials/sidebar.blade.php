@@ -1,4 +1,4 @@
-<div class="page-sidebar" id="sidebar">
+<div class="page-sidebar admin-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input type="text" class="searchinput">

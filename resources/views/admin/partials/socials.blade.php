@@ -39,9 +39,9 @@
 </div>
 
 {{-- twitch --}}
-<div class="col-sm-6 mb-2">
+{{-- <div class="col-sm-6 mb-2">
     {!! HTML::icon_link(route('social.redirect',['provider' => 'twitch']), 'fa fa-twitch', 'Twitch', array('class' => 'btn btn-block btn-social btn-twitch btn-info')) !!}
-</div>
+</div> --}}
 
 {{-- instagram --}}
 <div class="col-sm-6 mb-2">
@@ -49,6 +49,6 @@
 </div>
 
 {{-- Basecamp --}}
-<div class="col-sm-6 mb-2">
+{{-- <div class="col-sm-6 mb-2">
     {!! HTML::icon_link(route('social.redirect',['provider' => '37signals']), 'fa fa-signal', 'Basecamp', array('class' => 'btn btn-block btn-social btn-basecamp btn-warning')) !!}
-</div>
+</div> --}}

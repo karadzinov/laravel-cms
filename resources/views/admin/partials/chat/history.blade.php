@@ -86,7 +86,7 @@
     </span>
 </div>
 
-<script id="slimscrollScript" src="/assets/theme-1/js/slimscroll/jquery.slimscroll.js"></script>
+<script id="slimscrollScript" src="/assets/admin/js/slimscroll/jquery.slimscroll.js"></script>
 <script id="historyScript">
     var currentlyAuthenticatedUser = "{{Auth::user()->name}}";
     $('#message').on('keydown', function(e){

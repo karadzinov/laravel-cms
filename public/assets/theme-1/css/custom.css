@@ -278,6 +278,15 @@ textarea {
     height: 0px;
 }
 
+#chatbar{
+  position: fixed;
+  top: inherit;
+}
+
+.admin-sidebar{
+  position: fixed;
+}
+
 div.tp-bannertimer{
   margin: 0 !important;
 }
