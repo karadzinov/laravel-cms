@@ -33,6 +33,7 @@ dd(Twocheckout::privateKey('sandbox-private-key') )  ;
 });
 
 Route::get('/test-charge', 'PaymentController@test');
+Route::post('/charge', 'PaymentController@charge')->name('charge');
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
