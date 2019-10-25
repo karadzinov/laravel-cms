@@ -16,37 +16,37 @@ class PaymentController extends Controller
 		
     	$this->privateKey = Twocheckout::privateKey(config('two-checkout.private_key'));
     	$this->sellerId = Twocheckout::sellerId(config('two-checkout.seller_id'));
-    	// Your username and password are required to make any Admin API call.
-    	Twocheckout::username(config('two-checkout.username'));
-    	Twocheckout::password(config('two-checkout.password'));
+    	// // Your username and password are required to make any Admin API call.
+    	// Twocheckout::username(config('two-checkout.username'));
+    	// Twocheckout::password(config('two-checkout.password'));
 
-    	// If you want to turn off SSL verification (Please don't do this in your production environment)
-    	Twocheckout::verifySSL(false);  // this is set to true by default
+    	// // If you want to turn off SSL verification (Please don't do this in your production environment)
+    	// Twocheckout::verifySSL(false);  // this is set to true by default
 
-    	// To use your sandbox account set sandbox to true
-    	Twocheckout::sandbox(true);
+    	// // To use your sandbox account set sandbox to true
+    	// Twocheckout::sandbox(true);
 
-    	// All methods return an Array by default or you can set the format to 'json' to get a JSON response.
-    	Twocheckout::format('json');
+    	// // All methods return an Array by default or you can set the format to 'json' to get a JSON response.
+    	// Twocheckout::format('json');
 		
 	}
 
-	public function charge(){
-		// dd($_POST);
-		if(!empty($_POST['token'])){
+	public function charge(Request $request){
+		// dd($request->get('token'));
+		if(!empty($request->get('token'))){
 		    
 		    // Token info
-		    $token  = $_POST['token'];
+		    $token  = $request->get('token');
 		    
 		    // Card info
-		    $card_num = $_POST['card_num'];
-		    $card_cvv = $_POST['cvv'];
-		    $card_exp_month = $_POST['exp_month'];
-		    $card_exp_year = $_POST['exp_year'];
+		    $card_num = $request->get('card_num');
+		    $card_cvv = $request->get('cvv');
+		    $card_exp_month = $request->get('exp_month');
+		    $card_exp_year = $request->get('exp_year');
 		    
 		    // Buyer info
-		    $name = /*$_POST['name']*/ auth()->user()->name;
-		    $email = /*$_POST['email']*/auth()->user()->email;
+		    $name = auth()->user()->name;
+		    $email = auth()->user()->email;
 		    $phoneNumber = '555-555-5555';
 		    $addrLine1 = '123 Test St';
 		    $city = 'Columbus';
@@ -60,10 +60,6 @@ class PaymentController extends Controller
 		    $itemPrice = '25.00';
 		    $currency = 'USD';
 		    $orderID = 'SKA92712382139';
-		    
-		    
-		    // Include 2Checkout PHP library
-		    // require_once("2checkout-php/Twocheckout.php");
 		    
 		    // Set API key
 		    Twocheckout::privateKey(config('two-checkout.private_key'));
@@ -127,40 +123,8 @@ class PaymentController extends Controller
 		
 	}
 
-    public function test(){
-		    	return view('test-pay');
+    public function paymentProcess(){
 
-    	try {
-    	    $charge = Twocheckout_Charge::auth(array(
-    	        "sellerId" => $this->sellerId,
-    	        "merchantOrderId" => "123",
-    	        "token" => 'MjFiYzIzYjAtYjE4YS00ZmI0LTg4YzYtNDIzMTBlMjc0MDlk',
-    	        "currency" => 'USD',
-    	        "total" => '10.00',
-    	        "billingAddr" => array(
-    	            "name" => 'Testing Tester',
-    	            "addrLine1" => '123 Test St',
-    	            "city" => 'Columbus',
-    	            "state" => 'OH',
-    	            "zipCode" => '43123',
-    	            "country" => 'USA',
-    	            "email" => 'testingtester@2co.com',
-    	            "phoneNumber" => '555-555-5555'
-    	        ),
-    	        "shippingAddr" => array(
-    	            "name" => 'Testing Tester',
-    	            "addrLine1" => '123 Test St',
-    	            "city" => 'Columbus',
-    	            "state" => 'OH',
-    	            "zipCode" => '43123',
-    	            "country" => 'USA',
-    	            "email" => 'testingtester@2co.com',
-    	            "phoneNumber" => '555-555-5555'
-    	        )
-    	    ));
-    	    $this->assertEquals('APPROVED', $charge['response']['responseCode']);
-    	} catch (Twocheckout_Error $e) {
-    	    $this->assertEquals('Unauthorized', $e->getMessage());
-    	}
+		return view('payment-process');
     }
 }

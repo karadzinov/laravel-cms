@@ -8,6 +8,21 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<style>
+		.expiration-date{
+			display: inline;
+			width: 45%;
+		}
+
+		.expiration-month{
+			
+		}
+
+		.expiration-year{
+			
+		}
+	</style>
 	
 	<script>
 		// Called when token created successfully.
@@ -145,8 +160,8 @@
 	                            <div class="col-xs-7 col-md-7">
 	                                <div class="form-group">
 	                                    <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                	    <input type="number" class="form-control" name="exp_month" id="exp_month" placeholder="MM" max="12" oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" required>
-                                	    <input type="number" name="exp_year" class="form-control" id="exp_year" placeholder="YY" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
+                                	    <input type="number" class="form-control expiration-date expiration-month" name="exp_month" id="exp_month" placeholder="MM" max="12" oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" required>
+                                	    <input type="number" name="exp_year" class="form-control expiration-date expiration-year" id="exp_year" placeholder="YY" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
 	                                </div>
 	                            </div>
 	                            <div class="col-xs-5 col-md-5 pull-right">

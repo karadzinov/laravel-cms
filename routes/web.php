@@ -28,11 +28,10 @@ Route::get('/changeTheme', function(){
 });
 
 Route::get('test', function(){
-    //https://github.com/2checkout/2checkout-php
-dd(Twocheckout::privateKey('sandbox-private-key') )  ;
+   return 'test';
 });
 
-Route::get('/test-charge', 'PaymentController@test');
+Route::get('/test-charge', 'PaymentController@paymentProcess');
 Route::post('/charge', 'PaymentController@charge')->name('charge');
 
 // Homepage Route
