@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{Category, Currency, Product};
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Http\Requests\Products\{CreateProductRequest, UpdateProductRequest};
 
 class ProductsController extends Controller
 {
@@ -22,11 +23,12 @@ class ProductsController extends Controller
     public function create(){
     	
         $categories = Category::pluck('name', 'id')->toArray();
+        $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
 
-    	return view('admin/products/create', compact('categories'));
+    	return view('admin/products/create', compact('categories', 'currency'));
     }
 	
-    public function store(Request $request){
+    public function store(CreateProductRequest $request){
     	$image = $this->updateImageIfNecessary($request);
 
     	$newProduct = new Product();
@@ -60,7 +62,7 @@ class ProductsController extends Controller
     	return view('admin/products/edit', compact('product', 'categories', 'currency'));
     }
 
-	public function update(Request $request, Product $product){
+	public function update(UpdateProductRequest $request, Product $product){
     	$image = $this->updateImageIfNecessary($request);
 
         $product->name = strip_tags($request->get('name'));
