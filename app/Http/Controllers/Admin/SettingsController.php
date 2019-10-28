@@ -8,7 +8,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Models\{Language, Settings, Theme};
+use App\Models\{Currency, Language, Settings, Theme};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
@@ -24,13 +24,16 @@ class SettingsController extends Controller
         
         $settings = Settings::first();
         $avalilableLanguages = Language::where('active', '=', 1)
-                                ->pluck('name')
-                                ->toArray();
+                            ->pluck('name')
+                            ->toArray();
 
+        $currency = Currency::where('active', '=', 1)
+                            ->select('name')
+                            ->first();
         $avalilableLanguages = implode(', ', $avalilableLanguages);
         $theme = Theme::where('active', '=', 1)->first();
 
-        return view('admin.settings.index', compact('settings', 'avalilableLanguages', 'theme'));
+        return view('admin.settings.index', compact('settings', 'avalilableLanguages', 'currency', 'theme'));
 
     }
 
@@ -92,9 +95,11 @@ class SettingsController extends Controller
         $avalilableLanguages = Language::where('active', '=', 1)
                                 ->pluck('id')
                                 ->toArray();
+        $currencies = Currency::pluck('name', 'id');
+        $currency = Currency::where('active', '=', 1)->select('id')->first();
         $themes = Theme::all();
 
-        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages', 'themes'));
+        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages', 'currencies', 'currency', 'themes'));
  
     }
 
@@ -112,6 +117,11 @@ class SettingsController extends Controller
 
         $languages = $this->updateAvailableLanguages($request->get('languages'));
         unset($input['languages']);
+        $languages = $this->updateAvailableLanguages($request->get('languages'));
+        unset($input['languages']);
+
+        $currency = $this->updateCurrency($input['currency']);
+        unset($input['currency']);
 
         $theme = $this->updateTheme($request->get('theme'));
 
@@ -164,6 +174,17 @@ class SettingsController extends Controller
         return $withoutFolder;
     }
 
+    public function updateCurrency($id){
+        $active = Currency::where('active', '=', 1)->first();
+
+        if($id != $active->id){
+            $active->update(['active'=>0]);
+            Currency::findOrFail($id)->update(['active' => 1]);
+        }
+
+        return;
+        
+    }
     /**
      * Uploads the logo if there is any, and deletes previous one.
      *

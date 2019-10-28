@@ -124,8 +124,19 @@
                                     array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                             </div>
                         </div>
+
+                        <div class="col-md-12"  style="font-size: 14px">
+                            <div class="form-group">
+                                {!! Form::label('currency', trans('forms.settings-currency') , array('class' => 'control-label')); !!}
+                                <br>
+                                <small><span class="bg-warning">{{trans('forms.attention')}}!</span> {{trans('forms.currency-explination')}}.</small>
+                                {{Form::select('currency', 
+                                    $currencies, $currency->id,
+                                    array('id'=>'currency', 'class'=>'form-control'))}}
+                            </div>
+                        </div>
                         <div class="col-md-12">
-                            <label for="theme-selector">THEME</label>
+                            <label for="theme-selector">trans('forms.settings-theme')</label>
                             <select id="theme-selector" name="theme">
                              @foreach($themes as $theme)
                                 <option value="{{$theme->id}}" @if($theme->active) selected @endif>

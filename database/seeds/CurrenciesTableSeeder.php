@@ -152,7 +152,7 @@ class CurrenciesTableSeeder extends Seeder
     	           'DA',
     	           'right',
     	           ',',
-    	           '.').
+    	           '.'),
     	           array('EGP',
     	           'EGP',
     	           'right',
@@ -530,7 +530,6 @@ class CurrenciesTableSeeder extends Seeder
     	           '.')
     	    	);
         foreach($currencies as $currency){
-        	dd('here');
         	$newCurrency = new Currency();
     		$newCurrency->name = $currency[0];
     		$newCurrency->symbol = $currency[1];
@@ -544,5 +543,7 @@ class CurrenciesTableSeeder extends Seeder
         	}
         	$newCurrency->save();
         }
+
+        Currency::where('name', '=', 'USD')->update(['active' => 1]);
     }
 }

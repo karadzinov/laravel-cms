@@ -17,10 +17,11 @@ class CreateCurrenciesTable extends Migration
             $table->increments('id');
             
             $table->string('name', 10);
-            $table->string('symbol', 5);
+            $table->string('symbol', 15);
             $table->enum('symbol_position', ['right', 'left']);
             $table->enum('decimal_separator', [',', '.'])->nullable();
             $table->enum('unit_separator', [',', '.']);
+            $table->boolean('active')->default(0);
 
             $table->timestamps();
         });
