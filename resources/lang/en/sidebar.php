@@ -9,6 +9,7 @@ return [
 	'users' 		=> 'Users',
 	'scripts' 		=> 'Scripts',
 	'posts' 		=> 'Posts',
+	'products' 		=> 'Products',
 	'pages' 		=> 'Pages',
 	'testimonials' 	=> 'Testimonials',
 	'about' 		=> 'About',

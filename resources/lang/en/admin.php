@@ -61,6 +61,12 @@ array (
   'ops' => 'Ooops! Something went wrong!',
   'top-title' => 'Top title',
   'position' => 'Postition',
+  'delivery' => 'Delivery',
+  'without-delivery' => 'Without Delivery',
+  'reduction' => 'Reduction',
+  'reducted-price' => 'Reducted Price',
+  'quantity' => 'Available Quantity',
+  'price' => 'Price',
   'id' => 'Id',
   'google' => [
       'visitors-and-pages-title' => 'Number of visits and page views for the previous month',

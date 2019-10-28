@@ -9,6 +9,7 @@ return [
 	'users' 		=> 'Korinici',
 	'scripts' 		=> 'Skripte',
 	'posts' 		=> 'Postovi',
+	'products' 		=> 'Proizvodi',
 	'pages' 		=> 'Stranice',
 	'testimonials' 	=> 'Svedočanstva',
 	'about' 		=> 'O nama',
