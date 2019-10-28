@@ -32,4 +32,9 @@ class Category extends Model
         
         return asset('/images/categories/thumbnails/' . $this->image);
     }
+
+    public function products(){
+        
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
 }

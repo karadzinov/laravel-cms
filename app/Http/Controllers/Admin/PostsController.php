@@ -253,7 +253,7 @@ class PostsController extends Controller
             }
             $image = $request->file('image');
             $slugname = Str::slug(strip_tags($request->title));
-            $imageName = $slugname . '.' . $image->getClientOriginalExtension();;
+            $imageName = $slugname . '.' . $image->getClientOriginalExtension();
             $paths = $this->makePaths();
             File::makeDirectory($paths->original, $mode = 0755, true, true);
             File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);

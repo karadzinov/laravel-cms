@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             SettingsTableSeeder::class,
             AboutTableSeeder::class,
             CurrenciesTableSeeder::class,
+            ProductsTableSeeder::class,
         ]);
 
         Model::reguard();

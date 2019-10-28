@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     /**
      * Build Post Relationships for pivot table users_posts.
      *
