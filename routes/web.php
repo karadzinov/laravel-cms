@@ -28,11 +28,13 @@ Route::get('/changeTheme', function(){
 });
 
 Route::get('test', function(){
-   return 'test';
 });
 
-Route::get('/test-charge', 'PaymentController@paymentProcess');
-Route::post('/charge', 'PaymentController@charge')->name('charge');
+Route::get('/purchase', 'PurchasesController@index')->name('buy');
+// Route::get
+Route::post('/charge', 'PurchasesController@charge')->name('charge');
+// Route::post('/purchase', 'PurchasesController@purchase')->name('beginPurchase');
+// Route::post('/charge', 'PurchasesController@charge')->name('charge');
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
@@ -121,6 +123,10 @@ Route::group(['as'=>'faq.'], function(){
 });
 
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
+
+//products
+Route::get('/products', 'ProductsController@index')->name('products');
+Route::get('/products/{id}', 'ProductsController@show')->name('products.show');
 
 Route::group(['as'=>'posts.'], function(){
     Route::get('/posts', 'FrontEndController@posts')->name('index');

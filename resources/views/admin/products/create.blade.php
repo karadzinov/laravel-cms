@@ -35,6 +35,12 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('short_description', trans('admin.short-description')) !!}
+                    {!! Form::textarea('short_description', null, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('admin.short-description'), 'autofocus' => true ]) !!}
+                    {!! $errors->first('short_description') !!}
+                </div>
+
+                <div class="form-group">
                     {{Form::label('main_image', trans('admin.image'))}}
                     {!! Form::file('main_image', null,['class'=>'form-control']) !!}
                     {!! $errors->first('main_image') !!}

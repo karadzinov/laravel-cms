@@ -35,6 +35,12 @@
                     {!! $errors->first('name') !!}
                 </div>
 
+                <div class="form-group">
+                    {!! Form::label('short_description', trans('admin.short-desciption')) !!}
+                    {!! Form::textarea('short_description', $product->short_description, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('admin.short-desciption'), 'autofocus' => true ]) !!}
+                    {!! $errors->first('short_description') !!}
+                </div>
+
                 @if($product->main_image)
                     <div>
                         <img src="{{$product->thumbnailPath}}">

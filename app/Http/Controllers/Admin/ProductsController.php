@@ -32,7 +32,8 @@ class ProductsController extends Controller
     	$image = $this->updateImageIfNecessary($request);
 
     	$newProduct = new Product();
-    	$newProduct->name = strip_tags($request->get('name'));
+        $newProduct->name = strip_tags($request->get('name'));
+    	$newProduct->short_description = strip_tags($request->get('short_description'));
     	$newProduct->description = $request->get('description');
     	$newProduct->main_image = $image;
     	$newProduct->video = $request->get('video');
@@ -66,6 +67,7 @@ class ProductsController extends Controller
     	$image = $this->updateImageIfNecessary($request);
 
         $product->name = strip_tags($request->get('name'));
+        $newProduct->short_description = strip_tags($request->get('short_description'));
         $product->description = $request->get('description');
         $image ? $product->main_image = $image : null;
         $product->video = $request->get('video');

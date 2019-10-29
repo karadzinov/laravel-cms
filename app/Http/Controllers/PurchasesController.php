@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{Currency, Product};
 use Illuminate\Http\Request;
 use App\Helpers\TwoCheckout\Twocheckout;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
 
-class PaymentController extends Controller
+class PurchasesController extends Controller
 {
 	public $privateKey;
 	public $sellerId;
@@ -123,8 +124,13 @@ class PaymentController extends Controller
 		
 	}
 
-    public function paymentProcess(){
+    public function index(Request $request){
+    	$quantity = $request->get('quantity') ?? 1;
+    	$product = Product::findOrFail($request->get('product_id'));
+    	$currency = Currency::symbol();
 
-		return view('payment-process');
+    	$data = compact('product', 'currency', 'quantity');
+
+		return view($this->path . 'purchases/checkout', $data);
     }
 }

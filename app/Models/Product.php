@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Helpers\{ImagesPaths, HasYoutubeVideos};
+use App\Models\Helpers\{Imageable, HasYoutubeVideos};
 
 class Product extends Model
 {
-    use HasYoutubeVideos;
+    use Imageable, HasYoutubeVideos;
 
     protected $table = 'products';
 
@@ -26,18 +26,23 @@ class Product extends Model
     	return  $this->price - ($this->price*$this->reduction/100);
     }
 
-    public function getThumbnailPathAttribute(){
+    // public function getThumbnailPathAttribute(){
         
-        return asset('/images/products/thumbnails/' . $this->main_image);
-    }
+    //     return asset('/images/products/thumbnails/' . $this->main_image);
+    // }
 
-    public function getMediumPathAttribute(){
+    // public function getMediumPathAttribute(){
         
-        return asset('/images/products/medium/' . $this->main_image);
-    }
+    //     return asset('/images/products/medium/' . $this->main_image);
+    // }
 
-    public function getOriginalPathAttribute(){
+    // public function getOriginalPathAttribute(){
         
-        return asset('/images/products/originals/' . $this->main_image);
+    //     return asset('/images/products/originals/' . $this->main_image);
+    // }
+
+    public function getShowRouteAttribute(){
+        
+        return route('products.show', $this->id);
     }
 }

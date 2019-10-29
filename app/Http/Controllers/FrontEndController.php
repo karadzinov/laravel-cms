@@ -143,6 +143,5 @@ class FrontEndController extends Controller
             
             return redirect()->back()->with('error', trans('admin.ops'));
         }
-
     }
 }

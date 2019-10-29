@@ -11,6 +11,7 @@ $factory->define(Product::class, function (Faker $faker) use ($category, $user) 
         "category_id"   => $category,
         "user_id"       => $user,
         "name"          => $faker->name(),
+        "short_description"=> $faker->sentence(),
         "description"   => $faker->paragraph(3),
         "price"         => rand(100, 1000),
         "reduction"     => [10, 20, 30, 40, 50][rand(0, 4)],
