@@ -17,7 +17,7 @@ class ViewOnlyMyPurchase
     public function handle($request, Closure $next)
     {
         $purchase = Purchase::findOrFail($request->purchase);
-        if(auth()->user()->purchases->contains($purchase) && !$purchase->completed){
+        if($purchase->user_id == auth()->user()->id && !$purchase->completed){
             return $next($request);
         }
 
