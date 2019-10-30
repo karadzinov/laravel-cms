@@ -149,5 +149,8 @@ array (
   'zip'               => 'ZIP Code',
   'shipping-informations'=> 'Shipping Informations',
   'billing-informations' => 'Billing Informations',
+  'successfull-purchase' => 'Your purchases has been successfully completed. You can see your purchases <a href=":route">here</a>.',
+  'thank-you'         => 'Thank You',
+  'continue-shopping' => 'Continue Shopping',
 )
 ;

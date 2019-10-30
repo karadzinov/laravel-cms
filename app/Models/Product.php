@@ -21,28 +21,27 @@ class Product extends Model
 		return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function purchases(){
+        
+        return $this->belongsToMany(Purchase::class, 'product_purchase', 'product_id', 'purchase_id');
+    }
+
     public function getReductedPriceAttribute(){
     	
     	return  $this->price - ($this->price*$this->reduction/100);
     }
 
-    // public function getThumbnailPathAttribute(){
-        
-    //     return asset('/images/products/thumbnails/' . $this->main_image);
-    // }
-
-    // public function getMediumPathAttribute(){
-        
-    //     return asset('/images/products/medium/' . $this->main_image);
-    // }
-
-    // public function getOriginalPathAttribute(){
-        
-    //     return asset('/images/products/originals/' . $this->main_image);
-    // }
-
     public function getShowRouteAttribute(){
         
         return route('products.show', $this->id);
+    }
+
+    public function getCurrentPriceAttribute(){
+        
+        if($this->reduction){
+            return $this->reductedPrice;
+        }
+
+        return $this->price;
     }
 }

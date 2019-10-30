@@ -30,17 +30,20 @@ Route::get('/changeTheme', function(){
 Route::get('test', function(){
 });
 
-Route::get('/purchase', 'PurchasesController@index')->name('buy');
-// Route::get
-Route::post('/charge', 'PurchasesController@charge')->name('charge');
-// Route::post('/purchase', 'PurchasesController@purchase')->name('beginPurchase');
-// Route::post('/charge', 'PurchasesController@charge')->name('charge');
-
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
 //Rss Feed Routes
 Route::get('feed', 'RssFeedController@index')->name('feed');
+// Public Routes
+Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as'=>'purchases.'], function () {
+    Route::get('/purchase', 'PurchasesController@index')->name('buy');
+    Route::post('/store', 'PurchasesController@store')->name('store');
+    Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
+    Route::post('/charge', 'PurchasesController@charge')->name('charge');
+    Route::get('/completed', 'PurchasesController@completed')->name('completed');
+    Route::get('/my-purchases', 'PurchasesController@myPurchases')->name('myPurchases');
+});
 
 // Authentication Routes
 Auth::routes();

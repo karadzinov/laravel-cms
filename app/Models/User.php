@@ -157,4 +157,9 @@ class User extends Authenticatable
 
         return Gravatar::get($this->email);
     }
+
+    public function purchases(){
+        
+        return $this->hasMany(Purchase::class, 'user_id', 'id');
+    }
 }

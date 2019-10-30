@@ -92,7 +92,7 @@
 								</ul>
 							</div>
 							<div class="row grid-space-10">
-								<form role="form" class="clearfix" id="buy-now-form" action="{{route('buy')}}" method="GET">
+								<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buy')}}" method="GET">
 									<input type="hidden" value="{{$product->id}}" name="product_id">
 									<div class="col-md-4">
 										<div class="form-group">

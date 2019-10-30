@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Currency, Product};
 use Illuminate\Http\Request;
+use App\Models\{Currency, Product, Purchase};
 use App\Helpers\TwoCheckout\Twocheckout;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
@@ -15,6 +15,9 @@ class PurchasesController extends Controller
 
 	public function ___construct(){
 		
+		// $this->middleware('my-purchases');
+
+
     	$this->privateKey = Twocheckout::privateKey(config('two-checkout.private_key'));
     	$this->sellerId = Twocheckout::sellerId(config('two-checkout.seller_id'));
     	// // Your username and password are required to make any Admin API call.
@@ -33,95 +36,125 @@ class PurchasesController extends Controller
 	}
 
 	public function charge(Request $request){
-		// dd($request->get('token'));
+		// dd($request->all());
+		
+		$purchase = Purchase::findOrFail($request->get('purchase'));
+
 		if(!empty($request->get('token'))){
-		    
-		    // Token info
-		    $token  = $request->get('token');
-		    
-		    // Card info
-		    $card_num = $request->get('card_num');
-		    $card_cvv = $request->get('cvv');
-		    $card_exp_month = $request->get('exp_month');
-		    $card_exp_year = $request->get('exp_year');
-		    
-		    // Buyer info
-		    $name = auth()->user()->name;
-		    $email = auth()->user()->email;
-		    $phoneNumber = '555-555-5555';
-		    $addrLine1 = '123 Test St';
-		    $city = 'Columbus';
-		    $state = 'OH';
-		    $zipCode = '43123';
-		    $country = 'USA';
-		    
-		    // Item info
-		    $itemName = 'Premium Script CodexWorld';
-		    $itemNumber = 'PS123456';
-		    $itemPrice = '25.00';
-		    $currency = 'USD';
-		    $orderID = 'SKA92712382139';
-		    
-		    // Set API key
-		    Twocheckout::privateKey(config('two-checkout.private_key'));
-		    Twocheckout::sellerId(config('two-checkout.seller_id'));
-		    Twocheckout::sandbox(true);
-		    
-		    try {
-		        // Charge a credit card
-		        $charge = Twocheckout_Charge::auth(array(
-		            "merchantOrderId" => $orderID,
-		            "token"      => $token,
-		            "currency"   => $currency,
-		            "total"      => $itemPrice,
-		            "billingAddr" => array(
-		                "name" => $name,
-		                "addrLine1" => $addrLine1,
-		                "city" => $city,
-		                "state" => $state,
-		                "zipCode" => $zipCode,
-		                "country" => $country,
-		                "email" => $email,
-		                "phoneNumber" => $phoneNumber
-		            )
-		        ));
-		        
-		        // Check whether the charge is successful
-		        if ($charge['response']['responseCode'] == 'APPROVED') {
-		            
-		            // Order details
-		            $orderNumber = $charge['response']['orderNumber'];
-		            $total = $charge['response']['total'];
-		            $transactionId = $charge['response']['transactionId'];
-		            $currency = $charge['response']['currencyCode'];
-		            $status = $charge['response']['responseCode'];
-		            
-		            // Include database config file
-		            // include_once 'dbConfig.php';
-		            
-		            // Insert order info to database
-		            // $sql = "INSERT INTO orders(name, email, card_num, card_cvv, card_exp_month, card_exp_year, item_name, item_number, item_price, currency, paid_amount, order_number, txn_id, payment_status, created, modified) VALUES('".$name."', '".$email."', '".$card_num."', '".$card_cvv."', '".$card_exp_month."', '".$card_exp_year."', '".$itemName."', '".$itemNumber."','".$itemPrice."', '".$currency."', '".$total."', '".$orderNumber."', '".$transactionId."', '".$status."', NOW(), NOW())";
-		            // $insert = $db->query($sql);
-		            // $insert_id = $db->insert_id;
-		            
-		            $statusMsg = '<h2>Thanks for your Order!</h2>';
-		            $statusMsg .= '<h4>The transaction was successful. Order details are given below:</h4>';
-		            $statusMsg .= "<p>Order ID: insertid</p>";
-		            $statusMsg .= "<p>Order Number: {$orderNumber}</p>";
-		            $statusMsg .= "<p>Transaction ID: {$transactionId}</p>";
-		            $statusMsg .= "<p>Order Total: {$total} {$currency}</p>";
-		        }
-		    } catch (Twocheckout_Error $e) {
-		        $statusMsg = '<h2>Transaction failed!</h2>';
-		        $statusMsg .= '<p>'.$e->getMessage().'</p>';
-		    }
+		    $charge = $this->chargePurchase($request, $purchase);
+
+		    return redirect()->route('purchases.completed');
 		    
 		}else{
-		    $statusMsg = "<p>Form submission error...</p>";
+		    $status = "<p>Form submission error...</p>";
 		}
-		dd($statusMsg);
+		dd($status);
 
 		
+	}
+
+	public function completed(){
+		
+		return view($this->path.'purchases/completed');
+	}
+
+	public function chargePurchase(Request $request, Purchase $purchase){
+		
+		$token  = $request->get('token');
+		
+		// Card info
+		$card_num = $request->get('card_num');
+		$card_cvv = $request->get('cvv');
+		$card_exp_month = $request->get('exp_month');
+		$card_exp_year = $request->get('exp_year');
+		
+		// Buyer info
+		$name = auth()->user()->name;
+		$email = auth()->user()->email;
+		$currency = Currency::where('active', '=', 1)->first()->name;
+		
+		Twocheckout::privateKey(config('two-checkout.private_key'));
+		Twocheckout::sellerId(config('two-checkout.seller_id'));
+		Twocheckout::sandbox(true);
+		
+		try {
+		    // Charge a credit card
+		    $charge = Twocheckout_Charge::auth(array(
+		        "merchantOrderId" => $purchase->id,
+		        "token"      => $token,
+		        "currency"   => $currency,
+		        "total"      => $purchase->total,
+		        "billingAddr" => array(
+		            "name" => auth()->user()->name,
+		            "addrLine1" => $purchase->home_address,
+		            "city" => $purchase->city,
+		            "state" => $purchase->country,
+		            "zipCode" => $purchase->zip,
+		            "country" => $purchase->country,
+		            "email" => $email,
+		            "phoneNumber" => $purchase->phone
+		        )
+		    ));
+		    
+		    // Check whether the charge is successful
+		    if ($charge['response']['responseCode'] == 'APPROVED') {
+		        $response = $charge['response'];
+		        // Order details
+		        $orderNumber = $response['orderNumber'];
+		        $transactionId = $response['transactionId'];
+		        $currency = $response['currencyCode'];
+		        $status = $response['responseCode'];
+		        
+		        $purchase->order_number = $orderNumber;
+		        $purchase->transaction_id = $transactionId;
+		        $purchase->status = $status;
+		        $purchase->completed = true;
+		        $purchase->currency = $currency;
+		        $purchase->save();
+
+		        return true;
+		    }
+		} catch (Twocheckout_Error $e) {
+		    $statusMsg = '<h2>Transaction failed!</h2>';
+		    $statusMsg .= '<p>'.$e->getMessage().'</p>';
+		}
+
+		return $statusMsg;
+	}
+
+	public function store(Request $request){
+		// dd($request->all());
+		$products = $request->get('products');
+		$productsSold = $this->prepareProductsAndPrice($products);
+		
+
+		$purchase = new Purchase();
+		$purchase->user_id = auth()->user()->id;
+		$purchase->total = $productsSold->total;
+		$purchase->completed = false;
+		$purchase->phone = $request->get('phone');
+		$purchase->home_address = $request->get('home_address');
+		$purchase->country = $request->get('country');
+		$purchase->city = $request->get('city');
+		$purchase->zip = $request->get('zip');
+		$purchase->save();
+
+		foreach($products as $id => $quantity){
+			
+			$purchase->products()->save($productsSold->items[$id], ['quantity'=>$quantity]);
+		}
+		$currency = Currency::symbol();
+
+		return redirect()->route('purchases.payment', $purchase->id);
+
+	}
+
+	public function payment($purchase){
+		// dd('controller');
+		$purchase = Purchase::findOrFail($purchase);
+    	$currency = Currency::symbol();
+
+		return view($this->path . 'purchases/card', compact('purchase', 'currency'));
 	}
 
     public function index(Request $request){
@@ -132,5 +165,18 @@ class PurchasesController extends Controller
     	$data = compact('product', 'currency', 'quantity');
 
 		return view($this->path . 'purchases/checkout', $data);
+    }
+
+    public function prepareProductsAndPrice($products){
+    	$total = 0;
+    	$items = [];
+    	foreach($products as $id => $quantity) {
+    		$product = Product::findOrFail($id);
+    		$total += $product->currentPrice * $quantity;
+    		$items[$id] = $product;
+    	}
+
+    	return (object) compact('total', 'items');
+    	
     }
 }

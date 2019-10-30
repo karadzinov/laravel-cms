@@ -9,25 +9,25 @@
 				<div class="form-group">
 					<label for="billingFirstName" class="col-md-2 control-label">{{trans('general.first-name')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingFirstName" value="{{auth()->user()->first_name}}" disabled="">
+						<input type="text" name="first_name" class="form-control" id="billingFirstName" value="{{auth()->user()->first_name}}" disabled="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="billingLastName" class="col-md-2 control-label">{{trans('general.last-name')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingLastName" value="{{auth()->user()->last_name}}" disabled="">
+						<input type="text" name="last_name" class="form-control" id="billingLastName" value="{{auth()->user()->last_name}}" disabled="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="billingTel" class="col-md-2 control-label">{{trans('general.phone')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingTel" placeholder="+1234567891">
+						<input type="text" name="phone" class="form-control" id="billingTel" placeholder="+1234567891">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="billingemail" class="col-md-2 control-label">{{trans('general.email')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="email" class="form-control" id="billingemail" value="{{auth()->user()->email}}" disabled="">
+						<input type="email" name="email" class="form-control" id="billingemail" value="{{auth()->user()->email}}" disabled="">
 					</div>
 				</div>
 			</div>
@@ -41,13 +41,13 @@
 				<div class="form-group">
 					<label for="billingAddress1" class="col-md-2 control-label">{{trans('general.home-address')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingAddress1" placeholder="{{trans('general.exemple-home-address')}}">
+						<input type="text" name="home_address" class="form-control" id="billingAddress1" placeholder="{{trans('general.exemple-home-address')}}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label">{{trans('general.country')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<select class="form-control">
+						<select class="form-control" name="country">
 							<option value="AF">Afghanistan</option>
 							<option value="AX">Aland Islands</option>
 							<option value="AL">Albania</option>
@@ -304,13 +304,13 @@
 				<div class="form-group">
 					<label for="billingCity" class="col-md-2 control-label">{{trans('general.city')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingCity" placeholder="City">
+						<input type="text" name="city" class="form-control" id="billingCity" placeholder="City">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="billingPostalCode" class="col-md-2 control-label">{{trans('general.zip')}}<small class="text-default">*</small></label>
+					<label for="billingPostalCode" name="zip" class="col-md-2 control-label">{{trans('general.zip')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" id="billingPostalCode" value="Postal Code">
+						<input type="text" name="zip" class="form-control" id="billingPostalCode" placeholder="{{trans('general.zip')}}">
 					</div>
 				</div>
 			</div>
@@ -330,25 +330,25 @@
 					<div class="form-group">
 						<label for="shippingFirstName" class="col-md-2 control-label">{{trans('general.first-name')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingFirstName" placeholder="{{trans('general.first-name')}}">
+							<input type="text" name="shipping_first_name" class="form-control" id="shippingFirstName" placeholder="{{trans('general.first-name')}}">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="shippingLastName" class="col-md-2 control-label">L{{trans('general.last-name')}}<small class="text-default">*</small></label>
+						<label for="shippingLastName" class="col-md-2 control-label">{{trans('general.last-name')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingLastName" placeholder="{{trans('general.last-name')}}">
+							<input type="text" name="shipping_last_name" class="form-control" id="shippingLastName" placeholder="{{trans('general.last-name')}}">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="shippingTel" class="col-md-2 control-label">{{trans('general.phone')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingTel" placeholder="+123456789">
+							<input type="text" name="shipping_phone" class="form-control" id="shippingTel" placeholder="+123456789">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="shippingemail" class="col-md-2 control-label">{{trans('general.email')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="email" class="form-control" id="shippingemail" placeholder="exemple@exemple.com">
+							<input type="email" name="shipping_email" class="form-control" id="shippingemail" placeholder="exemple@exemple.com">
 						</div>
 					</div>
 				</div>
@@ -362,13 +362,13 @@
 					<div class="form-group">
 						<label for="shippingAddress1" class="col-md-2 control-label">{{trans('general.address')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingAddress1" value="Address 2">
+							<input type="text" name="shipping_home_address" class="form-control" id="shippingAddress1" value="{{trans('general.exemple-home-address')}}">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 control-label">{{trans('general.country')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<select class="form-control">
+							<select class="form-control" name="shipping_country">
 								<option value="AF">Afghanistan</option>
 								<option value="AX">Aland Islands</option>
 								<option value="AL">Albania</option>
@@ -625,13 +625,13 @@
 					<div class="form-group">
 						<label for="shippingCity" class="col-md-2 control-label">{{trans('general.city')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingCity" placeholder="City">
+							<input type="text" name="shipping_city" class="form-control" id="shippingCity" placeholder="City">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="shippingPostalCode" class="col-md-2 control-label">{{trans('general.zip')}}<small class="text-default">*</small></label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="shippingPostalCode" value="Postal Code">
+							<input type="text" name="shipping_zip" class="form-control" id="shippingPostalCode" placeholder="{{trans('general.zip')}}">
 						</div>
 					</div>
 				</div>
@@ -639,8 +639,94 @@
 		</div>
 		<div class="checkbox padding-top-clear">
 			<label>
-				<input type="checkbox" id="shipping-info-check" checked> My Shipping information is the same as my Billing information.
+				<input name="same_address" type="checkbox" id="shipping-info-check" checked> My Shipping information is the same as my Billing information.
 			</label>
 		</div>
 	</div>
 </fieldset>
+{{-- <fieldset>
+	<legend>Payment</legend>
+	<form role="form" class="form-horizontal" id="payment-information">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="radio">
+					<span>
+						<i class="fa fa-credit-card"></i> Credit Card
+					</span>
+				</div>
+				<div class="space-bottom"></div>
+			</div>
+			<div class="col-lg-9">
+				<div class="form-group">
+					<label class="col-md-3 control-label">Card Number<small class="text-default">*</small></label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-xs-6 col-sm-2">
+								<input type="text" class="form-control">
+							</div>
+							<div class="col-xs-6 col-sm-2">
+								<input type="text" class="form-control">
+							</div>
+							<div class="clearfix space-bottom visible-xs"></div>
+							<div class="col-xs-6 col-sm-2">
+								<input type="text" class="form-control">
+							</div>
+							<div class="col-xs-6 col-sm-2">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Expiration Date<small class="text-default">*</small></label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-xs-6 col-sm-2">
+								<select class="form-control">
+									<option value="01" selected="selected">01</option>
+									<option value="03">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>
+							</div>
+							<div class="col-xs-6 col-sm-2">
+								<select class="form-control">
+									<option value="2014" selected="selected">2014</option>
+									<option value="2015">2015</option>
+									<option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+									<option value="2021">2021</option>
+									<option value="2022">2022</option>
+									<option value="2023">2023</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">CVS<small class="text-default">*</small></label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-xs-6 col-sm-2">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset> --}}

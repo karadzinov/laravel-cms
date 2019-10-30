@@ -136,13 +136,14 @@
 		                    <div class="row display-tr" >
 		                        <h3 class="panel-title display-td" >Payment Details</h3>
 		                        <div class="display-td" >                            
-		                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+		                            <small>Your purchase with id of: {{$purchase->id}} will be charged with {{$purchase->total.$currency}}</small>
 		                        </div>
 		                    </div>                    
 		                </div>
 		                <div class="panel-body">
-		                    <form id="paymentFrm" method="post" action="{{route('charge')}}">
+		                    <form id="paymentFrm" method="post" action="{{route('purchases.charge')}}">
 		                    	@csrf
+		                    	<input type="hidden" name="purchase" value="{{$purchase->id}}">
 		                        <div class="row">
 		                            <div class="col-xs-12">
 		                                <div class="form-group">
@@ -191,25 +192,3 @@
 		    </div>
 		</div>
 @endsection
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Pay</title>
-	
-	
-	
-</head>
-<body>
-	
-	<script>
-		function checkNumberLength(maxLength){
-			console.log(this)
-			// if (this.value.length > maxLength){
-			// 	this.value = this.value.slice(0, this.maxLength);
-			// }
-		}
-	</script>
-</body>
-</html> -->
