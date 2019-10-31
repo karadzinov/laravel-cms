@@ -26,7 +26,7 @@
 				@include($path . 'partials/header')
 				@include($path . 'partials/nav')
 			</div>
-
+			@include($path . 'partials/flash-messages')
 			@yield('content')
 		</div>
 		

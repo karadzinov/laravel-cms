@@ -41,16 +41,17 @@ class PurchasesController extends Controller
 		$purchase = Purchase::findOrFail($request->get('purchase'));
 
 		if(!empty($request->get('token'))){
+
 		    $charge = $this->chargePurchase($request, $purchase);
+		    if($charge["status"]==="success"){
 
-		    return redirect()->route('purchases.completed');
-		    
-		}else{
-		    $status = "<p>Form submission error...</p>";
+		    	return redirect()->route('purchases.completed');
+		    }
+
+			return redirect()->back()->with("error", $charge["message"]);
 		}
-		dd($status);
-
 		
+		return redirect()->back()->with("errors", trans('general.general-error'));
 	}
 
 	public function completed(){
@@ -68,9 +69,6 @@ class PurchasesController extends Controller
 		$card_exp_month = $request->get('exp_month');
 		$card_exp_year = $request->get('exp_year');
 		
-		// Buyer info
-		$name = auth()->user()->name;
-		$email = auth()->user()->email;
 		$currency = Currency::where('active', '=', 1)->first()->name;
 		
 		Twocheckout::privateKey(config('two-checkout.private_key'));
@@ -91,35 +89,48 @@ class PurchasesController extends Controller
 		            "state" => $purchase->country,
 		            "zipCode" => $purchase->zip,
 		            "country" => $purchase->country,
-		            "email" => $email,
+		            "email" => auth()->user()->email,
 		            "phoneNumber" => $purchase->phone
 		        )
 		    ));
-		    
-		    // Check whether the charge is successful
 		    if ($charge['response']['responseCode'] == 'APPROVED') {
 		        $response = $charge['response'];
-		        // Order details
-		        $orderNumber = $response['orderNumber'];
-		        $transactionId = $response['transactionId'];
-		        $currency = $response['currencyCode'];
-		        $status = $response['responseCode'];
-		        
-		        $purchase->order_number = $orderNumber;
-		        $purchase->transaction_id = $transactionId;
-		        $purchase->status = $status;
-		        $purchase->completed = true;
-		        $purchase->currency = $currency;
-		        $purchase->save();
+		       	$updatedPurchase = $this->updatePurchase($response, $purchase);
 
-		        return true;
+		        return ["status"=>"success"];
 		    }
 		} catch (Twocheckout_Error $e) {
-		    $statusMsg = '<h2>Transaction failed!</h2>';
-		    $statusMsg .= '<p>'.$e->getMessage().'</p>';
+
+		        return [
+		        	"status" => "error",
+		        	"message" => $e->getMessage()
+		        ];
 		}
 
 		return $statusMsg;
+	}
+
+	public function updatePurchase($response, Purchase $purchase){
+		try {
+			// Order details
+			$orderNumber = $response['orderNumber'];
+			$transactionId = $response['transactionId'];
+			$currency = $response['currencyCode'];
+			$status = $response['responseCode'];
+			
+			$purchase->order_number = $orderNumber;
+			$purchase->transaction_id = $transactionId;
+			$purchase->status = $status;
+			$purchase->completed = true;
+			$purchase->currency = $currency;
+			$purchase->save();
+
+			return true;
+		} catch (Exception $e) {
+			
+			return false;
+		}
+		
 	}
 
 	public function store(Request $request){
@@ -150,7 +161,6 @@ class PurchasesController extends Controller
 	}
 
 	public function payment($purchase){
-		// dd('controller');
 		$purchase = Purchase::findOrFail($purchase);
     	$currency = Currency::symbol();
 
@@ -165,6 +175,13 @@ class PurchasesController extends Controller
     	$data = compact('product', 'currency', 'quantity');
 
 		return view($this->path . 'purchases/checkout', $data);
+    }
+
+    public function cart(){
+    	$product = Product::first();
+    	$currency = Currency::symbol();
+    	$quantity = 1;
+    	return view($this->path.'purchases/cart', compact('product', 'currency', 'quantity'));
     }
 
     public function prepareProductsAndPrice($products){
