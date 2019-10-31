@@ -152,5 +152,15 @@ array (
   'successfull-purchase' => 'Your purchases has been successfully completed. You can see your purchases <a href=":route">here</a>.',
   'thank-you'         => 'Thank You',
   'continue-shopping' => 'Continue Shopping',
+  'add-to-cart'       => 'Add To Cart',
+  'buy'               => 'Buy Now',
+  'already-in-cart'   => 'Already Added To Your Cart',
+  'added-to-cart'     => 'Added To Cart',
+  'cart-error'        => 'We encountered a problem adding products to your cart. Please try again later or contact our administrators.',
+  'my-cart'           => 'My cart',
+  'checkout'          => 'Checkout',
+  'back'              => 'Back',
+  'total'             => 'Total',
+  'items'             => 'Items',
 )
 ;

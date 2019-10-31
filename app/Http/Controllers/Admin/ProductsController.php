@@ -52,6 +52,7 @@ class ProductsController extends Controller
 
 	public function show(Product $product){
     	$currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+        
     	return view('admin/products/show', compact('product', 'currency'));
     }
 

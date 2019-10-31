@@ -9,6 +9,16 @@
 		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
+
+		<style>
+			.flash-alerts{
+				position: absolute;
+				right: 0;
+				max-width: 300px;
+				z-index: 100;
+				top: 100px;
+			}
+		</style>
 	</head>
 
 	<!-- body classes:  -->

@@ -97,7 +97,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>{{trans('general.quantity')}}</label>
-											<input name="quantity" type="number" class="form-control" value="1">
+											<input id="product-quantity" name="quantity" type="number" class="form-control" value="1">
 										</div>
 									</div>
 									{{-- <div class="col-md-4">
@@ -139,13 +139,20 @@
 								{{-- <span class="product price"><i class="icon-tag pr-10"></i>$99.00</span> --}}
 								
 								<div class="product elements-list pull-right clearfix">
-									<button id="add-to-cart" class="margin-clear btn btn-default">
-										<i class="fa fa-lg fa-cart-plus"></i>
-										  &nbsp{{trans('general.add-to-cart')}}
-									</button>
+									@if(auth()->user()->cart->contains($product))
+										<a href="{{route('purchases.cart')}}" class="margin-clear btn btn-default">
+											<i class="fa fa-lg fa-cart-plus"></i>
+											  &nbsp{{trans('general.already-in-cart')}}
+										</a>
+									@else
+										<button id="add-to-cart" class="margin-clear btn btn-default">
+											<i class="fa fa-lg fa-cart-plus"></i>
+											  &nbsp{{trans('general.add-to-cart')}}
+										</button>
+									@endif
 									<button id="buy-now" type="submit" class="margin-clear btn btn-default">
 										<i class="fa fa-lg fa-cart-arrow-down"></i>
-										  &nbsp{{'general.buy'}}
+										  &nbsp{{trans('general.buy')}}
 									</button>
 								</div>
 							</div>
@@ -460,7 +467,51 @@
 		$(document).ready(function(){
 			$('#buy-now').on('click', function(){
 				$('#buy-now-form').submit();
-			})
+			});
+
+			$('#add-to-cart').on('click', function(){
+				const quantity = $('#product-quantity').val();
+				const product_id = {{$product->id}};
+
+				 $.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+
+				   type:'POST',
+				   url:'{{route('purchases.add-to-cart')}}',
+				   data:{
+				   		quantity,
+				   		product_id
+				   },
+				   success:function(response){
+				   	
+				   	if(response.status === "already-added"){
+				   		flashMessage("succcess", response.message);
+				   		return;
+				   	}
+				   	
+				   	flashMessage("success", response.message);
+				   },
+				   error:function(response){
+				   	
+				   		flashMessage("danger", response.message);
+				   }
+
+				});
+			});
+
+			function flashMessage(type="warning", message){
+
+				message = `
+				<div class="alert alert-${type} flash-alerts" role="alert">
+					${message}
+				</div>`;
+				$('body').prepend(message);
+				setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
+			}
 		});
 	</script>
 @endsection

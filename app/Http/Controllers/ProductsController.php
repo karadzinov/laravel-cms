@@ -15,7 +15,6 @@ class ProductsController extends Controller
     }
 
     public function show($product){
-    	
      	$currency = Currency::symbol();
     	$product = Product::find($product);
 

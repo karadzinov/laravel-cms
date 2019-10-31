@@ -178,10 +178,10 @@ class PurchasesController extends Controller
     }
 
     public function cart(){
-    	$product = Product::first();
+		$cart = auth()->user()->cart;
     	$currency = Currency::symbol();
-    	$quantity = 1;
-    	return view($this->path.'purchases/cart', compact('product', 'currency', 'quantity'));
+
+    	return view($this->path.'purchases/cart', compact('cart', 'currency'));
     }
 
     public function prepareProductsAndPrice($products){
@@ -194,6 +194,31 @@ class PurchasesController extends Controller
     	}
 
     	return (object) compact('total', 'items');
+    }
+
+    public function addToCart(Request $request){
+    	if($request->ajax()){
+    		try {
+    			$productId = $request->get('product_id');
+    			$check = auth()->user()->cart()
+    					->where('product_id', '=', $productId)
+    					->first();
+
+    			if($check){
+    				return response()->json(["status"=>"already-added", "message" => trans('general.already-in-cart')]);
+    			}
+    			
+    			$product = Product::findOrFail($request->get('product_id'));
+    			auth()->user()->cart()->attach($product, ['quantity'=>$request->get('quantity')]);
+
+    			return response()->json(["status"=>"success", "message" => trans('general.added-to-cart')]);
+    		} catch (Exception $e) {
+    			
+    			return response()->json(["status"=>"failed", "message" => trans('general.cart-error')]);
+    		}
+    	}
+
+    	return false;
     	
     }
 }

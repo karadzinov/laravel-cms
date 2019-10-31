@@ -35,26 +35,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="remove-data">
-								<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
-								<td class="price">
-								@if($product->reduction)
-									{{$product->reductedPrice.$currency}}
-								@else
-									{{$product->price.$currency}}
-								@endif
-								</td>
-								<td class="quantity">
-									<div class="form-group">
-										<input type="text" class="form-control" value="{{$quantity}}">
-									</div>											
-								</td>
-								<td class="remove"><a class="btn btn-remove btn-sm btn-default">{{trans('general.remove')}}</a></td>
-								<td class="amount">$XXXXXXXXXX </td>
-							</tr>
+							@foreach($cart as $product)
+								<tr class="remove-data cart-item">
+									<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
+									<td class="price">
+										<span id="product-{{$product->id}}-price">{{$product->currentPrice}}</span>{{$currency}}
+									</td>
+									<td class="quantity">
+										<div class="form-group">
+											<input data-product="{{$product->id}}" type="text" class="form-control product-quantity" value="{{$product->pivot->quantity}}">
+										</div>											
+									</td>
+									<td class="remove"><a class="btn btn-remove btn-sm btn-default">{{trans('general.remove')}}</a></td>
+									<td class="amount">
+										<span class="product-times-quantity" id="product-{{$product->id}}-total">
+											{{$product->currentPrice * $product->pivot->quantity}}
+										</span>{{$currency}} 
+									</td>
+								</tr>
+							@endforeach
 							<tr>
-								<td class="total-quantity" colspan="4">Total XXXX Items</td>
-								<td class="total-amount">$XXXXX.00</td>
+								<td class="total-quantity" colspan="4">
+									{{trans('general.total')}} <span id="items-count"></span> {{trans('general.items')}}</td>
+								<td class="total-amount" id="total-amount">{{$currency}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -63,7 +66,7 @@
 							{{trans('general.back')}}
 						</a>
 						<a href="shop-checkout.html" class="btn btn-group btn-default">
-							{{trans('general.chackout')}}
+							{{trans('general.checkout')}}
 						</a>
 					</div>
 
@@ -74,4 +77,42 @@
 		</div>
 	</section>
 	<!-- main-container end -->
+@endsection
+
+@section('optionalScripts')
+	<script>
+		$(document).ready(function(){
+			function countTotal(){
+			let prices = $('.product-times-quantity');
+				let totalPrice = 0;
+				for(let i = 0; i< prices.length; i++){
+					totalPrice += Number($(prices[i]).text());
+				}
+
+				$('#total-amount').text(totalPrice + '{{$currency}}')
+
+			}
+
+			function countCartItems(){
+				const items = $('.cart-item').length;
+				$('#items-count').text(items);
+			}
+
+			$('.product-quantity').on('change', function(){
+				const quantity = $(this).val();
+				const productId = $(this).data('product');
+				const currnetPrice = $('#product-'+productId+'-price').text();
+				let totalPriceForProduct = $('#product-'+productId+'-total');
+				totalPriceForProduct.html(Number(currnetPrice)*Number(quantity));
+				console.log(Number(currnetPrice))
+				console.log(Number(quantity))
+				countTotal();
+
+
+			})
+
+			countTotal();
+			countCartItems();
+		});
+	</script>
 @endsection

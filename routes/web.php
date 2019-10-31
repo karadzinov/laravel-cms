@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as
     Route::get('/completed', 'PurchasesController@completed')->name('completed');
     Route::get('/my-purchases', 'PurchasesController@myPurchases')->name('myPurchases');
     Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
+    Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('add-to-cart');
 });
 
 // Authentication Routes
