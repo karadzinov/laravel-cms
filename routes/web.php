@@ -43,7 +43,8 @@ Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as
     Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
     Route::post('/charge', 'PurchasesController@charge')->name('charge');
     Route::get('/completed', 'PurchasesController@completed')->name('completed');
-    Route::get('/my-purchases', 'PurchasesController@myPurchases')->name('myPurchases');
+    Route::get('/my-purchases', 'PurchasesController@index')->name('index');
+    Route::get('/show/{id}', 'PurchasesController@show')->name('show');
     Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
     Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('add-to-cart');
     Route::post('/change-quantity', 'PurchasesController@changeQuantity')->name('changeQuantity');

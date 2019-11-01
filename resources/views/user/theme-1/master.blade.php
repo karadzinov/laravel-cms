@@ -18,6 +18,9 @@
 				z-index: 100;
 				top: 100px;
 			}
+			.my-alert{
+				margin:0;
+			}
 		</style>
 	</head>
 

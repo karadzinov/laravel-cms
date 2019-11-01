@@ -23,7 +23,7 @@
 					<h1 class="page-title text-center">{{trans('general.thank-you')}}! <i class="fa fa-smile-o pl-10"></i></h1>
 					<div class="separator"></div>
 					<!-- page-title end -->
-					<p class="lead text-center">{!!trans('general.successfull-purchase', ['route'=>route('purchases.myPurchases')])!!}</p>
+					<p class="lead text-center">{!!trans('general.successfull-purchase', ['route'=>route('purchases.index')])!!}</p>
 					<p class="text-center">
 						<a href="{{route('products')}}" class="btn btn-default btn-lg">{{trans('general.continue-shopping')}}!</a>	
 					</p>

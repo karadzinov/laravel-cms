@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Currency, Product, Purchase};
+use App\Models\{Currency, Product, Purchase, User};
 use App\Helpers\TwoCheckout\Twocheckout;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
@@ -260,5 +260,17 @@ class PurchasesController extends Controller
     	$currency = Currency::symbol();
 
     	return view($this->path.'purchases/checkout', compact('cart', 'currency'));
+    }
+
+    public function index(){
+    	$userId = auth()->user()->id;
+    	$user = User::with('purchases', 'purchases.products')->findOrFail($userId);
+    	
+    	return view($this->path.'purchases/index', compact('user'));
+    }
+
+    public function show(Purchase $purchase){
+    	
+    	return view($this->path.'purchases/show', compact('purchase'));
     }
 }

@@ -171,5 +171,14 @@ array (
   'back-to-cart'      => 'Back To Cart',
   'next-step'         => 'Next Step',
   'error-occured'     => 'Following errors occured during the process:',
+  'created-at'        => 'Created At',
+  'updated-at'        => 'Updated At',
+  'completed'         => 'Completed',
+  'uncompleted'       => 'Uncompleted',
+  'currency'          => 'Currency',
+  'order-number'      => 'Order Number',
+  'transaction-id'    => 'Transaction Id',
+  'status'            => 'Status',
+  'show'              => 'Show',
 )
 ;
