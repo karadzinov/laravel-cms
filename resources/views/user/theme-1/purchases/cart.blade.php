@@ -89,7 +89,7 @@
 					totalPrice += Number($(prices[i]).text());
 				}
 
-				$('#total-amount').text(totalPrice + '{{$currency}}')
+				$('#total-amount').text(totalPrice.toFixed(1) + '{{$currency}}')
 
 			}
 
@@ -99,17 +99,36 @@
 			}
 
 			$('.product-quantity').on('change', function(){
-				const quantity = $(this).val();
 				const productId = $(this).data('product');
+				const quantity = $(this).val();
+				changeQuantity(productId, quantity);
 				const currnetPrice = $('#product-'+productId+'-price').text();
 				let totalPriceForProduct = $('#product-'+productId+'-total');
-				totalPriceForProduct.html(Number(currnetPrice)*Number(quantity));
-				console.log(Number(currnetPrice))
-				console.log(Number(quantity))
+				totalPriceForProduct.html((Number(currnetPrice)*Number(quantity)).toFixed(1));
 				countTotal();
+			});
 
+			function changeQuantity(productId, quantity){
+				$.ajaxSetup({
+   				    headers:
+  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+				});
+				$.ajax({
+					type: 'POST',
+					url: '{{route('purchases.changeQuantity')}}',
+					data:{
+						product_id: productId,
+						quantity: quantity,
+					},
+					success: function (response){
+						flashMessage('success', '{{trans('general.succcessfully-updated')}}');
+					},
+					error: function(error){
+						flashMessage('danger', '{{trans('general.error_response')}}');
+					}
 
-			})
+				});
+			}
 
 			countTotal();
 			countCartItems();

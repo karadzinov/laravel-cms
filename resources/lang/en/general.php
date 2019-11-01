@@ -27,10 +27,15 @@ array (
       'home'    => 'Home',
       'posts'   => 'Posts',
       'pages'   => 'Pages',
+      'products'=> 'Products',
       'contact' => 'Contact',
       'about'   => 'About',
       'faq'     => 'FAQ',
       'change_language' => 'Change language',
+      'quantity-short'  => 'QTY',
+      'product' => 'Product',
+      'subtotal'  => 'Subtotal',
+      'view-cart' => 'View Cart',
     ),
   'footer'    => 
     array (
@@ -162,5 +167,6 @@ array (
   'back'              => 'Back',
   'total'             => 'Total',
   'items'             => 'Items',
+  'succcessfully-updated' => 'Successfully updated',
 )
 ;

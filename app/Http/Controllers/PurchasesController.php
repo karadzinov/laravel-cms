@@ -218,7 +218,26 @@ class PurchasesController extends Controller
     		}
     	}
 
-    	return false;
-    	
+    	return false;	
+    }
+
+    public function changeQuantity(Request $request){
+    	$request->validate([
+    	    'product_id' => 'required|numeric',
+    	    'quantity' => 'required|numeric',
+    	]);
+    	try {
+    		$product = Product::findOrFail($request->get('product_id'));
+    		$pivot = auth()->user()->cart()
+    					->where('product_id', '=', $request->get('product_id'))
+    					->first()->pivot;
+
+    		$pivot->quantity = $request->get('quantity');
+    		$pivot->save();
+    	} catch (Exception $e) {
+			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
+    	}
+
+    	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
     }
 }

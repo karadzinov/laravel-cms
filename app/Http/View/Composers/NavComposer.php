@@ -4,12 +4,13 @@ namespace App\Http\View\Composers;
 
 use App\Models\Language;
 use Illuminate\View\View;
-use App\Models\{Category, Page};
+use App\Models\{Category, Currency, Page};
 
 class NavComposer
 {
     protected $categories;
     protected $pages;
+    protected $cart;
 
     public function __construct()
     {
@@ -17,11 +18,11 @@ class NavComposer
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();
-                        
-        $pages = $this->preparePagesForNav();
+        
         $this->categories = $categories;
-        $this->pages = $pages;
+        $this->pages = $this->preparePagesForNav();
         $this->languages = $languages;
+        $this->cart = $this->cart();
     }
 
     /**
@@ -36,6 +37,7 @@ class NavComposer
             'categories' => $this->categories,
             'pages' => $this->pages,
             'languages' => $this->languages,
+            'cart' => $this->cart,
         ]);
     }
 
@@ -47,5 +49,29 @@ class NavComposer
         }
 
         return $pages;
+    }
+
+    public function cart(){
+        
+        $cart = false;
+        if(auth()->user()){
+            $currency = Currency::symbol();
+            $cart = auth()->user()->cart;
+            if($cart->isNotEmpty()){
+                $cart->totalPrice = $this->totalCartPrice($cart).$currency;
+                $cart->currency = $currency;
+            }
+        }
+
+        return $cart;
+    }
+
+    public function totalCartPrice($cart){
+        $sum = 0;
+        foreach($cart as $product){
+            $sum += $product->currentPrice * $product->pivot->quantity;
+        }
+
+        return $sum;
     }
 }

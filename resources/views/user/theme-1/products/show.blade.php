@@ -503,15 +503,15 @@
 				});
 			});
 
-			function flashMessage(type="warning", message){
+			// function flashMessage(type="warning", message){
 
-				message = `
-				<div class="alert alert-${type} flash-alerts" role="alert">
-					${message}
-				</div>`;
-				$('body').prepend(message);
-				setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-			}
+			// 	message = `
+			// 	<div class="alert alert-${type} flash-alerts" role="alert">
+			// 		${message}
+			// 	</div>`;
+			// 	$('body').prepend(message);
+			// 	setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
+			// }
 		});
 	</script>
 @endsection
