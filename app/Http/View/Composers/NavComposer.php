@@ -53,17 +53,18 @@ class NavComposer
 
     public function cart(){
         
-        $cart = false;
         if(auth()->user()){
-            $currency = Currency::symbol();
             $cart = auth()->user()->cart;
             if($cart->isNotEmpty()){
+                $currency = Currency::symbol();
                 $cart->totalPrice = $this->totalCartPrice($cart).$currency;
                 $cart->currency = $currency;
+
+                return $cart;
             }
         }
 
-        return $cart;
+        return false;
     }
 
     public function totalCartPrice($cart){

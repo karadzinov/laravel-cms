@@ -92,7 +92,7 @@
 								</ul>
 							</div>
 							<div class="row grid-space-10">
-								<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buy')}}" method="GET">
+								<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buyNow')}}" method="GET">
 									<input type="hidden" value="{{$product->id}}" name="product_id">
 									<div class="col-md-4">
 										<div class="form-group">
@@ -502,16 +502,6 @@
 
 				});
 			});
-
-			// function flashMessage(type="warning", message){
-
-			// 	message = `
-			// 	<div class="alert alert-${type} flash-alerts" role="alert">
-			// 		${message}
-			// 	</div>`;
-			// 	$('body').prepend(message);
-			// 	setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-			// }
 		});
 	</script>
 @endsection

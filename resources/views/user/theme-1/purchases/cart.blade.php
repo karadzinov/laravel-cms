@@ -46,7 +46,11 @@
 											<input data-product="{{$product->id}}" type="text" class="form-control product-quantity" value="{{$product->pivot->quantity}}">
 										</div>											
 									</td>
-									<td class="remove"><a class="btn btn-remove btn-sm btn-default">{{trans('general.remove')}}</a></td>
+									<td class="remove">
+										<a class="btn btn-remove btn-sm btn-default remove-from-cart" data-product={{$product->id}}>
+											{{trans('general.remove')}}
+										</a>
+									</td>
 									<td class="amount">
 										<span class="product-times-quantity" id="product-{{$product->id}}-total">
 											{{$product->currentPrice * $product->pivot->quantity}}
@@ -65,7 +69,7 @@
 						<a href="{{$product->showRoute}}" class="btn btn-group btn-default">
 							{{trans('general.back')}}
 						</a>
-						<a href="shop-checkout.html" class="btn btn-group btn-default">
+						<a href="{{route('purchases.checkoutCart')}}" class="btn btn-group btn-default">
 							{{trans('general.checkout')}}
 						</a>
 					</div>
@@ -121,14 +125,38 @@
 						quantity: quantity,
 					},
 					success: function (response){
-						flashMessage('success', '{{trans('general.succcessfully-updated')}}');
+						flashMessage('success', response.message);
 					},
 					error: function(error){
-						flashMessage('danger', '{{trans('general.error_response')}}');
+						flashMessage('danger', response.message);
 					}
 
 				});
 			}
+
+			$('.remove-from-cart').on('click', function(){
+				const product = $(this).data('product');
+
+				$.ajaxSetup({
+					headers:
+  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+				});
+				$.ajax({
+					type: 'DELETE',
+					url: '{{route('purchases.deleteFromCart')}}',
+					data:{
+						product_id: product
+					},
+					success: function(response){
+						flashMessage('success', response.message);
+						countTotal();
+
+					},
+					error: function(error){
+						flashMessage('danger', response.message);
+					}
+				});
+			});
 
 			countTotal();
 			countCartItems();

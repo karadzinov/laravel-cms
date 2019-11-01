@@ -168,5 +168,8 @@ array (
   'total'             => 'Total',
   'items'             => 'Items',
   'succcessfully-updated' => 'Successfully updated',
+  'back-to-cart'      => 'Back To Cart',
+  'next-step'         => 'Next Step',
+  'error-occured'     => 'Following errors occured during the process:',
 )
 ;

@@ -36,10 +36,7 @@ class PurchasesController extends Controller
 	}
 
 	public function charge(Request $request){
-		// dd($request->all());
-		
 		$purchase = Purchase::findOrFail($request->get('purchase'));
-
 		if(!empty($request->get('token'))){
 
 		    $charge = $this->chargePurchase($request, $purchase);
@@ -134,10 +131,11 @@ class PurchasesController extends Controller
 	}
 
 	public function store(Request $request){
-		// dd($request->all());
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);
-		
+		if($request->has('cart')){
+			auth()->user()->cart()->detach();
+		}
 
 		$purchase = new Purchase();
 		$purchase->user_id = auth()->user()->id;
@@ -167,7 +165,7 @@ class PurchasesController extends Controller
 		return view($this->path . 'purchases/card', compact('purchase', 'currency'));
 	}
 
-    public function index(Request $request){
+    public function buyNow(Request $request){
     	$quantity = $request->get('quantity') ?? 1;
     	$product = Product::findOrFail($request->get('product_id'));
     	$currency = Currency::symbol();
@@ -239,5 +237,28 @@ class PurchasesController extends Controller
     	}
 
     	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
+    }
+
+    public function deleteFromCart(Request $request){
+    	$request->validate([
+    	    'product_id' => 'required|numeric',
+    	]);
+
+    	try {
+    		// $product = Product::findOrFail($request->get('product_id'));
+    		$pivot = auth()->user()->cart()->detach($request->get('product_id'));
+    	} catch (Exception $e) {
+			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
+    	}
+    	
+    	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
+    }
+
+    public function checkoutCart(){
+    	
+    	$cart = auth()->user()->cart;
+    	$currency = Currency::symbol();
+
+    	return view($this->path.'purchases/checkout', compact('cart', 'currency'));
     }
 }

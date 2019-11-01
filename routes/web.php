@@ -37,7 +37,8 @@ Route::get('/', 'WelcomeController@welcome')->name('welcome');
 Route::get('feed', 'RssFeedController@index')->name('feed');
 // Public Routes
 Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as'=>'purchases.'], function () {
-    Route::get('/purchase', 'PurchasesController@index')->name('buy');
+    Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
+    Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
     Route::post('/store', 'PurchasesController@store')->name('store');
     Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
     Route::post('/charge', 'PurchasesController@charge')->name('charge');
@@ -45,8 +46,8 @@ Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as
     Route::get('/my-purchases', 'PurchasesController@myPurchases')->name('myPurchases');
     Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
     Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('add-to-cart');
-    Route::get('/checkout', 'PurchasesController@checkout')->name('checkout');
     Route::post('/change-quantity', 'PurchasesController@changeQuantity')->name('changeQuantity');
+    Route::delete('/delete-from-cart', 'PurchasesController@deleteFromCart')->name('deleteFromCart');
 });
 
 // Authentication Routes
