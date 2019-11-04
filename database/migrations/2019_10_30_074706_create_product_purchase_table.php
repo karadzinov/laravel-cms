@@ -18,6 +18,7 @@ class CreateProductPurchaseTable extends Migration
             $table->unsignedInteger('purchase_id');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('quantity');
+            $table->unsignedInteger('current_price')->nullable();
             $table->unique(array('purchase_id', 'product_id'));
 
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');

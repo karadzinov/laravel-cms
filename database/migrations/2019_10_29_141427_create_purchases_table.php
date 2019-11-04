@@ -16,7 +16,6 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('total');
             $table->boolean('completed')->default(0);
             $table->string('phone');
             $table->string('home_address');

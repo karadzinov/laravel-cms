@@ -9,7 +9,7 @@
 				<div class="form-group">
 					<label for="billingFirstName" class="col-md-2 control-label">{{trans('general.first-name')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="first_name" class="form-control" id="billingFirstName" value="{{auth()->user()->first_name}}" disabled="">
+						<input type="text" name="first_name" class="form-control" id="billingFirstName" value="{{$purchase->user->first_name ?? auth()->user()->first_name}}" disabled="">
 					</div>
 				</div>
 				<div class="form-group">
@@ -21,7 +21,7 @@
 				<div class="form-group">
 					<label for="billingTel" class="col-md-2 control-label">{{trans('general.phone')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="phone" class="form-control" id="billingTel" placeholder="+1234567891">
+						<input type="text" name="phone" class="form-control" id="billingTel" placeholder="+1234567891" value="{{$purchase->phone ?? null}}">
 					</div>
 				</div>
 				<div class="form-group">
@@ -41,7 +41,7 @@
 				<div class="form-group">
 					<label for="billingAddress1" class="col-md-2 control-label">{{trans('general.home-address')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="home_address" class="form-control" id="billingAddress1" placeholder="{{trans('general.exemple-home-address')}}">
+						<input type="text" name="home_address" class="form-control" id="billingAddress1" placeholder="{{trans('general.exemple-home-address')}}" value="{{$purchase->home_address ?? null}}">
 					</div>
 				</div>
 				<div class="form-group">
@@ -304,13 +304,13 @@
 				<div class="form-group">
 					<label for="billingCity" class="col-md-2 control-label">{{trans('general.city')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="city" class="form-control" id="billingCity" placeholder="City">
+						<input type="text" name="city" class="form-control" id="billingCity" placeholder="City" value="{{$purchase->city ?? null}}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="billingPostalCode" name="zip" class="col-md-2 control-label">{{trans('general.zip')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="zip" class="form-control" id="billingPostalCode" placeholder="{{trans('general.zip')}}">
+						<input type="text" name="zip" class="form-control" id="billingPostalCode" placeholder="{{trans('general.zip')}}" value="{{$purchase->zip ?? null}}">
 					</div>
 				</div>
 			</div>

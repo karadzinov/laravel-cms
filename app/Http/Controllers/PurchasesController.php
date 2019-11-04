@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Settings;
 use Illuminate\Http\Request;
-use App\Models\{Currency, Product, Purchase, User};
 use App\Helpers\TwoCheckout\Twocheckout;
+use App\Models\{Currency, Product, Purchase, User};
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
 
@@ -114,7 +115,7 @@ class PurchasesController extends Controller
 			$transactionId = $response['transactionId'];
 			$currency = $response['currencyCode'];
 			$status = $response['responseCode'];
-			
+			$currentProductsPrices = $this->updatePrices($purchase);
 			$purchase->order_number = $orderNumber;
 			$purchase->transaction_id = $transactionId;
 			$purchase->status = $status;
@@ -127,7 +128,17 @@ class PurchasesController extends Controller
 			
 			return false;
 		}
+	}
+
+	public function updatePrices(Purchase $purchase){
 		
+		foreach($purchase->products as $product){
+		   $purchase->products()->updateExistingPivot($product, array('current_price' => $product->currentPrice), false);
+
+			// $purchase->products->where('product_id', '=', $product->id)->first()->update(['current_price'=>$product->currentPrice]);
+		}
+
+		return true;
 	}
 
 	public function store(Request $request){
@@ -139,7 +150,6 @@ class PurchasesController extends Controller
 
 		$purchase = new Purchase();
 		$purchase->user_id = auth()->user()->id;
-		$purchase->total = $productsSold->total;
 		$purchase->completed = false;
 		$purchase->phone = $request->get('phone');
 		$purchase->home_address = $request->get('home_address');
@@ -183,15 +193,13 @@ class PurchasesController extends Controller
     }
 
     public function prepareProductsAndPrice($products){
-    	$total = 0;
     	$items = [];
     	foreach($products as $id => $quantity) {
     		$product = Product::findOrFail($id);
-    		$total += $product->currentPrice * $quantity;
     		$items[$id] = $product;
     	}
 
-    	return (object) compact('total', 'items');
+    	return (object) compact('items');
     }
 
     public function addToCart(Request $request){
@@ -269,8 +277,40 @@ class PurchasesController extends Controller
     	return view($this->path.'purchases/index', compact('user'));
     }
 
-    public function show(Purchase $purchase){
-    	
-    	return view($this->path.'purchases/show', compact('purchase'));
+    public function show($purchase){
+    	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
+    	$settings = Settings::first();
+    	$currency = Currency::symbol();
+
+    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency'));
+    }
+
+    public function edit($purchase){
+    	$purchase = Purchase::with('products')->findOrFail($purchase);
+    	if($purchase->completed){
+    		return redirect()->back();
+    	}
+    	$currency = Currency::symbol();
+
+    	return view($this->path . 'purchases/edit', compact('purchase', 'currency'));
+    }
+
+    public function update(Request $request, $purchase){
+		$purchase = Purchase::findOrFail($purchase);
+
+		$products = $request->get('products');
+		$productsSold = $this->prepareProductsAndPrice($products);
+
+		$purchase->phone = $request->get('phone');
+		$purchase->home_address = $request->get('home_address');
+		$purchase->country = $request->get('country');
+		$purchase->city = $request->get('city');
+		$purchase->zip = $request->get('zip');
+		$purchase->save();
+		$currency = Currency::symbol();
+
+		return redirect()->route('purchases.payment', $purchase->id);
+
+
     }
 }

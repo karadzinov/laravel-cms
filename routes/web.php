@@ -40,6 +40,8 @@ Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as
     Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
     Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
     Route::post('/store', 'PurchasesController@store')->name('store');
+    Route::get('/edit/{purchase}', 'PurchasesController@edit')->name('edit');
+    Route::put('/update/{purchase}', 'PurchasesController@update')->name('update');
     Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
     Route::post('/charge', 'PurchasesController@charge')->name('charge');
     Route::get('/completed', 'PurchasesController@completed')->name('completed');

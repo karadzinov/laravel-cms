@@ -10,13 +10,17 @@
 			<span class="label label-warning">{{trans('general.uncompleted')}}</span>
 		@endif
 	</td>
-	<td>{{ number_format($purchase->total, 1, '', ' ') }}</td>
+	<td>{{ $purchase->total }}</td>
 	<td>{{$purchase->currency}}</td>
 	<td>{{$purchase->home_address . ' ' . $purchase->zip .' ' . $purchase->city . ' ' . $purchase->country}}</td>
 	<td>{{$purchase->order_number}}</td>
 	<td>{{$purchase->transaction_id}}</td>
 	<td>{{$purchase->status}}</td>
 	<td>
-		<a href="{{$purchase->showRoute}}" class="btn btn-info">{{trans('general.show')}}</a>
+		@if($purchase->completed)
+			<a href="{{$purchase->showRoute}}" class="btn btn-info">{{trans('general.show')}}</a>
+		@else
+			<a href="{{route('purchases.edit', $purchase->id)}}" class="btn btn-warning">{{trans('general.try-again')}}</a>
+		@endif
 	</td>
 </tr>

@@ -180,5 +180,15 @@ array (
   'transaction-id'    => 'Transaction Id',
   'status'            => 'Status',
   'show'              => 'Show',
+  'general'           => 'Products',
+  'purchase'          => 'Purchase',
+  'client'            => 'Client',
+  'company'           => 'Company',
+  'descrption'        => 'Description',
+  'products'          => 'Products',
+  'comments-po'       => 'Comments/PO',
+  'invoice-questions' => '<p class="small">If you have any questions concerning this invoice, contact <strong>:name</strong>, tel: <strong>:phone</strong>, email: <strong>:email</strong> <br> Thank you for your business!</p>',
+  'remove'            => 'Remove',
+  'try-again'         => 'Try Again',
 )
 ;
