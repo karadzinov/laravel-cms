@@ -10,6 +10,7 @@ return [
 	'scripts' 		=> 'Scripts',
 	'posts' 		=> 'Posts',
 	'products' 		=> 'Products',
+	'purchases' 	=> 'Purchases',
 	'pages' 		=> 'Pages',
 	'testimonials' 	=> 'Testimonials',
 	'about' 		=> 'About',

@@ -52,7 +52,7 @@
 												<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$product->pivot->quantity}}" readonly="">
 											</div>											
 										</td>
-										<td class="amount"><span class="product-times-quantity">{{$purchase->total}}</span>{{$currency}} </td>
+										<td class="amount"><span class="product-times-quantity">{{$product->currentPrice*$product->pivot->quantity}}</span>{{$currency}} </td>
 									</tr>
 								@endforeach
 								<tr>

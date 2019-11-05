@@ -201,3 +201,8 @@ Route::group(["prefix" => "products", "as"=>"products.", 'middleware' => ['auth'
     Route::put('update/{product}', 'ProductsController@update')->name('update');
     Route::delete('delete/{product}', 'ProductsController@delete')->name('delete');
 });
+
+Route::group(["prefix" => "purchases", "as"=>"purchases.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'PurchasesController@index')->name('index');
+    Route::get('show/{purchase}', 'PurchasesController@show')->name('show');
+});
