@@ -183,6 +183,7 @@ array (
   'show'              => 'Show',
   'general'           => 'Products',
   'purchase'          => 'Purchase',
+  'my-purchases'      => 'My Purchases',
   'client'            => 'Client',
   'company'           => 'Company',
   'description'        => 'Description',
@@ -205,6 +206,7 @@ array (
   'featured'          =>  'Featured',
   'top-sellers'       =>  'Top Sellers',
   'select'            =>  'Select',
+  'profile'           =>  'Profile',
 
 )
 ;

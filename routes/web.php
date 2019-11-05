@@ -36,22 +36,6 @@ Route::get('/', 'WelcomeController@welcome')->name('welcome');
 //Rss Feed Routes
 Route::get('feed', 'RssFeedController@index')->name('feed');
 // Public Routes
-Route::group(['middleware' => ['web', 'activated'], "prefix" => "purchases", 'as'=>'purchases.'], function () {
-    Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
-    Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
-    Route::post('/store', 'PurchasesController@store')->name('store');
-    Route::get('/edit/{purchase}', 'PurchasesController@edit')->name('edit');
-    Route::put('/update/{purchase}', 'PurchasesController@update')->name('update');
-    Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
-    Route::post('/charge', 'PurchasesController@charge')->name('charge');
-    Route::get('/completed', 'PurchasesController@completed')->name('completed');
-    Route::get('/my-purchases', 'PurchasesController@index')->name('index');
-    Route::get('/show/{id}', 'PurchasesController@show')->name('show');
-    Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
-    Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('add-to-cart');
-    Route::post('/change-quantity', 'PurchasesController@changeQuantity')->name('changeQuantity');
-    Route::delete('/delete-from-cart', 'PurchasesController@deleteFromCart')->name('deleteFromCart');
-});
 
 // Authentication Routes
 Auth::routes();
@@ -131,6 +115,25 @@ Route::post('contact-page-email', 'EmailController@contactPageEmail')->name('con
 //FrontEndController actions
 Route::group(['as'=>'faq.'], function(){
     Route::get('/faqs', 'FrontEndController@faqs')->name('index');
+});
+
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "purchases", 'as'=>'purchases.'], function () {
+    Route::get('/my-purchases', 'PurchasesController@index')->name('index');
+    Route::post('/store', 'PurchasesController@store')->name('store');
+    Route::get('/show/{id}', 'PurchasesController@show')->name('show');
+    Route::get('/edit/{purchase}', 'PurchasesController@edit')->name('edit');
+    Route::put('/update/{purchase}', 'PurchasesController@update')->name('update');
+    Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
+    Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
+    
+    Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
+    Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
+    Route::post('/charge', 'PurchasesController@charge')->name('charge');
+    Route::get('/completed', 'PurchasesController@completed')->name('completed');
+
+    Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('addToCart');
+    Route::post('/change-quantity', 'PurchasesController@changeQuantity')->name('changeQuantity');
+    Route::delete('/delete-from-cart', 'PurchasesController@deleteFromCart')->name('deleteFromCart');
 });
 
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');

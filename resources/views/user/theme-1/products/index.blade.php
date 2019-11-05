@@ -208,7 +208,7 @@
 				$.ajax({
 
 				   type:'POST',
-				   url:'{{route('purchases.add-to-cart')}}',
+				   url:'{{route('purchases.addToCart')}}',
 				   data:{
 				   		product_id
 				   },

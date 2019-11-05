@@ -3,7 +3,7 @@
 @section('content')
     <div class="login-container animated fadeInDown">
         <div class="loginbox bg-white">
-            <div class="loginbox-title">{{trans('admin.login')}}</div>
+            <div class="loginbox-title">{{trans('auth.login')}}</div>
             <div class="loginbox-social">
                 <div class="social-title ">{{trans('auth.socialite-login')}}</div>
                 <div class="social-buttons">
@@ -46,7 +46,7 @@
                     <a href="{{ route('password.request') }}">{{ trans('auth.forgot-password') }}</a>
                 </div>
                 <div class="loginbox-submit">
-                    <input type="submit" class="btn btn-primary btn-block" value="{{ trans('admin.login') }}">
+                    <input type="submit" class="btn btn-primary btn-block" value="{{ trans('auth.login') }}">
                 </div>
             </form>
         </div>

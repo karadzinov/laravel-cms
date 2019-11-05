@@ -14,7 +14,7 @@ class NavComposer
 
     public function __construct()
     {
-        $categories = Category::where('parent_id','=',NULL)->get();
+        $categories = Category::where('parent_id','=',NULL)->withDepth()->get();
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();
