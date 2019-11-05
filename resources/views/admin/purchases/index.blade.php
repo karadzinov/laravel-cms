@@ -25,8 +25,11 @@
                             <tr>
                                 <th>{{trans('admin.id')}}</th>
                                 <th>{{trans('admin.user')}}</th>
-                                <th class="hidden-xs">
+                                <th class="">
                                     {{trans('admin.completed')}}
+                                </th>
+                                 <th class="">
+                                    {{trans('admin.status')}}
                                 </th>
                                 <th class="">
                                     {{trans('admin.ammount')}}
@@ -37,7 +40,7 @@
                                 <th class="hidden-xs hidden-md">
                                     {{trans('admin.order-number')}}
                                 </th>
-                                 <th class="hidden-xs hidden-md">
+                                 <th class="">
                                     {{trans('admin.transaction-id')}}
                                 </th>
                                 <th class="hidden-xs hidden-md">
@@ -69,7 +72,10 @@
                                             </span>
                                         @endif  
                                     </td>
-                                    <td class="hidden-xs hidden-md">
+                                    <td class="">
+                                        {{$purchase->status}}
+                                    </td>
+                                    <td class="">
                                         {{$purchase->total . ' ' . $purchase->currency}}
                                     </td>
                                     <td class="hidden-xs hidden-md">
@@ -78,7 +84,7 @@
                                     <td class="hidden-xs hidden-md">
                                         {{$purchase->order_number}}
                                     </td>
-                                    <td class="hidden-xs hidden-md">
+                                    <td class="">
                                         {{$purchase->transaction_id}}
                                     </td>                      
                                     <td class="hidden-xs hidden-md">
@@ -105,10 +111,5 @@
         </div>
         
     </div>
-    @include('modals.modal-delete')
 
-@endsection
-
-@section('footer_scripts')
-    @include('scripts.delete-modal-script')
 @endsection

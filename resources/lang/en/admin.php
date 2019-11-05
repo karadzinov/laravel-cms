@@ -27,6 +27,7 @@ array (
   'admin-access'  => 'Admin Access',
   'user'          => 'User',
   'user-access'   => 'User Access',
+  'status'        => 'Status',
   'active'        => 'Active',
   'completed'     => 'Completed',
   'uncompleted'   => 'Uncompleted',
