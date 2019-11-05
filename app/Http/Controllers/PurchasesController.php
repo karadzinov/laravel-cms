@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use App\Helpers\TwoCheckout\Twocheckout;
+use App\Http\Requests\Purchases\CheckoutRequest;
 use App\Models\{Currency, Product, Purchase, User};
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
@@ -139,7 +140,7 @@ class PurchasesController extends Controller
 		return true;
 	}
 
-	public function store(Request $request){
+	public function store(CheckoutRequest $request){
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);
 		if($request->has('cart')){
