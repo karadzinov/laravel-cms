@@ -21,7 +21,14 @@
 					<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
 					<div class="elements-list clearfix">
 						<span class="price"><del>{{$product->price.$currency}}</del> {{$product->reductedPrice.$currency}}</span>
-						<a href="#" class="pull-right btn btn-sm btn-default-transparent btn-animated">Add To Cart<i class="fa fa-shopping-cart"></i></a>
+						@if($cart->contains($product))
+							<a href="{{route('purchases.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
+								<i class="fa fa-lg fa-cart-plus"></i>
+								  &nbsp{{trans('general.already-in-cart')}}
+							</a>
+						@else
+							<a href="javascript:void(0)" data-product="{{$product->id}}" class="pull-right btn btn-sm btn-default-transparent btn-animated add-to-cart">{{trans('general.add-to-cart')}}<i class="fa fa-shopping-cart"></i></a>
+						@endif
 					</div>
 				</div>
 			</div>

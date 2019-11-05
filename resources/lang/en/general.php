@@ -184,11 +184,26 @@ array (
   'purchase'          => 'Purchase',
   'client'            => 'Client',
   'company'           => 'Company',
-  'descrption'        => 'Description',
+  'description'        => 'Description',
   'products'          => 'Products',
   'comments-po'       => 'Comments/PO',
   'invoice-questions' => '<p class="small">If you have any questions concerning this invoice, contact <strong>:name</strong>, tel: <strong>:phone</strong>, email: <strong>:email</strong> <br> Thank you for your business!</p>',
   'remove'            => 'Remove',
   'try-again'         => 'Try Again',
+  'actions'           => 'Actions',
+  'sort-by'           =>  'Sort By',
+  'order'             =>  'Order',
+  'min'               =>  'min',
+  'max'               =>  'max',
+  'welcome-to'        =>  'Welcome to',
+  'shop'              =>  'Shop',
+  'date'              =>  'Date',
+  'ascending'         =>  'Ascending',
+  'descending'        =>  'Descending',
+  'latest-arrivals'   => 'Latest Arrivals',
+  'featured'          => 'Featured',
+  'top-sellers'       => 'Top Sellers',
+
+
 )
 ;

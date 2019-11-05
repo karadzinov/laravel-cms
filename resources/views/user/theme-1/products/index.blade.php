@@ -12,7 +12,7 @@
 @section('content')
 	<!-- banner start -->
 	<!-- ================ -->
-	<div class="banner dark-translucent-bg" style="background-image:url('{{asset('assets/user/theme-1/images/shop-banner.jpg')}}'); background-position:50% 32%;">
+	<div class="banner dark-translucent-bg" style="background-image:url('{{asset('assets/theme-1/images/shop-banner.jpg')}}'); background-position:50% 32%;">
 		<!-- breadcrumb start -->
 		<!-- ================ -->
 		<div class="breadcrumb-container">
@@ -27,7 +27,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 text-center col-md-offset-2 pv-20">
-					<h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">Wellcome to <strong>Shop</strong></h2>
+					<h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">{{trans('general.welcome-to')}} <strong>{{trans('general.shop')}}</strong></h2>
 					<div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
 					<p class="text-center object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis magnam ea necessitatibus, officiis voluptas odit! Aperiam omnis, cupiditate laudantium velit nostrum, exercitationem accusamus, possimus soluta illo deserunt tempora qui.</p>
 				</div>
@@ -44,44 +44,41 @@
 			<div class="sorting-filters text-center mb-20">
 				<form class="form-inline">
 					<div class="form-group">
-						<label>Sort by</label>
-						<select class="form-control">
-							<option selected="selected">Date</option>
-							<option>Price</option>
-							<option>Model</option>
+						<label>{{trans('general.sort-by')}}</label>
+						<select name="sort_by" class="form-control">
+							<option value="date" selected="selected">{{trans('general.date')}}</option>
+							<option value="price">{{trans('general.price')}}</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label>Order</label>
-						<select class="form-control">
-							<option selected="selected">Acs</option>
-							<option>Desc</option>
+						<label>{{trans('general.order')}}</label>
+						<select name="order" class="form-control">
+							<option selected="selected">{{trans('general.ascending')}}</option>
+							<option>{{trans('general.descending')}}</option>
 						</select> 
 					</div>
 					<div class="form-group">
-						<label>Price $ (min/max)</label>
 						<div class="row grid-space-10">
 							<div class="col-sm-6">
-								<input type="text" class="form-control">
+								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.min')}})</label>
+								<input type="text" name="price_min" class="form-control" placeholder="0">
 							</div>
 							<div class="col-sm-6">
-								<input type="text" class="form-control col-xs-6">
+								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.max')}})</label>
+								<input type="text" name="price_max" class="form-control col-xs-6" placeholder="&#8734">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Category</label>
-						<select class="form-control">
-							<option selected="selected">Smartphones</option>
-							<option>Tablets</option>
-							<option>Smart Watches</option>
-							<option>Desktops</option>
-							<option>Software</option>
-							<option>Accessories</option>
+						<label>{{trans('general.category')}}</label>
+						<select name="category" class="form-control">
+							@foreach($categories as $category)
+								<option value="{{$category->id}}">{{$category->name}}</option>
+							@endforeach
 						</select> 
 					</div>
 					<div class="form-group">
-						<a href="#" class="btn btn-default">Submit</a>
+						<button type="submit" class="btn btn-default">{{trans('general.submit')}}</button>
 					</div>
 				</form>
 			</div>
@@ -104,9 +101,9 @@
 					<!-- ================ -->
 					<!-- Nav tabs -->
 					<ul class="nav nav-pills" role="tablist">
-						<li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="Latest Arrivals"><i class="icon-star"></i> Latest Arrivals</a></li>
-						<li><a href="#pill-2" role="tab" data-toggle="tab" title="Featured"><i class="icon-heart"></i> Featured</a></li>
-						<li><a href="#pill-3" role="tab" data-toggle="tab" title="Top Sellers"><i class=" icon-up-1"></i> Top Sellers</a></li>
+						{{-- <li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="{{trans('general.latest-arrivals')}}"><i class="icon-star"></i> {{trans('general.latest-arrivals')}}</a></li> --}}
+						{{-- <li><a href="#pill-2" role="tab" data-toggle="tab" title="{{trans('general.featured')}}"><i class="icon-heart"></i> {{trans('general.featured')}}</a></li> --}}
+						{{-- <li><a href="#pill-3" role="tab" data-toggle="tab" title="{{trans('general.top-sellers')}}"><i class=" icon-up-1"></i> {{trans('general.top-sellers')}}</a></li> --}}
 					</ul>
 					<!-- Tab panes -->
 					<div class="tab-content clear-style">
@@ -135,15 +132,6 @@
 					<!-- pills end -->
 					<!-- pagination start -->
 					<nav class="text-center">
-						{{-- <ul class="pagination">
-							<li><a href="#" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
-						</ul> --}}
 						{{$products->links()}}
 					</nav>
 					<!-- pagination end -->
@@ -183,4 +171,45 @@
 		</div>
 	</section>
 	<!-- section end -->
+@endsection
+
+@section('optionalScripts')
+	<script>
+		$(document).ready(function(){
+			
+			$('.add-to-cart').on('click', function(){
+				const product_id = $(this).data('product');
+				let element = $(this);
+
+				 $.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+
+				   type:'POST',
+				   url:'{{route('purchases.add-to-cart')}}',
+				   data:{
+				   		product_id
+				   },
+				   success:function(response){
+				   	
+				   	if(response.status === "already-added"){
+				   		flashMessage("success", response.message);
+				   		return;
+				   	}
+				   	
+				   	flashMessage("success", response.message);
+				   	element.html("{{trans('general.added-to-cart')}} <i class='fa fa-check'></i>");
+				   },
+				   error:function(response){
+				   	
+				   		flashMessage("danger", response.message);
+				   }
+
+				});
+			});
+		});
+	</script>
 @endsection

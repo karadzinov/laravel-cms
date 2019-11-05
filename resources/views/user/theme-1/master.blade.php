@@ -16,7 +16,7 @@
 				right: 0;
 				max-width: 300px;
 				z-index: 100;
-				top: 100px;
+				bottom: 100px;
 			}
 			.my-alert{
 				margin:0;

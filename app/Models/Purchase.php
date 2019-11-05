@@ -42,6 +42,5 @@ class Purchase extends Model
             }
         }
         return $total;
-        return number_format($total, 1, '.', ' ');
     }
 }

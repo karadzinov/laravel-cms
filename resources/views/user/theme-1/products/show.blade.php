@@ -472,6 +472,7 @@
 			$('#add-to-cart').on('click', function(){
 				const quantity = $('#product-quantity').val();
 				const product_id = {{$product->id}};
+				let element = $(this);
 
 				 $.ajaxSetup({
 			        headers: {
@@ -494,6 +495,8 @@
 				   	}
 				   	
 				   	flashMessage("success", response.message);
+				   	element.html("{{trans('general.added-to-cart')}} <i class='fa fa-check'></i>");
+
 				   },
 				   error:function(response){
 				   	

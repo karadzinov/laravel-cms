@@ -133,9 +133,7 @@ class PurchasesController extends Controller
 	public function updatePrices(Purchase $purchase){
 		
 		foreach($purchase->products as $product){
-		   $purchase->products()->updateExistingPivot($product, array('current_price' => $product->currentPrice), false);
-
-			// $purchase->products->where('product_id', '=', $product->id)->first()->update(['current_price'=>$product->currentPrice]);
+		   $purchase->products()->updateExistingPivot($product, ['current_price' => $product->currentPrice]);
 		}
 
 		return true;
@@ -215,7 +213,8 @@ class PurchasesController extends Controller
     			}
     			
     			$product = Product::findOrFail($request->get('product_id'));
-    			auth()->user()->cart()->attach($product, ['quantity'=>$request->get('quantity')]);
+    			$quantity = $request->get('quantity') ?? 1;
+    			auth()->user()->cart()->attach($product, ['quantity'=>$quantity]);
 
     			return response()->json(["status"=>"success", "message" => trans('general.added-to-cart')]);
     		} catch (Exception $e) {
