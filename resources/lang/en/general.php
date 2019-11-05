@@ -120,6 +120,7 @@ array (
   'written-by'        => 'written by',
   'search-results-for'=> 'Search Results For',
   'no-results-for'    => 'Sorry! We Couldn\'t find any results for',
+  'no-results'        => 'Sorry! We Couldn\'t find any results. Please try with other query.',
   'contact-info'      => 'Contact Info',
   'our-home'          => 'Our Home Page',
   'our-posts'         => 'Our Page with Posts',
@@ -200,10 +201,10 @@ array (
   'date'              =>  'Date',
   'ascending'         =>  'Ascending',
   'descending'        =>  'Descending',
-  'latest-arrivals'   => 'Latest Arrivals',
-  'featured'          => 'Featured',
-  'top-sellers'       => 'Top Sellers',
-
+  'latest-arrivals'   =>  'Latest Arrivals',
+  'featured'          =>  'Featured',
+  'top-sellers'       =>  'Top Sellers',
+  'select'            =>  'Select',
 
 )
 ;

@@ -136,8 +136,10 @@ Route::group(['as'=>'faq.'], function(){
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
 
 //products
-Route::get('/products', 'ProductsController@index')->name('products');
-Route::get('/products/{id}', 'ProductsController@show')->name('products.show');
+Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
+    Route::get('/', 'ProductsController@index')->name('index');
+    Route::get('/{id}', 'ProductsController@show')->name('show');
+});
 
 Route::group(['as'=>'posts.'], function(){
     Route::get('/posts', 'FrontEndController@posts')->name('index');

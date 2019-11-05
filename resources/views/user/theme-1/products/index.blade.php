@@ -42,38 +42,51 @@
 		<div class="container">
 			<!-- filters start -->
 			<div class="sorting-filters text-center mb-20">
-				<form class="form-inline">
+				<form class="form-inline" action="{{route('products.index')}}" method="GET">
 					<div class="form-group">
 						<label>{{trans('general.sort-by')}}</label>
 						<select name="sort_by" class="form-control">
-							<option value="date" selected="selected">{{trans('general.date')}}</option>
-							<option value="price">{{trans('general.price')}}</option>
+							<option value="">{{trans('general.select')}}</option>
+							<option value="created_at" @if(isset($request['sort_by']) && $request['sort_by']==='created_at') selected='selected' @endif>
+								{{trans('general.date')}}
+							</option>
+							<option value="price" @if(isset($request['sort_by']) && $request['sort_by']==='price') selected='selected' @endif>
+								{{trans('general.price')}}
+							</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label>{{trans('general.order')}}</label>
 						<select name="order" class="form-control">
-							<option selected="selected">{{trans('general.ascending')}}</option>
-							<option>{{trans('general.descending')}}</option>
+							<option value="">{{trans('general.select')}}</option>
+							<option value="asc" @if(isset($request['order']) && $request['order']==='asc') selected='selected' @endif>
+								{{trans('general.ascending')}}
+							</option>
+							<option value="desc" @if(isset($request['order']) && $request['order']==='desc') selected='selected' @endif>
+								{{trans('general.descending')}}
+							</option>
 						</select> 
 					</div>
 					<div class="form-group">
 						<div class="row grid-space-10">
 							<div class="col-sm-6">
 								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.min')}})</label>
-								<input type="text" name="price_min" class="form-control" placeholder="0">
+								<input type="number" name="price_min" class="form-control" placeholder="0" @if(isset($request['price_min'])) value="{{intval($request['price_min'])}}"@endif>
 							</div>
 							<div class="col-sm-6">
 								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.max')}})</label>
-								<input type="text" name="price_max" class="form-control col-xs-6" placeholder="&#8734">
+								<input type="number" name="price_max" class="form-control col-xs-6" placeholder="&#8734" @if(isset($request['price_max'])) value="{{intval($request['price_max'])}}" @endif>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label>{{trans('general.category')}}</label>
 						<select name="category" class="form-control">
+							<option value="">{{trans('general.select')}}</option>
 							@foreach($categories as $category)
-								<option value="{{$category->id}}">{{$category->name}}</option>
+								<option value="{{$category->id}}" @if(isset($request['category']) && $request['category']==$category->id) selected='selected' @endif>
+									{{$category->name}}
+								</option>
 							@endforeach
 						</select> 
 					</div>
@@ -108,15 +121,21 @@
 					<!-- Tab panes -->
 					<div class="tab-content clear-style">
 						<div class="tab-pane active" id="pill-1">
-							<div class="row masonry-grid-fitrows grid-space-10">
-								@foreach($products as $product) 
-									@if($product->reduction)
-										@include($path . 'partials/products/with-reduction')
-									@else
-										@include($path . 'partials/products/without-reduction')
-									@endif
-								@endforeach
-							</div>
+							@if($products->isNotEmpty())
+								<div class="row masonry-grid-fitrows grid-space-10">
+									@foreach($products as $product) 
+										@if($product->reduction)
+											@include($path . 'partials/products/with-reduction')
+										@else
+											@include($path . 'partials/products/without-reduction')
+										@endif
+									@endforeach
+								</div>
+							@else
+								<p>
+									{{trans('general.no-results')}}
+								</p>
+							@endif
 						</div>
 						<div class="tab-pane" id="pill-2">
 							<div class="row masonry-grid-fitrows grid-space-10">
@@ -145,7 +164,7 @@
 
 	<!-- section start -->
 	<!-- ================ -->
-	<section class="section dark-translucent-bg background-img-2 pv-40" style="background-position: 50% 32%;">
+	{{-- <section class="section dark-translucent-bg background-img-2 pv-40" style="background-position: 50% 32%;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -169,7 +188,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 	<!-- section end -->
 @endsection
 

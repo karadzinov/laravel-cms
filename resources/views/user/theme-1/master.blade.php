@@ -21,6 +21,9 @@
 			.my-alert{
 				margin:0;
 			}
+			.page-wrapper{
+				min-height: 100vh;
+			}
 		</style>
 	</head>
 
