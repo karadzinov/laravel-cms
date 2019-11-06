@@ -207,6 +207,6 @@ array (
   'top-sellers'       =>  'Top Sellers',
   'select'            =>  'Select',
   'profile'           =>  'Profile',
-
+  'same-shipping'     => 'My Shipping information is the same as my Billing information.',
 )
 ;

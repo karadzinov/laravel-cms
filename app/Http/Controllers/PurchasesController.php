@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Settings;
 use Illuminate\Http\Request;
 use App\Helpers\TwoCheckout\Twocheckout;
 use App\Http\Requests\Purchases\CheckoutRequest;
-use App\Models\{Currency, Product, Purchase, User};
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
+use App\Models\{Currency, Settings, ShippingInformation, Product, Purchase, User};
 
 class PurchasesController extends Controller
 {
@@ -141,6 +140,7 @@ class PurchasesController extends Controller
 	}
 
 	public function store(CheckoutRequest $request){
+		// dd($request->all());
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);
 		if($request->has('cart')){
@@ -156,7 +156,9 @@ class PurchasesController extends Controller
 		$purchase->city = $request->get('city');
 		$purchase->zip = $request->get('zip');
 		$purchase->save();
-
+		if(!$request->has('same_shipping')){
+			$this->addShipping($purchase, $request);
+		}
 		foreach($products as $id => $quantity){
 			
 			$purchase->products()->save($productsSold->items[$id], ['quantity'=>$quantity]);
@@ -165,6 +167,22 @@ class PurchasesController extends Controller
 
 		return redirect()->route('purchases.payment', $purchase->id);
 
+	}
+
+	public function addShipping(Purchase $purchase, Request $request){
+		
+		$shipping= new ShippingInformation();
+		$shipping->purchase_id = $purchase->id;
+		$shipping->first_name = $request->get('shipping_first_name');
+		$shipping->last_name = $request->get('shipping_last_name');
+		$shipping->phone = $request->get('shipping_phone');
+		$shipping->email = $request->get('shipping_email');
+		$shipping->home_address = $request->get('shipping_home_address');
+		$shipping->country = $request->get('shipping_country');
+		$shipping->city = $request->get('shipping_city');
+		$shipping->zip = $request->get('shipping_zip');
+
+		return $shipping->save();
 	}
 
 	public function payment($purchase){
