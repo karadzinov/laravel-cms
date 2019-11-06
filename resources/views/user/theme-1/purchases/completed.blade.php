@@ -25,7 +25,7 @@
 					<!-- page-title end -->
 					<p class="lead text-center">{!!trans('general.successfull-purchase', ['route'=>route('purchases.index')])!!}</p>
 					<p class="text-center">
-						<a href="{{route('products')}}" class="btn btn-default btn-lg">{{trans('general.continue-shopping')}}!</a>	
+						<a href="{{route('products.index')}}" class="btn btn-default btn-lg">{{trans('general.continue-shopping')}}!</a>	
 					</p>
 
 				</div>

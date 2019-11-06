@@ -67,14 +67,11 @@
 		<div class="space"></div>
 	</div>
 </fieldset>
-@if(isset($product) && $product->delivery)
-	
-	@include($path.'partials/purchases/shipping-informations')
 
-@elseif(isset($cart) && $cart->products->where('delivery', '=', 1)->first()->isNotEmpty())
-	
+@if(isset($product) && !$product->delivery)
+@elseif(isset($purchase) && !$purchase->products->where('delivery', '=', 1)->first())
+@else
 	@include($path.'partials/purchases/shipping-informations')
-
 @endif
 {{-- <fieldset>
 	<legend>Payment</legend>

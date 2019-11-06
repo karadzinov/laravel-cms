@@ -32,10 +32,27 @@
 								<p class="text-right small"><strong>{{trans('general.purchase')}} #{{$purchase->id}}</strong> <br> {{$purchase->updated_at->format('d M Y')}}</p>
 								<h5 class="text-right">{{trans('general.client')}}</h5>
 								<p class="text-right small">
-									<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->user->first_name . ' ' . $purchase->user->first_name}}</span> <br>
+									<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->user->first_name . ' ' . $purchase->user->last_name}}</span> <br>
+									<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->user->email}}</span> <br>
 									<strong>{{trans('general.address')}}:</strong> {{$purchase->home_address . ' ' . $purchase->zip . ' '. $purchase->city .  ' ' . $purchase->country}} <br>
 									<strong>{{trans('general.phone')}}:</strong> {{$purchase->phone}} <br>
 								</p>
+								@if(!$purchase->shipping)
+									<small class="pull-right text-right">
+										{{trans('general.same-shipping-address')}}
+									</small>
+								@endif
+
+
+								@if($purchase->shipping)
+									<h5 class="text-right">{{trans('general.shipping-informations')}}</h5>
+									<p class="text-right small">
+										<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->shipping->first_name . ' ' . $purchase->shipping->last_name}}</span> <br>
+										<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->shipping->email}}</span> <br>
+										<strong>{{trans('general.address')}}:</strong> {{$purchase->shipping->home_address . ' ' . $purchase->shipping->zip . ' '. $purchase->shipping->city .  ' ' . $purchase->shipping->country}} <br>
+										<strong>{{trans('general.phone')}}:</strong> {{$purchase->shipping->phone}} <br>
+									</p>
+								@endif
 							</div>
 						</div>
 						<p class="small"><strong>{{trans('general.order-number')}}:</strong> {{$purchase->order_number}}</p>

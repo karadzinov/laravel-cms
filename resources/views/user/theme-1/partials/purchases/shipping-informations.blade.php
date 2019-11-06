@@ -69,7 +69,7 @@
 		<div class="checkbox padding-top-clear">
 			<label>
 				<input name="same_shipping" type="checkbox" id="shipping-info-check"
-					@if(isset($purchase) && $purchase->shipping->isNotEmpty())
+					@if(isset($purchase) && $purchase->shipping)
 						null
 					@else
 						checked="true" 

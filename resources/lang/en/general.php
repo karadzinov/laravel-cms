@@ -208,5 +208,6 @@ array (
   'select'            =>  'Select',
   'profile'           =>  'Profile',
   'same-shipping'     => 'My Shipping information is the same as my Billing information.',
+  'same-shipping-address'=> 'Shipping address is the same as client\'s address provided in the billing form.',
 )
 ;
