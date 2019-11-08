@@ -1,5 +1,7 @@
 @extends($path.'master')
 @section('optionalHead')
+	<link href="{{asset('assets/theme-2/css/layout-shop.css')}}" rel="stylesheet" type="text/css" />
+
 	<style>
 		.product-cover-image{
 			height: 388px;
@@ -12,454 +14,628 @@
 			flex-direction: column;
 			justify-content: space-between;
 		}
+		#header.translucent + section.page-header{
+			margin-top: 0;
+			padding: 180px 0 100px 0;
+		}
 	</style>
 @endsection
 @section('content')
-	<!-- main-container start -->
-	<!-- ================ -->
-	<section class="main-container">
-
+	<section class="page-header page-header-xs">
 		<div class="container">
+
+			<h1>{{$product->name}}</h1>
+
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			
 			<div class="row">
-
-				<!-- main start -->
-				<!-- ================ -->
-				<div class="main col-md-12">
-
-					<!-- page-title start -->
-					<!-- ================ -->
-					<h1 class="page-title">{{$product->name}}</h1>
-					<div class="separator-2"></div>
-					<!-- page-title end -->
-
-					<div class="row">
-						<div class="col-md-4">
-							<!-- pills start -->
-							<!-- ================ -->
-							<!-- Nav tabs -->
-							<ul class="nav nav-pills" role="tablist">
-								<li class="active"><a href="#pill-1" role="tab" data-toggle="tab" title="images"><i class="fa fa-camera pr-5"></i> Photo</a></li>
-								@if($product->video)
-								<li><a href="#pill-2" role="tab" data-toggle="tab" title="video"><i class="fa fa-video-camera pr-5"></i> Video</a></li>@endif
-							</ul>
-							<!-- Tab panes -->
-							<div class="tab-content clear-style">
-								<div class="tab-pane active" id="pill-1">
-									<div class="owl-carousel content-slider-with-large-controls">
-										<div class="overlay-container overlay-visible">
-											<img class="product-cover-image" src="{{$product->originalPath . $product->main_image}}" alt="">
-											<a href="{{$product->originalPath . $product->main_image}}" class="popup-img overlay-link" title="{{$product->name}}"><i class="icon-plus-1"></i></a>
-										</div>
-										@if($product->images->isNotEmpty())
-											@foreach($product->images as $image)
-												<div class="overlay-container overlay-visible">
-													<img class="product-cover-image" src="{{$product->originalPath . $image->name}}" alt="">
-													<a href="{{$product->originalPath . $image->name}}" class="popup-img overlay-link" title="{{$product->name}}"><i class="icon-plus-1"></i></a>
-												</div>
-											@endforeach
-										@endif
-									</div>
-								</div>
-								<div class="tab-pane" id="pill-2">
-									@if($product->video)
-										<div class="embed-responsive embed-responsive-16by9">
-											{!!$product->videoPreview!!}
-										</div>
-									@endif
-								</div>
-							</div>
-							<!-- pills end -->
-						</div>
-						<div class="col-md-8 pv-30 product-details-container">
-							<h2>{{trans('general.description')}}</h2>
-							{{$product->short_description}}
-							<br><br>
-							{!!$product->description!!}
-							<hr class="mb-10">
-							<div class="clearfix mb-20">
-								<span>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star"></i>
-								</span>
-								<a href="#" class="wishlist"><i class="fa fa-heart-o pl-10 pr-5"></i>Wishlist</a>
-								<ul class="pl-20 pull-right social-links circle small clearfix margin-clear animated-effect-1">
-									<li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-									<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-									<li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-								</ul>
-							</div>
-							<div class="row grid-space-10">
-								<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buyNow')}}" method="GET">
-									<input type="hidden" value="{{$product->id}}" name="product_id">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label>{{trans('general.quantity')}}</label>
-											<input id="product-quantity" name="quantity" type="number" class="form-control" value="1">
-										</div>
-									</div>
-									{{-- <div class="col-md-4">
-										<div class="form-group">
-											<label>Color</label>
-											<select class="form-control">
-												<option>Red</option>
-												<option>White</option>
-												<option>Black</option>
-												<option>Blue</option>
-												<option>Orange</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label>Size</label>
-											<select class="form-control">
-												<option>5.3"</option>
-												<option>5.7"</option>
-											</select>
-										</div>
-									</div> --}}
-									<div class="col-md-12 text-right">
-										
-									</div>
-								</form>
-							</div>
-							<div class="light-gray-bg p-20 bordered clearfix">
-								<span class="product price"><i class="icon-tag pr-10"></i>
-									@if($product->reduction)
-										<s class="small text-muted">{{$product->price.$currency}}</s>
-										 {{$product->reductedPrice.$currency}}
-									@else
-										 {{$product->price.$currency}}
-									@endif
-								</span>
-
-								{{-- <span class="product price"><i class="icon-tag pr-10"></i>$99.00</span> --}}
+			
+				<!-- IMAGE -->
+				<div class="col-lg-4 col-sm-4">
+					<div class="thumbnail relative mb-3">
+						 
+						<figure id="zoom-primary" class="zoom" data-mode="mouseover">
+							<!-- 
+								zoom buttton
 								
-								<div class="product elements-list pull-right clearfix">
-									@if(auth()->user()->cart->contains($product))
-										<a href="{{route('purchases.cart')}}" class="margin-clear btn btn-default">
-											<i class="fa fa-lg fa-cart-plus"></i>
-											  &nbsp{{trans('general.already-in-cart')}}
-										</a>
-									@else
-										<button id="add-to-cart" class="margin-clear btn btn-default">
-											<i class="fa fa-lg fa-cart-plus"></i>
-											  &nbsp{{trans('general.add-to-cart')}}
-										</button>
-									@endif
-									<button id="buy-now" type="submit" class="margin-clear btn btn-default">
-										<i class="fa fa-lg fa-cart-arrow-down"></i>
-										  &nbsp{{trans('general.buy')}}
-									</button>
-								</div>
-							</div>
-						</div>
+								positions available:
+									.bottom-right
+									.bottom-left
+									.top-right
+									.top-left
+							-->
+							<a class="lightbox bottom-right" href="{{$product->originalPath . $product->main_image}}" data-plugin-options='{"type":"image"}'><i class="fa fa-search"></i></a>
+
+							<!-- 
+								image 
+								
+								Extra: add .image-bw class to force black and white!
+							-->
+							<img class="img-fluid" src="{{$product->originalPath . $product->main_image}}" width="1200" height="1500" alt="This is the product title" />
+						</figure>
+
 					</div>
 				</div>
-				<!-- main end -->
+				<!-- /IMAGE -->
 
-			</div>
-		</div>
-	</section>
-	<!-- main-container end -->
+				<!-- ITEM DESC -->
+				<div class="col-lg-5 col-sm-8">
 
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="pv-30 light-gray-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs style-4" role="tablist">
-						<li class="active"><a href="#h2tab2" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Specifications</a></li>
-						<li><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-star pr-5"></i>(3) Reviews</a></li>
-					</ul>
-					<!-- Tab panes -->
-					<div class="tab-content padding-top-clear padding-bottom-clear">
-						<div class="tab-pane fade in active" id="h2tab2">
-							<h4 class="space-top">Specifications</h4>
-							<hr>
-							<dl class="dl-horizontal">
-								<dt>Consectetur</dt>
-								<dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</dd>
-								<dt>Culla</dt>
-								<dd>Adipisci autem illo hic itaque nulla velit quod laboriosam ipsum in illum!</dd>
-								<dt>Quas</dt>
-								<dd>Velit mollitia vel nemo, repudiandae quas nisi consectetur maiores beatae.</dd>
-								<dt>Sapiente</dt>
-								<dd>Dolor, architecto, accusamus. Explicabo, culpa hic sapiente amet libero, recusandae laudantium consequatur velit possimus ratione quo. Ipsum maxime officia quasi quos magni!</dd>
-								<dt>Dignissimos</dt>
-								<dd>Odio cum deleniti mollitia, quisquam dignissimos voluptatem, unde rem alias.</dd>
-								<dt>Adipisicing</dt>
-								<dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</dd>
-								<dd>Tempora rerum veritatis nam blanditiis.</dd>
-								<dt>Werspiciatis</dt>
-								<dd>Rem nostrum sit magnam debitis quidem perspiciatis fuga fugit.</dd>
-							</dl>
-							<hr>
+					<!-- buttons -->
+					<div class="float-right">
+						<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+						<a class="btn btn-light add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
+					</div>
+					<!-- /buttons -->
+
+					<!-- price -->
+					<div class="shop-item-price">
+						@if($product->reduction)
+							<span class="line-through pl-0">{{$product->price.$currency}}</span>
+						@endif
+						{{$product->currentPrice.$currency}}
+					</div>
+					<!-- /price -->
+
+					<hr />
+
+					<div class="clearfix mb-30">
+						@if(!$product->quantity)
+							<span class="float-right text-danger"><i class="fa fa-remove"></i> {{trans('general.out-of-stock')}}</span>
+						@else
+							<span class="float-right text-success"><i class="fa fa-check"></i> {{trans('general.in-stock')}}</span>
+						@endif
+
+					</div>
+
+
+					<!-- short description -->
+					<p>{{$product->short_description}}</p>
+					<!-- /short description -->
+					<hr />
+					{{-- gallery --}}
+					@if($product->images->isNotEmpty())
+						<div class="masonry-gallery columns-2 clearfix lightbox" data-img-big="3" data-plugin-options='{"delegate": "a", "gallery": {"enabled": true}}'>
+							@foreach($product->images as $image)
+								<a class="image-hover" href="{{$product->originalPath.$image->name}}">
+									<img src="{{$product->thumbnailPath.$image->name}}" alt="...">
+								</a>
+							@endforeach
 						</div>
-						<div class="tab-pane fade" id="h2tab3">
-							<!-- comments start -->
-							<div class="comments margin-clear space-top">
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Amazing!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 12:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-										</div>
-									</div>
-								</div>
-								<!-- comment end -->
-
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Really Nice!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 10:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-										</div>
-									</div>
-								</div>
-								<!-- comment end -->
-
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Worth to Buy!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 09:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-										</div>
-									</div>
-								</div>
-								<!-- comment end -->
-							</div>
-							<!-- comments end -->
-
-							<!-- comments form start -->
-							<div class="comments-form">
-								<h2 class="title">Add your Review</h2>
-								<form role="form" id="comment-form">
-									<div class="form-group has-feedback">
-										<label for="name4">Name</label>
-										<input type="text" class="form-control" id="name4" placeholder="" name="name4" required>
-										<i class="fa fa-user form-control-feedback"></i>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="subject4">Subject</label>
-										<input type="text" class="form-control" id="subject4" placeholder="" name="subject4" required>
-										<i class="fa fa-pencil form-control-feedback"></i>
-									</div>
+					@endif
+					
+					<hr />
+					
+					<label>{{trans('general.quantity')}}</label>
+					<div class="row">
+						<div class="col-md-3">
+							<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buyNow')}}" method="GET">
+								<input type="hidden" value="{{$product->id}}" name="product_id">
 									<div class="form-group">
-										<label>Rating</label>
-										<select class="form-control" id="review">
-											<option value="five">5</option>
-											<option value="four">4</option>
-											<option value="three">3</option>
-											<option value="two">2</option>
-											<option value="one">1</option>
-										</select>
+										<input id="product-quantity" name="quantity" type="number" class="form-control" value="1">
 									</div>
-									<div class="form-group has-feedback">
-										<label for="message4">Message</label>
-										<textarea class="form-control" rows="8" id="message4" placeholder="" name="message4" required></textarea>
-										<i class="fa fa-envelope-o form-control-feedback"></i>
-									</div>
-									<input type="submit" value="Submit" class="btn btn-default">
-								</form>
+							</form>
+						</div>
+						<div class="col-md-9">
+							<div class="product elements-list pull-right clearfix">
+								@if(auth()->user()->cart->contains($product))
+									<a href="{{route('purchases.cart')}}" class="btn-lg btn btn-default">
+										<i class="fa fa-lg fa-cart-plus"></i>
+										  &nbsp{{trans('general.already-in-cart')}}
+									</a>
+								@else
+									<button id="add-to-cart" class="btn-lg btn btn-default">
+										<i class="fa fa-lg fa-cart-plus"></i>
+										  &nbsp{{trans('general.add-to-cart')}}
+									</button>
+								@endif
+								<button id="buy-now" type="submit" class="btn-lg btn btn-default">
+									<i class="fa fa-lg fa-cart-arrow-down"></i>
+									  &nbsp{{trans('general.buy')}}
+								</button>
 							</div>
-							<!-- comments form end -->
 						</div>
 					</div>
-				</div>
 
-				<!-- sidebar start -->
-				<!-- ================ -->
-				<aside class="col-md-4 col-lg-3 col-lg-offset-1">
-					<div class="sidebar">
-						<div class="block clearfix">
-							<h3 class="title">Related Products</h3>
-							<div class="separator-2"></div>
-							<div class="media margin-clear">
-								<div class="media-left">
-									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-5.jpg')}}" alt="blog-thumb">
-										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-									</div>
-								</div>
-								<div class="media-body">
-									<h6 class="media-heading"><a href="shop-product.html">Lorem ipsum dolor sit amet</a></h6>
-									<p class="margin-clear">
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-									</p>
-									<p class="price">$99.00</p>
-								</div>
-								<hr>
-							</div>
-							<div class="media margin-clear">
-								<div class="media-left">
-									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-6.jpg')}}" alt="blog-thumb">
-										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-									</div>
-								</div>
-								<div class="media-body">
-									<h6 class="media-heading"><a href="shop-product.html">Eum repudiandae ipsam</a></h6>
-									<p class="margin-clear">
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star"></i>
-									</p>
-									<p class="price">$299.00</p>
-								</div>
-								<hr>
-							</div>
-							<div class="media margin-clear">
-								<div class="media-left">
-									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-7.jpg')}}" alt="blog-thumb">
-										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-									</div>
-								</div>
-								<div class="media-body">
-									<h6 class="media-heading"><a href="shop-product.html">Quia aperiam velit fuga</a></h6>
-									<p class="margin-clear">
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star"></i>
-									</p>
-									<p class="price">$9.99</p>
-								</div>
-								<hr>
-							</div>
-							<div class="media margin-clear">
-								<div class="media-left">
-									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-8.jpg')}}" alt="blog-thumb">
-										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
-									</div>
-								</div>
-								<div class="media-body">
-									<h6 class="media-heading"><a href="shop-product.html">Fugit non natus officiis</a></h6>
-									<p class="margin-clear">
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star text-default"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</p>
-									<p class="price">$399.00</p>
-								</div>
-							</div>
-						</div>
+
+					<hr />
+
+					<!-- Share -->
+					<div class="float-right">
+
+						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+							<i class="icon-facebook"></i>
+							<i class="icon-facebook"></i>
+						</a>
+
+						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+							<i class="icon-twitter"></i>
+							<i class="icon-twitter"></i>
+						</a>
+
+						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+							<i class="icon-gplus"></i>
+							<i class="icon-gplus"></i>
+						</a>
+
+						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+							<i class="icon-linkedin"></i>
+							<i class="icon-linkedin"></i>
+						</a>
+
 					</div>
-				</aside>
-				<!-- sidebar end -->
+					<!-- /Share -->
+
+
+					<!-- rating -->
+					<div class="rating rating-4 fs-13 mt-10 fw-100"><!-- rating-0 ... rating-5 --></div>
+					<!-- /rating -->
+
+				</div>
+				<!-- /ITEM DESC -->
+
+				<!-- INFO -->
+				<div class="col-sm-4 col-md-3">
+
+					<h4 class="fs-18">
+						<i class="fa fa-paper-plane-o"></i> 
+						FREE SHIPPING
+					</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla.</p>
+
+					<h4 class="fs-18">
+						<i class="fa fa-clock-o"></i>
+						30 DAYS MONEY BACK
+					</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla.</p>
+
+					<h4 class="fs-18">
+						<i class="fa fa-users"></i> 
+						CUSTOMER SUPPORT
+					</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla.</p>
+
+					<hr>
+
+					<p class="fs-11">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
+					</p>
+				</div>
+				<!-- /INFO -->
 
 			</div>
+
+
+
+			<ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
+				<li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">{{trans('general.description')}}</a></li>
+				<li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+			</ul>
+
+
+			<div class="tab-content pt-20">
+
+				<!-- DESCRIPTION -->
+				<div role="tabpanel" class="tab-pane active" id="description">
+					{!!$product->description!!}
+				</div>
+				
+				<!-- REVIEWS -->
+				<div role="tabpanel" class="tab-pane fade" id="reviews">
+					<!-- REVIEW ITEM -->
+					<div class="block mb-60">
+
+						<span class="user-avatar"><!-- user-avatar -->
+							<img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
+						</span>
+
+						<div class="media-body">
+							<h4 class="media-heading fs-14">
+								John Doe &ndash; 
+								<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
+								<span class="fs-14 text-muted"><!-- stars -->
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+								</span>
+							</h4>
+							
+							<p>
+								Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
+							</p>
+
+						</div>
+
+					</div>
+					<!-- /REVIEW ITEM -->
+
+					<!-- REVIEW ITEM -->
+					<div class="block mb-60">
+
+						<span class="user-avatar"><!-- user-avatar -->
+							<img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
+						</span>
+
+						<div class="media-body">
+							<h4 class="media-heading fs-14">
+								John Doe &ndash; 
+								<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
+								<span class="fs-14 text-muted"><!-- stars -->
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+									<i class="fa fa-star-o"></i>
+								</span>
+							</h4>
+							
+							<p>
+								Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
+							</p>
+
+						</div>
+
+					</div>
+					<!-- /REVIEW ITEM -->
+
+
+					<!-- REVIEW FORM -->
+					<h4 class="page-header mb-40">ADD A REVIEW</h4>
+					<form method="post" action="#" id="form">
+						
+						<div class="row mb-10">
+							
+							<div class="col-md-6 mb-10">
+								<!-- Name -->
+								<input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
+							</div>
+							
+							<div class="col-md-6">
+								<!-- Email -->
+								<input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
+							</div>
+							
+						</div>
+						
+						<!-- Comment -->
+						<div class="mb-30">
+							<textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
+						</div>
+
+						<!-- Stars -->
+						<div class="product-star-vote clearfix">
+
+							<label class="radio float-left">
+								<input type="radio" name="product-review-vote" value="1" />
+								<i></i> 1 Star
+							</label>
+
+							<label class="radio float-left">
+								<input type="radio" name="product-review-vote" value="2" />
+								<i></i> 2 Stars
+							</label>
+
+							<label class="radio float-left">
+								<input type="radio" name="product-review-vote" value="3" />
+								<i></i> 3 Stars
+							</label>
+
+							<label class="radio float-left">
+								<input type="radio" name="product-review-vote" value="4" />
+								<i></i> 4 Stars
+							</label>
+
+							<label class="radio float-left">
+								<input type="radio" name="product-review-vote" value="5" />
+								<i></i> 5 Stars
+							</label>
+
+						</div>
+
+						<!-- Send Button -->
+						<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+						
+					</form>
+					<!-- /REVIEW FORM -->
+
+				</div>
+			</div>
+
+
+			<hr class="mt-80 mb-80" />
+
+
+			<!-- RELATED -->
+			{{-- <h2 class="owl-featured"><strong>Related</strong> products:</h2>
+			<div class="owl-carousel featured m-0 owl-padding-10" data-plugin-options='{"singleItem": false, "items": "5", "stopOnHover":false, "autoPlay":4500, "autoHeight": false, "navigation": true, "pagination": false}'>
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p13.jpg')}}" alt="shop first image" />
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p14.jpg')}}" alt="shop hover image" />
+						</a>
+						<!-- /product image(s) -->
+
+						<!-- product more info -->
+						<div class="shop-item-info">
+							<span class="badge badge-success">NEW</span>
+							<span class="badge badge-danger">SALE</span>
+						</div>
+						<!-- /product more info -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Cotton 100% - Pink Shirt</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							<span class="line-through">$98.00</span>
+							$78.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<!-- CAROUSEL -->
+							<div class="owl-carousel owl-padding-0 m-0" data-plugin-options='{"singleItem": true, "autoPlay": 3000, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
+								<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p5.jpg')}}" alt="">
+								<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p1.jpg')}}" alt="">
+							</div>
+							<!-- /CAROUSEL -->
+						</a>
+						<!-- /product image(s) -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Pink Dress 100% Cotton</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							$44.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p2.jpg')}}" alt="shop first image" />
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p12.jpg')}}" alt="shop hover image" />
+						</a>
+						<!-- /product image(s) -->
+
+						<!-- product more info -->
+						<div class="shop-item-info">
+							<span class="badge badge-success">NEW</span>
+							<span class="badge badge-danger">SALE</span>
+						</div>
+						<!-- /product more info -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Black Fashion Hat</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							<span class="line-through">$77.00</span>
+							$65.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p8.jpg')}}" alt="shop first image" />
+						</a>
+						<!-- /product image(s) -->
+
+						<!-- countdown -->
+						<div class="shop-item-counter">
+							<div class="countdown" data-from="December 31, 2020 08:22:01" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+						</div>
+						<!-- /countdown -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Beach Black Lady Suit</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							$56.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p7.jpg')}}" alt="shop first image" />
+						</a>
+						<!-- /product image(s) -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Town Dress - Black</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							$154.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p6.jpg')}}" alt="shop first image" />
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p14.jpg')}}" alt="shop hover image" />
+						</a>
+						<!-- /product image(s) -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Chick Lady Fashion</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							$167.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+				<!-- item -->
+				<div class="shop-item m-0">
+
+					<div class="thumbnail">
+						<!-- product image(s) -->
+						<a class="shop-item-image" href="shop-single-left.html">
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p11.jpg')}}" alt="shop hover image" />
+							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p3.jpg')}}" alt="shop first image" />
+						</a>
+						<!-- /product image(s) -->
+					</div>
+					
+					<div class="shop-item-summary text-center">
+						<h2>Black Long Lady Shirt</h2>
+						
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-0 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+
+						<!-- price -->
+						<div class="shop-item-price">
+							$128.00
+						</div>
+						<!-- /price -->
+					</div>
+
+						<!-- buttons -->
+						<div class="shop-item-buttons text-center">
+							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+						</div>
+						<!-- /buttons -->
+				</div>
+				<!-- /item -->
+
+			</div>
+			<!-- /RELATED --> --}}
+
 		</div>
 	</section>
-	<!-- section end -->
-
-	<!-- section start -->
-	<!-- ================ -->
-	<section class="section dark-translucent-bg pv-40" style="background-image:url('images/shop-banner.jpg');background-position: 50% 50%;">
-		<div class="container">
-			<div class="row grid-space-10">
-				<div class="col-md-3 col-sm-6">
-					<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
-						<span class="icon default-bg"><i class="fa fa-diamond"></i></span>
-						<h3>Premium &amp; Guaranteed Quality</h3>
-						<div class="separator clearfix"></div>
-						<p>Voluptatem ad provident non repudiandae beatae cupiditate.</p>
-						<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="150">
-						<span class="icon default-bg"><i class="icon-lock"></i></span>
-						<h3>Secure &amp; Safe Payment</h3>
-						<div class="separator clearfix"></div>
-						<p>Iure sequi unde hic. Sapiente quaerat sequi inventore.</p>
-						<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
-					</div>
-				</div>
-				<div class="clearfix visible-sm"></div>
-				<div class="col-md-3 col-sm-6">
-					<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="200">
-						<span class="icon default-bg"><i class="icon-globe"></i></span>
-						<h3 class="pl-10 pr-10">Free &amp; Fast Shipping</h3>
-						<div class="separator clearfix"></div>
-						<p>Inventore dolores aut laboriosam cum consequuntur.</p>
-						<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="250">
-						<span class="icon default-bg"><i class="icon-thumbs-up"></i></span>
-						<h3>24/7 Customer Support</h3>
-						<div class="separator clearfix"></div>
-						<p>Inventore dolores aut laboriosam cum consequuntur.</p>
-						<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="call-to-action text-center">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2">
-								<h2 class="title"><strong>Subscribe</strong> To Our Newsletter</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus error pariatur deserunt laudantium nam, mollitia quas nihil inventore, quibusdam?</p>
-								<div class="separator"></div>
-								<form class="form-inline margin-clear">
-									<div class="form-group has-feedback">
-										<label class="sr-only" for="subscribe3">Email address</label>
-										<input type="email" class="form-control form-control-lg" id="subscribe3" placeholder="Enter email" name="subscribe3" required="">
-										<i class="fa fa-envelope form-control-feedback"></i>
-									</div>
-									<button type="submit" class="btn btn-lg btn-gray-transparent btn-animated margin-clear">Submit <i class="fa fa-send"></i></button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- section end -->
+	<!-- / -->
 @endsection
 
 @section('optionalScripts')

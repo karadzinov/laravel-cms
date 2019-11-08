@@ -159,6 +159,11 @@
 							</ul>
 						</li>
 						<li>
+							<a href="{{route('products.index')}}">
+								{{trans('general.navigation.products')}}
+							</a>
+						</li>
+						<li>
 							<a href="{{route('contact')}}">
 								{{trans('general.navigation.contact')}}
 							</a>

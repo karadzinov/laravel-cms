@@ -66,16 +66,24 @@
 				</div>
 			</div>
 		</div>
-		<div class="checkbox padding-top-clear">
-			<label>
-				<input name="same_shipping" type="checkbox" id="shipping-info-check"
-					@if(isset($purchase) && $purchase->shipping)
-						null
-					@else
-						checked="true" 
-					@endif
-				> {{trans('general.same-shipping')}}
-			</label>
-		</div>
+		<input name="same_shipping" type="checkbox" id="shipping-info-check"
+			@if(isset($purchase) && $purchase->shipping)
+				null
+			@else
+				checked="true" 
+			@endif
+		> {{trans('general.same-shipping')}}</input>
 	</div>
 </fieldset>
+
+@section('optionalScripts')
+	<script>
+		if($('#shipping-info-check').val()){
+			$('#shipping-information').toggle();
+		}
+		$('#shipping-info-check').on('change', function(){
+			$('#shipping-information').toggle('toggle');
+
+		})
+	</script>
+@endsection

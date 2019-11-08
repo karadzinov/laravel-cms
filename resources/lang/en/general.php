@@ -15,6 +15,8 @@ array (
   'projects'    => 'Projects',
   'clients'     => 'Clients',
   'downloads'   => 'Downloads',
+  'download'    => 'Download',
+  'print'       => 'Print',
   'shares'      => 'Shares',
   'header'      => 
     array (
@@ -164,6 +166,7 @@ array (
   'added-to-cart'     => 'Added To Cart',
   'cart-error'        => 'We encountered a problem adding products to your cart. Please try again later or contact our administrators.',
   'my-cart'           => 'My cart',
+  'cart'              => 'Cart',
   'checkout'          => 'Checkout',
   'back'              => 'Back',
   'total'             => 'Total',
@@ -191,6 +194,8 @@ array (
   'comments-po'       => 'Comments/PO',
   'invoice-questions' => '<p class="small">If you have any questions concerning this invoice, contact <strong>:name</strong>, tel: <strong>:phone</strong>, email: <strong>:email</strong> <br> Thank you for your business!</p>',
   'remove'            => 'Remove',
+  'in-stock'          => 'In Stock',
+  'out-of-stock'      => 'Out Of Stock',
   'try-again'         => 'Try Again',
   'actions'           => 'Actions',
   'sort-by'           =>  'Sort By',

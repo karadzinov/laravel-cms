@@ -9,6 +9,10 @@
 		<style>
 			.social-whatsapp:hover { background-color: #00E676 !important; }
 			.social-whatsapp { background-color: #3B5998; }
+			.my-alert{
+				position: absolute;
+				z-index: 1001
+			}
 		</style>
 	</head>
 	<!--
@@ -39,6 +43,7 @@
 		<!-- wrapper -->
 		<div id="wrapper">
 			@include($path . 'partials/nav')
+			@include($path . 'partials/flash-messages')
 
 			@yield('content')
 			
@@ -62,6 +67,19 @@
 		@foreach($scripts as $script)
 			{!!$script ->code!!}
 		@endforeach
+
+		<script>
+			function flashMessage(type="warning", message){
+
+				message = `
+				<div class="alert alert-${type} flash-alerts" role="alert">
+					${message}
+				</div>`;
+				$('body').prepend(message);
+				setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
+			}
+		</script>
+
 		@yield('optionalScripts')
 	</body>
 </html>

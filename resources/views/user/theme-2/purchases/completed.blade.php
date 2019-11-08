@@ -1,38 +1,34 @@
 @extends($path.'master')
 @section('optionalHead')
 	<style>
-		.main-container{
-			height: 90vh;
+		section{
+			min-height: 100vh;
 		}
 	</style>
 @endsection
 @section('content')
-	<!-- main-container start -->
-	<!-- ================ -->
-	<section class="main-container">
-
+	<!-- -->
+	<section>
 		<div class="container">
-			<div class="row">
+			
+			<!-- CHECKOUT FINAL MESSAGE -->
+			<div class="card card-default">
+				<div class="card-block">
+					<h3>{{trans('general.thank-you')}}!</h3>
 
-				<!-- main start -->
-				<!-- ================ -->
-				<div class="main col-md-8 col-md-offset-2">
-
-					<!-- page-title start -->
-					<!-- ================ -->
-					<h1 class="page-title text-center">{{trans('general.thank-you')}}! <i class="fa fa-smile-o pl-10"></i></h1>
-					<div class="separator"></div>
-					<!-- page-title end -->
-					<p class="lead text-center">{!!trans('general.successfull-purchase', ['route'=>route('purchases.index')])!!}</p>
-					<p class="text-center">
-						<a href="{{route('products.index')}}" class="btn btn-default btn-lg">{{trans('general.continue-shopping')}}!</a>	
+					<p>
+						{!!trans('general.successfull-purchase', ['route'=>route('purchases.index')])!!}
 					</p>
 
-				</div>
-				<!-- main end -->
+					<hr />
 
+					<p class="text-center">
+						<a href="{{route('products.index')}}" class="btn btn-success btn-lg">{{trans('general.continue-shopping')}}!</a>	
+					</p>
+				</div>
 			</div>
+			<!-- /CHECKOUT FINAL MESSAGE -->
+			
 		</div>
 	</section>
-	<!-- main-container end -->
 @endsection

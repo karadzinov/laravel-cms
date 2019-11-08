@@ -4,6 +4,9 @@
 		.form-horizontal{
 			padding: 15px;
 		}
+		/*body.grain-blue section, body.grain-grey section, body.grain-green section, body.grain-orange section, body.grain-yellow section{
+			background-color: white !important;
+		}*/
 	</style>
 @endsection
 @section('content')
@@ -13,7 +16,6 @@
 
 		<div class="container">
 			<div class="row">
-
 				<!-- main start -->
 				<!-- ================ -->
 				<div class="main col-md-12">
@@ -102,7 +104,6 @@
 			let prices = $('.product-times-quantity');
 			let totalPrice = 0;
 			for(let i = 0; i< prices.length; i++){
-				console.log($(prices[i]).text());
 				totalPrice += Number($(prices[i]).text());
 			}
 

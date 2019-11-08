@@ -1,10 +1,15 @@
 @extends($path.'master')
 @section('optionalHead')
 	<style>
+		body.grain-grey, body.grain-grey #wrapper, body.grain-grey #topBar, body.grain-grey #header.fixed, body.grain-grey #header li.search .search-box, body.grain-grey #header li.quick-cart .quick-cart-box, body.grain-grey div.heading-title h1, body.grain-grey div.heading-title h2, body.grain-grey div.heading-title h3, body.grain-grey div.heading-title h4, body.grain-grey div.heading-title h5, body.grain-grey div.heading-title h6{
+			background-color: white;
+		}
+		
 		.main-container{
-			margin-top: 20px;
+			margin-top: 100px;
 			margin-bottom: 20px;
-			/*min-height: 90vh;*/
+			min-height: 90vh;
+			bag
 		}
 	</style>
 @endsection

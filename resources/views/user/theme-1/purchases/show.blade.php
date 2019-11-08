@@ -81,7 +81,7 @@
 									</tr>
 								@endforeach
 								<tr>
-									<td class="total-quantity" colspan="3">{{trans('general.total')}} {{$purchase->products()->count()}} {{trans('general.items')}}</td>
+									<td class="total-quantity" colspan="3">{{trans('general.total')}}</td>
 									<td class="total-amount">{{$purchase->total  . ' ' .  $purchase->currency}}</td>
 								</tr>
 							</tbody>
@@ -90,7 +90,7 @@
 						<hr>
 					</div>
 					<div class="text-right">	
-						<button onclick="printInvoice();" class="btn btn-print btn-default-transparent btn-hvr hvr-shutter-out-horizontal">Print <i class="fa fa-print pl-10"></i></button>
+						<button onclick="printInvoice();" class="btn btn-print btn-default-transparent btn-hvr hvr-shutter-out-horizontal">{{trans('general.print')}} <i class="fa fa-print pl-10"></i></button>
 					</div>
 				</div>
 				<!-- main end -->

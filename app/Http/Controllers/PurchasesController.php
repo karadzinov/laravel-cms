@@ -140,6 +140,7 @@ class PurchasesController extends Controller
 	}
 
 	public function store(CheckoutRequest $request){
+	// public function store(Request $request){
 		// dd($request->all());
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);

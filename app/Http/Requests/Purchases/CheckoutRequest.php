@@ -33,11 +33,11 @@ class CheckoutRequest extends FormRequest
             "shipping_first_name"   => "required_without:same_shipping",
             "shipping_last_name"    => "required_without:same_shipping",
             "shipping_email"        => "required_without:same_shipping",
-            "shipping_phone"        => "required_without:same_shipping|numeric",
+            "shipping_phone"        => "required_without:same_shipping|nullable|numeric",
             "shipping_home_address" => "required_without:same_shipping|max:191",
             "shipping_country"      => "required_without:same_shipping",
             "shipping_city"         => "required_without:same_shipping|max:191",
-            "shipping_zip"          => "required_without:same_shipping|numeric",
+            "shipping_zip"          => "required_without:same_shipping|nullable|numeric",
         ];
     }
 }

@@ -49,4 +49,9 @@ class Product extends Model
         
         return $this->belongsToMany(User::class, 'product_user', 'product_id', 'user_id');
     }
+
+    public function getMediumAttribute(){
+        
+        return $this->getMediumPathAttribute() . $this->main_image;
+    }
 }

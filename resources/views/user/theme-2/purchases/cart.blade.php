@@ -2,7 +2,7 @@
 @section('optionalHead')
 	<style>
 		.main-container{
-			height: 90vh;
+			min-height: 90vh;
 		}
 	</style>
 @endsection
@@ -299,7 +299,7 @@
 
 			$('.remove-from-cart').on('click', function(){
 				const product = $(this).data('product');
-
+				var remove = $(this).parent().closest('tr');
 				$.ajaxSetup({
 					headers:
   					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
@@ -312,7 +312,9 @@
 					},
 					success: function(response){
 						flashMessage('success', response.message);
+						remove.remove();
 						countTotal();
+
 
 					},
 					error: function(error){
