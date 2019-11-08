@@ -183,9 +183,53 @@
 								<a href="{{route('admin.home')}}">{{trans('general.go-to-admin')}}</a>
 							</li>
 						@endrole
-						<li>
-							<a href="/changeTheme">Theme</a>
-						</li>
+						@auth
+							<li class="dropdown resp-active"><!-- BLOG and SHOP -->
+								<a class="dropdown-toggle" href="#">
+									Profile
+								</a>
+								<ul class="dropdown-menu">
+									<!-- BLOG -->
+									<li>
+										<h4>
+											<a href="{{route('purchases.index')}}">
+												<i class="fa fa-bank"></i> 
+												{{trans('general.my-purchases')}}
+											</a>
+										</h4>
+									</li>
+									<li>
+										<h4>
+											<a href="{{ route('logout') }}" onclick="event.preventDefault();
+		                                                         document.getElementById('logout-form').submit();">
+		                                        <i class="fa fa-sign-out"></i> 
+		                                        {{trans('general.header.logout')}}
+		                                    </a>
+		                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		                                        @csrf
+		                                    </form>
+										</h4>
+									</li>
+								</ul>
+							</li>
+						@else
+							<li class="dropdown resp-active"><!-- BLOG and SHOP -->
+								<a class="dropdown-toggle" href="#">
+									{{trans('auth.login')}} &amp; {{trans('auth.register')}}
+								</a>
+								<ul class="dropdown-menu">
+
+									<!-- BLOG -->
+									<li>
+										<h4><a href="{{route('login')}}"><i class="fa fa-sign-in"></i>  {{trans('auth.login')}}</a></h4>
+									</li>
+									<!-- SHOP -->
+									<li>
+										<h4><a href="{{route('login')}}"><i class="fa fa-registered"></i>  {{trans('auth.register')}}</a></h4>
+									</li>
+								</ul>
+							</li>
+						@endauth
 					</ul>
 
 				</nav>

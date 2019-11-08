@@ -13,6 +13,12 @@
 				position: absolute;
 				z-index: 1001
 			}
+			body.grain-grey #header li.quick-cart .quick-cart-box{
+				background: #f1f2f7
+			}
+			#header.translucent li.quick-cart .quick-cart-box:hover{
+				background: #f1f2f7
+			}
 		</style>
 	</head>
 	<!--
