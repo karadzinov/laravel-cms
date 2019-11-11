@@ -164,12 +164,25 @@ class PurchasesController extends Controller
 			$purchase->completed = true;
 			$purchase->currency = $currency;
 			$purchase->save();
+			$cleanWishlist = $this->cleanWishlist($purchase);
 
 			return true;
 		} catch (Exception $e) {
 			
 			return false;
 		}
+	}
+
+	public function cleanWishlist(Purchase $purchase){
+		$user = $purchase->user;
+		$wishlist = $user->wishlist;
+		foreach($wishlist as $item){
+			if($purchase->products->contains($item)){
+				$user->wishlist()->detach($item);
+			}
+		}
+
+		return true;
 	}
 
 	public function updatePrices(Purchase $purchase){
