@@ -16,13 +16,15 @@ class ProductsController extends Controller
         $categories = Category::whereHas('products')->get();
 
         $cart = collect([]);
+        $wishlist = collect([]);
         if(auth()->user()){
-            $cart = User::where('id', '=', auth()->user()->id)
-                    ->first()
-                    ->cart()
-                    ->get();
+           $user = User::where('id', '=', auth()->user()->id)
+                    ->first();
+           $cart = $user->cart()->get();
+           $wishlist = $user->wishlist()->get();
+
         }
-        $data = compact('products', 'currency', 'categories', 'cart', 'request');
+        $data = compact('products', 'currency', 'categories', 'cart', 'wishlist', 'request');
         
         return view($this->path . 'products/index', $data);
     }

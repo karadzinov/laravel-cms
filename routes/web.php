@@ -123,17 +123,25 @@ Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "purchas
     Route::get('/show/{id}', 'PurchasesController@show')->name('show');
     Route::get('/edit/{purchase}', 'PurchasesController@edit')->name('edit');
     Route::put('/update/{purchase}', 'PurchasesController@update')->name('update');
-    Route::get('/my-cart', 'PurchasesController@cart')->name('cart');
     Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
     
     Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
     Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
     Route::post('/charge', 'PurchasesController@charge')->name('charge');
     Route::get('/completed', 'PurchasesController@completed')->name('completed');
+});
 
-    Route::post('/add-to-cart', 'PurchasesController@addToCart')->name('addToCart');
-    Route::post('/change-quantity', 'PurchasesController@changeQuantity')->name('changeQuantity');
-    Route::delete('/delete-from-cart', 'PurchasesController@deleteFromCart')->name('deleteFromCart');
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "cart", 'as'=>'cart.'], function () {
+    Route::get('/my-cart', 'CartsController@cart')->name('cart');
+    Route::post('/add-to-cart', 'CartsController@addToCart')->name('addToCart');
+    Route::post('/change-quantity', 'CartsController@changeQuantity')->name('changeQuantity');
+    Route::delete('/delete-from-cart', 'CartsController@deleteFromCart')->name('deleteFromCart');
+});
+
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "wishlist", 'as'=>'wishlist.'], function () {
+    Route::get('/index', 'WishlistsController@index')->name('index');
+Route::post('/add-to-wishlist', 'WishlistsController@add')->name('add');
+    Route::post('/delete-from-wishlist', 'WishlistsController@remove')->name('remove');
 });
 
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');

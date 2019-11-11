@@ -36,6 +36,48 @@ class PurchasesController extends Controller
 		
 	}
 
+    public function index(){
+    	$userId = auth()->user()->id;
+    	$user = User::with('purchases', 'purchases.products')->findOrFail($userId);
+    	
+    	return view($this->path.'purchases/index', compact('user'));
+    }
+
+    public function show($purchase){
+    	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
+    	$settings = Settings::first();
+    	$currency = Currency::symbol();
+
+    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency'));
+    }
+
+    public function edit($purchase){
+    	$purchase = Purchase::with('products')->findOrFail($purchase);
+    	if($purchase->completed){
+    		return redirect()->back();
+    	}
+    	$currency = Currency::symbol();
+
+    	return view($this->path . 'purchases/edit', compact('purchase', 'currency'));
+    }
+
+    public function update(Request $request, $purchase){
+		$purchase = Purchase::findOrFail($purchase);
+
+		$products = $request->get('products');
+		$productsSold = $this->prepareProductsAndPrice($products);
+
+		$purchase->phone = $request->get('phone');
+		$purchase->home_address = $request->get('home_address');
+		$purchase->country = $request->get('country');
+		$purchase->city = $request->get('city');
+		$purchase->zip = $request->get('zip');
+		$purchase->save();
+		$currency = Currency::symbol();
+
+		return redirect()->route('purchases.payment', $purchase->id);
+    }
+
 	public function charge(Request $request){
 		$purchase = Purchase::findOrFail($request->get('purchase'));
 		if(!empty($request->get('token'))){
@@ -140,8 +182,6 @@ class PurchasesController extends Controller
 	}
 
 	public function store(CheckoutRequest $request){
-	// public function store(Request $request){
-		// dd($request->all());
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);
 		if($request->has('cart')){
@@ -167,7 +207,6 @@ class PurchasesController extends Controller
 		$currency = Currency::symbol();
 
 		return redirect()->route('purchases.payment', $purchase->id);
-
 	}
 
 	public function addShipping(Purchase $purchase, Request $request){
@@ -203,13 +242,6 @@ class PurchasesController extends Controller
 		return view($this->path . 'purchases/checkout', $data);
     }
 
-    public function cart(){
-		$cart = auth()->user()->cart;
-    	$currency = Currency::symbol();
-
-    	return view($this->path.'purchases/cart', compact('cart', 'currency'));
-    }
-
     public function prepareProductsAndPrice($products){
     	$items = [];
     	foreach($products as $id => $quantity) {
@@ -220,116 +252,11 @@ class PurchasesController extends Controller
     	return (object) compact('items');
     }
 
-    public function addToCart(Request $request){
-    	if($request->ajax()){
-    		try {
-    			$productId = $request->get('product_id');
-    			$check = auth()->user()->cart()
-    					->where('product_id', '=', $productId)
-    					->first();
-
-    			if($check){
-    				return response()->json(["status"=>"already-added", "message" => trans('general.already-in-cart')]);
-    			}
-    			
-    			$product = Product::findOrFail($request->get('product_id'));
-    			$quantity = $request->get('quantity') ?? 1;
-    			auth()->user()->cart()->attach($product, ['quantity'=>$quantity]);
-
-    			return response()->json(["status"=>"success", "message" => trans('general.added-to-cart')]);
-    		} catch (Exception $e) {
-    			
-    			return response()->json(["status"=>"failed", "message" => trans('general.cart-error')]);
-    		}
-    	}
-
-    	return false;	
-    }
-
-    public function changeQuantity(Request $request){
-    	$request->validate([
-    	    'product_id' => 'required|numeric',
-    	    'quantity' => 'required|numeric',
-    	]);
-    	try {
-    		$product = Product::findOrFail($request->get('product_id'));
-    		$pivot = auth()->user()->cart()
-    					->where('product_id', '=', $request->get('product_id'))
-    					->first()->pivot;
-
-    		$pivot->quantity = $request->get('quantity');
-    		$pivot->save();
-    	} catch (Exception $e) {
-			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
-    	}
-
-    	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
-    }
-
-    public function deleteFromCart(Request $request){
-    	$request->validate([
-    	    'product_id' => 'required|numeric',
-    	]);
-
-    	try {
-    		// $product = Product::findOrFail($request->get('product_id'));
-    		$pivot = auth()->user()->cart()->detach($request->get('product_id'));
-    	} catch (Exception $e) {
-			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
-    	}
-    	
-    	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
-    }
-
     public function checkoutCart(){
     	
     	$cart = auth()->user()->cart;
     	$currency = Currency::symbol();
 
     	return view($this->path.'purchases/checkout', compact('cart', 'currency'));
-    }
-
-    public function index(){
-    	$userId = auth()->user()->id;
-    	$user = User::with('purchases', 'purchases.products')->findOrFail($userId);
-    	
-    	return view($this->path.'purchases/index', compact('user'));
-    }
-
-    public function show($purchase){
-    	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
-    	$settings = Settings::first();
-    	$currency = Currency::symbol();
-
-    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency'));
-    }
-
-    public function edit($purchase){
-    	$purchase = Purchase::with('products')->findOrFail($purchase);
-    	if($purchase->completed){
-    		return redirect()->back();
-    	}
-    	$currency = Currency::symbol();
-
-    	return view($this->path . 'purchases/edit', compact('purchase', 'currency'));
-    }
-
-    public function update(Request $request, $purchase){
-		$purchase = Purchase::findOrFail($purchase);
-
-		$products = $request->get('products');
-		$productsSold = $this->prepareProductsAndPrice($products);
-
-		$purchase->phone = $request->get('phone');
-		$purchase->home_address = $request->get('home_address');
-		$purchase->country = $request->get('country');
-		$purchase->city = $request->get('city');
-		$purchase->zip = $request->get('zip');
-		$purchase->save();
-		$currency = Currency::symbol();
-
-		return redirect()->route('purchases.payment', $purchase->id);
-
-
     }
 }

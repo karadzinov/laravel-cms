@@ -123,7 +123,7 @@
 				});
 				$.ajax({
 					type: 'POST',
-					url: '{{route('purchases.changeQuantity')}}',
+					url: '{{route('cart.changeQuantity')}}',
 					data:{
 						product_id: productId,
 						quantity: quantity,
@@ -147,7 +147,7 @@
 				});
 				$.ajax({
 					type: 'DELETE',
-					url: '{{route('purchases.deleteFromCart')}}',
+					url: '{{route('cart.deleteFromCart')}}',
 					data:{
 						product_id: product
 					},

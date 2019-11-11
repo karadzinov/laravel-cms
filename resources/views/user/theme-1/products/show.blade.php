@@ -84,7 +84,12 @@
 									<i class="fa fa-star text-default"></i>
 									<i class="fa fa-star"></i>
 								</span>
-								<a href="#" class="wishlist"><i class="fa fa-heart-o pl-10 pr-5"></i>Wishlist</a>
+								@if(auth()->user()->wishlist->contains($product))
+									<span class="wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist"></i></span>
+								@else
+									<span class="wishlist-button add-to-wishlist" data-product="{{$product->id}}"><i class="fa fa-heart-o" title="{{trans('general.add-to-wishlist')}}"></i></span>
+								@endif
+								</a>
 								<ul class="pl-20 pull-right social-links circle small clearfix margin-clear animated-effect-1">
 									<li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
 									<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
@@ -140,7 +145,7 @@
 								
 								<div class="product elements-list pull-right clearfix">
 									@if(auth()->user()->cart->contains($product))
-										<a href="{{route('purchases.cart')}}" class="margin-clear btn btn-default">
+										<a href="{{route('cart.cart')}}" class="margin-clear btn btn-default">
 											<i class="fa fa-lg fa-cart-plus"></i>
 											  &nbsp{{trans('general.already-in-cart')}}
 										</a>
@@ -482,7 +487,7 @@
 				$.ajax({
 
 				   type:'POST',
-				   url:'{{route('purchases.addToCart')}}',
+				   url:'{{route('cart.addToCart')}}',
 				   data:{
 				   		quantity,
 				   		product_id

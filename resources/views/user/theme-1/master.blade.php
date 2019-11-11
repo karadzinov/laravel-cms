@@ -9,6 +9,19 @@
 		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
+
+		<style>
+			.wishlist-button{
+				margin-left: 20px;
+				cursor: pointer;
+			}
+			.in-wishlist{
+				color: #F35442
+			}
+			.mb-3{
+				margin-bottom: 30px;
+			}
+		</style>
 	</head>
 
 	<!-- body classes:  -->
@@ -36,5 +49,104 @@
 			{!!$script ->code!!}
 		@endforeach
 		@yield('optionalScripts')
+
+		<script>
+			$('.add-to-cart').on('click', function(){
+				const product_id = $(this).data('product');
+				let element = $(this);
+
+				 $.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+
+				   type:'POST',
+				   url:'{{route('cart.addToCart')}}',
+				   data:{
+				   		product_id
+				   },
+				   success:function(response){
+				   	
+				   	if(response.status === "already-added"){
+				   		flashMessage("success", response.message);
+				   		return;
+				   	}
+				   	
+				   	flashMessage("success", response.message);
+				   	element.html("{{trans('general.added-to-cart')}} <i class='fa fa-check'></i>");
+				   },
+				   error:function(response){
+				   	
+				   		flashMessage("danger", response.message);
+				   }
+
+				});
+			});
+			
+			$(document).on('click', '.add-to-wishlist', function(){
+				const product = $(this).data('product');
+				const button = $(this);
+				$.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+
+				   type:'POST',
+				   url:'{{route('wishlist.add')}}',
+				   data:{
+				   		product_id: product
+				   },
+				   success:function(response){
+				   	
+				   	if(response.status === "already-added"){
+				   		flashMessage("success", response.message);
+				   		return;
+				   	}
+				   	
+				   	flashMessage("success", response.message);
+				   	button.toggleClass('add-to-wishlist remove-from-wishlist');
+				   	button.html("<i class='fa fa-heart in-wishlist'></i>");
+				   	button.prop('title', "{{trans('general.remove-from-wishlist')}}");
+				   },
+				   error:function(response){
+				   		flashMessage("danger", response.message);
+				   }
+
+				});
+			});
+
+			$(document).on('click', '.remove-from-wishlist', function(){
+				const product = $(this).data('product');
+				const button = $(this);
+				$.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+				$.ajax({
+
+				   	type:'POST',
+				   	url:'{{route('wishlist.remove')}}',
+				   	data:{
+				   		product_id: product
+				   	},
+				   	success:function(response){
+				   		flashMessage("success", response.message);
+					   	button.toggleClass('add-to-wishlist remove-from-wishlist');
+				   		button.html("<i class='fa fa-heart-o'></i>");
+				   		button.prop('title', "{{trans('general.add-to-wishlist')}}");
+
+				   	},
+				   	error:function(response){
+				   		flashMessage("danger", response.message);
+				   }
+
+				});
+			});
+		</script>
 	</body>
 </html>

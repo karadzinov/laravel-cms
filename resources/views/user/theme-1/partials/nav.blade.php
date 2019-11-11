@@ -150,7 +150,7 @@
 														</tbody>
 													</table>
 													<div class="panel-body text-right">
-														<a href="{{route('purchases.cart')}}" class="btn btn-group btn-gray btn-sm">{{trans('general.navigation.view-cart')}}</a>
+														<a href="{{route('cart.cart')}}" class="btn btn-group btn-gray btn-sm">{{trans('general.navigation.view-cart')}}</a>
 														<a href="{{route('purchases.checkoutCart')}}" class="btn btn-group btn-gray btn-sm">{{trans('general.checkout')}}</a>
 													</div>
 												</li>

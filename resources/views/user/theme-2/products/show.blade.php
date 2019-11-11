@@ -122,7 +122,7 @@
 						<div class="col-md-9">
 							<div class="product elements-list pull-right clearfix">
 								@if(auth()->user()->cart->contains($product))
-									<a href="{{route('purchases.cart')}}" class="btn-lg btn btn-default">
+									<a href="{{route('cart.cart')}}" class="btn-lg btn btn-default">
 										<i class="fa fa-lg fa-cart-plus"></i>
 										  &nbsp{{trans('general.already-in-cart')}}
 									</a>
@@ -658,7 +658,7 @@
 				$.ajax({
 
 				   type:'POST',
-				   url:'{{route('purchases.addToCart')}}',
+				   url:'{{route('cart.addToCart')}}',
 				   data:{
 				   		quantity,
 				   		product_id

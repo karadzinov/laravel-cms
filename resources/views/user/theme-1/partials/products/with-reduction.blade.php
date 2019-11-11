@@ -17,12 +17,17 @@
 						<i class="fa fa-star text-default"></i>
 						<i class="fa fa-star text-default"></i>
 						<i class="fa fa-star"></i>
+						@if($wishlist->contains($product))
+							<span class="wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist"></i></span>
+						@else
+							<span class="wishlist-button add-to-wishlist" data-product="{{$product->id}}"><i class="fa fa-heart-o" title="{{trans('general.add-to-wishlist')}}"></i></span>
+						@endif
 					</p>
 					<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
 					<div class="elements-list clearfix">
 						<span class="price"><del>{{$product->price.$currency}}</del> {{$product->reductedPrice.$currency}}</span>
 						@if($cart->contains($product))
-							<a href="{{route('purchases.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
+							<a href="{{route('cart.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
 								<i class="fa fa-lg fa-cart-plus"></i>
 								  &nbsp{{trans('general.already-in-cart')}}
 							</a>

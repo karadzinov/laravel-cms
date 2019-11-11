@@ -142,7 +142,7 @@
 							<!-- buttons -->
 							<div class="shop-item-buttons text-center">
 								@if($cart->contains($product))
-									<a href="{{route('purchases.cart')}}" class="pull-right btn btn-light btn-animated">
+									<a href="{{route('cart.cart')}}" class="pull-right btn btn-light btn-animated">
 										<i class="fa fa-lg fa-shopping-cart"></i>
 										  &nbsp{{trans('general.already-in-cart')}}
 									</a>
@@ -192,7 +192,7 @@
 				$.ajax({
 
 				   type:'POST',
-				   url:'{{route('purchases.addToCart')}}',
+				   url:'{{route('cart.addToCart')}}',
 				   data:{
 				   		product_id
 				   },

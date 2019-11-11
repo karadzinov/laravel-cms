@@ -47,7 +47,12 @@ class Product extends Model
 
     public function carts(){
         
-        return $this->belongsToMany(User::class, 'product_user', 'product_id', 'user_id');
+        return $this->belongsToMany(User::class, 'carts', 'product_id', 'user_id');
+    }
+
+    public function wishlists(){
+        
+        return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id');
     }
 
     public function getMediumAttribute(){

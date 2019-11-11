@@ -80,7 +80,7 @@
 
 							<!-- quick cart footer -->
 							<div class="quick-cart-footer clearfix">
-								<a href="{{route('purchases.cart')}}" class="btn btn-primary btn-sm float-right uppercase">{{trans('general.navigation.view-cart')}}</a>
+								<a href="{{route('cart.cart')}}" class="btn btn-primary btn-sm float-right uppercase">{{trans('general.navigation.view-cart')}}</a>
 								<span class="float-left"><strong>{{trans('general.total')}}:</strong> {{$cart->totalPrice}}</span>
 							</div>
 							<!-- /quick cart footer -->

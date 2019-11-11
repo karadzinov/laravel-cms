@@ -22,7 +22,7 @@
 					<div class="elements-list clearfix">
 						<span class="price"><del>{{$product->price.$currency}}</del> {{$product->reductedPrice.$currency}}</span>
 						@if($cart->contains($product))
-							<a href="{{route('purchases.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
+							<a href="{{route('cart.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
 								<i class="fa fa-lg fa-cart-plus"></i>
 								  &nbsp{{trans('general.already-in-cart')}}
 							</a>

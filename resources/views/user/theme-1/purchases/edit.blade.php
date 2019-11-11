@@ -70,7 +70,7 @@
 						@include($path.'partials/purchases/purchase-informations')
 						
 						<div class="text-right">	
-							<a href="{{route('purchases.cart')}}" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> {{trans('general.back-to-cart')}}</a>
+							<a href="{{route('cart.cart')}}" class="btn btn-group btn-default"><i class="icon-left-open-big"></i> {{trans('general.back-to-cart')}}</a>
 							<button type="submit" class="btn btn-group btn-default">{{trans('general.next-step')}} <i class="icon-right-open-big"></i></button>
 						</div>
 					</form>
