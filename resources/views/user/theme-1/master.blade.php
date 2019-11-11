@@ -9,22 +9,6 @@
 		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
-
-		<style>
-			.flash-alerts{
-				position: absolute;
-				right: 0;
-				max-width: 300px;
-				z-index: 100;
-				bottom: 100px;
-			}
-			.my-alert{
-				margin:0;
-			}
-			.page-wrapper{
-				min-height: 100vh;
-			}
-		</style>
 	</head>
 
 	<!-- body classes:  -->
@@ -51,19 +35,6 @@
 		@foreach($scripts as $script)
 			{!!$script ->code!!}
 		@endforeach
-
-		<script>
-			function flashMessage(type="warning", message){
-
-				message = `
-				<div class="alert alert-${type} flash-alerts" role="alert">
-					${message}
-				</div>`;
-				$('body').prepend(message);
-				setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-			}
-		</script>
-
 		@yield('optionalScripts')
 	</body>
 </html>

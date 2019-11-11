@@ -1,4 +1,3 @@
-
 .logobox img {
 	max-width: 250px;
 	margin: 0 auto;
@@ -464,6 +463,21 @@ footer .overlay-container{
   background-color: #444444;
   border-color: #444444;
   color: #fff;
+}
+
+.flash-alerts{
+  max-width: 300px;
+  position: fixed;
+  z-index: 1001;
+  bottom: 0;
+  right: 0;
+}
+
+.my-alert{
+  margin:0;
+}
+.page-wrapper{
+  min-height: 100vh;
 }
 
 @media only screen and (max-width: 600px) {

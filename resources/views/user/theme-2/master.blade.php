@@ -6,20 +6,6 @@
 		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
-		<style>
-			.social-whatsapp:hover { background-color: #00E676 !important; }
-			.social-whatsapp { background-color: #3B5998; }
-			.my-alert{
-				position: absolute;
-				z-index: 1001
-			}
-			body.grain-grey #header li.quick-cart .quick-cart-box{
-				background: #f1f2f7
-			}
-			#header.translucent li.quick-cart .quick-cart-box:hover{
-				background: #f1f2f7
-			}
-		</style>
 	</head>
 	<!--
 		AVAILABLE BODY CLASSES:
@@ -73,19 +59,6 @@
 		@foreach($scripts as $script)
 			{!!$script ->code!!}
 		@endforeach
-
-		<script>
-			function flashMessage(type="warning", message){
-
-				message = `
-				<div class="alert alert-${type} flash-alerts" role="alert">
-					${message}
-				</div>`;
-				$('body').prepend(message);
-				setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-			}
-		</script>
-
 		@yield('optionalScripts')
 	</body>
 </html>

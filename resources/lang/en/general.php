@@ -161,6 +161,7 @@ array (
   'thank-you'         => 'Thank You',
   'continue-shopping' => 'Continue Shopping',
   'add-to-cart'       => 'Add To Cart',
+  'empty-cart'        => 'Your cart is empty.',
   'buy'               => 'Buy Now',
   'already-in-cart'   => 'Already Added To Your Cart',
   'added-to-cart'     => 'Added To Cart',
