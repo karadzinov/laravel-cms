@@ -189,7 +189,14 @@
 									Profile
 								</a>
 								<ul class="dropdown-menu">
-									<!-- BLOG -->
+									<li>
+										<h4>
+											<a href="{{route('wishlist.index')}}">
+												<i class="fa fa-heart"></i> 
+												{{trans('general.my-wishlist')}}
+											</a>
+										</h4>
+									</li>
 									<li>
 										<h4>
 											<a href="{{route('purchases.index')}}">

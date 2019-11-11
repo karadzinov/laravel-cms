@@ -10,7 +10,7 @@ class WishlistsController extends Controller
 
 	public function index(){
 		$user = User::findOrFail(auth()->user()->id);
-		$wishlist = $user->wishlist()->get();
+		$wishlist = $user->wishlist()->paginate(20);
 		$cart = $user->cart()->get();
 		$currency = Currency::symbol();
 

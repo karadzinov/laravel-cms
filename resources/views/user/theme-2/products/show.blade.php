@@ -66,8 +66,11 @@
 
 					<!-- buttons -->
 					<div class="float-right">
-						<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-						<a class="btn btn-light add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
+						@if(auth()->user()->wishlist->contains($product))
+							<a href="javascript:void(0)" class="btn btn-light wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist p-0"></i></a>
+						@else
+							<a href="javascript:void(0)" class="btn btn-light wishlist-button add-to-wishlist" data-product="{{$product->id}}" title="{{trans('general.add-to-wishlist')}}"><i class="fa fa-heart-o p-0"></i></a>
+						@endif
 					</div>
 					<!-- /buttons -->
 

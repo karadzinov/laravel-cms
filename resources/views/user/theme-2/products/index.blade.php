@@ -103,15 +103,13 @@
 
 								<!-- hover buttons -->
 								<div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-									<a class="btn btn-light add-wishlist" href="#" data-item-id="3" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
+									@if($wishlist->contains($product))
+										<a href="javascript:void(0)" class="btn btn-light wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist p-0"></i></a>
+									@else
+										<a href="javascript:void(0)" class="btn btn-light wishlist-button add-to-wishlist" data-product="{{$product->id}}" title="{{trans('general.add-to-wishlist')}}"><i class="fa fa-heart-o p-0"></i></a>
+									@endif
 								</div>
 								<!-- /hover buttons -->
-								
-								<!-- countdown -->
-								<div class="shop-item-counter">
-									<div class="countdown" data-from="January 31, 2020 15:03:26" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
-								</div>
-								<!-- /countdown -->
 							</div>
 							
 							<div class="shop-item-summary text-center">
@@ -174,45 +172,3 @@
 	</div>
 </section>
 <!-- / -->
-
-
-@section('optionalScripts')
-	<script>
-		$(document).ready(function(){
-			
-			$('.add-to-cart').on('click', function(){
-				const product_id = $(this).data('product');
-				let element = $(this);
-
-				 $.ajaxSetup({
-			        headers: {
-			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-			        }
-			    });
-				$.ajax({
-
-				   type:'POST',
-				   url:'{{route('cart.addToCart')}}',
-				   data:{
-				   		product_id
-				   },
-				   success:function(response){
-				   	
-				   	if(response.status === "already-added"){
-				   		flashMessage("success", response.message);
-				   		return;
-				   	}
-				   	
-				   	flashMessage("success", response.message);
-				   	element.html("{{trans('general.added-to-cart')}} <i class='fa fa-check'></i>");
-				   },
-				   error:function(response){
-				   	
-				   		flashMessage("danger", response.message);
-				   }
-
-				});
-			});
-		});
-	</script>
-@endsection

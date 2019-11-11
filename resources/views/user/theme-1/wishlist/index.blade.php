@@ -57,7 +57,7 @@
 				</div>
 			@endforeach
 		@else
-			<p class="lead">{{trans('general.no-results')}}</p>
+			<p class="lead">{{trans('general.empty-wishlist')}}</p>
 		@endif
 	</div>
 @endsection

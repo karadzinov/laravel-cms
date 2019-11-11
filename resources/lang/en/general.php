@@ -164,6 +164,7 @@ array (
   'add-to-wishlist'   => 'Add To Wishlist',
   'remove-from-wishlist'=> 'Remove From Wishlist',
   'empty-cart'        => 'Your cart is empty.',
+  'empty-wishlist'    => 'Empty Wishlist',
   'buy'               => 'Buy Now',
   'already-in-cart'   => 'Already Added To Your Cart',
   'already-added'     => 'Already Added',
