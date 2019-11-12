@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
 use Illuminate\Http\Request;
-use App\Models\{Category, Currency, Product, User};
+use App\Models\{Category, Currency, Product, Review, User};
 
 class ProductsController extends Controller
 {
-     public function index(Request $request){
+    public function index(Request $request){
         
         $products = $this->prepareProducts($request);
         $request = $request->all();
-        // dd($request);
+        
      	$currency = Currency::symbol();
         $categories = Category::whereHas('products')->get();
 
@@ -31,10 +30,12 @@ class ProductsController extends Controller
     }
 
     public function show($product){
+
      	$currency = Currency::symbol();
     	$product = Product::with('reviews', 'reviews.user')->find($product);
+        $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
         
-    	return view($this->path.'products/show', compact('product', 'currency'));
+    	return view($this->path.'products/show', compact('product', 'currency', 'canWriteReview'));
     }
 
     public function prepareProducts(Request $request){
@@ -67,16 +68,68 @@ class ProductsController extends Controller
             'content' => 'required|max:1000',
             'rating' => 'required',
         ]);
-        // dd($request->all());
+        $userId = auth()->user()->id;
+        $product = Product::findOrFail($request->get('product_id'));
+
+        if($product->reviews()->pluck('user_id')->contains($userId)){
+            return redirect()->back()->with(['error'=>trans('general.already-wrote-review')]);
+        }
+
         $review = new Review();
-        $review->user_id = auth()->user()->id;
-        $review->product_id = $request->get('product_id');
+        $review->user_id = $userId;
+        $review->product_id = $product->id;
         $review->content = $request->get('content');
         $review->rating = $request->get('rating');
         $review->save();
-// dd($review);
+
         return redirect()
                 ->route('products.show', ["id"=>$request->get('product_id')])
                 ->with('success', trans('general.successfully-added-review'));  
+    }
+
+    public function myReviews(){
+
+        $user = User::with('reviews', 'reviews.product')->findOrFail(auth()->user()->id);
+
+        return view($this->path.'reviews/index', compact('user'));
+    }
+
+    public function editReview($id){
+        
+        $review = Review::with('product')->findOrFail($id);
+        if($review->user_id != auth()->user()->id){
+            abort(403);
+        }
+
+        return view($this->path.'reviews/edit', compact('review'));
+    }
+
+    public function updatereview(Request $request, $id){
+        $validatedData = $request->validate([
+            'content' => 'required|max:1000',
+            'rating' => 'required',
+        ]);
+
+        $review = Review::findOrFail($id);
+        $review->content = $request->get('content');
+        $review->rating = $request->get('rating');
+        $review->save();
+
+        return redirect()->route('products.myReviews')
+                ->with(['success'=>trans('general.succcessfully-updated')]);
+    }
+
+    public function deleteReview($id){
+        
+        $review = Review::findOrFail($id);
+        if($review->user_id != auth()->user()->id){
+            abort(403);
+        }
+
+        $review->delete();
+
+        return redirect()->route('products.myReviews')
+                ->with(['success'=>trans('general.succcessfully-deleted')]);
+
     }
 }

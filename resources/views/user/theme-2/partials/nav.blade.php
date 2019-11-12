@@ -207,6 +207,14 @@
 									</li>
 									<li>
 										<h4>
+											<a href="{{route('products.myReviews')}}">
+												<i class="fa fa-pencil"></i> 
+												{{trans('general.my-reviews')}}
+											</a>
+										</h4>
+									</li>
+									<li>
+										<h4>
 											<a href="{{ route('logout') }}" onclick="event.preventDefault();
 		                                                         document.getElementById('logout-form').submit();">
 		                                        <i class="fa fa-sign-out"></i> 

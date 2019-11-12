@@ -149,8 +149,12 @@ Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
 //products
 Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
     Route::get('/', 'ProductsController@index')->name('index');
-    Route::get('/{id}', 'ProductsController@show')->name('show');
+    Route::get('/my-reviews', 'ProductsController@myReviews')->name('myReviews');
+    Route::get('/edit-review/{id}', 'ProductsController@editReview')->name('editReview');
+    Route::patch('/update-review/{id}', 'ProductsController@updateReview')->name('updateReview');
+    Route::delete('/delete-review/{id}', 'ProductsController@deleteReview')->name('deleteReview');
     Route::post('/review/store', 'ProductsController@storeReview')->name('storeReview');
+    Route::get('/{id}', 'ProductsController@show')->name('show');
 });
 
 Route::group(['as'=>'posts.'], function(){

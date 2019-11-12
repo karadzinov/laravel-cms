@@ -254,74 +254,58 @@
 						<!-- /REVIEW ITEM -->
 					@endforeach
 
-
-					<!-- REVIEW FORM -->
-					<h4 class="page-header mb-40">{{trans('general.add-review')}}</h4>
-					<form method="post" action="{{route('products.storeReview')}}" id="review-form">
-						@csrf
-						<div class="row mb-10">
-							
-							<div class="col-md-6 mb-10">
-								<!-- Name -->
-								<input type="text" name="name" id="name" class="form-control" value="{{auth()->user()->name}}" readonly="">
+					
+					@if($canWriteReview)
+						<!-- REVIEW FORM -->
+						<h4 class="page-header mb-40">{{trans('general.add-review')}}</h4>
+						<form method="post" action="{{route('products.storeReview')}}" id="review-form">
+							@csrf
+							<div class="row mb-10">
+								
+								<div class="col-md-6 mb-10">
+									<!-- Name -->
+									<input type="text" name="name" id="name" class="form-control" value="{{auth()->user()->name}}" readonly="">
+								</div>
+								
+								<div class="col-md-6">
+									<!-- Email -->
+									<input type="email" name="email" id="email" class="form-control" value="{{auth()->user()->email}}" readonly="">
+								</div>
+								
 							</div>
 							
-							<div class="col-md-6">
-								<!-- Email -->
-								<input type="email" name="email" id="email" class="form-control" value="{{auth()->user()->email}}" readonly="">
+							<!-- Comment -->
+							<div class="mb-30">
+								<textarea name="content" id="text" class="form-control" rows="6" placeholder="{{trans('general.content')}}" maxlength="1000">{{old('content')}}</textarea>
 							</div>
+							@if($errors->first('content'))
+								<div class="alert alert-danger">
+									{{$errors->first('content')}}
+								</div>
+							@endif
+
+							<!-- Stars -->
+							<div class="product-star-vote clearfix">
+
+								@for($i=1; $i<=5;$i++)
+									<label class="radio float-left">
+										<input type="radio" name="rating" value="{{$i}}" @if(old('rating')==$i) checked="true" @endif/>
+										<i></i> {{$i}} <span class="fa fa-star"></span>
+									</label>
+								@endfor
+							</div>
+							@if($errors->first('rating'))
+								<div class="alert alert-danger">
+									{{$errors->first('rating')}}
+								</div>
+							@endif
+							<input type="hidden" name="product_id" value="{{$product->id}}">
+							<!-- Send Button -->
+							<button type="submit" id="submit-review-form" class="btn btn-primary"><i class="fa fa-check"></i> {{trans('general.send-review')}}</button>
 							
-						</div>
-						
-						<!-- Comment -->
-						<div class="mb-30">
-							<textarea name="content" id="text" class="form-control" rows="6" placeholder="{{trans('general.content')}}" maxlength="1000"></textarea>
-						</div>
-						@if($errors->first('content'))
-							<div class="alert alert-danger">
-								{{$errors->first('content')}}
-							</div>
-						@endif
-
-						<!-- Stars -->
-						<div class="product-star-vote clearfix">
-
-							<label class="radio float-left">
-								<input type="radio" name="rating" value="1" />
-								<i></i> 1 {{trans('general.star')}}
-							</label>
-
-							<label class="radio float-left">
-								<input type="radio" name="rating" value="2" />
-								<i></i> 2 {{trans('general.stars')}}
-							</label>
-
-							<label class="radio float-left">
-								<input type="radio" name="rating" value="3" />
-								<i></i> 3 {{trans('general.stars')}}
-							</label>
-
-							<label class="radio float-left">
-								<input type="radio" name="rating" value="4" />
-								<i></i> 4 {{trans('general.stars')}}
-							</label>
-
-							<label class="radio float-left">
-								<input type="radio" name="rating" value="5" />
-								<i></i> 5 {{trans('general.stars')}}
-							</label>
-						</div>
-						@if($errors->first('rating'))
-							<div class="alert alert-danger">
-								{{$errors->first('rating')}}
-							</div>
-						@endif
-						<input type="hidden" name="product_id" value="{{$product->id}}">
-						<!-- Send Button -->
-						<button type="submit" id="submit-review-form" class="btn btn-primary"><i class="fa fa-check"></i> {{trans('general.send-review')}}</button>
-						
-					</form>
-					<!-- /REVIEW FORM -->
+						</form>
+						<!-- /REVIEW FORM -->
+					@endif
 
 				</div>
 			</div>
