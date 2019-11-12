@@ -146,6 +146,10 @@
 				   }
 
 				});
+
+				setTimeout(function(){
+					$('.my-alert').fadeOut('slow');
+				}, 4000);
 			});
 		</script>
 	</body>

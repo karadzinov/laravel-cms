@@ -12,6 +12,10 @@
 			flex-direction: column;
 			justify-content: space-between;
 		}
+		.radio-rating{
+			display: inline;
+			margin-right: 70px;
+		}
 	</style>
 @endsection
 @section('content')
@@ -78,11 +82,7 @@
 							<hr class="mb-10">
 							<div class="clearfix mb-20">
 								<span>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star text-default"></i>
-									<i class="fa fa-star"></i>
+									@include($path.'partials/products/rating', ['count'=>$product->rating])
 								</span>
 								@if(auth()->user()->wishlist->contains($product))
 									<span class="wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist"></i></span>
@@ -179,12 +179,12 @@
 				<div class="col-md-8">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs style-4" role="tablist">
-						<li class="active"><a href="#h2tab2" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Specifications</a></li>
-						<li><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-star pr-5"></i>(3) Reviews</a></li>
+						{{-- <li class="active"><a href="#h2tab2" role="tab" data-toggle="tab"><i class="fa fa-files-o pr-5"></i>Specifications</a></li> --}}
+						<li class="active"><a href="#h2tab3" role="tab" data-toggle="tab"><i class="fa fa-star pr-5"></i>({{$product->reviews->count()}}) {{trans('general.reviews')}}</a></li>
 					</ul>
 					<!-- Tab panes -->
 					<div class="tab-content padding-top-clear padding-bottom-clear">
-						<div class="tab-pane fade in active" id="h2tab2">
+						{{-- <div class="tab-pane fade in active" id="h2tab2">
 							<h4 class="space-top">Specifications</h4>
 							<hr>
 							<dl class="dl-horizontal">
@@ -205,99 +205,83 @@
 								<dd>Rem nostrum sit magnam debitis quidem perspiciatis fuga fugit.</dd>
 							</dl>
 							<hr>
-						</div>
-						<div class="tab-pane fade" id="h2tab3">
+						</div> --}}
+						<div class="tab-pane fade in active" id="h2tab3">
 							<!-- comments start -->
 							<div class="comments margin-clear space-top">
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Amazing!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 12:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
+								@foreach($product->reviews as $review)
+									<!-- comment start -->
+									<div class="comment clearfix">
+										<div class="comment-avatar">
+											<img class="img-circle" src="{{$review->user->image}}" alt="avatar">
+										</div>
+										<header>
+											<h3>{{$review->user->name}}</h3>
+											<div class="comment-meta"> 
+												@include($path.'partials/products/rating', ['count'=>$review->rating])
+											 | {{$review->updated_at->format('d m Y, H:i')}}</div>
+										</header>
+										<div class="comment-content">
+											<div class="comment-body clearfix">
+												<p>{{$review->content}}</p>
+											</div>
 										</div>
 									</div>
-								</div>
-								<!-- comment end -->
-
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Really Nice!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 10:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-										</div>
-									</div>
-								</div>
-								<!-- comment end -->
-
-								<!-- comment start -->
-								<div class="comment clearfix">
-									<div class="comment-avatar">
-										<img class="img-circle" src="images/avatar.jpg" alt="avatar">
-									</div>
-									<header>
-										<h3>Worth to Buy!</h3>
-										<div class="comment-meta"> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star text-default"></i> <i class="fa fa-star"></i> | Today, 09:31</div>
-									</header>
-									<div class="comment-content">
-										<div class="comment-body clearfix">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-											<a href="blog-post.html" class="btn-sm-link link-dark pull-right"><i class="fa fa-reply"></i> Reply</a>
-										</div>
-									</div>
-								</div>
-								<!-- comment end -->
+									<!-- comment end -->
+								@endforeach
 							</div>
 							<!-- comments end -->
+							@if($canWriteReview)
+								<!-- comments form start -->
+								<div class="comments-form">
+									<h2 class="title">{{trans('general.add-review')}}</h2>
+									<form action="{{route('products.storeReview')}}" method="POST" id="review-form">
+										@csrf
+										<div class="form-group has-feedback">
+											<label for="name4">{{trans('general.name')}}</label>
+											<input type="text" name="name" id="name" class="form-control" value="{{auth()->user()->name}}" readonly="">
+											<i class="fa fa-user form-control-feedback"></i>
+										</div>
+										<div class="form-group has-feedback">
+											<label for="email">{{trans('general.email')}}</label>
+											<input type="email" name="email" id="email" class="form-control" value="{{auth()->user()->email}}" readonly="">
+											<i class="icon-mail form-control-feedback"></i>
+										</div>
+										<div class="form-group">
+											<!-- Stars -->
+											<div class="product-star-vote clearfix">
 
-							<!-- comments form start -->
-							<div class="comments-form">
-								<h2 class="title">Add your Review</h2>
-								<form role="form" id="comment-form">
-									<div class="form-group has-feedback">
-										<label for="name4">Name</label>
-										<input type="text" class="form-control" id="name4" placeholder="" name="name4" required>
-										<i class="fa fa-user form-control-feedback"></i>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="subject4">Subject</label>
-										<input type="text" class="form-control" id="subject4" placeholder="" name="subject4" required>
-										<i class="fa fa-pencil form-control-feedback"></i>
-									</div>
-									<div class="form-group">
-										<label>Rating</label>
-										<select class="form-control" id="review">
-											<option value="five">5</option>
-											<option value="four">4</option>
-											<option value="three">3</option>
-											<option value="two">2</option>
-											<option value="one">1</option>
-										</select>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="message4">Message</label>
-										<textarea class="form-control" rows="8" id="message4" placeholder="" name="message4" required></textarea>
-										<i class="fa fa-envelope-o form-control-feedback"></i>
-									</div>
-									<input type="submit" value="Submit" class="btn btn-default">
-								</form>
-							</div>
-							<!-- comments form end -->
+												<label for="rating">{{trans('general.your-note')}}</label><br>
+												@for($i=1; $i<=5;$i++)
+													<label class="radio-rating">
+														<input type="radio" name="rating" value="{{$i}}" @if(old('rating')==$i) checked="true" @endif/>
+														<i></i> {{$i}} <span class="fa fa-star"></span>
+													</label>
+												@endfor
+											</div>
+											@if($errors->first('rating'))
+												<div class="alert alert-danger">
+													{{$errors->first('rating')}}
+												</div>
+											@endif
+										</div>
+										<div class="form-group has-feedback">
+											<label for="content">{{trans('general.message')}}</label>
+											<textarea name="content" id="text" class="form-control" rows="6" placeholder="{{trans('general.content')}}" maxlength="1000">{{old('content')}}</textarea>
+											<i class="fa fa-envelope-o form-control-feedback"></i>
+										</div>
+										@if($errors->first('content'))
+											<div class="alert alert-danger">
+												{{$errors->first('content')}}
+											</div>
+										@endif
+										<input type="hidden" name="product_id" value="{{$product->id}}">
+
+										<button type="submit" id="submit-review-form" class="btn btn-default"><i class="fa fa-check"></i> {{trans('general.send-review')}}</button>
+									</form>
+								</div>
+								<!-- comments form end -->
+							@endif
 						</div>
 					</div>
 				</div>

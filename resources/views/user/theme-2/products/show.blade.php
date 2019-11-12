@@ -239,7 +239,7 @@
 							<div class="media-body">
 								<h4 class="media-heading fs-14">
 									{{$review->user->name}} &ndash; 
-									<span class="text-muted">{{$review->created_at->format('d/m/Y, H:i')}}</span> &ndash;
+									<span class="text-muted">{{$review->updated_at->format('d/m/Y, H:i')}}</span> &ndash;
 									<span class="fs-14 text-muted"><!-- stars -->
 										@include($path.'partials/products/rating')
 									</span>

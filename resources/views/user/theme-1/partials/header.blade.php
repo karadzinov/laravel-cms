@@ -72,6 +72,11 @@
 										</a>
 									</li>
 									<li>
+										<a class="btn btn-default" href="{{route('products.myReviews')}}">
+											<i class="fa fa-pencil"></i> {{trans('general.my-reviews')}}
+										</a>
+									</li>
+									<li>
 										<a class="btn btn-default" href="{{ route('logout') }}" onclick="event.preventDefault();
 	                                                         document.getElementById('logout-form').submit();">
 	                                        <i class="fa fa-sign-out"></i> {{trans('general.header.logout')}}

@@ -153,7 +153,7 @@ Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
     Route::get('/edit-review/{id}', 'ProductsController@editReview')->name('editReview');
     Route::patch('/update-review/{id}', 'ProductsController@updateReview')->name('updateReview');
     Route::delete('/delete-review/{id}', 'ProductsController@deleteReview')->name('deleteReview');
-    Route::post('/review/store', 'ProductsController@storeReview')->name('storeReview');
+    Route::post('/store-review', 'ProductsController@storeReview')->name('storeReview');
     Route::get('/{id}', 'ProductsController@show')->name('show');
 });
 

@@ -15,7 +15,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>{{trans('general.error-occured')}}:</h4>
         <ul>
-           <li>{{ session()->get('error') }}</li>
+           <li>{!! session()->get('error') !!}</li>
         </ul>
     </div>
 @endif

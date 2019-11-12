@@ -11,11 +11,7 @@
 				<div class="body">
 					<h3 class="margin-clear"><a href="{{$product->showRoute}}">{{$product->name}}</a></h3>
 					<p>
-						<i class="fa fa-star text-default"></i>
-						<i class="fa fa-star text-default"></i>
-						<i class="fa fa-star text-default"></i>
-						<i class="fa fa-star text-default"></i>
-						<i class="fa fa-star text-default"></i>
+						@include($path.'partials/products/rating', ['count'=>$product->rating])
 						@if($wishlist->contains($product))
 							<span class="wishlist-button remove-from-wishlist" data-product="{{$product->id}}" title="{{trans('general.added-to-wishlist')}}"><i class="fa fa-heart in-wishlist"></i></span>
 						@else
