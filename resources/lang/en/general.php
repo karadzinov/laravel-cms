@@ -9,6 +9,7 @@ array (
   'password'    => 'Password',
   'subject'     => 'Subject',
   'message'     => 'Message',
+  'content'     => 'Content',
   'submit'      => 'Submit',
   'follow_us'   => 'Follow Us',
   'find_us'     => 'Find Us',
@@ -199,7 +200,8 @@ array (
   'my-purchases'      => 'My Purchases',
   'client'            => 'Client',
   'company'           => 'Company',
-  'description'        => 'Description',
+  'description'       => 'Description',
+  'reviews'           => 'Reviews',
   'products'          => 'Products',
   'comments-po'       => 'Comments/PO',
   'invoice-questions' => '<p class="small">If you have any questions concerning this invoice, contact <strong>:name</strong>, tel: <strong>:phone</strong>, email: <strong>:email</strong> <br> Thank you for your business!</p>',
@@ -224,5 +226,10 @@ array (
   'profile'           =>  'Profile',
   'same-shipping'     => 'My Shipping information is the same as my Billing information.',
   'same-shipping-address'=> 'Shipping address is the same as client\'s address provided in the billing form.',
+  'add-review'        => 'Add a Review',
+  'star'              => 'Star',
+  'stars'             => 'Stars',
+  'send-review'       => 'Send Review',
+  'successfully-added-review' => 'Successfully Added Review',
 )
 ;

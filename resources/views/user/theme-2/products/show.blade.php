@@ -174,7 +174,7 @@
 
 
 					<!-- rating -->
-					<div class="rating rating-4 fs-13 mt-10 fw-100"><!-- rating-0 ... rating-5 --></div>
+					<div class="rating rating-{{$product->rating}} fs-13 mt-10 fw-100"><!-- rating-0 ... rating-5 --></div>
 					<!-- /rating -->
 
 				</div>
@@ -215,7 +215,7 @@
 
 			<ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
 				<li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">{{trans('general.description')}}</a></li>
-				<li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+				<li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">{{trans('general.reviews')}} ({{$product->reviews->count()}})</a></li>
 			</ul>
 
 
@@ -228,120 +228,97 @@
 				
 				<!-- REVIEWS -->
 				<div role="tabpanel" class="tab-pane fade" id="reviews">
-					<!-- REVIEW ITEM -->
-					<div class="block mb-60">
+					@foreach($product->reviews as $review)
+						<!-- REVIEW ITEM -->
+						<div class="block mb-60">
 
-						<span class="user-avatar"><!-- user-avatar -->
-							<img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
-						</span>
+							<span class="user-avatar"><!-- user-avatar -->
+								<img class="float-left media-object" src="{{$review->user->image}}" width="64" height="64" alt="">
+							</span>
 
-						<div class="media-body">
-							<h4 class="media-heading fs-14">
-								John Doe &ndash; 
-								<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
-								<span class="fs-14 text-muted"><!-- stars -->
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</span>
-							</h4>
-							
-							<p>
-								Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
-							</p>
+							<div class="media-body">
+								<h4 class="media-heading fs-14">
+									{{$review->user->name}} &ndash; 
+									<span class="text-muted">{{$review->created_at->format('d/m/Y, H:i')}}</span> &ndash;
+									<span class="fs-14 text-muted"><!-- stars -->
+										@include($path.'partials/products/rating')
+									</span>
+								</h4>
+								
+								<p>
+									{{$review->content}}
+								</p>
 
+							</div>
 						</div>
-
-					</div>
-					<!-- /REVIEW ITEM -->
-
-					<!-- REVIEW ITEM -->
-					<div class="block mb-60">
-
-						<span class="user-avatar"><!-- user-avatar -->
-							<img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
-						</span>
-
-						<div class="media-body">
-							<h4 class="media-heading fs-14">
-								John Doe &ndash; 
-								<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
-								<span class="fs-14 text-muted"><!-- stars -->
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-								</span>
-							</h4>
-							
-							<p>
-								Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
-							</p>
-
-						</div>
-
-					</div>
-					<!-- /REVIEW ITEM -->
+						<!-- /REVIEW ITEM -->
+					@endforeach
 
 
 					<!-- REVIEW FORM -->
-					<h4 class="page-header mb-40">ADD A REVIEW</h4>
-					<form method="post" action="#" id="form">
-						
+					<h4 class="page-header mb-40">{{trans('general.add-review')}}</h4>
+					<form method="post" action="{{route('products.storeReview')}}" id="review-form">
+						@csrf
 						<div class="row mb-10">
 							
 							<div class="col-md-6 mb-10">
 								<!-- Name -->
-								<input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
+								<input type="text" name="name" id="name" class="form-control" value="{{auth()->user()->name}}" readonly="">
 							</div>
 							
 							<div class="col-md-6">
 								<!-- Email -->
-								<input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
+								<input type="email" name="email" id="email" class="form-control" value="{{auth()->user()->email}}" readonly="">
 							</div>
 							
 						</div>
 						
 						<!-- Comment -->
 						<div class="mb-30">
-							<textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
+							<textarea name="content" id="text" class="form-control" rows="6" placeholder="{{trans('general.content')}}" maxlength="1000"></textarea>
 						</div>
+						@if($errors->first('content'))
+							<div class="alert alert-danger">
+								{{$errors->first('content')}}
+							</div>
+						@endif
 
 						<!-- Stars -->
 						<div class="product-star-vote clearfix">
 
 							<label class="radio float-left">
-								<input type="radio" name="product-review-vote" value="1" />
-								<i></i> 1 Star
+								<input type="radio" name="rating" value="1" />
+								<i></i> 1 {{trans('general.star')}}
 							</label>
 
 							<label class="radio float-left">
-								<input type="radio" name="product-review-vote" value="2" />
-								<i></i> 2 Stars
+								<input type="radio" name="rating" value="2" />
+								<i></i> 2 {{trans('general.stars')}}
 							</label>
 
 							<label class="radio float-left">
-								<input type="radio" name="product-review-vote" value="3" />
-								<i></i> 3 Stars
+								<input type="radio" name="rating" value="3" />
+								<i></i> 3 {{trans('general.stars')}}
 							</label>
 
 							<label class="radio float-left">
-								<input type="radio" name="product-review-vote" value="4" />
-								<i></i> 4 Stars
+								<input type="radio" name="rating" value="4" />
+								<i></i> 4 {{trans('general.stars')}}
 							</label>
 
 							<label class="radio float-left">
-								<input type="radio" name="product-review-vote" value="5" />
-								<i></i> 5 Stars
+								<input type="radio" name="rating" value="5" />
+								<i></i> 5 {{trans('general.stars')}}
 							</label>
-
 						</div>
-
+						@if($errors->first('rating'))
+							<div class="alert alert-danger">
+								{{$errors->first('rating')}}
+							</div>
+						@endif
+						<input type="hidden" name="product_id" value="{{$product->id}}">
 						<!-- Send Button -->
-						<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+						<button type="submit" id="submit-review-form" class="btn btn-primary"><i class="fa fa-check"></i> {{trans('general.send-review')}}</button>
 						
 					</form>
 					<!-- /REVIEW FORM -->
@@ -351,290 +328,6 @@
 
 
 			<hr class="mt-80 mb-80" />
-
-
-			<!-- RELATED -->
-			{{-- <h2 class="owl-featured"><strong>Related</strong> products:</h2>
-			<div class="owl-carousel featured m-0 owl-padding-10" data-plugin-options='{"singleItem": false, "items": "5", "stopOnHover":false, "autoPlay":4500, "autoHeight": false, "navigation": true, "pagination": false}'>
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p13.jpg')}}" alt="shop first image" />
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p14.jpg')}}" alt="shop hover image" />
-						</a>
-						<!-- /product image(s) -->
-
-						<!-- product more info -->
-						<div class="shop-item-info">
-							<span class="badge badge-success">NEW</span>
-							<span class="badge badge-danger">SALE</span>
-						</div>
-						<!-- /product more info -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Cotton 100% - Pink Shirt</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							<span class="line-through">$98.00</span>
-							$78.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<!-- CAROUSEL -->
-							<div class="owl-carousel owl-padding-0 m-0" data-plugin-options='{"singleItem": true, "autoPlay": 3000, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
-								<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p5.jpg')}}" alt="">
-								<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p1.jpg')}}" alt="">
-							</div>
-							<!-- /CAROUSEL -->
-						</a>
-						<!-- /product image(s) -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Pink Dress 100% Cotton</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							$44.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p2.jpg')}}" alt="shop first image" />
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p12.jpg')}}" alt="shop hover image" />
-						</a>
-						<!-- /product image(s) -->
-
-						<!-- product more info -->
-						<div class="shop-item-info">
-							<span class="badge badge-success">NEW</span>
-							<span class="badge badge-danger">SALE</span>
-						</div>
-						<!-- /product more info -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Black Fashion Hat</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							<span class="line-through">$77.00</span>
-							$65.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p8.jpg')}}" alt="shop first image" />
-						</a>
-						<!-- /product image(s) -->
-
-						<!-- countdown -->
-						<div class="shop-item-counter">
-							<div class="countdown" data-from="December 31, 2020 08:22:01" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
-						</div>
-						<!-- /countdown -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Beach Black Lady Suit</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							$56.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p7.jpg')}}" alt="shop first image" />
-						</a>
-						<!-- /product image(s) -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Town Dress - Black</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							$154.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p6.jpg')}}" alt="shop first image" />
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p14.jpg')}}" alt="shop hover image" />
-						</a>
-						<!-- /product image(s) -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Chick Lady Fashion</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							$167.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-				<!-- item -->
-				<div class="shop-item m-0">
-
-					<div class="thumbnail">
-						<!-- product image(s) -->
-						<a class="shop-item-image" href="shop-single-left.html">
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p11.jpg')}}" alt="shop hover image" />
-							<img class="img-fluid" src="{{asset('assets/theme-1/demo_files/images/shop/products/300x450/p3.jpg')}}" alt="shop first image" />
-						</a>
-						<!-- /product image(s) -->
-					</div>
-					
-					<div class="shop-item-summary text-center">
-						<h2>Black Long Lady Shirt</h2>
-						
-						<!-- rating -->
-						<div class="shop-item-rating-line">
-							<div class="rating rating-0 fs-13"><!-- rating-0 ... rating-5 --></div>
-						</div>
-						<!-- /rating -->
-
-						<!-- price -->
-						<div class="shop-item-price">
-							$128.00
-						</div>
-						<!-- /price -->
-					</div>
-
-						<!-- buttons -->
-						<div class="shop-item-buttons text-center">
-							<a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-						</div>
-						<!-- /buttons -->
-				</div>
-				<!-- /item -->
-
-			</div>
-			<!-- /RELATED --> --}}
 
 		</div>
 	</section>
@@ -684,6 +377,7 @@
 
 				});
 			});
+
 		});
 	</script>
 @endsection

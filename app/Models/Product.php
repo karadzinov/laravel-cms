@@ -64,4 +64,18 @@ class Product extends Model
         
         return $this->getThumbnailPathAttribute() . $this->main_image;
     }
+
+    public function reviews(){
+        
+        return $this->hasMany(Review::class, 'product_id', 'id');
+    }
+
+    public function getRatingAttribute(){
+        
+        $ratings = $this->reviews()->pluck('rating')->toArray();
+
+        if(!count($ratings)) return 0;
+
+        return round(array_sum($ratings)/count($ratings));
+    }
 }

@@ -29582,8 +29582,15 @@ i.ico-hover:hover {
 .social-whatsapp:hover { background-color: #00E676 !important; }
 .social-whatsapp { background-color: #3B5998; }
 .my-alert{
-	position: absolute;
-	z-index: 1001
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	-webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -ms-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+     opacity: 1;
 }
 body.grain-grey #header li.quick-cart .quick-cart-box{
 	background: #f1f2f7

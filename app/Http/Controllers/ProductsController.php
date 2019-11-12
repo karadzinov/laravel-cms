@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Category, Currency, Product, User};
+use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Models\{Category, Currency, Product, User};
 
 class ProductsController extends Controller
 {
@@ -31,14 +32,14 @@ class ProductsController extends Controller
 
     public function show($product){
      	$currency = Currency::symbol();
-    	$product = Product::find($product);
+    	$product = Product::with('reviews', 'reviews.user')->find($product);
         
     	return view($this->path.'products/show', compact('product', 'currency'));
     }
 
     public function prepareProducts(Request $request){
         
-        $query = Product::where('active', '=', 1);
+        $query = Product::where('active', '=', 1)->with('reviews', 'reviews.user');
 
         if($request->get('sort_by')){
             $sort = $request->get('sort_by');
@@ -58,5 +59,24 @@ class ProductsController extends Controller
 
         return $query->paginate(20);
         
+    }
+
+    public function storeReview(Request $request){
+        
+        $validatedData = $request->validate([
+            'content' => 'required|max:1000',
+            'rating' => 'required',
+        ]);
+        // dd($request->all());
+        $review = new Review();
+        $review->user_id = auth()->user()->id;
+        $review->product_id = $request->get('product_id');
+        $review->content = $request->get('content');
+        $review->rating = $request->get('rating');
+        $review->save();
+// dd($review);
+        return redirect()
+                ->route('products.show', ["id"=>$request->get('product_id')])
+                ->with('success', trans('general.successfully-added-review'));  
     }
 }

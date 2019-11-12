@@ -53,7 +53,7 @@
 									<h2>{{$product->name}}</h2>
 									
 									<!-- rating -->
-									<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+									<div class="rating rating-{{$product->rating}} fs-13"><!-- rating-0 ... rating-5 --></div>
 									<!-- /rating -->
 									<br>
 									<p><!-- product short description -->

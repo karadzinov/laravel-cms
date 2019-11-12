@@ -173,4 +173,9 @@ class User extends Authenticatable
         
         return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
+
+    public function reviews(){
+        
+        return $this->hasMany(Review::class, 'user_id', 'id');
+    }
 }

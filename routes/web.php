@@ -150,6 +150,7 @@ Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
 Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
     Route::get('/', 'ProductsController@index')->name('index');
     Route::get('/{id}', 'ProductsController@show')->name('show');
+    Route::post('/review/store', 'ProductsController@storeReview')->name('storeReview');
 });
 
 Route::group(['as'=>'posts.'], function(){

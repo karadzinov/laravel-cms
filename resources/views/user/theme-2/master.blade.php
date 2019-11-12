@@ -14,6 +14,12 @@
 			.in-wishlist{
 				color: #DC3545
 			}
+			.mt-100{
+				margin-top: 100px !important;
+			}
+			.half-width{
+				max-width: 50%;
+			}
 		</style>
 	</head>
 	<!--
@@ -171,6 +177,9 @@
 
 					});
 				});
+				setTimeout(function(){
+						$('.my-alert').fadeOut('slow');
+					}, 4000);
 			});
 		</script>
 	</body>
