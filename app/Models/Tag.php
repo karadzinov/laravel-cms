@@ -17,6 +17,11 @@ class Tag extends Model
     	return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
     }
 
+    public function products(){
+        
+        return $this->belongsToMany(Product::class, 'product_tag', 'tag_id', 'product_id');
+    }
+    
     public function getShowRouteAttribute(){
     	
     	return route('tagPosts', [$this->slug]);

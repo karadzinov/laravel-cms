@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{Category, Currency, Product};
+use App\Models\{Category, Currency, Product, Tag};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Products\{CreateProductRequest, UpdateProductRequest};
 
@@ -24,8 +24,9 @@ class ProductsController extends Controller
     	
         $categories = Category::pluck('name', 'id')->toArray();
         $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+        $tags = Tag::pluck('name', 'id')->toArray();
 
-    	return view('admin/products/create', compact('categories', 'currency'));
+    	return view('admin/products/create', compact('categories', 'currency', 'tags'));
     }
 	
     public function store(CreateProductRequest $request){

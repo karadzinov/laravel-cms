@@ -78,4 +78,9 @@ class Product extends Model
 
         return round(array_sum($ratings)/count($ratings));
     }
+
+    public function tags(){
+        
+        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
+    }
 }

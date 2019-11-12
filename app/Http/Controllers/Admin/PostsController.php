@@ -7,12 +7,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\HasTags;
 use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class PostsController extends Controller
 {
+    use HasTags;
     /**
      * Display a listing of the resource.
      *
@@ -80,32 +81,6 @@ class PostsController extends Controller
                 ->with('success', trans('posts.success.created'));
     }
 
-    public function updateTags($post, $tags){
-        
-        $alreadyExistingTags = Tag::all();
-        $postTags = $post->tags()->pluck('id')->toArray();
-        $difference = array_merge(array_diff($postTags, $tags), array_diff($tags, $postTags));
-        
-        foreach($difference as $differentTag){
-            if(in_array($differentTag, $postTags)){
-                $post->tags()->detach($differentTag);
-            }else{
-                $newTag = $alreadyExistingTags->find($differentTag);
-                if(!$newTag){
-                    $slug = Str::slug(strip_tags($differentTag));
-                    $newTag = Tag::create(['language'=>App::getLocale(), 'name'=>$differentTag, 'slug' => $slug]);
-                }
-
-                try {
-                    $post->tags()->attach($newTag->id);
-                } catch (Exception $e) {
-                   continue;
-                }
-            }
-        }
-
-        return;
-    }
     /**
      * Display the specified resource.
      *

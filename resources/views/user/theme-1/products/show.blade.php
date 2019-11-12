@@ -90,11 +90,7 @@
 									<span class="wishlist-button add-to-wishlist" data-product="{{$product->id}}"><i class="fa fa-heart-o" title="{{trans('general.add-to-wishlist')}}"></i></span>
 								@endif
 								</a>
-								<ul class="pl-20 pull-right social-links circle small clearfix margin-clear animated-effect-1">
-									<li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-									<li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-									<li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-								</ul>
+								@include($path.'/partials/share')
 							</div>
 							<div class="row grid-space-10">
 								<form role="form" class="clearfix" id="buy-now-form" action="{{route('purchases.buyNow')}}" method="GET">

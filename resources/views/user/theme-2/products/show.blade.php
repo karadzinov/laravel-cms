@@ -146,36 +146,17 @@
 
 					<hr />
 
-					<!-- Share -->
-					<div class="float-right">
-
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-							<i class="icon-facebook"></i>
-							<i class="icon-facebook"></i>
-						</a>
-
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-							<i class="icon-twitter"></i>
-							<i class="icon-twitter"></i>
-						</a>
-
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-							<i class="icon-gplus"></i>
-							<i class="icon-gplus"></i>
-						</a>
-
-						<a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-							<i class="icon-linkedin"></i>
-							<i class="icon-linkedin"></i>
-						</a>
-
-					</div>
-					<!-- /Share -->
-
-
 					<!-- rating -->
 					<div class="rating rating-{{$product->rating}} fs-13 mt-10 fw-100"><!-- rating-0 ... rating-5 --></div>
 					<!-- /rating -->
+					
+					<!-- Share -->
+					<div class="">
+
+						@include($path.'partials/share')
+
+					</div>
+					<!-- /Share -->
 
 				</div>
 				<!-- /ITEM DESC -->
