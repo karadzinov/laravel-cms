@@ -72,7 +72,7 @@
                                         {{$product->price . $currency}}
                                     </td>
                                     <td class="hidden-xs hidden-md">
-                                        {{$product->reduction}}%
+                                        {{$product->reduction ?? 0}}%
                                     </td>
                                     <td class="hidden-xs hidden-md">
                                         {{$product->reductedPrice . $currency}}

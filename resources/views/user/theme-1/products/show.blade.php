@@ -16,6 +16,14 @@
 			display: inline;
 			margin-right: 70px;
 		}
+
+		.stock-label{
+			color: white !important;
+			padding: 4px;
+			border-radius: 10px;
+			font-size: 15px;
+
+		}
 	</style>
 @endsection
 @section('content')
@@ -75,7 +83,14 @@
 							<!-- pills end -->
 						</div>
 						<div class="col-md-8 pv-30 product-details-container">
-							<h2>{{trans('general.description')}}</h2>
+							<h2>
+								{{trans('general.description')}} 
+								@if($product->quantity===0)
+									<span class="stock-label bg-danger pull-right"><i class="fa fa-remove"></i> {{trans('general.out-of-stock')}}</span>
+								@else
+									<span class="stock-label bg-success pull-right"><i class="fa fa-check"></i> {{trans('general.in-stock')}}</span>
+								@endif
+							</h2>
 							{{$product->short_description}}
 							<br><br>
 							{!!$product->description!!}

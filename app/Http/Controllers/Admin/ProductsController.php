@@ -115,7 +115,7 @@ class ProductsController extends UsesSlider
         $product->user_id = auth()->user()->id;
         $product->save();
 
-        $images = $this->updateImages($product, $request, $slug);
+        $images = $this->updateImages($product, $request, $product->slug);
 
         if($tags = $request->get('tags')){
             $this->updateTags($product, $tags);

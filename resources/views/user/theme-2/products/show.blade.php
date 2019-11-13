@@ -86,7 +86,7 @@
 					<hr />
 
 					<div class="clearfix mb-30">
-						@if(!$product->quantity)
+						@if($product->quantity===0)
 							<span class="float-right text-danger"><i class="fa fa-remove"></i> {{trans('general.out-of-stock')}}</span>
 						@else
 							<span class="float-right text-success"><i class="fa fa-check"></i> {{trans('general.in-stock')}}</span>
