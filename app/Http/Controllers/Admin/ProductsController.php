@@ -45,8 +45,12 @@ class ProductsController extends UsesSlider
 	
     public function store(CreateProductRequest $request){
     	$image = $this->updateImageIfNecessary($request);
+        $name = strip_tags($request->get('name'));
+        $slug = str_slug($name, '-');
+
     	$newProduct = new Product();
-        $newProduct->name = strip_tags($request->get('name'));
+        $newProduct->name = $name;
+        $newProduct->slug = $slug;
     	$newProduct->short_description = strip_tags($request->get('short_description'));
     	$newProduct->description = $request->get('description');
     	$newProduct->main_image = $image;
@@ -61,7 +65,7 @@ class ProductsController extends UsesSlider
     	$newProduct->user_id = auth()->user()->id;
     	$newProduct->save();
 
-        $images = $this->updateImages($newProduct, $request, $newProduct->name);
+        $images = $this->updateImages($newProduct, $request, $slug);
 
         if($tags = $request->get('tags')){
             $this->updateTags($newProduct, $tags);
@@ -88,8 +92,15 @@ class ProductsController extends UsesSlider
 
 	public function update(UpdateProductRequest $request, Product $product){
     	$image = $this->updateImageIfNecessary($request);
+        
+        $name = strip_tags($request->get('name'));
+        if($name !== $product->name){
+            $slug = str_slug($name, '-');
+            $product->name = $name;
+            $product->slug = $slug;
 
-        $product->name = strip_tags($request->get('name'));
+        }
+
         $product->short_description = strip_tags($request->get('short_description'));
         $product->description = $request->get('description');
         $image ? $product->main_image = $image : null;
@@ -104,7 +115,7 @@ class ProductsController extends UsesSlider
         $product->user_id = auth()->user()->id;
         $product->save();
 
-        $images = $this->updateImages($product, $request, $product->name);
+        $images = $this->updateImages($product, $request, $slug);
 
         if($tags = $request->get('tags')){
             $this->updateTags($product, $tags);

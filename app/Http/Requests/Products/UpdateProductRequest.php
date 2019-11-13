@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Products;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -24,9 +25,9 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         $youtubeRegex = "/^(?:https:\/\/(?:www\\.)?youtube.com\/)(watch\\?v=)([a-zA-Z0-9_]*)/";
-        
+        // dd(Rule::unique('products', 'name')->ignore($this->id));
         return [
-            "name"          => "required|max:191",
+            "name"          => "required|max:191|".Rule::unique('products', 'name')->ignore($this->product),
             "description"   => "required|max:64000",
             "price"         => "required|min:0|numeric",
             "reduction"     => "numeric|min:0|max:100|nullable",

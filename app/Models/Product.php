@@ -33,7 +33,7 @@ class Product extends Model
 
     public function getShowRouteAttribute(){
         
-        return route('products.show', $this->id);
+        return route('products.show', $this->slug);
     }
 
     public function getCurrentPriceAttribute(){

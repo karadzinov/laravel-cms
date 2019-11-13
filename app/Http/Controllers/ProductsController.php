@@ -29,10 +29,10 @@ class ProductsController extends Controller
         return view($this->path . 'products/index', $data);
     }
 
-    public function show($product){
+    public function show($slug){
 
      	$currency = Currency::symbol();
-    	$product = Product::with('reviews', 'reviews.user')->find($product);
+    	$product = Product::with('reviews', 'reviews.user')->where('slug', '=', $slug)->first();
         $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
         
     	return view($this->path.'products/show', compact('product', 'currency', 'canWriteReview'));

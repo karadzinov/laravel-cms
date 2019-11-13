@@ -7,10 +7,13 @@ $category = Category::first()->id;
 $user = User::first()->id;
 
 $factory->define(Product::class, function (Faker $faker) use ($category, $user) {
+    $words = $faker->sentence(3);
+
     return [
         "category_id"   => $category,
         "user_id"       => $user,
-        "name"          => $faker->name(),
+        "name"          => $words,
+        "slug"          => str_slug($words, '-'),
         "short_description"=> $faker->sentence(),
         "description"   => $faker->paragraph(3),
         "price"         => rand(100, 1000),

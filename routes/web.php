@@ -154,7 +154,7 @@ Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
     Route::patch('/update-review/{id}', 'ProductsController@updateReview')->name('updateReview');
     Route::delete('/delete-review/{id}', 'ProductsController@deleteReview')->name('deleteReview');
     Route::post('/store-review', 'ProductsController@storeReview')->name('storeReview');
-    Route::get('/{id}', 'ProductsController@show')->name('show');
+    Route::get('/{slug}', 'ProductsController@show')->name('show');
 });
 
 Route::group(['as'=>'posts.'], function(){

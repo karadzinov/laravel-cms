@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Products;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateProductRequest extends FormRequest
@@ -26,7 +27,7 @@ class CreateProductRequest extends FormRequest
         $youtubeRegex = "/^(?:https:\/\/(?:www\\.)?youtube.com\/)(watch\\?v=)([a-zA-Z0-9_]*)/";
 
         return [
-            "name"          => "required|max:191",
+            "name"          => "required|max:191|unique:products,name",
             "description"   => "required|max:64000",
             "price"         => "required|min:0|numeric",
             "reduction"     => "numeric|nullable|min:0|max:100",
