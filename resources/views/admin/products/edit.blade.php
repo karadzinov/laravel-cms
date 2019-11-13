@@ -27,7 +27,7 @@
             </a>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => ['admin.products.update', $product->id], 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
+            {!! Form::open(array('route' => ['admin.products.update', $product->id], 'id'=>'main_form', 'method' => 'PUT', 'role' => 'form', 'files'=> true)) !!}
             @method('PUT')
                 <div class="form-group">
                     {!! Form::label('name', trans('admin.name')) !!}
@@ -43,7 +43,7 @@
 
                 @if($product->main_image)
                     <div>
-                        <img src="{{$product->thumbnailPath}}">
+                        <img src="{{$product->thumbnail}}">
                         <br>
                         <br>
                     </div>
@@ -135,8 +135,12 @@
                         array('id'=>'tags', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div> 
 
-                {!! Form::button('<i class="fa fa-save"></i> '.trans('products.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
-            {!! Form::close() !!}
+               {!! Form::close() !!}
+               {!! Form::label('images', trans('admin.images')) !!}
+               {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
+               {!! Form::close() !!}
+
+               {!! Form::button('<i class="fa fa-save"></i> '.trans('pages.update'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
         </div>
     </div>
 
@@ -151,4 +155,9 @@
             tags: true
         });
     </script>
+
+    @include('scripts/dropzone-config', 
+                ['table' => $product->getTable(),
+                 'model'=>$product
+             ])
 @endsection

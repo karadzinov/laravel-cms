@@ -27,7 +27,7 @@
             </a>
         </div>
         <div class="widget-body">
-            {!! Form::open(array('route' => 'admin.products.store', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
+            {!! Form::open(array('route' => 'admin.products.store', 'id'=>'main_form', 'method' => 'POST', 'role' => 'form', 'files'=> true)) !!}
                 <div class="form-group">
                     {!! Form::label('name', trans('admin.name')) !!}
                     {!! Form::textarea('name', null, ['id'=>'title', 'class' => 'form-control', 'placeholder'=>trans('admin.name'), 'autofocus' => true ]) !!}
@@ -121,9 +121,14 @@
                         $tags, null,
                         array('id'=>'tags', 'class'=>'form-control', 'multiple'=>'multiple'))}}
                 </div> 
+                {!! Form::close() !!}
+                {!! Form::label('images', trans('admin.images')) !!}
+                {!! Form::open(array('route' => 'admin.images.store', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'my-dropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
+                {!! Form::close() !!}
 
-                {!! Form::button('<i class="fa fa-save"></i> '.trans('products.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
-            {!! Form::close() !!}
+                {!! Form::button('<i class="fa fa-save"></i> '.trans('pages.save'), array('id'=>'submitForm', 'class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;')) !!}
+                {{-- {!! Form::button('<i class="fa fa-save"></i> '.trans('products.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!} --}}
+            {{-- {!! Form::close() !!} --}}
         </div>
     </div>
 
@@ -137,4 +142,6 @@
             tags: true
         });
     </script>
+    @include('scripts/dropzone-config', 
+                ['table'=>'products'])
 @endsection

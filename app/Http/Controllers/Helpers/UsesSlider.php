@@ -76,7 +76,6 @@ abstract class UsesSlider extends Controller
 	    $nameParts = explode('.', $name);
 	    $extension = $nameParts[count($nameParts)-1];
 	    $newName = $title.'-'.$key.'.'.$extension;
-
 	    $images = scandir($paths->originals);
 	    if(in_array($newName, $images)){
 	        $newName = $this->makeNewName($key, $newName, $newName, $paths);

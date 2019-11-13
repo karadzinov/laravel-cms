@@ -8,13 +8,24 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\Taggable;
+use App\Http\Controllers\Helpers\UsesSlider;
 use App\Models\{Category, Currency, Product, Tag};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Products\{CreateProductRequest, UpdateProductRequest};
 
-class ProductsController extends Controller
+class ProductsController extends UsesSlider
 {
     use Taggable;
+
+    /**
+     * Parent classs method for creating strage path.
+     *
+     * @return string
+     */
+    public function getTable(){
+        
+        return 'products';
+    }
 
     public function index(){
     	
@@ -49,6 +60,8 @@ class ProductsController extends Controller
     	$newProduct->delivery = $request->has('delivery');
     	$newProduct->user_id = auth()->user()->id;
     	$newProduct->save();
+
+        $images = $this->updateImages($newProduct, $request, $newProduct->name);
 
         if($tags = $request->get('tags')){
             $this->updateTags($newProduct, $tags);
@@ -91,6 +104,8 @@ class ProductsController extends Controller
         $product->user_id = auth()->user()->id;
         $product->save();
 
+        $images = $this->updateImages($product, $request, $product->name);
+
         if($tags = $request->get('tags')){
             $this->updateTags($product, $tags);
         }
@@ -130,32 +145,23 @@ class ProductsController extends Controller
             $slugname = Str::slug(strip_tags($request->name));
             $imageName = $slugname . '.' . $image->getClientOriginalExtension();
             $paths = $this->makePaths();
-            File::makeDirectory($paths->original, $mode = 0755, true, true);
-            File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
+            File::makeDirectory($paths->originals, $mode = 0755, true, true);
+            File::makeDirectory($paths->thumbnails, $mode = 0755, true, true);
             File::makeDirectory($paths->medium, $mode = 0755, true, true);
-            $image->move($paths->original, $imageName);
-            $findimage = $paths->original . $imageName;
+            $image->move($paths->originals, $imageName);
+            $findimage = $paths->originals . $imageName;
             $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $imagemedium = Image::make($findimage)->resize(600, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $imagethumb->save($paths->thumbnail . $imageName);
+            $imagethumb->save($paths->thumbnails . $imageName);
             $imagemedium->save($paths->medium . $imageName);
             return $imageName;
         }elseif($product && $product->image){
             return $product->image;
         }
         return null;
-    }
-
-    public function makePaths(){
-        
-        $original = public_path() . '/images/products/originals/';;
-        $thumbnail = public_path() . '/images/products/thumbnails/';
-        $medium = public_path() . '/images/products/medium/';
-        $paths = (object) compact('original', 'thumbnail', 'medium');
-        return $paths;
     }
 }

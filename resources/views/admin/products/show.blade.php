@@ -5,6 +5,7 @@
 @endsection
 
 @section('head')
+    <link rel='stylesheet' href='{{asset('assets/admin/js/unitegallery/dist/css/unite-gallery.css')}}' type='text/css' /> 
     <style>
         label{
             display: block;
@@ -133,7 +134,27 @@
                     </ul>
                 </div>
             @endif
+
+            @if($product->images->isNotEmpty())
+                <label for="gallery">{{trans('admin.images')}}:</label>
+
+                <div id="gallery">
+                    @foreach($product->images as $image)
+                        <img src="{{$product->originalPath . $image->name}}" alt="{{$image->name}}">
+                    @endforeach
+                </div>
+            @endif
         </div>
         
     </div>
+@endsection
+
+@section('footer_scripts')
+    <script src='{{asset('assets/admin/js/unitegallery/dist/js/unitegallery.min.js')}}'></script> 
+    <script src='{{asset('assets/admin/js/unitegallery/dist/themes/compact/ug-theme-compact.js')}}'></script> 
+    <script type="text/javascript"> 
+        jQuery("#gallery").unitegallery({
+            gallery_theme: "compact"
+        });
+    </script>
 @endsection
