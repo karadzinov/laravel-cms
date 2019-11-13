@@ -110,6 +110,7 @@
                     </table>
                 </div>
             @endif
+            {!!$posts->links()!!}
         </div>
         
     </div>

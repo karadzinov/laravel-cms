@@ -18,7 +18,7 @@ class FAQsController extends Controller
      */
     public function index()
     {
-        $faqs = FAQ::all();
+        $faqs = FAQ::with('category')->latest()->paginate(25);
     	
     	return view('admin.FAQ.index', compact('faqs'));
     }

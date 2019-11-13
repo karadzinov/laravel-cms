@@ -132,6 +132,7 @@
                     </table>
                 </div>
             @endif
+            {!!$products->links()!!}
         </div>
         
     </div>

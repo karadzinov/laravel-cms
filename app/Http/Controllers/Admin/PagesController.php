@@ -29,7 +29,7 @@ class PagesController extends UsesSlider
      */
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::latest()->paginate(25);
 
         return view('admin.website-pages/index', compact('pages'));
     }
@@ -79,7 +79,7 @@ class PagesController extends UsesSlider
      */
     public function show($page)
     {
-        $page = Page::findOrFail($page);
+        $page = Page::with('images')->findOrFail($page);
         return view('admin.website-pages/show', compact('page'));
     }
 
@@ -91,7 +91,7 @@ class PagesController extends UsesSlider
      */
     public function edit($page)
     {
-        $page = Page::findOrFail($page);
+        $page = Page::with('images')->findOrFail($page);
         $this->cleanSession();
         return view('admin.website-pages/edit', compact('page'));
     }

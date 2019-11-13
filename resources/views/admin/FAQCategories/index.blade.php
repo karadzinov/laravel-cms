@@ -75,6 +75,9 @@
 					    </table>
 					</div>
 	            @endif
+	            <div class="text-center">
+           			{!!$categories->links()!!}
+           		</div>
 	        </div>
 	    </div>
 	    @include('modals/modal-delete')

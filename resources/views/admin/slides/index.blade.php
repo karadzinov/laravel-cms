@@ -125,6 +125,8 @@
 					    </table>
 					</div>
 	            @endif
+
+	            {!!$slides->links()!!}
 	        </div>
 	    </div>
 	    @include('modals/modal-delete')

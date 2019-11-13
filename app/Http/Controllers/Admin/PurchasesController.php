@@ -9,7 +9,7 @@ use App\Models\{Currency, Purchase, Settings};
 class PurchasesController extends Controller
 {
     public function index(){
-    	$purchases = Purchase::with('user', 'products')->latest()->paginate(50);
+    	$purchases = Purchase::with('user', 'products', 'shipping')->latest()->paginate(50);
     	
     	return view('admin/purchases/index', compact('purchases'));
     }

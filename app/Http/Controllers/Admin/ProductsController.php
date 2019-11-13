@@ -29,7 +29,7 @@ class ProductsController extends UsesSlider
 
     public function index(){
     	
-    	$products = Product::with('category')->get();
+    	$products = Product::with('category')->latest()->paginate(25);
     	$currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
     	return view('admin/products/index', compact('products', 'currency'));
     }
