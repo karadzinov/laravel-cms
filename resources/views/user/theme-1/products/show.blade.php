@@ -79,6 +79,18 @@
 							{{$product->short_description}}
 							<br><br>
 							{!!$product->description!!}
+							@if($product->tags->isNotEmpty())
+								<footer class="clearfix">
+									<div class="tags pull-left">
+										@foreach($product->tags as $tag)
+											<i class="icon-tags"></i> 
+											<a href="{{route('tagPosts', $tag->name)}}">
+												{{$tag->name}}
+											</a>
+										@endforeach
+									</div>
+								</footer>
+							@endif
 							<hr class="mb-10">
 							<div class="clearfix mb-20">
 								<span>

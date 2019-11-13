@@ -100,7 +100,7 @@
 					@forelse($post->tags as $tag)
 						<a class="tag" href="{{$tag->showRoute}}">
 							<span class="txt">{{$tag->name}}</span>
-							<span class="num">{{$tag->posts->count()}}</span>
+							<span class="num">{{$tag->posts->count()+$tag->products->count()}}</span>
 						</a>
 					@empty
 					@endforelse

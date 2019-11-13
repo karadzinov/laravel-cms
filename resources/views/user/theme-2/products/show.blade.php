@@ -97,10 +97,11 @@
 
 					<!-- short description -->
 					<p>{{$product->short_description}}</p>
+					
 					<!-- /short description -->
-					<hr />
 					{{-- gallery --}}
 					@if($product->images->isNotEmpty())
+						<hr />
 						<div class="masonry-gallery columns-2 clearfix lightbox" data-img-big="3" data-plugin-options='{"delegate": "a", "gallery": {"enabled": true}}'>
 							@foreach($product->images as $image)
 								<a class="image-hover" href="{{$product->originalPath.$image->name}}">
@@ -149,7 +150,7 @@
 					<!-- rating -->
 					<div class="rating rating-{{$product->rating}} fs-13 mt-10 fw-100"><!-- rating-0 ... rating-5 --></div>
 					<!-- /rating -->
-					
+
 					<!-- Share -->
 					<div class="">
 
@@ -205,6 +206,16 @@
 				<!-- DESCRIPTION -->
 				<div role="tabpanel" class="tab-pane active" id="description">
 					{!!$product->description!!}
+					<!-- TAGS -->
+					@if($product->tags->isNotEmpty())
+						@foreach($product->tags as $tag)
+							<a class="tag" href="{{$tag->showRoute}}">
+								<span class="txt">{{$tag->name}}</span>
+								<span class="num">{{$tag->posts->count()+$tag->products->count()}}</span>
+							</a>
+						@endforeach
+					@endif
+					<!-- /TAGS -->
 				</div>
 				
 				<!-- REVIEWS -->
