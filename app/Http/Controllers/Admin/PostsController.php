@@ -7,13 +7,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\HasTags;
+use App\Http\Controllers\Helpers\Taggable;
 use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 class PostsController extends Controller
 {
-    use HasTags;
+    use Taggable;
     /**
      * Display a listing of the resource.
      *
@@ -182,20 +182,6 @@ class PostsController extends Controller
 
             return false;
         }    
-    }
-
-    /**
-     * Finds assignedTags ids.
-     */
-    public function assignedTags(Post $post){
-        if($post->tags->isNotEmpty()){
-            $assignedTags = $post->tags()->get()->pluck('id')->toArray();
-
-            return $assignedTags;
-        }else{
-
-            return false;
-        }
     }
 
     /**

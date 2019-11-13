@@ -31,7 +31,6 @@ class DatabaseSeeder extends Seeder
             PagesTableSeeder::class,
             PostsTableSeeder::class,
             TagsTableSeeder::class,
-            PostTagTableSeeder::class,
             ScriptsTableSeeder::class,
             SettingsTableSeeder::class,
             AboutTableSeeder::class,

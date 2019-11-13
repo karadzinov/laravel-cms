@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Helpers\{Imageable, HasYoutubeVideos};
+use App\Models\Helpers\{Imageable, HasYoutubeVideos, Taggable};
 
 class Product extends Model
 {
-    use Imageable, HasYoutubeVideos;
+    use Imageable, HasYoutubeVideos, Taggable;
 
     protected $table = 'products';
 
@@ -77,10 +77,5 @@ class Product extends Model
         if(!count($ratings)) return 0;
 
         return round(array_sum($ratings)/count($ratings));
-    }
-
-    public function tags(){
-        
-        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
     }
 }

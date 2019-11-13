@@ -44,7 +44,7 @@
                 <div>
                     <label for="image"><strong>{{trans('admin.image')}}:</strong></label>
                     <br>
-                    <img src="{{$product->thumbnailPath}}" alt="{{$product->main_image}}" id="image">
+                    <img src="{{$product->thumbnail}}" alt="{{$product->name}}" id="image">
                 </div>
             @endif
 
@@ -122,6 +122,17 @@
 	                </span>
         		@endif
             </div>
+
+            @if($product->tags->isNotEmpty())
+                <div>
+                    <label for="tags"><strong>{{trans('admin.tags')}}:</strong></label>
+                    <ul id="tags">
+                        @foreach($product->tags()->get() as $tag)
+                            <li>{{$tag->name}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         
     </div>

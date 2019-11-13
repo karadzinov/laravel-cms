@@ -7,12 +7,15 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\Taggable;
 use App\Models\{Category, Currency, Product, Tag};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Products\{CreateProductRequest, UpdateProductRequest};
 
 class ProductsController extends Controller
 {
+    use Taggable;
+
     public function index(){
     	
     	$products = Product::with('category')->get();
@@ -31,7 +34,6 @@ class ProductsController extends Controller
 	
     public function store(CreateProductRequest $request){
     	$image = $this->updateImageIfNecessary($request);
-
     	$newProduct = new Product();
         $newProduct->name = strip_tags($request->get('name'));
     	$newProduct->short_description = strip_tags($request->get('short_description'));
@@ -48,6 +50,10 @@ class ProductsController extends Controller
     	$newProduct->user_id = auth()->user()->id;
     	$newProduct->save();
 
+        if($tags = $request->get('tags')){
+            $this->updateTags($newProduct, $tags);
+        }
+
         return redirect()->route('admin.products.index')->with('success', trans('products.success.created'));
     }
 
@@ -61,15 +67,17 @@ class ProductsController extends Controller
     	
         $categories = Category::pluck('name', 'id')->toArray();
         $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+        $tags = Tag::pluck('name', 'id')->toArray();
+        $assignedTags = $this->assignedTags($product);
 
-    	return view('admin/products/edit', compact('product', 'categories', 'currency'));
+    	return view('admin/products/edit', compact('product', 'categories', 'currency', 'tags', 'assignedTags'));
     }
 
 	public function update(UpdateProductRequest $request, Product $product){
     	$image = $this->updateImageIfNecessary($request);
 
         $product->name = strip_tags($request->get('name'));
-        // $newProduct->short_description = strip_tags($request->get('short_description'));
+        $newProduct->short_description = strip_tags($request->get('short_description'));
         $product->description = $request->get('description');
         $image ? $product->main_image = $image : null;
         $product->video = $request->get('video');
@@ -82,6 +90,10 @@ class ProductsController extends Controller
         $product->delivery = $request->has('delivery');
         $product->user_id = auth()->user()->id;
         $product->save();
+
+        if($tags = $request->get('tags')){
+            $this->updateTags($product, $tags);
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'products.success.updated');
     }

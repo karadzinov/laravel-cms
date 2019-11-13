@@ -126,7 +126,14 @@
                     <span class="text"></span>
                     </label>
                     {!! $errors->first('delivery') !!}
-                </div>   
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('tags', trans('admin.tags') , array('class' => 'control-label')); !!}
+                    {{Form::select('tags[]', 
+                        $tags, $assignedTags,
+                        array('id'=>'tags', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                </div> 
 
                 {!! Form::button('<i class="fa fa-save"></i> '.trans('products.save'), array('class' => 'btn btn-success margin-bottom-1 mb-1','style'=>'margin-top: 8px;','type' => 'submit' )) !!}
             {!! Form::close() !!}
@@ -138,5 +145,10 @@
 @section('footer_scripts')
     <script>
         $("#category").select2();
+
+        $("#tags").select2({
+            placeholder: "{{trans('posts.add-tags')}}",
+            tags: true
+        });
     </script>
 @endsection
