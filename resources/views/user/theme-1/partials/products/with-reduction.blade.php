@@ -3,8 +3,8 @@
 		<div class="row grid-space-0">
 			<div class="col-sm-6 col-md-4 col-lg-3">
 				<div class="overlay-container">
-					<img class="product-thumbnail" src="{{$product->thumbnailPath}}" alt="">
-					<a class="overlay-link popup-img-single" href="{{$product->originalPath}}"><i class="fa fa-search-plus"></i></a>
+					<img class="product-thumbnail" src="{{$product->thumbnail}}" alt="">
+					<a class="overlay-link popup-img-single" href="{{$product->original}}"><i class="fa fa-search-plus"></i></a>
 					<span class="badge">{{$product->reduction}}% OFF</span>
 				</div>
 			</div>

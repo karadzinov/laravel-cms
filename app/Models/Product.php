@@ -60,6 +60,11 @@ class Product extends Model
         return $this->getMediumPathAttribute() . $this->main_image;
     }
 
+    public function getOriginalAttribute(){
+        
+        return $this->getOriginalPathAttribute() . $this->main_image;
+    }
+
     public function getThumbnailAttribute(){
         
         return $this->getThumbnailPathAttribute() . $this->main_image;
