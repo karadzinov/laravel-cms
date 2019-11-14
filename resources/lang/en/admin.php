@@ -32,6 +32,7 @@ array (
   'completed'     => 'Completed',
   'uncompleted'   => 'Uncompleted',
   'not-active'    => 'Not Active',
+  'not-permited'  => 'Not Permited',
   'created-at'    => 'Created At',
   'updated-at'    => 'Updated At',
   'actions'       => 'Actions',

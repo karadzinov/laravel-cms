@@ -28,6 +28,10 @@ class FrontEndController extends Controller
     	}
         
         $category = Category::where('slug', '=', $slug)->with('descendants')->firstOrFail();
+        $postsCategory = Category::where('name', '=', 'posts')->first();
+        
+        dd($category->isDescendantOf($postsCategory));
+
         $posts = $this->getAllCategoryPosts($category);
     	$slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();

@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all()->where('parent_id','=',NULL);
+        $categories = Category::where('parent_id','=',NULL)->withDepth()->get();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -55,8 +55,6 @@ class CategoryController extends Controller
         $input['language'] = App::getLocale();
         $image = $this->updateImageIfNecessary($request);
         $image ? $input['image'] = $image : null;
-
-        ($input['parent_id'] == 0) ? $input['parent_id'] = null : null;
 
         $category = Category::create($input);
 
@@ -231,6 +229,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category= Category::findOrFail($id);
+        if($category->isRoot()){
+            return redirect()->back()->with('error', trans('admin.not-permited'));
+        }
         $tree = $category->children;
 
         foreach ($tree as  $child){
@@ -250,7 +251,6 @@ class CategoryController extends Controller
     
     protected function makeOptions(Collection $items)
     {
-        $options = [ '0' => 'Root' ];
         foreach ($items as $item)
         {
             $options[$item->getKey()] = str_repeat('- ', $item->depth + 1).' '.$item->name;

@@ -36,11 +36,28 @@ class ProductsController extends UsesSlider
 	
     public function create(){
     	
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
+        $categories = $this->getTree($postsCateory);
+
         $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
         $tags = Tag::pluck('name', 'id')->toArray();
 
     	return view('admin/products/create', compact('categories', 'currency', 'tags'));
+    }
+
+    public function getTree($node, $tree=[]){
+        if($node->hasChildren()){
+            
+            foreach($node->children as $child){
+                $tree[$child->id] = $child->name;
+                
+                if($child->hasChildren()){
+                    $tree = $this->getTree($child, $tree);
+                }
+            }
+        }
+
+        return $tree;
     }
 	
     public function store(CreateProductRequest $request){
@@ -82,7 +99,9 @@ class ProductsController extends UsesSlider
 
 	public function edit(Product $product){
     	
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
+        $categories = $this->getTree($postsCateory);
+        
         $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
         $tags = Tag::pluck('name', 'id')->toArray();
         $assignedTags = $this->assignedTags($product);

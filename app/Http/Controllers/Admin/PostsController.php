@@ -31,11 +31,28 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'posts')->first();
+        $categories = $this->getTree($postsCateory);
+      
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
 
         return view('admin/posts/create', compact('categories', 'users', 'tags'));
+    }
+
+    public function getTree($node, $tree=[]){
+        if($node->hasChildren()){
+            
+            foreach($node->children as $child){
+                $tree[$child->id] = $child->name;
+                
+                if($child->hasChildren()){
+                    $tree = $this->getTree($child, $tree);
+                }
+            }
+        }
+
+        return $tree;
     }
     /**
      * Store a newly created resource in storage.
@@ -103,7 +120,9 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($post);
 
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'posts')->first();
+        $categories = $this->getTree($postsCateory);
+
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
         

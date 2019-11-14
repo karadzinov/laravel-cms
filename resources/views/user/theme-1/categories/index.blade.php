@@ -42,110 +42,111 @@
 				<!-- ================ -->
 				<div class="main col-md-8">
 					<p class="lead">{{$category->description}}</p>
-					@foreach($posts as $post)
-						@if($post->video)
-							<!-- blogpost start -->
-							<article class="blogpost">
-								<div class="embed-responsive embed-responsive-16by9">
-									{!!$post->videoPreview!!}
-								</div>
-								<header>
-									<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
-									<div class="post-info">
-										<span class="post-date">
-											<i class="icon-calendar"></i>
-											<span class="day">{{$post->created_at->format('d')}}</span>
-											<span class="month">{{$post->created_at->format('M Y')}}</span>
-										</span>
-										<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="{{$post->showRoute}}">{{$post->author->name}}</a></span>
-										{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
+					@if($posts->isNotEmpty())
+						@foreach($posts as $post)
+							@if($post->video)
+								<!-- blogpost start -->
+								<article class="blogpost">
+									<div class="embed-responsive embed-responsive-16by9">
+										{!!$post->videoPreview!!}
 									</div>
-								</header>
-								<div class="blogpost-content">
-									<p>{{$post->subtitle}}</p>
-								</div>
-								<footer class="clearfix">
-									@if($post->tags->isNotEmpty())
-										<div class="tags pull-left">
-											@foreach($post->tags as $tag)
-												<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-											@endforeach
+									<header>
+										<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+										<div class="post-info">
+											<span class="post-date">
+												<i class="icon-calendar"></i>
+												<span class="day">{{$post->created_at->format('d')}}</span>
+												<span class="month">{{$post->created_at->format('M Y')}}</span>
+											</span>
+											<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="{{$post->showRoute}}">{{$post->author->name}}</a></span>
+											{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
 										</div>
-									@endif
-									<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
-								</footer>
-							</article>
-							<!-- blogpost end -->
-						@elseif($post->image)
-							
-							<!-- blogpost start -->
-							<article class="blogpost">
-								<div class="overlay-container">
-									<img class="categories-image" src="{{$post->mediumPath}}" alt="">
-									<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
-								</div>
-								<header>
-									<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
-									<div class="post-info">
-										<span class="post-date">
-											<i class="icon-calendar"></i>
-											<span class="day">{{$post->created_at->format('d')}}</span>
-											<span class="month">{{$post->created_at->format('M Y')}}</span>
-										</span>
-										<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
-										{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
+									</header>
+									<div class="blogpost-content">
+										<p>{{$post->subtitle}}</p>
 									</div>
-								</header>
-								<div class="blogpost-content">
-									<p>{{$post->subtitle}}</p>
-								</div>
-								<footer class="clearfix">
-									@if($post->tags->isNotEmpty())
-										<div class="tags pull-left">
-											@foreach($post->tags as $tag)
-												<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-											@endforeach
-										</div>
-									@endif
-									<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
-								</footer>
-							</article>
-							<!-- blogpost end -->
-						@else
-							<!-- blogpost start -->
-							<article class="blogpost">
-								<header>
-									<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
-									<div class="post-info">
-										<span class="post-date">
-											<i class="icon-calendar"></i>
-											<span class="day">{{$post->created_at->format('d')}}</span>
-											<span class="month">{{$post->created_at->format('M Y')}}</span>
-										</span>
-										<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
-										{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
+									<footer class="clearfix">
+										@if($post->tags->isNotEmpty())
+											<div class="tags pull-left">
+												@foreach($post->tags as $tag)
+													<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+												@endforeach
+											</div>
+										@endif
+										<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
+									</footer>
+								</article>
+								<!-- blogpost end -->
+							@elseif($post->image)
+								
+								<!-- blogpost start -->
+								<article class="blogpost">
+									<div class="overlay-container">
+										<img class="categories-image" src="{{$post->mediumPath}}" alt="">
+										<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
 									</div>
-								</header>
-								<div class="blogpost-content">
-									<p>{{$post->subtitle}}</p>
-								</div>
-								<footer class="clearfix">
-									@if($post->tags->isNotEmpty())
-										<div class="tags pull-left">
-											@foreach($post->tags as $tag)
-												<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
-											@endforeach
+									<header>
+										<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+										<div class="post-info">
+											<span class="post-date">
+												<i class="icon-calendar"></i>
+												<span class="day">{{$post->created_at->format('d')}}</span>
+												<span class="month">{{$post->created_at->format('M Y')}}</span>
+											</span>
+											<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
+											{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
 										</div>
-									@endif
-									<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
-								</footer>
-							</article>
-							<!-- blogpost end -->
-						@endif
-					@endforeach
-
-					
-
+									</header>
+									<div class="blogpost-content">
+										<p>{{$post->subtitle}}</p>
+									</div>
+									<footer class="clearfix">
+										@if($post->tags->isNotEmpty())
+											<div class="tags pull-left">
+												@foreach($post->tags as $tag)
+													<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+												@endforeach
+											</div>
+										@endif
+										<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
+									</footer>
+								</article>
+								<!-- blogpost end -->
+							@else
+								<!-- blogpost start -->
+								<article class="blogpost">
+									<header>
+										<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>
+										<div class="post-info">
+											<span class="post-date">
+												<i class="icon-calendar"></i>
+												<span class="day">{{$post->created_at->format('d')}}</span>
+												<span class="month">{{$post->created_at->format('M Y')}}</span>
+											</span>
+											<span class="submitted"><i class="icon-user-1"></i> {{trans('general.by')}} <a href="#">{{$post->author->name}}</a></span>
+											{{-- <span class="comments"><i class="icon-chat"></i> <a href="#">22 comments</a></span> --}}
+										</div>
+									</header>
+									<div class="blogpost-content">
+										<p>{{$post->subtitle}}</p>
+									</div>
+									<footer class="clearfix">
+										@if($post->tags->isNotEmpty())
+											<div class="tags pull-left">
+												@foreach($post->tags as $tag)
+													<i class="icon-tags"></i> <a href="{{$tag->showRoute}}">{{$tag->name}}</a>
+												@endforeach
+											</div>
+										@endif
+										<div class="link pull-right"><i class="icon-link"></i><a href="{{$post->showRoute}}">{{trans('general.read-more')}}</a></div>
+									</footer>
+								</article>
+								<!-- blogpost end -->
+							@endif
+						@endforeach
+					@else
+						<p class="lead">{{trans('general.no-results')}}</p>
+					@endif
 
 					<!-- pagination start -->
 					<nav class="text-center">
@@ -211,12 +212,12 @@
 									<div class="media-left">
 										<div class="overlay-container">
 											<img class="media-object" src="{{$recentPost->thumbnailPath}}" alt="blog-thumb">
-											<a href="{{$post->showRoute}}" class="overlay-link small"><i class="fa fa-link"></i></a>
+											<a href="{{$recentPost->showRoute}}" class="overlay-link small"><i class="fa fa-link"></i></a>
 										</div>
 									</div>
 									<div class="media-body">
-										<h6 class="media-heading"><a href="{{$post->showRoute}}">{{$post->title}}</a></h6>
-										<p class="small margin-clear"><i class="fa fa-calendar pr-10"></i>{{$post->created_at->format('M d, Y')}}</p>
+										<h6 class="media-heading"><a href="{{$recentPost->showRoute}}">{{$recentPost->title}}</a></h6>
+										<p class="small margin-clear"><i class="fa fa-calendar pr-10"></i>{{$recentPost->created_at->format('M d, Y')}}</p>
 									</div>
 									<hr>
 								@endforeach

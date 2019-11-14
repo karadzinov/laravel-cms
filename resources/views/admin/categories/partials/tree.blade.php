@@ -2,6 +2,7 @@
     <ul class="list-group" {{(isset($nestedTable)) ? "style=margin-left:50px;margin-bottom:0" : null}}>
         @foreach ($categories as $category)
             @if ( $category->isRoot())
+            <br> <br>
                 <li class="list-group-item">
                     {{$category->name}} 
                     <span class="pull-right">
