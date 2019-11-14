@@ -1,14 +1,5 @@
 @extends($path . 'master')
-@section('optionalHead')
-	<style>
-		.product-thumbnail{
-			height: 206px;
-			width: 155px;
-			  object-fit: cover;
 
-		}
-	</style>
-@endsection
 @section('content')
 	<!-- banner start -->
 	<!-- ================ -->

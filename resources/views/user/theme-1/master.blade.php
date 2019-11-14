@@ -21,6 +21,13 @@
 			.mb-3{
 				margin-bottom: 30px;
 			}
+
+			.product-thumbnail{
+				height: 206px;
+				width: 100%;
+				object-fit: cover;
+
+			}
 		</style>
 	</head>
 

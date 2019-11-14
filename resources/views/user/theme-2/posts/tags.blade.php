@@ -22,6 +22,20 @@
 			width: 100%;
 			object-fit: cover;
 		}
+		.product-thumbnail{
+			height: 540px;
+			width: 100%;
+			  object-fit: cover;
+
+		}
+		.blog-post-item{
+			background: white;
+			padding-top: 15px;
+		}
+		.shop-item{
+			background:white;
+			padding: 15px;
+		}
 	</style>
 @endsection
 
@@ -47,13 +61,13 @@
 	<section class="page-header dark page-header-xs">
 		<div class="container">
 
-			<h1 class="uppercase">#{{$tag}}</h1>
+			<h1 class="uppercase">#{{$tag->name}}</h1>
 
 			<!-- breadcrumbs -->
 			<ol class="breadcrumb">
 				<li><a href="{{route('public.home')}}">{{trans('general.home')}}</a></li>
 				<li><a href="{{route('posts.index')}}">{{trans('general.posts')}}</a></li>
-				<li class="active">{{$tag}}</li>
+				<li class="active">{{$tag->name}}</li>
 			</ol><!-- /breadcrumbs -->
 
 		</div>
@@ -66,10 +80,24 @@
 	<!-- -->
 	<section>
 		<div class="container">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="nav-item"><a class="nav-link @if($activeTab === 'products') active @endif" href="#products" data-toggle="tab">{{trans('general.products')}}</a></li>
+				<li class="nav-item"><a class="nav-link @if($activeTab === 'posts') active @endif" href="#posts" data-toggle="tab">{{trans('general.posts')}}</a></li>
+			</ul>
 
-			{{-- <div class="row"> --}}
-				@include($path . 'partials/posts/posts-list')
-			{{-- </div> --}}
+			<div class="tab-content">
+				<div class="tab-pane @if($activeTab === 'products') in active @endif" id="products">
+					<ul class="shop-item-list row list-inline m-0">
+
+						@foreach($tag->products as $product)
+							@include($path.'/partials/products/list-item')
+						@endforeach
+					</ul>
+				</div>
+				<div class="tab-pane @if($activeTab === 'posts') in active @endif" id="posts">
+					@include($path . 'partials/posts/posts-list', ['posts'=>$tag->posts])
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- / -->

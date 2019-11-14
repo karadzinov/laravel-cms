@@ -1,4 +1,4 @@
-<div class="col-md-6 masonry-grid-item">
+<div class="col-md-6 col-sm-12 masonry-grid-item">
 	<div class="listing-item bordered light-gray-bg mb-20">
 		<div class="row grid-space-0">
 			<div class="col-sm-6 col-md-4 col-lg-3">

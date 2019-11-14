@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
+use App\Models\{About, Category, Currency, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial, User};
 
 class FrontEndController extends Controller
 {
@@ -104,12 +104,31 @@ class FrontEndController extends Controller
     }
 
     public function tagPosts($slug){
-        $tag = Tag::where('slug', '=',$slug)->firstOrFail();
-        $posts = $tag->posts()->get();
-        $tag = $tag->name;
+        $tag = Tag::with('posts', 'products')->where('slug', '=',$slug)->firstOrFail();
         $metadata = new Metadata($tag);
+        $activeTab = 'posts';
+        if(strpos(url()->previous(), 'products')!==false){
+            $activeTab = 'products';
+        }
+        $data = compact('tag', 'activeTab');
 
-        return view($this->path . 'posts/tags', compact('posts', 'tag'));
+        if($tag->products->isNotEmpty()){
+            $cart = collect([]);
+            $wishlist = collect([]);
+            if(auth()->user()){
+               $user = User::where('id', '=', auth()->user()->id)
+                        ->first();
+               $cart = $user->cart()->get();
+               $wishlist = $user->wishlist()->get();
+
+            }
+            $currency = Currency::symbol();
+            $data['cart'] = $cart;
+            $data['wishlist'] = $wishlist;
+            $data['currency'] = $currency;
+        }
+
+        return view($this->path . 'posts/tags', $data);
     }
 
     public function contact(){
