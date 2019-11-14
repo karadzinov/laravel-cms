@@ -67,95 +67,24 @@
 		<div class="space"></div>
 	</div>
 </fieldset>
-
-@if(isset($product) && !$product->delivery)
-@elseif(isset($purchase) && !$purchase->products->where('delivery', '=', 1)->first())
+@if(isset($cart))
+	@if(!$cart->where('delivery', '=', 1)->first())
+		<input type="hidden" name="same_shipping" value="true">
+	@else
+		@include($path.'partials/purchases/shipping-informations')
+	@endif
+@elseif(isset($purchase))
+	@if(!$purchase->products->where('delivery', '=', 1)->first())
+		<input type="hidden" name="same_shipping" value="true">
+	@else
+		@include($path.'partials/purchases/shipping-informations')
+	@endif
+@elseif(isset($product))
+	@if(!$product->delivery)
+		<input type="hidden" name="same_shipping" value="true">
+	@else
+		@include($path.'partials/purchases/shipping-informations')
+	@endif
 @else
 	@include($path.'partials/purchases/shipping-informations')
 @endif
-{{-- <fieldset>
-	<legend>Payment</legend>
-	<form role="form" class="form-horizontal" id="payment-information">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="radio">
-					<span>
-						<i class="fa fa-credit-card"></i> Credit Card
-					</span>
-				</div>
-				<div class="space-bottom"></div>
-			</div>
-			<div class="col-lg-9">
-				<div class="form-group">
-					<label class="col-md-3 control-label">Card Number<small class="text-default">*</small></label>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-xs-6 col-sm-2">
-								<input type="text" class="form-control">
-							</div>
-							<div class="col-xs-6 col-sm-2">
-								<input type="text" class="form-control">
-							</div>
-							<div class="clearfix space-bottom visible-xs"></div>
-							<div class="col-xs-6 col-sm-2">
-								<input type="text" class="form-control">
-							</div>
-							<div class="col-xs-6 col-sm-2">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Expiration Date<small class="text-default">*</small></label>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-xs-6 col-sm-2">
-								<select class="form-control">
-									<option value="01" selected="selected">01</option>
-									<option value="03">02</option>
-									<option value="03">03</option>
-									<option value="04">04</option>
-									<option value="05">05</option>
-									<option value="06">06</option>
-									<option value="07">07</option>
-									<option value="08">08</option>
-									<option value="09">09</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>
-								</select>
-							</div>
-							<div class="col-xs-6 col-sm-2">
-								<select class="form-control">
-									<option value="2014" selected="selected">2014</option>
-									<option value="2015">2015</option>
-									<option value="2016">2016</option>
-									<option value="2017">2017</option>
-									<option value="2018">2018</option>
-									<option value="2019">2019</option>
-									<option value="2020">2020</option>
-									<option value="2021">2021</option>
-									<option value="2022">2022</option>
-									<option value="2023">2023</option>
-									<option value="2024">2024</option>
-									<option value="2025">2025</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">CVS<small class="text-default">*</small></label>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-xs-6 col-sm-2">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-</fieldset> --}}

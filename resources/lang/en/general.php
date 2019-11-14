@@ -201,6 +201,7 @@ array (
   'general'           => 'Products',
   'purchase'          => 'Purchase',
   'my-purchases'      => 'My Purchases',
+  'edit-purchase'     => 'Edit Purchase',
   'client'            => 'Client',
   'company'           => 'Company',
   'description'       => 'Description',

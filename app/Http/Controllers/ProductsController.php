@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Metadata\Metadata;
 use App\Models\{Category, Currency, Product, Review, User};
 
 class ProductsController extends Controller
@@ -24,7 +25,9 @@ class ProductsController extends Controller
            $wishlist = $user->wishlist()->get();
 
         }
-        $data = compact('products', 'currency', 'categories', 'cart', 'wishlist', 'request');
+        $metadata = new Metadata(trans('general.products'));
+
+        $data = compact('products', 'currency', 'categories', 'cart', 'wishlist', 'request', 'metadata');
         
         return view($this->path . 'products/index', $data);
     }
@@ -34,8 +37,9 @@ class ProductsController extends Controller
      	$currency = Currency::symbol();
     	$product = Product::with('reviews', 'reviews.user')->where('slug', '=', $slug)->first();
         $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
+        $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
         
-    	return view($this->path.'products/show', compact('product', 'currency', 'canWriteReview'));
+    	return view($this->path.'products/show', compact('product', 'currency', 'canWriteReview', 'metadata'));
     }
 
     public function prepareProducts(Request $request){
@@ -90,8 +94,9 @@ class ProductsController extends Controller
     public function myReviews(){
 
         $user = User::with('reviews', 'reviews.product')->findOrFail(auth()->user()->id);
+        $metadata = new Metadata(trans('general.my-reviews'));
 
-        return view($this->path.'reviews/index', compact('user'));
+        return view($this->path.'reviews/index', compact('user', 'metadata'));
     }
 
     public function editReview($id){
@@ -100,8 +105,9 @@ class ProductsController extends Controller
         if($review->user_id != auth()->user()->id){
             abort(403);
         }
+        $metadata = new Metadata(trans('general.edit-review'));
 
-        return view($this->path.'reviews/edit', compact('review'));
+        return view($this->path.'reviews/edit', compact('review', 'metadata'));
     }
 
     public function updatereview(Request $request, $id){

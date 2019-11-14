@@ -66,7 +66,7 @@
 							</tbody>
 						</table>
 						<div class="space-bottom"></div>
-
+						
 						@include($path.'partials/purchases/purchase-informations')
 						
 						<div class="text-right">	

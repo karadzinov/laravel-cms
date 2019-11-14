@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Metadata\Metadata;
 use App\Helpers\TwoCheckout\Twocheckout;
 use App\Http\Requests\Purchases\CheckoutRequest;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
@@ -39,16 +40,18 @@ class PurchasesController extends Controller
     public function index(){
     	$userId = auth()->user()->id;
     	$user = User::with('purchases', 'purchases.products')->findOrFail($userId);
+        $metadata = new Metadata(trans('general.my-purchases'));
     	
-    	return view($this->path.'purchases/index', compact('user'));
+    	return view($this->path.'purchases/index', compact('user', 'metadata'));
     }
 
     public function show($purchase){
     	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
     	$settings = Settings::first();
     	$currency = Currency::symbol();
+        $metadata = new Metadata(trans('general.my-purchases'));
 
-    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency'));
+    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency', 'metadata'));
     }
 
     public function edit($purchase){
@@ -57,8 +60,9 @@ class PurchasesController extends Controller
     		return redirect()->back();
     	}
     	$currency = Currency::symbol();
+        $metadata = new Metadata(trans('general.edit-purchase'));
 
-    	return view($this->path . 'purchases/edit', compact('purchase', 'currency'));
+    	return view($this->path . 'purchases/edit', compact('purchase', 'currency', 'metadata'));
     }
 
     public function update(Request $request, $purchase){
@@ -95,8 +99,9 @@ class PurchasesController extends Controller
 	}
 
 	public function completed(){
+        $metadata = new Metadata(trans('general.completed'));
 		
-		return view($this->path.'purchases/completed');
+		return view($this->path.'purchases/completed', compact('metadata'));
 	}
 
 	public function chargePurchase(Request $request, Purchase $purchase){
@@ -249,8 +254,9 @@ class PurchasesController extends Controller
     	$quantity = $request->get('quantity') ?? 1;
     	$product = Product::findOrFail($request->get('product_id'));
     	$currency = Currency::symbol();
+        $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
 
-    	$data = compact('product', 'currency', 'quantity');
+    	$data = compact('product', 'currency', 'quantity', 'metadata');
 
 		return view($this->path . 'purchases/checkout', $data);
     }

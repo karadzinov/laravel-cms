@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Metadata\Metadata;
 use App\Models\{Currency, Product, User};
 
 class WishlistsController extends Controller
@@ -13,8 +14,9 @@ class WishlistsController extends Controller
 		$wishlist = $user->wishlist()->paginate(20);
 		$cart = $user->cart()->get();
 		$currency = Currency::symbol();
+    $metadata = new Metadata(trans('general.my-wishlist'));
 
-		return view($this->path.'wishlist/index', compact('wishlist', 'cart', 'currency'));
+		return view($this->path.'wishlist/index', compact('wishlist', 'cart', 'currency', 'metadata'));
 	}
 
     public function add(Request $request){

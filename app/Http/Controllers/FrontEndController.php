@@ -105,12 +105,12 @@ class FrontEndController extends Controller
 
     public function tagPosts($slug){
         $tag = Tag::with('posts', 'products')->where('slug', '=',$slug)->firstOrFail();
-        $metadata = new Metadata($tag);
+        $metadata = new Metadata('#'.$tag->name);
         $activeTab = 'posts';
         if(strpos(url()->previous(), 'products')!==false){
             $activeTab = 'products';
         }
-        $data = compact('tag', 'activeTab');
+        $data = compact('tag', 'activeTab', 'metadata');
 
         if($tag->products->isNotEmpty()){
             $cart = collect([]);
