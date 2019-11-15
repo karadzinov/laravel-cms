@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use Exception;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
@@ -27,20 +28,86 @@ class FrontEndController extends Controller
     		return view($this->path . 'pages/show', compact('page', 'metadata'));
     	}
         
-        $category = Category::where('slug', '=', $slug)->with('descendants')->firstOrFail();
-        $postsCategory = Category::where('name', '=', 'posts')->first();
-        
-        dd($category->isDescendantOf($postsCategory));
+        $category = Category::where('slug', '=', $slug)->with('parent', 'children')->firstOrFail();
+        $postsCategory = Category::where('parent_id', '=', NULL)->where('name', '=', 'posts')->first();
 
+        $type = $this->checkCategoryType($category, $postsCategory);
+        if($type === 'posts'){
+            $data = $this->preparePostsData($category);
+        }else{
+            $data = $this->prepareProductsData($category);
+        }
+        
+		return view($this->path . 'categories/' . $type, $data);
+    }
+
+    public function preparePostsData($category){
         $posts = $this->getAllCategoryPosts($category);
-    	$slider = $posts->where('image', '!=', null)->take(4);
+        $slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
         $facebook = Settings::first()->facebook;
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
-		return view($this->path . 'categories/index', compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook', 'metadata'));
+        return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook', 'metadata');
+    }
+
+    public function prepareProductsData($category){
+
+        $bestSellers = \DB::table('product_purchase')
+                    ->leftJoin('products','products.id','=','product_purchase.product_id')
+                    ->selectRaw('products.*, sum(product_purchase.quantity) total')
+                    ->groupBy('product_purchase.product_id')
+                    ->orderBy('total','desc')
+                    ->take(3)
+                    ->get();
+
+        $topRated = \DB::table('reviews')
+                    ->leftJoin('products','products.id','=','reviews.product_id')
+                    ->selectRaw('products.*, count(reviews.rating) count, avg(reviews.rating) avg')
+                    ->groupBy('products.id')
+                    ->orderBy('avg','desc')
+                    ->take(5)
+                    ->get();
+        $products = $this->getAllCategoryProducts($category);
+        $currency = Currency::symbol();
+        $cart = collect([]);
+        $wishlist = collect([]);
+        $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
+        $productsCategories = Category::with('descendants')->where('name', '=', 'products')->first()->descendants;
+
+        if($productsCategories->count() < 5){
+            $categories = $productsCategories;
+        }else{
+            $categories = $productsCategories->random(5);
+        }
+       
+        if(auth()->user()){
+           $user = User::where('id', '=', auth()->user()->id)
+                    ->first();
+           $cart = $user->cart()->get();
+           $wishlist = $user->wishlist()->get();
+
+        }
+
+        return compact('category', 'products', 'currency', 'cart', 'wishlist', 'bestSellers', 'topRated', 'metadata', 'categories');
+        
+    }
+
+    public function checkCategoryType($category, $postsCategory){
+
+            if($category->parent_id == $postsCategory->id){
+
+                return 'posts';
+            }
+            $parent = $category->parent;
+            if($parent && $parent->hasParent()){
+                $this->checkCategoryType($category->parent, $postsCategory);
+            }
+
+            return 'products';
+
     }
 
     public function getAllCategoryPosts(Category $category){
@@ -58,6 +125,23 @@ class FrontEndController extends Controller
         }
 
         return $posts;
+    }
+
+    public function getAllCategoryProducts(Category $category){
+            
+        $products = $category->products()->latest()->paginate(5);
+
+        foreach($category->descendants as $child){
+          $itsproducts = $child->products()->latest()->paginate(5);
+
+          if($itsproducts->isNotEmpty()){
+            foreach($itsproducts as $product){
+                $products->push($product);
+            }
+          } 
+        }
+
+        return $products;
     }
 
     public function posts(){

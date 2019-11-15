@@ -21,7 +21,7 @@ Route::get('/changeTheme', function(){
        $active->active = 0;
        $active->save();
 
-       return redirect()->back(); 
+       return redirect(url()->previous()); 
     } catch (\Exception $e) {
         dd($e);
     }

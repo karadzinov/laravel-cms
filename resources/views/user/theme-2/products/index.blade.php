@@ -2,7 +2,7 @@
 @section('optionalHead')
 	<style>
 		.start{
-			margin-top: 100px;
+			margin-top: 97px;
 		}
 		.product-thumbnail{
 			height: 540px;

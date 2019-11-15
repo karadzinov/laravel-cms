@@ -69,7 +69,7 @@
 										<a href="{{route('posts.index')}}" class="dropdown-toggle" data-toggle="dropdown">
 											{{trans('general.navigation.posts')}}
 										</a>
-										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'posts')])
+										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'posts')->first()->children])
 									</li>
 									<li class="dropdown ">
 										<a href="{{route('pages.index')}}" class="dropdown-toggle" data-toggle="dropdown">
@@ -89,10 +89,7 @@
 										<a href="{{route('products.index')}}" class="dropdown-toggle" data-toggle="dropdown">
 											{{trans('general.navigation.products')}}
 										</a>
-										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'products')])
-									</li>
-									<li>
-										<a href="{{route('products.index')}}">{{trans('general.navigation.products')}}</a>
+										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'products')->first()->children])
 									</li>
 									<li>
 										<a href="{{route('contact')}}">{{trans('general.navigation.contact')}}</a>

@@ -138,11 +138,11 @@
 						<li>
 							<a href="/home">{{trans('general.navigation.home')}}</a>
 						</li>
-						<li class="dropdown {{-- active --}}"><!-- POSTS -->
+						<li class="dropdown"><!-- POSTS -->
 							<a class="dropdown-toggle" href="{{route('posts.index')}}">
 								{{trans('general.navigation.posts')}}
 							</a>
-							@include($path . 'partials/categories/tree')
+							@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'posts')->first()->children])
 						</li>
 						<li class="dropdown"><!-- PAGES -->
 							<a class="dropdown-toggle" href="{{route('pages.index')}}">
@@ -158,10 +158,11 @@
 								@endforeach
 							</ul>
 						</li>
-						<li>
-							<a href="{{route('products.index')}}">
+						<li class="dropdown"><!-- products -->
+							<a class="dropdown-toggle" href="{{route('products.index')}}">
 								{{trans('general.navigation.products')}}
 							</a>
+							@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'products')->first()->children])
 						</li>
 						<li>
 							<a href="{{route('contact')}}">

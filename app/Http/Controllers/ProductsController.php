@@ -86,8 +86,7 @@ class ProductsController extends Controller
         $review->rating = $request->get('rating');
         $review->save();
 
-        return redirect()
-                ->route('products.show', ["id"=>$request->get('product_id')])
+        return redirect($product->showRoute)
                 ->with('success', trans('general.successfully-added-review'));  
     }
 
