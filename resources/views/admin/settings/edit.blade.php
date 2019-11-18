@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="theme-selector">trans('forms.settings-theme')</label>
+                            <label for="theme-selector">{{trans('forms.settings-theme')}}</label>
                             <select id="theme-selector" name="theme">
                              @foreach($themes as $theme)
                                 <option value="{{$theme->id}}" @if($theme->active) selected @endif>
