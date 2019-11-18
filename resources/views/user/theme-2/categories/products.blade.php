@@ -60,52 +60,22 @@
 				<!-- LEFT -->
 				<div class="col-lg-3 col-md-3">
 					<!-- TOP RATED -->
-					<div class="mb-60">
-						<h2 class="owl-featured">{{trans('general.top-rated')}}</h2>
-						<div><!-- SLIDE 1 -->
-							<ul class="list-unstyled m-0 p-0 text-left">
-								@foreach($topRated as $top)
-									<li class="clearfix"><!-- item -->
-										<div class="thumbnail featured clearfix float-left mr-10">
-											<a href="{{route('products.show', $top->slug)}}">
-												<img src="{{asset('images/products/thumbnails/'.$top->main_image)}}" width="80" height="80" alt="featured item">
-											</a>
-										</div>
-
-										<a class="block fs-12" href="{{route('products.show', $top->slug)}}">{{$top->name}}</a>
-										<div class="rating rating-{{round($top->avg)}} fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
-										
-										<div class="fs-18 text-left">
-											@if($top->reduction)
-												<span class="line-through">{{$top->price.$currency}}</span>
-											@endif
-											{{$top->price - ($top->price*$top->reduction/100).$currency}}
-										</div>
-									</li><!-- /item -->
-								@endforeach
-							</ul>
-						</div><!-- /SLIDE 1 -->
-					</div>
-					<!-- \TOP RATED -->
-					<!-- BESTSELLERS -->
-					<div class="mb-60">
-
-						<h2 class="owl-featured">{{trans('general.best-sellers')}}</h2>
-						<div class="owl-carousel featured" data-plugin-options='{"singleItem": true, "stopOnHover":false, "autoPlay":true, "autoHeight": true, "navigation": true, "pagination": false}'>
-							
-							@foreach($bestSellers as $bestSeller)
-								<div><!-- SLIDE 1 -->
-									<ul class="list-unstyled m-0 p-0 text-left">
-
+					@if($topRated->count())
+						<div class="mb-60">
+							<h2 class="owl-featured">{{trans('general.top-rated')}}</h2>
+							<div><!-- SLIDE 1 -->
+								<ul class="list-unstyled m-0 p-0 text-left">
+									@foreach($topRated as $top)
 										<li class="clearfix"><!-- item -->
-											<div class="thumbnail featured clearfix float-left">
-												<a href="{{route('products.show', $bestSeller->slug)}}">
-													<img src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" width="80" height="80" alt="featured item">
+											<div class="thumbnail featured clearfix float-left mr-10">
+												<a href="{{route('products.show', $top->slug)}}">
+													<img src="{{asset('images/products/thumbnails/'.$top->main_image)}}" width="80" height="80" alt="featured item">
 												</a>
 											</div>
 
-											<a class="block fs-12" href="{{route('products.show', $bestSeller->slug)}}">{{$bestSeller->name}}</a>
-											<div class="text-small text-left"><small>{{$bestSeller->short_description}}</small></div>
+											<a class="block fs-12" href="{{route('products.show', $top->slug)}}">{{$top->name}}</a>
+											<div class="rating rating-{{round($top->avg)}} fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
+											
 											<div class="fs-18 text-left">
 												@if($top->reduction)
 													<span class="line-through">{{$top->price.$currency}}</span>
@@ -113,12 +83,46 @@
 												{{$top->price - ($top->price*$top->reduction/100).$currency}}
 											</div>
 										</li><!-- /item -->
-									</ul>
-								</div><!-- /SLIDE 1 -->
-							@endforeach
-
+									@endforeach
+								</ul>
+							</div><!-- /SLIDE 1 -->
 						</div>
-					</div>
+					@endif
+					<!-- \TOP RATED -->
+					<!-- BESTSELLERS -->
+					@if($bestSellers->count())
+						<div class="mb-60">
+
+							<h2 class="owl-featured">{{trans('general.best-sellers')}}</h2>
+							<div class="owl-carousel featured" data-plugin-options='{"singleItem": true, "stopOnHover":false, "autoPlay":true, "autoHeight": true, "navigation": true, "pagination": false}'>
+								
+								@foreach($bestSellers as $bestSeller)
+									<div><!-- SLIDE 1 -->
+										<ul class="list-unstyled m-0 p-0 text-left">
+
+											<li class="clearfix"><!-- item -->
+												<div class="thumbnail featured clearfix float-left">
+													<a href="{{route('products.show', $bestSeller->slug)}}">
+														<img src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" width="80" height="80" alt="featured item">
+													</a>
+												</div>
+
+												<a class="block fs-12" href="{{route('products.show', $bestSeller->slug)}}">{{$bestSeller->name}}</a>
+												<div class="text-small text-left"><small>{{$bestSeller->short_description}}</small></div>
+												<div class="fs-18 text-left">
+													@if($top->reduction)
+														<span class="line-through">{{$top->price.$currency}}</span>
+													@endif
+													{{$top->price - ($top->price*$top->reduction/100).$currency}}
+												</div>
+											</li><!-- /item -->
+										</ul>
+									</div><!-- /SLIDE 1 -->
+								@endforeach
+
+							</div>
+						</div>
+					@endif
 					<!-- /BESTSELLERS -->
 					<!-- CATEGORIES -->
 					<div class="side-nav mb-60">

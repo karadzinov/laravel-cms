@@ -7,19 +7,19 @@ use File;
 use Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Scopes\TranslationScope;
 use App\Models\{Category, Page};
 use Kalnoy\Nestedset\Collection;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\PostCategoryRequest;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class CategoryController extends Controller
 {
 
     public function index()
     {
-        $categories = Category::where('parent_id','=',NULL)->withDepth()->get();
+        $categories = Category::withoutGlobalScope(TranslationScope::class)->where('parent_id','=',NULL)->withDepth()->get();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function create(Request $input)
     {
         $data = $input->only('parent_id');
-        $categories = $this->getCategoryOptions();
+        $categories = $this->getCategoryOptions($input->get('parent_id'));
 
         return view('admin.categories.create', compact('data', 'categories'));
     }
@@ -85,7 +85,7 @@ class CategoryController extends Controller
     {
         /** @var Category $category */
         $category = Category::findOrFail($id);
-        $categories = $this->getCategoryOptions($category);
+        $categories = $this->getCategoryOptions($id, $category);
 
         return view('admin.categories.edit', compact('category', 'categories','id'));
     }
@@ -251,6 +251,7 @@ class CategoryController extends Controller
     
     protected function makeOptions(Collection $items)
     {
+        $options = [];
         foreach ($items as $item)
         {
             $options[$item->getKey()] = str_repeat('- ', $item->depth + 1).' '.$item->name;
@@ -263,15 +264,14 @@ class CategoryController extends Controller
      *
      * @return CategoriesController
      */
-    protected function getCategoryOptions($except = null)
-    {
-        /** @var \Kalnoy\Nestedset\QueryBuilder $query */
+    protected function getCategoryOptions($parentId, $except = null)
+    {   
         $query = Category::select('id', 'name')->withDepth()->defaultOrder();
         if ($except)
         {
             $query->whereNotDescendantOf($except)->where('id', '<>', $except->id);
         }
-       
+        
         return $this->makeOptions($query->get());
     }
 }

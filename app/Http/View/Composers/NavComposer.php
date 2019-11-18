@@ -4,6 +4,7 @@ namespace App\Http\View\Composers;
 
 use App\Models\Language;
 use Illuminate\View\View;
+use App\Scopes\TranslationScope;
 use App\Models\{Category, Currency, Page};
 
 class NavComposer
@@ -14,7 +15,7 @@ class NavComposer
 
     public function __construct()
     {
-        $categories = Category::where('parent_id','=',NULL)->withDepth()->get();
+        $categories = Category::withoutGlobalScope(TranslationScope::class)->where('parent_id','=',NULL)->withDepth()->get();
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();
