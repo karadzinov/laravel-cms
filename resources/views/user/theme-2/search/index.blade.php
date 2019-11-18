@@ -21,6 +21,9 @@
 		.no-results h2{
 			margin: 25%;
 		}
+		.alert{
+			padding-bottom: 0px;
+		}
 	</style>
 @endsection
 @section('title', trans('general.search'))
@@ -75,11 +78,55 @@
 		</div>
 	</section>
 
-	@if(count($posts) && count($pages) && count($faqs))
+	@if(count($posts) || count($products) || count($pages) || count($faqs))
 		<!-- -->
 		<section>
 			<div class="container">
 				
+				@if(count($products))
+					@foreach($products as $product)
+						<h2>{{trans('general.navigation.products')}}</h2>
+						@if($product->main_image)
+							<div class="clearfix search-result"><!-- item -->
+								<h4 class="mb-0">
+									<a href="{{$product->showRoute}}">
+										{{$product->name}}
+									</a>
+								</h4>
+								<small class="text-muted">{{$product->category->name}}</small>
+								<img src="{{$product->thumbnail}}" alt="" height="60" />
+								<p>{{$product->created_at->format('M d, Y')}}</p>
+								<a href="{{$product->showRoute}}" class="text-warning fsize12">{{trans('general.read-more')}}</a>
+							</div><!-- /item -->
+						@else
+							<div class="clearfix search-result"><!-- item -->
+								<h4 class="mb-0">
+									<a href="{{$product->showRoute}}">
+										{{$product->name}}
+									</a>
+								</h4>
+								<small class="text-success">
+									{{$product->category->name}},
+								</small>
+								<small class="text-success">
+									{{$product->created_at->format('M d, Y')}}
+								</small>
+
+								<p>
+									{{$product->short_description}}
+									<span>
+										<a href="{{$product->showRoute}}" class="text-warning fsize12">
+											{{trans('general.read-more')}}
+										</a>
+									</span>
+
+								</p>
+							</div><!-- /item -->	
+						@endif
+					@endforeach
+					<div class="divider divider-dotted"><!-- divider --></div>
+				@endif
+
 				@if(count($posts))
 					<h2>{{trans('general.navigation.posts')}}</h2>
 					@foreach($posts as $post)
@@ -112,7 +159,7 @@
 								<p>
 									{{$post->subtitle}}
 									<span>
-										<a href="{{route('faq.index')}}" class="text-warning fsize12">
+										<a href="{{$post->showRoute}}" class="text-warning fsize12">
 											{{trans('general.read-more')}}
 										</a>
 									</span>

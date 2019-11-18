@@ -28,6 +28,10 @@
 				object-fit: cover;
 
 			}
+			.searchResultsTitle{
+				background: rgba(9,174,222, 0.5);
+				margin-top:0;
+			}
 		</style>
 	</head>
 

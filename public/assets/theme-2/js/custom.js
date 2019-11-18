@@ -63,12 +63,14 @@ $(document).ready(function(){
 
     function prepareList(response){
     	var results = '';
-    	var posts = response.posts;
+        var posts = response.posts;
+    	var products = response.products;
     	var pages = response.pages;
     	var faqs = response.faqs;
         var translations = response.translations;
 
-     	posts.length ? results += appendResults(posts, translations.posts) : null; 
+        posts.length ? results += appendResults(posts, translations.posts) : null; 
+     	products.length ? results += appendResults(products, translations.products) : null; 
      	pages.length ? results += appendResults(pages, translations.pages) : null; 
      	faqs.length ? results += appendResults(faqs, translations.faqs) : null;
 

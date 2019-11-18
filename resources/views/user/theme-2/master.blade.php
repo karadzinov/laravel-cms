@@ -20,6 +20,10 @@
 			.half-width{
 				max-width: 50%;
 			}
+			#mainSearchResponse{
+				z-index: 1;
+				width: 100%;
+			}
 		</style>
 	</head>
 	<!--

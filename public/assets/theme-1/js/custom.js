@@ -124,8 +124,8 @@ $(document).ready( function() {
                 search: search
                 },
             success: function(response){
-            	responseDiv.html('');console.log(response)
-				if(!response.posts.length && !response.pages.length && !response.faqs.length){
+            	responseDiv.html('');
+				if(!response.posts.length && !response.products.length && !response.pages.length && !response.faqs.length){
 					var htmlResponse = 
 						`
 						<h4 class="list-group-item searchResultsTitle">
@@ -147,11 +147,13 @@ $(document).ready( function() {
     function prepareList(response){
     	var results = '';
     	var posts = response.posts;
+    	var products = response.products;
     	var pages = response.pages;
     	var faqs = response.faqs;
         var translations = response.translations;
 
      	posts.length ? results += appendResults(posts, translations.posts) : null; 
+     	products.length ? results += appendResults(products, translations.products) : null; 
      	pages.length ? results += appendResults(pages, translations.pages) : null; 
      	faqs.length ? results += appendResults(faqs, translations.faqs) : null;
 

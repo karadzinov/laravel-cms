@@ -24,24 +24,37 @@
 					<h1 class="page-title">Search results for "{{$search}}"</h1>
 					<div class="separator-2"></div>
 					<!-- page-title end -->
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ut quisquam ab harum hic enim quibusdam aut quasi recusandae temporibus quo voluptatibus, dolorem consectetur ipsam facere ipsa. Commodi sunt, inventore!</p>
-					@if(!count($posts) && !count($pages) && !count($faqs))
-						<p class="lead">No results for "{{$search}}"</p>
+					@if(!count($posts) && !count($products) && !count($pages) && !count($faqs))
+						<p class="lead">{{trans('general.no-results-for')}} "{{$search}}"</p>
 					@else
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs style-1" role="tablist">
+							@if(count($products))
+								<li><a href="#tab0" role="tab" data-toggle="tab"><i class="fa  fa-cubes pr-10"></i>{{trans('general.navigation.products')}}</a></li>
+							@endif
 							@if(count($posts))
-								<li><a href="#tab1" role="tab" data-toggle="tab"><i class="fa  fa-pencil pr-10"></i>Posts</a></li>
+								<li><a href="#tab1" role="tab" data-toggle="tab"><i class="fa  fa-pencil pr-10"></i>{{trans('general.navigation.posts')}}</a></li>
 							@endif
 							@if(count($pages))
-								<li><a href="#tab2" role="tab" data-toggle="tab"><i class="fa fa-newspaper-o"></i> Pages</a></li>
+								<li><a href="#tab2" role="tab" data-toggle="tab"><i class="fa fa-newspaper-o"></i> {{trans('general.navigation.pages')}}</a></li>
 							@endif
 							@if(count($faqs))
-								<li><a href="#tab3" role="tab" data-toggle="tab"><i class="fa fa-question pr-10"></i>Faqs</a></li>
+								<li><a href="#tab3" role="tab" data-toggle="tab"><i class="fa fa-question pr-10"></i>{{trans('general.navigation.faq')}}</a></li>
 							@endif
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
+							@if(count($products))
+								<div class="tab-pane fade" id="tab0">
+									@foreach($products as $product) 
+										@if($product->reduction)
+											@include($path . 'partials/products/with-reduction')
+										@else
+											@include($path . 'partials/products/without-reduction')
+										@endif
+									@endforeach
+								</div>
+							@endif
 							@if(count($posts))
 								<div class="tab-pane fade" id="tab1">
 									@include($path . 'partials/posts/posts-list')
