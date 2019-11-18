@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Helpers\{Imageable, HasYoutubeVideos, Taggable};
+use App\Models\Helpers\{Imageable, HasYoutubeVideos, ModelIsTranslatable, Taggable};
 
 class Product extends Model
 {
-    use Imageable, HasYoutubeVideos, Taggable;
+    use Imageable, HasYoutubeVideos, ModelIsTranslatable, Taggable;
 
     protected $table = 'products';
 

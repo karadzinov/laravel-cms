@@ -1,16 +1,19 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\{Category, Product, User};
+use App\Models\{Category, Language, Product, User};
 
 $category = Category::first()->id;
 $user = User::first()->id;
+$language = Language::where('active', '=', '1')->first()->code;
 
-$factory->define(Product::class, function (Faker $faker) use ($category, $user) {
+$factory->define(Product::class, function (Faker $faker) use ($category, $user, $language) {
     $words = $faker->sentence(3);
+
 
     return [
         "category_id"   => $category,
+        "language"      => $language,
         "user_id"       => $user,
         "name"          => $words,
         "slug"          => str_slug($words, '-'),

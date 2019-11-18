@@ -6,6 +6,7 @@ use File;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\Taggable;
 use App\Http\Controllers\Helpers\UsesSlider;
@@ -66,6 +67,7 @@ class ProductsController extends UsesSlider
         $slug = str_slug($name, '-');
 
     	$newProduct = new Product();
+        $newProduct->language = App::getLocale();
         $newProduct->name = $name;
         $newProduct->slug = $slug;
     	$newProduct->short_description = strip_tags($request->get('short_description'));
@@ -109,9 +111,10 @@ class ProductsController extends UsesSlider
     	return view('admin/products/edit', compact('product', 'categories', 'currency', 'tags', 'assignedTags'));
     }
 
-	public function update(UpdateProductRequest $request, Product $product){
+	public function update(UpdateProductRequest $request, $product){
+        $product = Product::findOrFail($product);
     	$image = $this->updateImageIfNecessary($request);
-        
+        $product->language = App::getLocale();
         $name = strip_tags($request->get('name'));
         if($name !== $product->name){
             $slug = str_slug($name, '-');
@@ -143,8 +146,9 @@ class ProductsController extends UsesSlider
         return redirect()->route('admin.products.index')->with('success', 'products.success.updated');
     }
 
-	public function delete(Product $product){
+	public function delete($product){
     	
+        $product = Product::findOrFail($product);
         $this->deleteImages($product);
         $product->delete();
 
