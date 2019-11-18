@@ -18,12 +18,6 @@
                             <i class="fa fa-edit"></i>
                              {{trans('admin.edit')}}
                          </a>
-                         <span style='display:inline;'>
-                             {!! Form::open(array('url' => route('admin.category.destroy', [$category->id]), 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('admin.delete'), 'style'=>'display:inline')) !!}
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!! Form::button('<i class="fa fa-trash-o"></i> '.trans('admin.delete'), array('class' => 'btn btn-danger btn-xs','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => trans('categories.delete-category'), 'data-message' => trans('categories.confirm-delete'))) !!}
-                            {!! Form::close() !!}
-                         </span>
                      </span>
                  </li>
             @else

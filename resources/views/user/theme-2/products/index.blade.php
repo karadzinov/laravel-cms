@@ -17,6 +17,7 @@
 		}
 		select{
 			min-width: 150px;
+			padding: 6px 12px;
 		}
 	</style>
 @endsection
@@ -74,7 +75,7 @@
 						@endforeach
 					</select> 
 				</div>
-					<button type="submit" class="btn btn-default mt-20">{{trans('general.submit')}}</button>
+					<button type="submit" class="btn btn-lg btn-default mt-20">{{trans('general.submit')}}</button>
 			</form>
 		</div>
 		<!-- LIST OPTIONS -->

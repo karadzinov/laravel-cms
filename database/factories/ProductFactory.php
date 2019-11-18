@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 use App\Models\{Category, Language, Product, User};
 
-$category = Category::first()->id;
+$category = Category::where('name', '=', 'Exemple Product Category that should be edited')->first()->id;
 $user = User::first()->id;
 $language = Language::where('active', '=', '1')->first()->code;
 

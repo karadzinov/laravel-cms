@@ -199,6 +199,7 @@ array (
   'status'            => 'Status',
   'show'              => 'Show',
   'products'          => 'Products',
+  'products-top-text' => 'Products Top Text',
   'best-sellers'      => 'Best Sellers',
   'top-rated'         => 'Top Rated',
   'purchase'          => 'Purchase',
