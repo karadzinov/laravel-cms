@@ -135,7 +135,7 @@ class SettingsController extends Controller
         if(count($languages)){
             $formStatusMessage['message'] = trans('translations.missing-enabled-language', ['count'=>count($languages)]);
         }
-       
+
         return redirect('admin/meta/settings')
                 ->with($formStatusMessage);
     }

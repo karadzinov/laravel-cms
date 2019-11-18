@@ -30,6 +30,7 @@ array (
   'status'        => 'Status',
   'active'        => 'Active',
   'completed'     => 'Completed',
+  'no-results-yet'=> 'No results yet.',
   'uncompleted'   => 'Uncompleted',
   'not-active'    => 'Not Active',
   'not-permited'  => 'Not Permited',

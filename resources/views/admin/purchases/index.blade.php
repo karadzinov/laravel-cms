@@ -107,6 +107,8 @@
                 <div class="text-center">
                     {{$purchases->links()}}
                 </div>
+            @else
+                <p class="lead">{{trans('admin.no-results-yet')}}</p>
             @endif
         </div>
         
