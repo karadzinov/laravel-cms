@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $posts = Post::latest()->take(4)->get();
         $settings = Settings::first();
-        $categories = Category::take(3)->get();
+        $categories = Category::where('name', '!=', 'posts')->where('name', '!=', 'products')->take(3)->get();
         $testimonials = Testimonial::take(4)->get();
         $about = About::first();
         $partners = Partner::all();
