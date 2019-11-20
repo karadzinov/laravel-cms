@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Category, Currency, Post, Product, FAQ, Page, User};
+use App\Models\{Category, FAQ, Post, Product, Page, Settings, User};
 
 class SearchController extends Controller
 {
@@ -51,7 +51,7 @@ class SearchController extends Controller
         $data = compact('posts', 'products', 'pages', 'faqs', 'search');
 
         if($products->count()){
-            $currency = Currency::symbol();
+            $currency = Settings::first()->currencySymbol;
 
             $cart = collect([]);
             $wishlist = collect([]);

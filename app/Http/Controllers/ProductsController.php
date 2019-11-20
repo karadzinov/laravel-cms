@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
-use App\Models\{Category, Currency, Product, Review, User};
+use App\Models\{Category, Product, Review, Settings, User};
 
 class ProductsController extends Controller
 {
@@ -13,7 +13,7 @@ class ProductsController extends Controller
         $products = $this->prepareProducts($request);
         $request = $request->all();
         
-     	$currency = Currency::symbol();
+     	$currency = Settings::first()->currencySymbol;
         $categories = Category::whereHas('products')->get();
 
         $cart = collect([]);
@@ -34,7 +34,7 @@ class ProductsController extends Controller
 
     public function show($slug){
 
-     	$currency = Currency::symbol();
+     	$currency = Settings::first()->currencySymbol;
     	$product = Product::with('reviews', 'reviews.user')->where('slug', '=', $slug)->first();
         $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);

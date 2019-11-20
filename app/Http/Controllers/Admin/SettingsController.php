@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use File;
 use Validator;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Models\{Currency, Language, Settings, Theme};
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\{Currency, Language, Settings, Theme};
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
 class SettingsController extends Controller
@@ -21,19 +22,12 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        
         $settings = Settings::first();
-        $avalilableLanguages = Language::where('active', '=', 1)
-                            ->pluck('name')
-                            ->toArray();
-
-        $currency = Currency::where('active', '=', 1)
-                            ->select('name')
+        $currency = $settings->currency()->select('name')
                             ->first();
-        $avalilableLanguages = implode(', ', $avalilableLanguages);
         $theme = Theme::where('active', '=', 1)->first();
 
-        return view('admin.settings.index', compact('settings', 'avalilableLanguages', 'currency', 'theme'));
+        return view('admin.settings.index', compact('settings', /*'avalilableLanguages',*/ 'currency', 'theme'));
 
     }
 
@@ -92,14 +86,12 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
         $languages = Language::pluck('name', 'id');
-        $avalilableLanguages = Language::where('active', '=', 1)
-                                ->pluck('id')
-                                ->toArray();
+        
         $currencies = Currency::pluck('name', 'id');
-        $currency = Currency::where('active', '=', 1)->select('id')->first();
+        $currency = $settings->currency()->select('id', 'name')->first();
         $themes = Theme::all();
 
-        return view('admin.settings.edit', compact('settings', 'languages', 'avalilableLanguages', 'currencies', 'currency', 'themes'));
+        return view('admin.settings.edit', compact('settings', 'languages'/*, 'avalilableLanguages'*/, 'currencies', 'currency', 'themes'));
  
     }
 
@@ -114,13 +106,11 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
         $input = $request->all();
-
-        $languages = $this->updateAvailableLanguages($request->get('languages'));
-        unset($input['languages']);
-        $languages = $this->updateAvailableLanguages($request->get('languages'));
-        unset($input['languages']);
-
-        $currency = $this->updateCurrency($input['currency']);
+        if($difference = $request->get('currency_exchanger')){
+            
+            $this->updateProductsPrices($difference);
+        }
+        $currency = $this->updateCurrency($input['currency'], $settings);
         unset($input['currency']);
 
         $theme = $this->updateTheme($request->get('theme'));
@@ -132,12 +122,23 @@ class SettingsController extends Controller
         }
         $settings->update($input);
         $formStatusMessage = ['success'=>trans('settings.success.updated')];
-        if(count($languages)){
-            $formStatusMessage['message'] = trans('translations.missing-enabled-language', ['count'=>count($languages)]);
-        }
 
         return redirect('admin/meta/settings')
                 ->with($formStatusMessage);
+    }
+
+    public function updateProductsPrices($difference){
+        $products = Product::all();
+
+        if($products->isNotEmpty()){
+            foreach($products as $product){
+                $newPrice = $product->price * $difference;
+                $product->price = $newPrice;
+                $product->save();
+            }
+        }
+
+        return true;
     }
 
     public function updateTheme($theme){
@@ -174,12 +175,10 @@ class SettingsController extends Controller
         return $withoutFolder;
     }
 
-    public function updateCurrency($id){
-        $active = Currency::where('active', '=', 1)->first();
-
-        if($id != $active->id){
-            $active->update(['active'=>0]);
-            Currency::findOrFail($id)->update(['active' => 1]);
+    public function updateCurrency($id, Settings $settings){
+        
+        if($id != $settings->currency->id){
+            $settings->currency_id = $id;
         }
 
         return;

@@ -8,7 +8,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, Currency, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial, User};
+use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial, User};
 
 class FrontEndController extends Controller
 {
@@ -71,7 +71,7 @@ class FrontEndController extends Controller
                     ->take(5)
                     ->get();
         $products = $this->getAllCategoryProducts($category);
-        $currency = Currency::symbol();
+        $currency = Settings::first()->currecnySymbol;
         $cart = collect([]);
         $wishlist = collect([]);
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
@@ -210,7 +210,7 @@ class FrontEndController extends Controller
                $wishlist = $user->wishlist()->get();
 
             }
-            $currency = Currency::symbol();
+            $currency = Settings::first()->currecnySymbol;
             $data['cart'] = $cart;
             $data['wishlist'] = $wishlist;
             $data['currency'] = $currency;

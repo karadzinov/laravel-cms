@@ -1,16 +1,5 @@
 @extends($path . 'master')
-{{-- {{dd(App::getLocale())}} --}}
 @section('content')
-	{{-- <div class="breadcrumb-container">
-		<div class="container">
-			<ol class="breadcrumb">
-				<li><i class="fa fa-home pr-10"></i><a href="index.html">Home</a></li>
-				<li class="active">{{trans('general.faq')}}</li>
-			</ol>
-		</div>
-	</div> --}}
-	<!-- breadcrumb end -->
-
 	<!-- main-container start -->
 	<!-- ================ -->
 	<section class="main-container">

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{Currency, Purchase, Settings};
+use App\Models\{Purchase, Settings};
 
 class PurchasesController extends Controller
 {
@@ -21,7 +21,7 @@ class PurchasesController extends Controller
     	if($purchase->completed){
     		return view('admin/purchases/show', compact('purchase', 'settings'));
     	}
-    	$currency =  Currency::symbol();
+    	$currency =  $settings->currencySymbol;
 
     	return view('admin/purchases/show-uncompleted', compact('purchase', 'currency'));
     	

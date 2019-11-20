@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\Taggable;
 use App\Http\Controllers\Helpers\UsesSlider;
-use App\Models\{Category, Currency, Product, Tag};
+use App\Models\{Category, Product, Settings, Tag};
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests\Products\{CreateProductRequest, UpdateProductRequest};
 
@@ -31,7 +31,7 @@ class ProductsController extends UsesSlider
     public function index(){
     	
     	$products = Product::with('category')->latest()->paginate(25);
-    	$currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+    	$currency = Settings::first()->currencySymbol;
     	return view('admin/products/index', compact('products', 'currency'));
     }
 	
@@ -40,7 +40,7 @@ class ProductsController extends UsesSlider
         $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
         $categories = $this->getTree($postsCateory);
 
-        $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+        $currency = Settings::first()->currencySymbol;
         $tags = Tag::pluck('name', 'id')->toArray();
 
     	return view('admin/products/create', compact('categories', 'currency', 'tags'));
@@ -94,7 +94,7 @@ class ProductsController extends UsesSlider
     }
 
 	public function show(Product $product){
-    	$currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+    	$currency = Settings::first()->currencySymbol;
         
     	return view('admin/products/show', compact('product', 'currency'));
     }
@@ -104,7 +104,7 @@ class ProductsController extends UsesSlider
         $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
         $categories = $this->getTree($postsCateory);
         
-        $currency = Currency::where('active', '=', 1)->pluck('symbol')->first();
+        $currency = Settings::first()->currencySymbol;
         $tags = Tag::pluck('name', 'id')->toArray();
         $assignedTags = $this->assignedTags($product);
 

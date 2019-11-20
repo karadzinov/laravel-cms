@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
-use App\Models\{Currency, Product, User};
+use App\Models\{Product, Settings, User};
 
 class CartsController extends Controller
 {
     public function cart(){
 		$cart = auth()->user()->cart;
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.my-cart'));
 
     	return view($this->path.'purchases/cart', compact('cart', 'currency', 'metadata'));

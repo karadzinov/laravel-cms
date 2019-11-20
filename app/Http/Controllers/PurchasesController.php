@@ -8,7 +8,7 @@ use App\Helpers\TwoCheckout\Twocheckout;
 use App\Http\Requests\Purchases\CheckoutRequest;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
-use App\Models\{Currency, Settings, ShippingInformation, Product, Purchase, User};
+use App\Models\{Product, Purchase, Settings, ShippingInformation, User};
 
 class PurchasesController extends Controller
 {
@@ -48,7 +48,7 @@ class PurchasesController extends Controller
     public function show($purchase){
     	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
     	$settings = Settings::first();
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.my-purchases'));
 
     	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency', 'metadata'));
@@ -59,7 +59,7 @@ class PurchasesController extends Controller
     	if($purchase->completed){
     		return redirect()->back();
     	}
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.edit-purchase'));
 
     	return view($this->path . 'purchases/edit', compact('purchase', 'currency', 'metadata'));
@@ -77,7 +77,7 @@ class PurchasesController extends Controller
 		$purchase->city = $request->get('city');
 		$purchase->zip = $request->get('zip');
 		$purchase->save();
-		$currency = Currency::symbol();
+		$currency = Settings::first()->currencySymbol;
 
 		return redirect()->route('purchases.payment', $purchase->id);
     }
@@ -222,7 +222,7 @@ class PurchasesController extends Controller
 			
 			$purchase->products()->save($productsSold->items[$id], ['quantity'=>$quantity]);
 		}
-		$currency = Currency::symbol();
+		$currency = Settings::first()->currencySymbol;
 
 		return redirect()->route('purchases.payment', $purchase->id);
 	}
@@ -245,7 +245,7 @@ class PurchasesController extends Controller
 
 	public function payment($purchase){
 		$purchase = Purchase::findOrFail($purchase);
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
 
 		return view($this->path . 'purchases/card', compact('purchase', 'currency'));
 	}
@@ -253,7 +253,7 @@ class PurchasesController extends Controller
     public function buyNow(Request $request){
     	$quantity = $request->get('quantity') ?? 1;
     	$product = Product::findOrFail($request->get('product_id'));
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
 
     	$data = compact('product', 'currency', 'quantity', 'metadata');
@@ -274,7 +274,7 @@ class PurchasesController extends Controller
     public function checkoutCart(){
     	
     	$cart = auth()->user()->cart;
-    	$currency = Currency::symbol();
+    	$currency = Settings::first()->currencySymbol;
 
     	return view($this->path.'purchases/checkout', compact('cart', 'currency'));
     }

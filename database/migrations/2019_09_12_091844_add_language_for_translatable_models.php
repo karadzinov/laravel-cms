@@ -18,6 +18,11 @@ class AddLanguageForTranslatableModels extends Migration
             $table->string('language', 15)->after('id')->nullable();
         });
 
+        Schema::table('settings', function(Blueprint $table)
+        {
+            $table->string('language', 15)->after('id');
+        });
+
         Schema::table('posts', function(Blueprint $table)
         {
             $table->string('language', 15)->after('id');

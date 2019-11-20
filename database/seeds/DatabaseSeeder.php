@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call([
+            CurrenciesTableSeeder::class,
             LanguagesTableSeeder::class,
             ConversationTableSeeder::class,
             ConversationUserTableSeeder::class,
@@ -34,7 +35,6 @@ class DatabaseSeeder extends Seeder
             ScriptsTableSeeder::class,
             SettingsTableSeeder::class,
             AboutTableSeeder::class,
-            CurrenciesTableSeeder::class,
             ProductsTableSeeder::class,
         ]);
 

@@ -17,7 +17,7 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-gear"></i> 
-                {!! trans('settings.list-settings') !!}
+                {!! trans('settings.list-settings') . ' (' . $settings->language .')'!!}
             </span>
                 @if (!$settings)
                     <a href='{{route('admin.settings.create')}}' cdata-toggle="tooltip"  class="btn btn-success inline" data-placement="left">
@@ -66,10 +66,10 @@
                         {!! Form::text('slogan', $settings->slogan,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
 
-                    {!! Form::label('langs-available', trans('forms.settings-languages-available'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                    {{-- {!! Form::label('langs-available', trans('forms.settings-languages-available'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">
                         {!! Form::text('language_id', $avalilableLanguages,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
-                    </div>
+                    </div> --}}
                     
                     {!! Form::label('currency', trans('forms.settings-currency'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
                     <div class="col-md-12"  style="font-size: 14px">

@@ -10,8 +10,8 @@ class Currency extends Model
 
     protected $guarded = [];
 
-    public function scopeSymbol($query){
+    public function settings(){
     	
-    	return $query->where('active', '=', 1)->pluck('symbol')->first();
+    	return $this->hasMany(Settings::class, 'currency_id', 'id');
     }
 }

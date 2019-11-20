@@ -7,7 +7,7 @@ use App\Models\Helpers\ModelIsTranslatable;
 
 class Settings extends Model
 {
-    // use ModelIsTranslatable;
+    use ModelIsTranslatable;
     
     protected $table = 'settings';
 
@@ -18,6 +18,8 @@ class Settings extends Model
      */
     protected $fillable = [
         'main_url',
+        'language',
+        'currency_id',
         'title',
         'email',
         'address',
@@ -37,4 +39,14 @@ class Settings extends Model
         'lat',
         'lng'
     ];
+
+    public function currency(){
+        
+        return $this->belongsTo(Currency::class, 'currency_id', 'id');
+    }
+
+    public function getCurrencySymbolAttribute(){
+        
+        return $this->currency->symbol;
+    }
 }

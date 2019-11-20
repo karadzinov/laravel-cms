@@ -15,7 +15,8 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             
-            $table->integer('id')->default(1);
+            $table->increments('id');
+            $table->unsignedInteger('currency_id');
             $table->string('main_url');
             $table->string('title');
             $table->string('email');
@@ -35,6 +36,8 @@ class CreateSettingsTable extends Migration
             $table->text('google_map')->nullable();
             $table->double('lat',20,10);
             $table->double('lng',20,10);
+
+            $table->foreign('currency_id')->references('id')->on('currencies');
 
             $table->timestamps();
         });

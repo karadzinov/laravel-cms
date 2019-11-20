@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\Language;
+use App\Models\Settings;
 use Illuminate\Http\Request;
+use App\Scopes\TranslationScope;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Translations\{Translation, TranslationFile};
 
@@ -128,18 +131,41 @@ class TranslationsController extends Controller
     }
 
     public function addRemoveLanguages(Request $request){
-        
         $ids = $request->get('ids');
+        // dd($ids);
         $deactivate = $this->deactivateLanguagesIfNecessary($ids);
 
+        if(Cache::has('locales')){
+            Cache::forget('locales');
+        }
+        $locales = [];
         foreach($ids as $key => $id){
             $language = Language::findOrFail($id);
+            $locales[]=$language->code;
+
             if(!$language->active){
-               $language->update(['active'=>true]);
+                $language->update(['active'=>true]);
+                $addSettings = $this->addSettings($language);
             }
+            Cache::forever('locales',$locales);
         }
 
         return response()->json(['status'=>200]);
+    }
+
+    public function addSettings(Language $language){
+        
+        try {
+            $englishSettings = Settings::withoutGlobalScope(TranslationScope::class)->where('language', '=', 'en')->first();
+            $newSettings = $englishSettings->replicate();
+            $newSettings->language = $language->code;
+            $newSettings->save();
+
+            return true;
+        } catch (Exception $e) {
+            
+            return false;
+        }
     }
 
     public function deactivateLanguagesIfNecessary($ids){
@@ -151,6 +177,13 @@ class TranslationsController extends Controller
         if(count($difference)){
             foreach($difference as $id){
                 $language = $activeLangs->where('id', '=', $id)->first();
+                if($language->code != 'en'){
+                    $deleteSettings = Settings::withoutGlobalScope(TranslationScope::class)
+                                    ->where('language', '=', $language->code)
+                                    ->first()
+                                    ->delete();
+                }
+
                 $language->update(['active'=>false]);
             }
         }

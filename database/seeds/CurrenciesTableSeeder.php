@@ -543,7 +543,5 @@ class CurrenciesTableSeeder extends Seeder
         	}
         	$newCurrency->save();
         }
-
-        Currency::where('name', '=', 'USD')->update(['active' => 1]);
     }
 }

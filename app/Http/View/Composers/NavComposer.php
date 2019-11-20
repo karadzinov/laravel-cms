@@ -2,10 +2,9 @@
 
 namespace App\Http\View\Composers;
 
-use App\Models\Language;
 use Illuminate\View\View;
 use App\Scopes\TranslationScope;
-use App\Models\{Category, Currency, Page};
+use App\Models\{Category, Language, Page, Settings};
 
 class NavComposer
 {
@@ -57,7 +56,7 @@ class NavComposer
         if(auth()->user()){
             $cart = auth()->user()->cart;
             if($cart->isNotEmpty()){
-                $currency = Currency::symbol();
+                $currency = Settings::first()->currencySymbol;
                 $cart->totalPrice = $this->totalCartPrice($cart).$currency;
                 $cart->currency = $currency;
 

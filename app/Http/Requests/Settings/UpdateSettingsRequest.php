@@ -41,7 +41,6 @@ class UpdateSettingsRequest extends FormRequest
             'android_app'           => 'max:255',
             'lat'                   => '',
             'lng'                   => '',
-            'languages'             => 'required',
         ];
     }
 
@@ -55,7 +54,6 @@ class UpdateSettingsRequest extends FormRequest
             'main_url.required'     => trans('settings.mainURLRequired'),
             'lat'                   => '', //'Latitude required',
             'lng'                   => '', //'Longtitude required',
-            'languages'             => 'You need to specify at least one language',
         ];
     }
 }

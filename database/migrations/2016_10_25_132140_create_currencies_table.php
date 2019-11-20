@@ -21,7 +21,6 @@ class CreateCurrenciesTable extends Migration
             $table->enum('symbol_position', ['right', 'left']);
             $table->enum('decimal_separator', [',', '.'])->nullable();
             $table->enum('unit_separator', [',', '.']);
-            $table->boolean('active')->default(0);
 
             $table->timestamps();
         });

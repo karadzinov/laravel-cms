@@ -1,5 +1,5 @@
 @extends('admin/master')
-
+{{-- {{dd(\App::getLocale())}} --}}
 @section('pageTitle')
     {{trans('products.products')}}
 @endsection
