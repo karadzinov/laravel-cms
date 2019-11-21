@@ -77,9 +77,9 @@
 					<!-- price -->
 					<div class="shop-item-price">
 						@if($product->reduction)
-							<span class="line-through pl-0">{{$product->price.$currency}}</span>
+							<span class="line-through pl-0">{{$product->formatedPrice.$currency}}</span>
 						@endif
-						{{$product->currentPrice.$currency}}
+						{{$product->formatedCurrentPrice.$currency}}
 					</div>
 					<!-- /price -->
 

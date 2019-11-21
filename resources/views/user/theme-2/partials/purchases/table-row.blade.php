@@ -10,7 +10,7 @@
 			<span class="label label-warning">{{trans('general.uncompleted')}}</span>
 		@endif
 	</td>
-	<td>{{ $purchase->total }}</td>
+	<td>{{ number_format($purchase->total, 2, '.', ',') }}</td>
 	<td>{{$purchase->currency}}</td>
 	<td>{{$purchase->home_address . ' ' . $purchase->zip .' ' . $purchase->city . ' ' . $purchase->country}}</td>
 	<td>{{$purchase->order_number}}</td>

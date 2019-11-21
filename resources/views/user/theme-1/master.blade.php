@@ -59,7 +59,6 @@
 		@foreach($scripts as $script)
 			{!!$script ->code!!}
 		@endforeach
-		@yield('optionalScripts')
 
 		<script>
 			function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = " ") {
@@ -190,5 +189,7 @@
 				}, 4000);
 			});
 		</script>
+		@yield('optionalScripts')
+		
 	</body>
 </html>

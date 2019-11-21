@@ -92,7 +92,7 @@
 		$(document).ready(function(){
 
 			function countTotal(){
-			let prices = $('.product-times-quantity');
+				let prices = $('.product-times-quantity');
 				let totalPrice = 0;
 				for(let i = 0; i< prices.length; i++){
 					totalPrice += cleanPrice($(prices[i]).text());

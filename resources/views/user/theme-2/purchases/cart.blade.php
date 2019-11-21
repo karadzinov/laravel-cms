@@ -41,7 +41,7 @@
 									<tr class="remove-data cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-											<span id="product-{{$product->id}}-price">{{$product->currentPrice}}</span>{{$currency}}
+											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{$currency}}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
@@ -55,8 +55,7 @@
 										</td>
 										<td class="amount">
 											<span class="product-times-quantity" id="product-{{$product->id}}-total">
-												{{$product->currentPrice * $product->pivot->quantity}}
-											</span>{{$currency}} 
+												{{number_format($product->currentPrice * $product->pivot->quantity, 2, '.', ' ')}}</span>{{$currency}} 
 										</td>
 									</tr>
 								@endforeach
@@ -84,89 +83,7 @@
 
 			</div>
 		</div>
+		<input type="hidden" id="currency-symbol" value="{{$currency}}">
 	</section>
 	<!-- main-container end -->
-@endsection
-
-@section('optionalScripts')
-	<script>
-		$(document).ready(function(){
-			function countTotal(){
-			let prices = $('.product-times-quantity');
-				let totalPrice = 0;
-				for(let i = 0; i< prices.length; i++){
-					totalPrice += Number($(prices[i]).text());
-				}
-
-				$('#total-amount').text(totalPrice.toFixed(1) + '{{$currency}}')
-
-			}
-
-			function countCartItems(){
-				const items = $('.cart-item').length;
-				$('#items-count').text(items);
-			}
-
-			$('.product-quantity').on('change', function(){
-				const productId = $(this).data('product');
-				const quantity = $(this).val();
-				changeQuantity(productId, quantity);
-				const currnetPrice = $('#product-'+productId+'-price').text();
-				let totalPriceForProduct = $('#product-'+productId+'-total');
-				totalPriceForProduct.html((Number(currnetPrice)*Number(quantity)).toFixed(1));
-				countTotal();
-			});
-
-			function changeQuantity(productId, quantity){
-				$.ajaxSetup({
-   				    headers:
-  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-				});
-				$.ajax({
-					type: 'POST',
-					url: '{{route('cart.changeQuantity')}}',
-					data:{
-						product_id: productId,
-						quantity: quantity,
-					},
-					success: function (response){
-						flashMessage('success', response.message);
-					},
-					error: function(error){
-						flashMessage('danger', response.message);
-					}
-
-				});
-			}
-
-			$('.remove-from-cart').on('click', function(){
-				const product = $(this).data('product');
-				var remove = $(this).parent().closest('tr');
-				$.ajaxSetup({
-					headers:
-  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-				});
-				$.ajax({
-					type: 'DELETE',
-					url: '{{route('cart.deleteFromCart')}}',
-					data:{
-						product_id: product
-					},
-					success: function(response){
-						flashMessage('success', response.message);
-						remove.remove();
-						countTotal();
-
-
-					},
-					error: function(error){
-						flashMessage('danger', response.message);
-					}
-				});
-			});
-
-			countTotal();
-			countCartItems();
-		});
-	</script>
 @endsection

@@ -23,7 +23,7 @@
 
 							<div class="thumbnail">
 								<!-- product image(s) -->
-								<a class="shop-item-image" href="shop-single-left.html">
+								<a class="shop-item-image" href="{{$review->product->showRoute}}">
 									<img class="img-fluid" src="{{$review->product->medium}}" alt="product">
 								</a>
 								<!-- /product image(s) -->

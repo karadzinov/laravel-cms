@@ -82,14 +82,14 @@
 											</a> 
 											<small>{{$product->short_description}}</small>
 										</td>
-										<td class="price">{{$product->pivot->current_price. ' ' . $purchase->currency}} </td>
+										<td class="price">{{number_format($product->pivot->current_price, 2, '.', ' '). ' ' . $purchase->currency}} </td>
 										<td class="quantity">{{$product->pivot->quantity}} </td>
-										<td class="amount">{{$product->pivot->current_price * $product->pivot->quantity .  ' ' . $purchase->currency}} </td>
+										<td class="amount">{{number_format($product->pivot->current_price * $product->pivot->quantity, 2, '.', ' ') .  ' ' . $purchase->currency}} </td>
 									</tr>
 								@endforeach
 								<tr>
 									<td class="total-quantity" colspan="3">{{trans('general.total')}}</td>
-									<td class="total-amount">{{$purchase->total  . ' ' .  $purchase->currency}}</td>
+									<td class="total-amount">{{number_format($purchase->total, 2, '.', ' ')  . ' ' .  $purchase->currency}}</td>
 								</tr>
 							</tbody>
 						</table>

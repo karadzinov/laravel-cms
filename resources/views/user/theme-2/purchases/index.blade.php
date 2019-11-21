@@ -42,8 +42,8 @@
 						</tbody>
 					</table>
 				@else
-					<p>
-						No results
+					<p class="lead">
+						{{trans('general.no-results')}}
 					</p>
 				@endif
 			</diV>

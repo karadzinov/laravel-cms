@@ -4,9 +4,6 @@
 		.form-horizontal{
 			padding: 15px;
 		}
-		/*body.grain-blue section, body.grain-grey section, body.grain-green section, body.grain-orange section, body.grain-yellow section{
-			background-color: white !important;
-		}*/
 	</style>
 @endsection
 @section('content')
@@ -42,28 +39,28 @@
 									<tr class="cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-												{{$product->currentPrice.$currency}}
+												{{$product->formatedCurrentPrice.$currency}}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
 												<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$quantity}}" readonly="">
 											</div>											
 										</td>
-										<td class="amount"><span class="product-times-quantity">{{$product->currentPrice*$quantity}}</span>{{$currency}}</td>
+										<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$quantity, 2, '.', ' ')}}</span>{{$currency}}</td>
 									</tr>
 								@else
 									@foreach($cart as $product)
 										<tr class="cart-item">
 											<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 											<td class="price">
-													{{$product->currentPrice.$currency}}
+													{{$product->formatedCurrentPrice.$currency}}
 											</td>
 											<td class="quantity">
 												<div class="form-group">
 													<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$product->pivot->quantity}}" readonly="">
 												</div>											
 											</td>
-											<td class="amount"><span class="product-times-quantity">{{$product->currentPrice*$product->pivot->quantity}}</span>{{$currency}} </td>
+											<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$product->pivot->quantity, 2, '.', ' ')}}</span>{{$currency}} </td>
 										</tr>
 									@endforeach
 									<input type="hidden" name="cart" value="true">
@@ -96,26 +93,5 @@
 		</div>
 	</section>
 	<!-- main-container end -->
-@endsection
-
-@section('optionalScripts')
-	<script>
-		function countTotal(){
-			let prices = $('.product-times-quantity');
-			let totalPrice = 0;
-			for(let i = 0; i< prices.length; i++){
-				totalPrice += Number($(prices[i]).text());
-			}
-
-			$('#total-amount').text(totalPrice.toFixed(1) + '{{$currency}}')
-
-		}
-
-		function countCartItems(){
-			const items = $('.cart-item').length;
-			$('#items-count').text(items);
-		}
-		countTotal();
-		countCartItems();
-	</script>
+	<input type="hidden" id="currency-symbol" value="{{$currency}}">
 @endsection

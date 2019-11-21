@@ -18,9 +18,9 @@ class TranslationScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         //in case someone deletes the language, the site will be unacessible for users that have the cookie set to that deleted language
-        $languages = Cache::get('locales');
+        $languages = Cache::get('locales') ?? [config('app.locale')];
 
-        $locale = Cookie::get('locale');
+        $locale = Cookie::get('locale') ?? [config('app.locale')];
         if(!in_array($locale, $languages)){
             $locale = $languages[0];
             $minutes = 60 * 24 * 60;

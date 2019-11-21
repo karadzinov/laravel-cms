@@ -42,9 +42,9 @@
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
 											@if($product->completed)
-												{{$product->pivot->current_price.$currency}}
+												{{number_format($product->pivot->current_price, 2, '.', ' ').$currency}}
 											@else
-												{{$product->current_price.$currency}}
+												{{$product->formatedCurrent_price.$currency}}
 											@endif
 										</td>
 										<td class="quantity">
@@ -52,7 +52,7 @@
 												<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$product->pivot->quantity}}" readonly="">
 											</div>											
 										</td>
-										<td class="amount"><span class="product-times-quantity">{{$product->currentPrice*$product->pivot->quantity}}</span>{{$currency}} </td>
+										<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$product->pivot->quantity, 2, '.', ' ')}}</span>{{$currency}} </td>
 									</tr>
 								@endforeach
 								<tr>
