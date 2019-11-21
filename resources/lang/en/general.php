@@ -159,6 +159,7 @@ array (
   'shipping-informations'=> 'Shipping Informations',
   'billing-informations' => 'Billing Informations',
   'successfull-purchase' => 'Your purchases has been successfully completed. You can see your purchases <a href=":route">here</a>.',
+  'no-more-on-stock'  => 'There is no more :name on stock. We have :quantity more left.',
   'you-will-be-charged'  => 'Your purchase with id of: :id will be charged with :price',
   'card-number'        => 'Card Number',
   'enter-card-number' => 'Enter card number',

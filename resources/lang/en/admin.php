@@ -72,6 +72,8 @@ array (
   'delivery'      => 'Delivery',
   'without-delivery' => 'Without Delivery',
   'reduction'     => 'Reduction',
+  'no-reduction'  => 'No Reduction',
+  'unlimited'     => 'Unlimited',
   'reducted-price'=> 'Reducted Price',
   'quantity'      => 'Available Quantity',
   'price'         => 'Price',

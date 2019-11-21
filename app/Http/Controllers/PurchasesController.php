@@ -18,8 +18,6 @@ class PurchasesController extends Controller
 	public function ___construct(){
 		
 		// $this->middleware('my-purchases');
-
-
     	$this->privateKey = Twocheckout::privateKey(config('two-checkout.private_key'));
     	$this->sellerId = Twocheckout::sellerId(config('two-checkout.seller_id'));
     	// // Your username and password are required to make any Admin API call.
@@ -34,7 +32,6 @@ class PurchasesController extends Controller
 
     	// // All methods return an Array by default or you can set the format to 'json' to get a JSON response.
     	// Twocheckout::format('json');
-		
 	}
 
     public function index(){
@@ -170,6 +167,7 @@ class PurchasesController extends Controller
 			$purchase->currency = $currency;
 			$purchase->save();
 			$cleanWishlist = $this->cleanWishlist($purchase);
+			$checkProductsStock = $this->checkProductsStock($purchase);
 
 			return true;
 		} catch (Exception $e) {
@@ -190,6 +188,15 @@ class PurchasesController extends Controller
 		return true;
 	}
 
+	public function checkProductsStock(Purchase $purchase){
+		foreach($purchase->products as $product){
+			if($product->quantity){
+				$product->quantity = $product->quantity - $product->pivot->quantity;
+				$product->save();
+			}
+		}
+	}
+
 	public function updatePrices(Purchase $purchase){
 		
 		foreach($purchase->products as $product){
@@ -202,6 +209,18 @@ class PurchasesController extends Controller
 	public function store(CheckoutRequest $request){
 		$products = $request->get('products');
 		$productsSold = $this->prepareProductsAndPrice($products);
+		
+		foreach($products as $id => $quantity){
+			$product = $productsSold->items[$id];
+			$checkQuantity = $product->quantity - $quantity;
+			if($product->quantity !== null && $checkQuantity < 0){
+				return redirect()->back()
+						->withInput()
+						->with('error', 
+							trans('general.no-more-on-stock', ['name'=> $product->name, 'quantity'=>$product->quantity]));
+			}
+		}
+
 		if($request->has('cart')){
 			auth()->user()->cart()->detach();
 		}
