@@ -122,75 +122,75 @@
 	</style>
 @endsection
 @section('content')
-		<div class="container card-container">
-		    <div class="row">
-		        <!-- You can make it whatever width you want. I'm making it full width
-		             on <= small devices and 4/12 page width on >= medium devices -->
-		        <div class="col-lg-4 col-md-4 col-xs-12"></div>
-		        <div class="col-lg-4 col-md-4 col-xs-12">
-		        
-		        
-		            <!-- CREDIT CARD FORM STARTS HERE -->
-		            <div class="panel panel-default credit-card-box">
-		                <div class="panel-heading display-table" >
-		                    <div class="row display-tr" >
-		                        <h3 class="panel-title display-td" >{{trans('general.payment-details')}}</h3>
-		                        <div class="display-td" >                            
-		                            <small>
-		                            	{{trans('general.you-will-be-charged', ['id'=> $purchase->id, 'price'=>number_format($purchase->total, 2, '.', ' ').$currency])}}
-		                            </small>
-		                        </div>
-		                    </div>                    
-		                </div>
-		                <div class="panel-body">
-		                    <form id="paymentFrm" method="post" action="{{route('purchases.charge')}}">
-		                    	@csrf
-		                    	<input type="hidden" name="purchase" value="{{$purchase->id}}">
-		                        <div class="row">
-		                            <div class="col-xs-12">
-		                                <div class="form-group">
-		                                    <label for="cardNumber">{{trans('general.card-number')}}</label>
-		                                    <div class="input-group">
-		                                    	 <input type="tel" name="card_num" class="form-control" id="card_num" placeholder="{{trans('general.enter-card-number')}}" autocomplete="off" required>
-		                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-		                                    </div>
-		                                </div>                            
-		                            </div>
-		                        </div>
-		                        <div class="row">
-		                            <div class="col-xs-7 col-md-7">
-		                                <div class="form-group">
-		                                    <label for="cardExpiry"><span class="hidden-xs">{{trans('general.expiration')}}</span><span class="visible-xs-inline">{{trans('general.exp')}}</span> {{trans('general.date')}}</label>
-	                                	    <input type="number" class="form-control expiration-date expiration-month" name="exp_month" id="exp_month" placeholder="MM" max="12" oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" required>
-	                                	    <input type="number" name="exp_year" class="form-control expiration-date expiration-year" id="exp_year" placeholder="YY" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
-		                                </div>
-		                            </div>
-		                            <div class="col-xs-5 col-md-5 pull-right">
-		                                <div class="form-group">
-		                                    <label for="cardCVC">{{trans('general.cv-code')}}</label>
-		            						<input type="number" name="cvv" class="form-control" id="cvv" autocomplete="off" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="row">
-		                            <div class="col-xs-12">
-		                            	<!-- hidden token input -->
-		                            	<input id="token" name="token" type="hidden" value="">
-		                            	
-		                            	<!-- submit button -->
-		                            	<input type="submit" class="btn btn-success btn-lg btn-block" value="{{trans('general.submit-payment')}}">
-		                            </div>
-		                        </div>
-		                        <div class="row" style="display:none;">
-		                            <div class="col-xs-12">
-		                                <p class="payment-errors"></p>
-		                            </div>
-		                        </div>
-		                    </form>
-		                </div>
-		            </div>            
-		            <!-- CREDIT CARD FORM ENDS HERE -->
-		        </div>
-		    </div>
-		</div>
+	<div class="container card-container">
+	    <div class="row">
+	        <!-- You can make it whatever width you want. I'm making it full width
+	             on <= small devices and 4/12 page width on >= medium devices -->
+	        <div class="col-lg-4 col-md-4 col-xs-12"></div>
+	        <div class="col-lg-4 col-md-4 col-xs-12">
+	        
+	        
+	            <!-- CREDIT CARD FORM STARTS HERE -->
+	            <div class="panel panel-default credit-card-box">
+	                <div class="panel-heading display-table" >
+	                    <div class="row display-tr" >
+	                        <h3 class="panel-title display-td" >{{trans('general.payment-details')}}</h3>
+	                        <div class="display-td" >                            
+	                            <small>
+	                            	{{trans('general.you-will-be-charged', ['id'=> $purchase->id, 'price'=>number_format($purchase->total, 2, '.', ' ').$currency])}}
+	                            </small>
+	                        </div>
+	                    </div>                    
+	                </div>
+	                <div class="panel-body">
+	                    <form id="paymentFrm" method="post" action="{{route('purchases.charge')}}">
+	                    	@csrf
+	                    	<input type="hidden" name="purchase" value="{{$purchase->id}}">
+	                        <div class="row">
+	                            <div class="col-xs-12">
+	                                <div class="form-group">
+	                                    <label for="cardNumber">{{trans('general.card-number')}}</label>
+	                                    <div class="input-group">
+	                                    	 <input type="tel" name="card_num" class="form-control" id="card_num" placeholder="{{trans('general.enter-card-number')}}" autocomplete="off" required>
+	                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+	                                    </div>
+	                                </div>                            
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <div class="col-xs-7 col-md-7">
+	                                <div class="form-group">
+	                                    <label for="cardExpiry"><span class="hidden-xs">{{trans('general.expiration')}}</span><span class="visible-xs-inline">{{trans('general.exp')}}</span> {{trans('general.date')}}</label>
+                                	    <input type="number" class="form-control expiration-date expiration-month" name="exp_month" id="exp_month" placeholder="MM" max="12" oninput="javascript: if (this.value.length > 2) this.value = this.value.slice(0, this.maxLength);" required>
+                                	    <input type="number" name="exp_year" class="form-control expiration-date expiration-year" id="exp_year" placeholder="YY" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-5 col-md-5 pull-right">
+	                                <div class="form-group">
+	                                    <label for="cardCVC">{{trans('general.cv-code')}}</label>
+	            						<input type="number" name="cvv" class="form-control" id="cvv" autocomplete="off" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, this.maxLength);" required>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <div class="col-xs-12">
+	                            	<!-- hidden token input -->
+	                            	<input id="token" name="token" type="hidden" value="">
+	                            	
+	                            	<!-- submit button -->
+	                            	<input type="submit" class="btn btn-success btn-lg btn-block" value="{{trans('general.submit-payment')}}">
+	                            </div>
+	                        </div>
+	                        <div class="row" style="display:none;">
+	                            <div class="col-xs-12">
+	                                <p class="payment-errors"></p>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>            
+	            <!-- CREDIT CARD FORM ENDS HERE -->
+	        </div>
+	    </div>
+	</div>
 @endsection
