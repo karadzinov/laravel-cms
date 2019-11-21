@@ -26,9 +26,23 @@ class Product extends Model
         return $this->belongsToMany(Purchase::class, 'product_purchase', 'product_id', 'purchase_id');
     }
 
+    public function getFormatedPriceAttribute(){
+        
+        return number_format($this->price, 2, '.', ' ');
+    }
+
     public function getReductedPriceAttribute(){
     	
-    	return  $this->price - ($this->price*$this->reduction/100);
+    	return  round($this->price - ($this->price*$this->reduction/100), 2);
+    }
+
+    public function getFormatedCurrentPriceAttribute(){
+        
+        if($this->reduction){
+            return number_format($this->reductedPrice, 2, '.', ' ');
+        }
+
+        return $this->formatedPrice;
     }
 
     public function getShowRouteAttribute(){

@@ -40,7 +40,7 @@
 									<tr class="remove-data cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-											<span id="product-{{$product->id}}-price">{{$product->currentPrice}}</span>{{$currency}}
+											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{$currency}}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
@@ -54,7 +54,7 @@
 										</td>
 										<td class="amount">
 											<span class="product-times-quantity" id="product-{{$product->id}}-total">
-												{{$product->currentPrice * $product->pivot->quantity}}
+												{{number_format($product->currentPrice * $product->pivot->quantity, 2, '.', ' ') }}
 											</span>{{$currency}} 
 										</td>
 									</tr>
@@ -90,20 +90,16 @@
 @section('optionalScripts')
 	<script>
 		$(document).ready(function(){
+
 			function countTotal(){
 			let prices = $('.product-times-quantity');
 				let totalPrice = 0;
 				for(let i = 0; i< prices.length; i++){
-					totalPrice += Number($(prices[i]).text());
+					totalPrice += cleanPrice($(prices[i]).text());
 				}
+				totalPrice= formatMoney(totalPrice.toFixed(2).toString());
+				$('#total-amount').text(totalPrice + '{{$currency}}')
 
-				$('#total-amount').text(totalPrice.toFixed(1) + '{{$currency}}')
-
-			}
-
-			function countCartItems(){
-				const items = $('.cart-item').length;
-				$('#items-count').text(items);
 			}
 
 			$('.product-quantity').on('change', function(){
@@ -112,7 +108,7 @@
 				changeQuantity(productId, quantity);
 				const currnetPrice = $('#product-'+productId+'-price').text();
 				let totalPriceForProduct = $('#product-'+productId+'-total');
-				totalPriceForProduct.html((Number(currnetPrice)*Number(quantity)).toFixed(1));
+				totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
 				countTotal();
 			});
 

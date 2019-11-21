@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('slug')->index();
             $table->string('short_description');
             $table->text('description');
-            $table->unsignedInteger('price');
+            $table->decimal('price', 12, 2);
             $table->unsignedSmallInteger('reduction')->nullable();
 
             $table->unsignedInteger('quantity')->nullable();

@@ -128,27 +128,6 @@
 											<input id="product-quantity" name="quantity" type="number" class="form-control" value="1">
 										</div>
 									</div>
-									{{-- <div class="col-md-4">
-										<div class="form-group">
-											<label>Color</label>
-											<select class="form-control">
-												<option>Red</option>
-												<option>White</option>
-												<option>Black</option>
-												<option>Blue</option>
-												<option>Orange</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label>Size</label>
-											<select class="form-control">
-												<option>5.3"</option>
-												<option>5.7"</option>
-											</select>
-										</div>
-									</div> --}}
 									<div class="col-md-12 text-right">
 										
 									</div>
@@ -157,10 +136,10 @@
 							<div class="light-gray-bg p-20 bordered clearfix">
 								<span class="product price"><i class="icon-tag pr-10"></i>
 									@if($product->reduction)
-										<s class="small text-muted">{{$product->price.$currency}}</s>
-										 {{$product->reductedPrice.$currency}}
+										<s class="small text-muted">{{$product->formatedPrice.$currency}}</s>
+										 {{$product->formatedCurrentPrice.$currency}}
 									@else
-										 {{$product->price.$currency}}
+										 {{$product->formatedPrice.$currency}}
 									@endif
 								</span>
 

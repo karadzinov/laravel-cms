@@ -159,6 +159,7 @@ array (
   'shipping-informations'=> 'Shipping Informations',
   'billing-informations' => 'Billing Informations',
   'successfull-purchase' => 'Your purchases has been successfully completed. You can see your purchases <a href=":route">here</a>.',
+  'you-will-be-charged'  => 'Your purchase with id of: :id will be charged with :price',
   'thank-you'         => 'Thank You',
   'continue-shopping' => 'Continue Shopping',
   'add-to-cart'       => 'Add To Cart',

@@ -73,6 +73,6 @@ class NavComposer
             $sum += $product->currentPrice * $product->pivot->quantity;
         }
 
-        return $sum;
+        return number_format($sum, 2, '.', ' ');
     }
 }

@@ -114,7 +114,7 @@ class PurchasesController extends Controller
 		$card_exp_month = $request->get('exp_month');
 		$card_exp_year = $request->get('exp_year');
 		
-		$currency = Currency::where('active', '=', 1)->first()->name;
+		$currency = Settings::first()->currency()->first()->name;
 		
 		Twocheckout::privateKey(config('two-checkout.private_key'));
 		Twocheckout::sellerId(config('two-checkout.seller_id'));

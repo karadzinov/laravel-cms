@@ -76,7 +76,7 @@
                                         {{$purchase->status}}
                                     </td>
                                     <td class="">
-                                        {{$purchase->total . ' ' . $purchase->currency}}
+                                        {{number_format($purchase->total, 2, '.', ' ') . ' ' . $purchase->currency}}
                                     </td>
                                     <td class="hidden-xs hidden-md">
                                         {{$purchase->phone}}

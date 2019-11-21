@@ -16,6 +16,7 @@ array (
   'image'         => 'Image',
   'images'        => 'Images',
   'title'         => 'Title',
+  'short-description'=> 'Short Description',
   'description'   => 'Description',
   'link'          => 'Link',
   'settings'      => 'Settings',

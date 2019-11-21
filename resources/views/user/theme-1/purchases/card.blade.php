@@ -136,7 +136,9 @@
 		                    <div class="row display-tr" >
 		                        <h3 class="panel-title display-td" >Payment Details</h3>
 		                        <div class="display-td" >                            
-		                            <small>Your purchase with id of: {{$purchase->id}} will be charged with {{$purchase->total.$currency}}</small>
+		                            <small>
+		                            	{{trans('general.you-will-be-charged', ['id'=> $purchase->id, 'price'=>number_format($purchase->total, 2, '.', ' ').$currency])}}
+		                            </small>
 		                        </div>
 		                    </div>                    
 		                </div>

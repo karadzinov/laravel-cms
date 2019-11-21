@@ -20,7 +20,7 @@
 					</p>
 					<p class="small">{{$product->short_description}}</p>
 					<div class="elements-list clearfix">
-						<span class="price">{{$product->price.$currency}}</span>
+						<span class="price">{{$product->formatedPrice.$currency}}</span>
 						@if($cart->contains($product))
 							<a href="{{route('cart.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
 								<i class="fa fa-lg fa-cart-plus"></i>

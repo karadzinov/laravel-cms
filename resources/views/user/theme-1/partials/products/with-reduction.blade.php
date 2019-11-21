@@ -21,7 +21,7 @@
 					</p>
 					<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas inventore modi.</p>
 					<div class="elements-list clearfix">
-						<span class="price"><del>{{$product->price.$currency}}</del> {{$product->reductedPrice.$currency}}</span>
+						<span class="price"><del>{{$product->formatedPrice.$currency}}</del> {{$product->formatedCurrentPrice.$currency}}</span>
 						@if($cart->contains($product))
 							<a href="{{route('cart.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">
 								<i class="fa fa-lg fa-cart-plus"></i>
