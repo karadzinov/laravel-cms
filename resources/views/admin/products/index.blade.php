@@ -69,13 +69,13 @@
                                     <td>{!!$product->name!!}</td>
                                     <td class="hidden-xs">{{$product->category->name}}</td>
                                     <td class="hidden-xs hidden-md">
-                                        {{$product->price . $currency}}
+                                        {{$product->formatedPrice . $currency}}
                                     </td>
                                     <td class="hidden-xs hidden-md">
                                         {{$product->reduction ?? 0}}%
                                     </td>
                                     <td class="hidden-xs hidden-md">
-                                        {{$product->reductedPrice . $currency}}
+                                        {{$product->formatedCurrentPrice . $currency}}
                                     </td>
                                     <td class="hidden-xs hidden-md">
                                         @if($product->active)

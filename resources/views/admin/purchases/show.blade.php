@@ -37,26 +37,26 @@
 									<strong>{{trans('general.address')}}:</strong> {{$purchase->home_address . ' ' . $purchase->zip . ' '. $purchase->city .  ' ' . $purchase->country}} <br>
 									<strong>{{trans('general.phone')}}:</strong> {{$purchase->phone}} <br>
 								</p>
-								@if(!$purchase->shipping)
-									<small class="pull-right text-right">
-										{{trans('general.same-shipping-address')}}
-									</small>
-								@endif
-
-
-								@if($purchase->shipping)
-									<h5 class="text-right">{{trans('general.shipping-informations')}}</h5>
-									<p class="text-right small">
-										<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->shipping->first_name . ' ' . $purchase->shipping->last_name}}</span> <br>
-										<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->shipping->email}}</span> <br>
-										<strong>{{trans('general.address')}}:</strong> {{$purchase->shipping->home_address . ' ' . $purchase->shipping->zip . ' '. $purchase->shipping->city .  ' ' . $purchase->shipping->country}} <br>
-										<strong>{{trans('general.phone')}}:</strong> {{$purchase->shipping->phone}} <br>
-									</p>
+								
+								@if(in_array(1, $purchase->products->pluck('delivery')->toArray()))
+									@if($purchase->shipping)
+										<h5 class="text-right">{{trans('general.shipping-informations')}}</h5>
+										<p class="text-right small">
+											<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->shipping->first_name . ' ' . $purchase->shipping->last_name}}</span> <br>
+											<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->shipping->email}}</span> <br>
+											<strong>{{trans('general.address')}}:</strong> {{$purchase->shipping->home_address . ' ' . $purchase->shipping->zip . ' '. $purchase->shipping->city .  ' ' . $purchase->shipping->country}} <br>
+											<strong>{{trans('general.phone')}}:</strong> {{$purchase->shipping->phone}} <br>
+										</p>
+									@else
+										<small class="pull-right text-right">
+											{{trans('general.same-shipping-address')}}
+										</small>
+									@endif
 								@endif
 							</div>
 						</div>
-						<p class="small"><strong>{{trans('general.order-number')}}:</strong> {{$purchase->order_number}}</p>
-						<p class="small"><strong>{{trans('general.transaction-id')}}:</strong> {{$purchase->transaction_id}}</p>
+						<p class="small margin-clear"><strong>{{trans('general.order-number')}}:</strong> {{$purchase->order_number}}</p>
+						<p class="small margin-clear"><strong>{{trans('general.transaction-id')}}:</strong> {{$purchase->transaction_id}}</p>
 						<table class="table cart table-bordered">
 							<thead>
 								<tr>
@@ -75,14 +75,16 @@
 											</a> 
 											<small>{{$product->short_description}}</small>
 										</td>
-										<td class="price">{{$product->pivot->current_price. ' ' . $purchase->currency}} </td>
+										<td class="price">{{number_format($product->pivot->current_price, 2, '.', ' '). ' ' . $purchase->currency}} </td>
 										<td class="quantity">{{$product->pivot->quantity}} </td>
-										<td class="amount">{{$product->pivot->current_price * $product->pivot->quantity .  ' ' . $purchase->currency}} </td>
+										<td class="amount">
+											{{number_format($product->pivot->current_price * $product->pivot->quantity, 2, '.', ' ') .  ' ' . $purchase->currency}}
+										</td>
 									</tr>
 								@endforeach
 								<tr>
-									<td class="total-quantity" colspan="3">{{trans('general.total')}} {{$purchase->products()->count()}} {{trans('general.items')}}</td>
-									<td class="total-amount">{{$purchase->total  . ' ' .  $purchase->currency}}</td>
+									<td class="total-quantity" colspan="3">{{trans('general.total')}}</td>
+									<td class="total-amount">{{number_format($purchase->total, 2, '.', ' ')  . ' ' .  $purchase->currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -90,7 +92,7 @@
 						<hr>
 					</div>
 					<div class="text-right">	
-						<button onclick="printInvoice();" class="btn btn-print btn-default-transparent btn-hvr hvr-shutter-out-horizontal">Print <i class="fa fa-print pl-10"></i></button>
+						<button onclick="printInvoice();" class="btn btn-print btn-default-transparent btn-hvr hvr-shutter-out-horizontal">{{trans('general.print')}} <i class="fa fa-print pl-10"></i></button>
 					</div>
 				</div>
 				<!-- main end -->

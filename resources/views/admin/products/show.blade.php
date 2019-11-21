@@ -73,14 +73,14 @@
             @if($product->price)
                 <div>
                     <label for="price"><strong>{{trans('admin.price')}}:</strong></label>
-                    <p id="price">{{$product->price . $currency}}</p>
+                    <p id="price">{{$product->formatedPrice . $currency}}</p>
                 </div>
             @endif
 
             @if($product->reduction)
                 <div>
                     <label for="reduction"><strong>{{trans('admin.reduction')}}:</strong></label>
-                    <p id="reduction">{{$product->reduction}}% <span>({{trans('admin.reducted-price')}}: {{$product->reductedPrice . $currency}})</span></p>
+                    <p id="reduction">{{$product->reduction}}% <span>({{trans('admin.reducted-price')}}: {{$product->formatedCurrentPrice . $currency}})</span></p>
                 </div>
             @endif
 
