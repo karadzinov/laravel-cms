@@ -56,26 +56,30 @@ class CartsController extends Controller
             $availableQuantity = $product->quantity;
 
             if((null!==$availableQuantity) && (-1 >= $availableQuantity-$quantity)){
-                
+                $updateQuantity = $this->updateQuantity($request->get('product_id'), $availableQuantity);
                 return response()->json(
                     ['status'=>'warning', 
                     'message'=>trans('general.no-more-on-stock', 
                         ['name'=>$product->name, 'quantity' => $availableQuantity]),
-                    'quantity' => $availableQuantity
+                    'quantity' => (string)$availableQuantity
                     ]
                 );      
             }
-    		$pivot = auth()->user()->cart()
-    					->where('product_id', '=', $request->get('product_id'))
-    					->first()->pivot;
-
-    		$pivot->quantity = $quantity;
-    		$pivot->save();
+    		$updateQuantity = $this->updateQuantity($request->get('product_id'), $quantity);
     	} catch (Exception $e) {
-			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
+			return response()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
     	}
 
     	return response()->json(['status'=>'success', 'message'=>trans('general.succcessfully-updated')]);
+    }
+
+    public function updateQuantity($product, $quantity){
+        $pivot = auth()->user()->cart()
+                    ->where('product_id', '=', $product)
+                    ->first()->pivot;
+
+        $pivot->quantity = $quantity;
+        $pivot->save();
     }
 
     public function deleteFromCart(Request $request){

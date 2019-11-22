@@ -62,23 +62,13 @@
 		}
 
 		$('.product-quantity').on('change', function(){
-			const productId = $(this).data('product');
-			const quantity = $(this).val();
-			changeQuantity(productId, quantity);
-			const currnetPrice = $('#product-'+productId+'-price').text();
-			let totalPriceForProduct = $('#product-'+productId+'-total');
-			totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
-			countTotal();
+			
+			changeQuantity($(this));
 		});
 
-		if($('.product-times-quantity')){
-			countTotal();
-		}
-		if( $('.cart-item').length){
-			countCartItems();
-		}
-
-		function changeQuantity(productId, quantity){
+		function changeQuantity(obj){
+			const productId = obj.data('product');
+			let quantity = obj.val();
 			$.ajaxSetup({
 				    headers:
 					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
@@ -91,13 +81,35 @@
 					quantity: quantity,
 				},
 				success: function (response){
-					flashMessage('success', response.message);
+					if(response.status === "success"){
+
+						flashMessage('success', response.message);
+					}else if(response.status === "warning"){
+						
+						flashMessage('warning', response.message);
+						obj.val(response.quantity)
+						quantity = response.quantity;
+					}
+					
+					//update price
+					const currnetPrice = $('#product-'+productId+'-price').text();
+					let totalPriceForProduct = $('#product-'+productId+'-total');
+					totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
+					
+					countTotal();
 				},
 				error: function(error){
-					flashMessage('danger', response.message);
+					flashMessage('danger', error.message);
 				}
 
 			});
+		}
+
+		if($('.product-times-quantity')){
+			countTotal();
+		}
+		if( $('.cart-item').length){
+			countCartItems();
 		}
 
 		$('.remove-from-cart').on('click', function(){

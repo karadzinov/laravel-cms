@@ -105,12 +105,11 @@
 			$('.product-quantity').on('change', function(){
 				
 				changeQuantity($(this));
-				countTotal();
 			});
 
 			function changeQuantity(obj){
 				const productId = obj.data('product');
-				const quantity = obj.val();
+				let quantity = obj.val();
 				$.ajaxSetup({
    				    headers:
   					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
@@ -123,18 +122,22 @@
 						quantity: quantity,
 					},
 					success: function (response){
-						console.log(response)
 						if(response.status === "success"){
-							flashMessage('success', response.message);
 
+							flashMessage('success', response.message);
 						}else if(response.status === "warning"){
+							
 							flashMessage('warning', response.message);
 							obj.val(response.quantity)
+							quantity = response.quantity;
 						}
-
+						
+						//update price
 						const currnetPrice = $('#product-'+productId+'-price').text();
 						let totalPriceForProduct = $('#product-'+productId+'-total');
 						totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
+						
+						countTotal();
 					},
 					error: function(error){
 						flashMessage('danger', error.message);
