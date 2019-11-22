@@ -10,13 +10,9 @@
 						<th class="amount">{{trans('general.navigation.subtotal')}}</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="quick-cart-wrapper">
 					@foreach($cart as $product)
-						<tr>
-							<td class="quantity">{{$product->pivot->quantity}} x</td>
-							<td class="product"><a href="template/shop-product.html">{{$product->name}}</a><span class="small">{{$product->short_description}}</span></td>
-							<td class="amount pull-right">{{$product->formatedCurrentPrice.$cart->currency}}</td>
-						</tr>
+						@include($path.'partials/nav-cart-item')
 					@endforeach
 					<tr>
 						<td class="total-quantity" colspan="2">{{trans('general.total')}} {{$cart->count()}} {{trans('general.items')}}</td>

@@ -25,9 +25,7 @@ class CartsController extends Controller
     			$productId = $request->get('product_id');
                 $json = ["status"=>"success", "message" => trans('general.added-to-cart')];
 
-    			$check = $cart
-    					->where('product_id', '=', $productId)
-    					->first();
+    			$check = $cart->where('product_id', '=', $productId)->first();
 
     			if($check){
     				$json = ["status"=>"already-added", "message" => trans('general.already-in-cart')];
@@ -37,8 +35,11 @@ class CartsController extends Controller
     			$quantity = $request->get('quantity') ?? 1;
     			$cart->attach($product, ['quantity'=>$quantity]);
                 
-                if($cart->count()===1){
+                if($user->cart->count()===1){
                     $json = $this->initializeCart($user->cart);
+                }else{
+                    $product = $cart->where('product_id', '=', $product->id)->first();
+                    $json["view"] = $this->makeNavCartItem($product);
                 }
                 
     			return response()->json($json);
@@ -49,6 +50,16 @@ class CartsController extends Controller
     	}
 
     	return false;	
+    }
+
+    public function makeNavCartItem($product){
+          $cart = (object) array();
+          $currency = Settings::first()->currencySymbol;
+          $cart->currency = $currency;
+
+          $view = view($this->path.'partials/nav-cart-item', compact('product', 'cart'))->render();
+
+          return $view;
     }
 
     public function initializeCart($cart){
