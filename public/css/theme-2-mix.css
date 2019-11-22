@@ -29590,7 +29590,7 @@ i.ico-hover:hover {
     -moz-transition: opacity 3s ease-in-out;
     -ms-transition: opacity 3s ease-in-out;
     -o-transition: opacity 3s ease-in-out;
-     opacity: 1;
+     opacity: 0;
 }
 body.grain-grey #header li.quick-cart .quick-cart-box{
 	background: #f1f2f7

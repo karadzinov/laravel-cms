@@ -49,13 +49,27 @@ class CartsController extends Controller
     	    'product_id' => 'required|numeric',
     	    'quantity' => 'required|numeric',
     	]);
+        $quantity = $request->get('quantity');
+
     	try {
     		$product = Product::findOrFail($request->get('product_id'));
+            $availableQuantity = $product->quantity;
+
+            if((null!==$availableQuantity) && (-1 >= $availableQuantity-$quantity)){
+                
+                return response()->json(
+                    ['status'=>'warning', 
+                    'message'=>trans('general.no-more-on-stock', 
+                        ['name'=>$product->name, 'quantity' => $availableQuantity]),
+                    'quantity' => $availableQuantity
+                    ]
+                );      
+            }
     		$pivot = auth()->user()->cart()
     					->where('product_id', '=', $request->get('product_id'))
     					->first()->pivot;
 
-    		$pivot->quantity = $request->get('quantity');
+    		$pivot->quantity = $quantity;
     		$pivot->save();
     	} catch (Exception $e) {
 			return respnse()->json(['status'=>'failed', 'message'=>$e->getMessage()]); 		
