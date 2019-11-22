@@ -21,22 +21,29 @@ class CartsController extends Controller
     	if($request->ajax()){
     		try {
                 $user = User::find(auth()->user()->id);
+                $cart = $user->cart();
     			$productId = $request->get('product_id');
-    			$check = $user->cart()
+                $json = ["status"=>"success", "message" => trans('general.added-to-cart')];
+
+    			$check = $cart
     					->where('product_id', '=', $productId)
     					->first();
 
     			if($check){
-    				return response()->json(["status"=>"already-added", "message" => trans('general.already-in-cart')]);
+    				$json = ["status"=>"already-added", "message" => trans('general.already-in-cart')];
     			}
     			
     			$product = Product::findOrFail($request->get('product_id'));
     			$quantity = $request->get('quantity') ?? 1;
-    			$user->cart()->attach($product, ['quantity'=>$quantity]);
-
-    			return response()->json(["status"=>"success", "message" => trans('general.added-to-cart')]);
+    			$cart->attach($product, ['quantity'=>$quantity]);
+                
+                if($cart->count()===1){
+                    $json = $this->initializeCart($user->cart);
+                }
+                
+    			return response()->json($json);
     		} catch (Exception $e) {
-    			
+
     			return response()->json(["status"=>"failed", "message" => trans('general.cart-error')]);
     		}
     	}
@@ -44,6 +51,28 @@ class CartsController extends Controller
     	return false;	
     }
 
+    public function initializeCart($cart){
+
+        $currency = Settings::first()->currencySymbol;
+        $cart->totalPrice = $this->totalCartPrice($cart).$currency;
+        $cart->currency = $currency;
+
+        $view = view($this->path.'partials/nav-cart', compact('cart', 'currency'))->render();
+        
+        return ["status"   =>"new", 
+            "message"   => trans('general.added-to-cart'),
+            "view"      => $view
+            ];        
+    }
+
+    public function totalCartPrice($cart){
+       $sum = 0;
+       foreach($cart as $product){
+           $sum += $product->currentPrice * $product->pivot->quantity;
+       }
+
+       return number_format($sum, 2, '.', ' ');
+   }
     public function changeQuantity(Request $request){
     	$request->validate([
     	    'product_id' => 'required|numeric',
