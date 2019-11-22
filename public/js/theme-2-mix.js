@@ -13442,11 +13442,11 @@ function _topNav() {
     e.preventDefault(), jQuery("#header .search-box").fadeOut(300);
   }), jQuery("button#page-menu-mobile").bind("click", function () {
     jQuery(this).next("ul").slideToggle(150);
-  }), jQuery("li.quick-cart>a").click(function (e) {
+  }), jQuery(document).on("click", "li.quick-cart>a", function (e) {
     e.preventDefault();
     var t = jQuery("li.quick-cart div.quick-cart-box");
     t.is(":visible") ? t.fadeOut(300) : (t.fadeIn(300), jQuery("li.search .search-box").is(":visible") && jQuery(".search-box").fadeOut(300));
-  }), 0 != jQuery("li.quick-cart>a").size() && (jQuery("li.quick-cart").on("click", function (e) {
+  }), 0 != jQuery("li.quick-cart>a").size() && (jQuery(document).on("click", "li.quick-cart", function (e) {
     e.stopPropagation();
   }), jQuery("body").on("click", function () {
     jQuery("li.quick-cart div.quick-cart-box").is(":visible") && jQuery("li.quick-cart div.quick-cart-box").fadeOut(300);

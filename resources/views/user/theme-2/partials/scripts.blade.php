@@ -156,10 +156,13 @@
 			   },
 			   success:function(response){
 			   	
-			   	if(response.status === "already-added"){
-			   		flashMessage("success", response.message);
-			   		return;
-			   	}
+				   	if(response.status === "already-added"){
+				   		flashMessage("success", response.message);
+				   		return;
+				   	}else if(response.status==='new'){
+				   		$('#cart-placeholder').replaceWith(response.view);
+				   		flashMessage("success", response.message);
+				   	}
 			   	
 			   	flashMessage("success", response.message);
 			   	element.html("{{trans('general.added-to-cart')}} <i class='fa fa-check'></i>");
