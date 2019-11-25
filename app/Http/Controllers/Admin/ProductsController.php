@@ -30,7 +30,7 @@ class ProductsController extends UsesSlider
 
     public function index(){
     	
-    	$products = Product::with('category')->latest()->paginate(25);
+    	$products = Product::with('category', 'reviews')->latest()->paginate(25);
     	$currency = Settings::first()->currencySymbol;
     	return view('admin/products/index', compact('products', 'currency'));
     }

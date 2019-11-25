@@ -1,5 +1,5 @@
 <div class="btn-group dropdown">
-	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-basket-1"></i><span class="cart-count default-bg">{{$cart->count()}}</span></button>
+	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-basket-1"></i><span class="cart-count nav-cart-count default-bg">{{$cart->count()}}</span></button>
 	<ul class="dropdown-menu dropdown-menu-right dropdown-animation cart">
 		<li>
 			<table class="table table-hover">
@@ -15,8 +15,8 @@
 						@include($path.'partials/nav-cart-item')
 					@endforeach
 					<tr>
-						<td class="total-quantity" colspan="2">{{trans('general.total')}} {{$cart->count()}} {{trans('general.items')}}</td>
-						<td class="total-amount">{{$cart->totalPrice}}</td>
+						<td class="total-quantity" colspan="2">{{trans('general.total')}} <span class="nav-cart-count">{{$cart->count()}}</span> {{trans('general.items')}}</td>
+						<td id="nav-cart-total" class="total-amount">{{$cart->totalPrice}}</td>
 					</tr>
 				</tbody>
 			</table>

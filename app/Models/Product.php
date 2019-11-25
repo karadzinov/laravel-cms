@@ -91,7 +91,7 @@ class Product extends Model
 
     public function getRatingAttribute(){
         
-        $ratings = $this->reviews()->pluck('rating')->toArray();
+        $ratings = $this->reviews->pluck('rating')->toArray();
 
         if(!count($ratings)) return 0;
 
