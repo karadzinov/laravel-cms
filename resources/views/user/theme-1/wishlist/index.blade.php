@@ -38,9 +38,9 @@
 							<div class="elements-list clearfix">
 								<span class="price">
 									@if($product->reduction)
-										<del>{{$product->formatedPrice . ' ' . $currency}}</del>
+										<del>{{$product->formatedPrice . ' ' . $settings->currencySymbol}}</del>
 									@endif
-									{{$product->formatedCurrentPrice . ' ' . $currency}}</span>
+									{{$product->formatedCurrentPrice . ' ' . $settings->currencySymbol}}</span>
 								
 									@if($cart->contains($product))
 										<a href="{{route('cart.cart')}}" class="pull-right btn btn-sm btn-default btn-animated">

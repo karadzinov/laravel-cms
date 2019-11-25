@@ -112,7 +112,7 @@
 		</div>
 	@endif
 @endif
-@if($facebook)
+@if($facebook = $settings->facebook)
 <!-- FACEBOOK -->
 	<iframe class="hidden-xs-down" src="//www.facebook.com/plugins/likebox.php?href={{$facebook}}&amp;width=263&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" style="border:none; overflow:hidden; width:263px; height:258px;"></iframe>
 @endif

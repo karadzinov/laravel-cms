@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
-use App\Models\{Category, Product, Review, Settings, User};
+use App\Models\{Category, Product, Review, User};
 
 class ProductsController extends Controller
 {
@@ -13,7 +13,6 @@ class ProductsController extends Controller
         $products = $this->prepareProducts($request);
         $request = $request->all();
         
-     	$currency = Settings::first()->currencySymbol;
         $categories = Category::whereHas('products')->get();
 
         $cart = collect([]);
@@ -27,19 +26,18 @@ class ProductsController extends Controller
         }
         $metadata = new Metadata(trans('general.products'));
 
-        $data = compact('products', 'currency', 'categories', 'cart', 'wishlist', 'request', 'metadata');
+        $data = compact('products', 'categories', 'cart', 'wishlist', 'request', 'metadata');
         
         return view($this->path . 'products/index', $data);
     }
 
     public function show($slug){
 
-     	$currency = Settings::first()->currencySymbol;
     	$product = Product::with('reviews', 'reviews.user')->where('slug', '=', $slug)->first();
         $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
         
-    	return view($this->path.'products/show', compact('product', 'currency', 'canWriteReview', 'metadata'));
+    	return view($this->path.'products/show', compact('product', 'canWriteReview', 'metadata'));
     }
 
     public function prepareProducts(Request $request){

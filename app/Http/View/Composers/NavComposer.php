@@ -56,9 +56,7 @@ class NavComposer
         if(auth()->user()){
             $cart = auth()->user()->cart;
             if($cart->isNotEmpty()){
-                $currency = Settings::first()->currencySymbol;
-                $cart->currency = $currency;
-
+               
                 return $cart;
             }
         }

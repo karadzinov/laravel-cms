@@ -31,9 +31,9 @@
 									<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 									<td class="price">
 										@if($product->completed)
-											{{number_format($product->pivot->current_price, 2, '.', ' ').$currency}}
+											{{number_format($product->pivot->current_price, 2, '.', ' ').$settings->currencySymbol}}
 										@else
-											{{number_format($product->current_price, 2, '.', ' ').$currency}}
+											{{number_format($product->current_price, 2, '.', ' ').$settings->currencySymbol}}
 										@endif
 									</td>
 									<td class="quantity">
@@ -41,7 +41,7 @@
 											<input name="products[{{$product->id}}]" type="text" readonly="true" class="form-control" value="{{$product->pivot->quantity}}" readonly="">
 										</div>											
 									</td>
-									<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice, 2, '.', ' ')*$product->pivot->quantity}}</span>{{$currency}} </td>
+									<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$product->pivot->quantity, 2, '.', ' ')}}</span>{{ $settings->currencySymbol }} </td>
 								</tr>
 							@endforeach
 							<tr>
@@ -49,7 +49,7 @@
 									{{trans('general.total')}} {{$purchase->products()->count()}} {{trans('general.items')}}
 								</td>
 								<td class="total-amount">
-									{{$purchase->total . $currency}}
+									{{$purchase->total . $settings->currencySymbol}}
 								</td>
 							</tr>
 						</tbody>

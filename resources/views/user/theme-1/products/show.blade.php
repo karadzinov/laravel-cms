@@ -136,10 +136,10 @@
 							<div class="light-gray-bg p-20 bordered clearfix">
 								<span class="product price"><i class="icon-tag pr-10"></i>
 									@if($product->reduction)
-										<s class="small text-muted">{{$product->formatedPrice.$currency}}</s>
-										 {{$product->formatedCurrentPrice.$currency}}
+										<s class="small text-muted">{{$product->formatedPrice.$settings->currencySymbol}}</s>
+										 {{$product->formatedCurrentPrice.$settings->currencySymbol}}
 									@else
-										 {{$product->formatedPrice.$currency}}
+										 {{$product->formatedPrice.$settings->currencySymbol}}
 									@endif
 								</span>
 

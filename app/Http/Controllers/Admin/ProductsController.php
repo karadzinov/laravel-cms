@@ -31,8 +31,8 @@ class ProductsController extends UsesSlider
     public function index(){
     	
     	$products = Product::with('category', 'reviews')->latest()->paginate(25);
-    	$currency = Settings::first()->currencySymbol;
-    	return view('admin/products/index', compact('products', 'currency'));
+    	
+        return view('admin/products/index', compact('products'));
     }
 	
     public function create(){
@@ -40,10 +40,9 @@ class ProductsController extends UsesSlider
         $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
         $categories = $this->getTree($postsCateory);
 
-        $currency = Settings::first()->currencySymbol;
         $tags = Tag::pluck('name', 'id')->toArray();
 
-    	return view('admin/products/create', compact('categories', 'currency', 'tags'));
+    	return view('admin/products/create', compact('categories', 'tags'));
     }
 
     public function getTree($node, $tree=[]){
@@ -94,9 +93,8 @@ class ProductsController extends UsesSlider
     }
 
 	public function show(Product $product){
-    	$currency = Settings::first()->currencySymbol;
         
-    	return view('admin/products/show', compact('product', 'currency'));
+    	return view('admin/products/show', compact('product'));
     }
 
 	public function edit(Product $product){
@@ -104,11 +102,10 @@ class ProductsController extends UsesSlider
         $postsCateory = Category::with('children')->where('name', '=', 'products')->first();
         $categories = $this->getTree($postsCateory);
         
-        $currency = Settings::first()->currencySymbol;
         $tags = Tag::pluck('name', 'id')->toArray();
         $assignedTags = $this->assignedTags($product);
 
-    	return view('admin/products/edit', compact('product', 'categories', 'currency', 'tags', 'assignedTags'));
+    	return view('admin/products/edit', compact('product', 'categories', 'tags', 'assignedTags'));
     }
 
 	public function update(UpdateProductRequest $request, $product){

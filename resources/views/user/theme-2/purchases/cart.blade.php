@@ -41,7 +41,7 @@
 									<tr class="remove-data cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{$currency}}
+											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{ $settings->currencySymbol }}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
@@ -55,14 +55,14 @@
 										</td>
 										<td class="amount">
 											<span class="product-times-quantity" id="product-{{$product->id}}-total">
-												{{number_format($product->currentPrice * $product->pivot->quantity, 2, '.', ' ')}}</span>{{$currency}} 
+												{{number_format($product->currentPrice * $product->pivot->quantity, 2, '.', ' ')}}</span>{{ $settings->currencySymbol }} 
 										</td>
 									</tr>
 								@endforeach
 								<tr>
 									<td class="total-quantity" colspan="4">
 										{{trans('general.total')}} <span id="items-count"></span> {{trans('general.items')}}</td>
-									<td class="total-amount" id="total-amount">{{$currency}}</td>
+									<td class="total-amount" id="total-amount">{{ $settings->currencySymbol }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -83,7 +83,7 @@
 
 			</div>
 		</div>
-		<input type="hidden" id="currency-symbol" value="{{$currency}}">
+		<input type="hidden" id="currency-symbol" value="{{ $settings->currencySymbol }}">
 	</section>
 	<!-- main-container end -->
 @endsection

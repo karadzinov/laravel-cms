@@ -36,14 +36,6 @@ class ViewServiceProvider extends ServiceProvider
         }
         
         View::composer(
-            [$path . 'partials/head',
-            $path . 'partials/header',
-            $path . 'partials/footer',
-            $path . 'partials/nav',
-            ], 'App\Http\View\Composers\SettingsComposer'
-        );
-
-        View::composer(
             $path . 'partials/nav', 'App\Http\View\Composers\NavComposer'
         );
 

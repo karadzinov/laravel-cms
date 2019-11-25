@@ -40,7 +40,7 @@
 									<tr class="remove-data cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{$currency}}
+											<span id="product-{{$product->id}}-price">{{$product->formatedCurrentPrice}}</span>{{$settings->currencySymbol}}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
@@ -55,14 +55,14 @@
 										<td class="amount">
 											<span class="product-times-quantity" id="product-{{$product->id}}-total">
 												{{number_format($product->currentPrice * $product->pivot->quantity, 2, '.', ' ') }}
-											</span>{{$currency}} 
+											</span>{{$settings->currencySymbol}} 
 										</td>
 									</tr>
 								@endforeach
 								<tr>
 									<td class="total-quantity" colspan="4">
 										{{trans('general.total')}} <span id="items-count"></span> {{trans('general.items')}}</td>
-									<td class="total-amount"><span  id="total-amount"></span>{{$currency}}</td>
+									<td class="total-amount"><span  id="total-amount"></span>{{$settings->currencySymbol}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -98,7 +98,7 @@
 					totalPrice += cleanPrice($(prices[i]).text());
 				}
 				totalPrice= formatMoney(totalPrice.toFixed(2).toString());
-				$('#total-amount').text(totalPrice + '{{$currency}}')
+				$('#total-amount').text(totalPrice + '{{$settings->currencySymbol}}')
 
 			}
 

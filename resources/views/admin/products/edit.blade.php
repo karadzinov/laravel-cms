@@ -86,7 +86,7 @@
                 <div class="form-group">
                     {{Form::label('price', trans('admin.price'))}}
                     <span class="input-icon icon-right">
-                        {!! Form::number('price', $product->price,['class'=>'form-control', 'placeholder'=> $currency]) !!}
+                        {!! Form::number('price', $product->price,['class'=>'form-control', 'placeholder'=> $settings->currencySymbol]) !!}
                         <i class="fa fa-money"></i>
                     </span>
                     {!! $errors->first('price') !!}

@@ -44,11 +44,9 @@ class PurchasesController extends Controller
 
     public function show($purchase){
     	$purchase = Purchase::with('user', 'products')->findOrFail($purchase);
-    	$settings = Settings::first();
-    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.my-purchases'));
 
-    	return view($this->path.'purchases/show', compact('purchase', 'settings', 'currency', 'metadata'));
+    	return view($this->path.'purchases/show', compact('purchase', 'metadata'));
     }
 
     public function edit($purchase){
@@ -56,10 +54,9 @@ class PurchasesController extends Controller
     	if($purchase->completed){
     		return redirect()->back();
     	}
-    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.edit-purchase'));
 
-    	return view($this->path . 'purchases/edit', compact('purchase', 'currency', 'metadata'));
+    	return view($this->path . 'purchases/edit', compact('purchase', 'metadata'));
     }
 
     public function update(Request $request, $purchase){
@@ -74,7 +71,6 @@ class PurchasesController extends Controller
 		$purchase->city = $request->get('city');
 		$purchase->zip = $request->get('zip');
 		$purchase->save();
-		$currency = Settings::first()->currencySymbol;
 
 		return redirect()->route('purchases.payment', $purchase->id);
     }
@@ -241,7 +237,6 @@ class PurchasesController extends Controller
 			
 			$purchase->products()->save($productsSold->items[$id], ['quantity'=>$quantity]);
 		}
-		$currency = Settings::first()->currencySymbol;
 
 		return redirect()->route('purchases.payment', $purchase->id);
 	}
@@ -264,19 +259,17 @@ class PurchasesController extends Controller
 
 	public function payment($purchase){
 		$purchase = Purchase::findOrFail($purchase);
-    	$currency = Settings::first()->currencySymbol;
 
-		return view($this->path . 'purchases/card', compact('purchase', 'currency'));
+		return view($this->path . 'purchases/card', compact('purchase'));
 	}
 
     public function buyNow(Request $request){
     	$quantity = $request->get('quantity') ?? 1;
     	$product = Product::findOrFail($request->get('product_id'));
-    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
         $countries = Country::active()->pluck('name', 'code');
 
-    	$data = compact('product', 'currency', 'countries', 'quantity', 'metadata');
+    	$data = compact('product', 'countries', 'quantity', 'metadata');
 
 		return view($this->path . 'purchases/checkout', $data);
     }
@@ -294,9 +287,8 @@ class PurchasesController extends Controller
     public function checkoutCart(){
     	
     	$cart = auth()->user()->cart;
-    	$currency = Settings::first()->currencySymbol;
     	$countries = Country::active()->pluck('name', 'code');
 
-    	return view($this->path.'purchases/checkout', compact('cart', 'countries', 'currency'));
+    	return view($this->path.'purchases/checkout', compact('cart', 'countries'));
     }
 }

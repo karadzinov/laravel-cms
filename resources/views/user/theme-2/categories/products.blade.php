@@ -78,9 +78,9 @@
 											
 											<div class="fs-18 text-left">
 												@if($top->reduction)
-													<span class="line-through">{{$top->price.$currency}}</span>
+													<span class="line-through">{{$top->price.$settings->currencySymbol}}</span>
 												@endif
-												{{$top->price - ($top->price*$top->reduction/100).$currency}}
+												{{$top->price - ($top->price*$top->reduction/100).$settings->currencySymbol}}
 											</div>
 										</li><!-- /item -->
 									@endforeach
@@ -110,10 +110,10 @@
 												<a class="block fs-12" href="{{route('products.show', $bestSeller->slug)}}">{{$bestSeller->name}}</a>
 												<div class="text-small text-left"><small>{{$bestSeller->short_description}}</small></div>
 												<div class="fs-18 text-left">
-													@if($top->reduction)
-														<span class="line-through">{{$top->price.$currency}}</span>
+													@if($bestSeller->reduction)
+														<span class="line-through">{{$bestSeller->price.$settings->currencySymbol}}</span>
 													@endif
-													{{$top->price - ($top->price*$top->reduction/100).$currency}}
+													{{$bestSeller->price - ($bestSeller->price*$bestSeller->reduction/100).$settings->currencySymbol}}
 												</div>
 											</li><!-- /item -->
 										</ul>

@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
-use App\Models\{Product, Settings, User};
+use App\Models\{Product, User};
 
 class CartsController extends Controller
 {
     public function cart(){
 		$cart = auth()->user()->cart;
-    	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata(trans('general.my-cart'));
 
-    	return view($this->path.'purchases/cart', compact('cart', 'currency', 'metadata'));
+    	return view($this->path.'purchases/cart', compact('cart', 'metadata'));
     }
     
     public function addToCart(Request $request){
@@ -54,8 +53,6 @@ class CartsController extends Controller
 
     public function makeNavCartItem($product){
           $cart = (object) array();
-          $currency = Settings::first()->currencySymbol;
-          $cart->currency = $currency;
 
           $view = view($this->path.'partials/nav-cart-item', compact('product', 'cart'))->render();
 
@@ -64,11 +61,8 @@ class CartsController extends Controller
 
     public function initializeCart($cart){
 
-        $currency = Settings::first()->currencySymbol;
-        $cart->totalPrice = $this->totalCartPrice($cart).$currency;
-        $cart->currency = $currency;
 
-        $view = view($this->path.'partials/nav-cart', compact('cart', 'currency'))->render();
+        $view = view($this->path.'partials/nav-cart', compact('cart'))->render();
         
         return ["status"   =>"new", 
             "message"   => trans('general.added-to-cart'),
@@ -76,14 +70,7 @@ class CartsController extends Controller
             ];        
     }
 
-    public function totalCartPrice($cart){
-       $sum = 0;
-       foreach($cart as $product){
-           $sum += $product->currentPrice * $product->pivot->quantity;
-       }
-
-       return number_format($sum, 2, '.', ' ');
-   }
+   
     public function changeQuantity(Request $request){
     	$request->validate([
     	    'product_id' => 'required|numeric',

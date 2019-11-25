@@ -8,7 +8,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial, User};
+use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Tag, Testimonial, User};
 
 class FrontEndController extends Controller
 {
@@ -47,10 +47,9 @@ class FrontEndController extends Controller
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
-        return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook', 'metadata');
+        return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'metadata');
     }
 
     public function prepareProductsData($category){
@@ -71,7 +70,6 @@ class FrontEndController extends Controller
                     ->take(5)
                     ->get();
         $products = $this->getAllCategoryProducts($category);
-        $currency = Settings::first()->currecnySymbol;
         $cart = collect([]);
         $wishlist = collect([]);
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
@@ -91,7 +89,7 @@ class FrontEndController extends Controller
 
         }
 
-        return compact('category', 'products', 'currency', 'cart', 'wishlist', 'bestSellers', 'topRated', 'metadata', 'categories');
+        return compact('category', 'products', 'cart', 'wishlist', 'bestSellers', 'topRated', 'metadata', 'categories');
         
     }
 
@@ -150,10 +148,9 @@ class FrontEndController extends Controller
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata(trans('general.navigation.posts'));
 
-    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
+    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'metadata'));
     }
 
     public function postsShow($categorySlug, $slug){
@@ -162,10 +159,9 @@ class FrontEndController extends Controller
     	$categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata($post->title, $post->subtitle, $post->thumbnailPath);
 
-    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
+    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'metadata'));
     }
 
     public function pages(){
@@ -210,10 +206,8 @@ class FrontEndController extends Controller
                $wishlist = $user->wishlist()->get();
 
             }
-            $currency = Settings::first()->currecnySymbol;
             $data['cart'] = $cart;
             $data['wishlist'] = $wishlist;
-            $data['currency'] = $currency;
         }
 
         return view($this->path . 'posts/tags', $data);
@@ -221,20 +215,18 @@ class FrontEndController extends Controller
 
     public function contact(){
         
-        $settings = Settings::first();
         $metadata = new Metadata(trans('general.navigation.contact'));
 
-       return view($this->path . 'contact', compact('settings', 'metadata'));
+       return view($this->path . 'contact', compact('metadata'));
     }
 
     public function about(){
         
        $about        = About::first();
-       $settings     = Settings::first();
        $testimonials = Testimonial::all();
        $metadata = new Metadata(trans('general.navigation.about'));
        
-       return view($this->path . 'about', compact('about', 'settings', 'testimonials', 'metadata'));
+       return view($this->path . 'about', compact('about', 'testimonials', 'metadata'));
     }
 
     public function switchLanguage(Request $request){

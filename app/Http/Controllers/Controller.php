@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Theme;
+use App\Models\{Settings, Theme};
 use Illuminate\Support\Facades\View;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -21,11 +21,12 @@ class Controller extends BaseController
 		try {
 			$theme = Theme::where('active', '=', 1)->first();
 			$path = 'user/'.$theme->root_folder . '/';
+			$settings = Settings::with('currency')->first();
 		} catch (Exception $e) {
 			$path = 'user/theme-1/';
 		}
 		
 		$this->path = $path;
-		View::share('path', $path);
+		View::share(['path' => $path, 'settings'=>$settings]);
 	}
 }

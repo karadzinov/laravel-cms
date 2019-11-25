@@ -41,8 +41,8 @@ $(document).ready(function(){
                 search: search
                 },
             success: function(response){
-            	responseDiv.html('');console.log(response)
-				if(!response.posts.length && !response.pages.length && !response.faqs.length){
+            	responseDiv.html('');
+				if(!response.posts.length && !response.pages.length && !response.faqs.length && !response.products.length){
 					var htmlResponse = 
 						`
 						<h4 class="list-group-item searchResultsTitle">

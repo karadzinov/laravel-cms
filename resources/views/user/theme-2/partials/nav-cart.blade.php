@@ -19,7 +19,7 @@
 			<a href="{{route('cart.cart')}}" class="btn btn-primary btn-sm float-right uppercase">{{trans('general.navigation.view-cart')}}</a>
 			<span class="float-left">
 				<strong>{{trans('general.total')}}:</strong> 
-				<span id="nav-cart-total"></span> {{ $cart->currency }}
+				<span id="nav-cart-total"></span> {{ $settings->currencySymbol }}
 			</span>
 		</div>
 		<!-- /quick cart footer -->

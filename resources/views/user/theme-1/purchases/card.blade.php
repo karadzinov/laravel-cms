@@ -137,7 +137,7 @@
 	                        <h3 class="panel-title display-td" >{{trans('general.payment-details')}}</h3>
 	                        <div class="display-td" >                            
 	                            <small>
-	                            	{{trans('general.you-will-be-charged', ['id'=> $purchase->id, 'price'=>number_format($purchase->total, 2, '.', ' ').$currency])}}
+	                            	{{trans('general.you-will-be-charged', ['id'=> $purchase->id, 'price'=>number_format($purchase->total, 2, '.', ' ').$settings->currencySymbol])}}
 	                            </small>
 	                        </div>
 	                    </div>                    

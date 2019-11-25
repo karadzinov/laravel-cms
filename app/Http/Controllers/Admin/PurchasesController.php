@@ -21,9 +21,8 @@ class PurchasesController extends Controller
     	if($purchase->completed){
     		return view('admin/purchases/show', compact('purchase', 'settings'));
     	}
-    	$currency =  $settings->currencySymbol;
 
-    	return view('admin/purchases/show-uncompleted', compact('purchase', 'currency'));
+    	return view('admin/purchases/show-uncompleted', compact('purchase'));
     	
     }
 }

@@ -40,28 +40,28 @@
 									<tr class="cart-item">
 										<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 										<td class="price">
-												{{$product->formatedCurrentPrice.$currency}}
+												{{$product->formatedCurrentPrice.$settings->currencySymbol}}
 										</td>
 										<td class="quantity">
 											<div class="form-group">
 												<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$quantity}}" readonly="">
 											</div>											
 										</td>
-										<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$quantity, 2, '.', ' ')}}</span>{{$currency}}</td>
+										<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$quantity, 2, '.', ' ')}}</span>{{ $settings->currencySymbol }}</td>
 									</tr>
 								@else
 									@foreach($cart as $product)
 										<tr class="cart-item">
 											<td class="product"><a href="{{$product->showRoute}}">{{$product->name}}</a> <small>{{$product->short_description}}</small></td>
 											<td class="price">
-													{{$product->formatedCurrentPrice.$currency}}
+													{{$product->formatedCurrentPrice.$settings->currencySymbol}}
 											</td>
 											<td class="quantity">
 												<div class="form-group">
 													<input name="products[{{$product->id}}]" type="text" class="form-control" value="{{$product->pivot->quantity}}" readonly="">
 												</div>											
 											</td>
-											<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$product->pivot->quantity, 2, '.', ' ')}}</span>{{$currency}} </td>
+											<td class="amount"><span class="product-times-quantity">{{number_format($product->currentPrice*$product->pivot->quantity, 2, '.', ' ')}}</span>{{ $settings->currencySymbol }} </td>
 										</tr>
 									@endforeach
 									<input type="hidden" name="cart" value="true">
@@ -72,7 +72,7 @@
 										{{trans('general.items')}}
 									</td>
 									<td class="total-amount" id="total-amount">
-										{{$currency}}
+										{{ $settings->currencySymbol }}
 									</td>
 								</tr>
 							</tbody>
@@ -105,7 +105,7 @@
 		// 		totalPrice += Number($(prices[i]).text());
 		// 	}
 
-		// 	$('#total-amount').text(totalPrice.toFixed(1) + '{{$currency}}')
+		// 	$('#total-amount').text(totalPrice.toFixed(1) + '{{ $settings->currencySymbol }}')
 
 		// }
 
@@ -121,7 +121,7 @@
 					totalPrice += cleanPrice($(prices[i]).text());
 				}
 				totalPrice= formatMoney(totalPrice.toFixed(2).toString());
-				$('#total-amount').text(totalPrice + '{{$currency}}')
+				$('#total-amount').text(totalPrice + '{{ $settings->currencySymbol }}')
 
 			}
 

@@ -23,9 +23,10 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Settings::first();
-        $currency = $settings->currency()->select('name')
-                            ->first();
+        
         $theme = Theme::where('active', '=', 1)->first();
+        $currency = $settings->currency()->select('name')->first();
+
         $countries = Country::active()->pluck('name', 'id')->toArray();
         $countries = implode(', ', $countries);
 

@@ -56,11 +56,11 @@
 					<div class="form-group-sm">
 						<div class="row grid-space-10">
 							<div >
-								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.min')}})</label>
+								<label>{{trans('general.price')}} {{ $settings->currencySymbol }} ({{trans('general.min')}})</label>
 								<input type="number" name="price_min" class="form-control" placeholder="0" @if(isset($request['price_min'])) value="{{intval($request['price_min'])}}"@endif>
 							</div>
 							<div >
-								<label>{{trans('general.price')}} {{$currency}} ({{trans('general.max')}})</label>
+								<label>{{trans('general.price')}} {{ $settings->currencySymbol }} ({{trans('general.max')}})</label>
 								<input type="number" name="price_max" class="form-control col-xs-6" placeholder="&#8734" @if(isset($request['price_max'])) value="{{intval($request['price_max'])}}" @endif>
 							</div>
 						</div>
