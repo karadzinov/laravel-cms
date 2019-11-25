@@ -62,7 +62,7 @@
 								<tr>
 									<td class="total-quantity" colspan="4">
 										{{trans('general.total')}} <span id="items-count"></span> {{trans('general.items')}}</td>
-									<td class="total-amount" id="total-amount">{{$currency}}</td>
+									<td class="total-amount"><span  id="total-amount"></span>{{$currency}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -162,13 +162,21 @@
 					success: function(response){
 						flashMessage('success', response.message);
 						countTotal();
-
+						removeFromNavCart(product);
 					},
 					error: function(error){
 						flashMessage('danger', response.message);
 					}
 				});
 			});
+
+			function removeFromNavCart(id){
+				const x = $('*[data-nav-cart-product="' + id + '"]');
+
+				$(x).remove();
+				countNavCartItems();
+				navCartTotal();
+			}
 
 			countTotal();
 			countCartItems();

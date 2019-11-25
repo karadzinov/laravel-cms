@@ -75,6 +75,8 @@
 
 				$('#nav-cart-total').text(formatMoney(total));
 			}
+			countNavCartItems();
+			navCartTotal();
 			function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = " ") {
 			  try {
 			    decimalCount = Math.abs(decimalCount);

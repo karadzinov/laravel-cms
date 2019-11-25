@@ -16,7 +16,7 @@
 					@endforeach
 					<tr>
 						<td class="total-quantity" colspan="2">{{trans('general.total')}} <span class="nav-cart-count">{{$cart->count()}}</span> {{trans('general.items')}}</td>
-						<td id="nav-cart-total" class="total-amount">{{$cart->totalPrice}}</td>
+						<td class="total-amount"><span  id="nav-cart-total"></span>{{ $cart->currency }}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -17,7 +17,10 @@
 		<!-- quick cart footer -->
 		<div class="quick-cart-footer clearfix">
 			<a href="{{route('cart.cart')}}" class="btn btn-primary btn-sm float-right uppercase">{{trans('general.navigation.view-cart')}}</a>
-			<span class="float-left"><strong>{{trans('general.total')}}:</strong> <span id="nav-cart-total">{{$cart->totalPrice}}</span></span>
+			<span class="float-left">
+				<strong>{{trans('general.total')}}:</strong> 
+				<span id="nav-cart-total"></span> {{ $cart->currency }}
+			</span>
 		</div>
 		<!-- /quick cart footer -->
 

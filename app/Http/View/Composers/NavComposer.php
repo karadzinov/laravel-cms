@@ -57,7 +57,6 @@ class NavComposer
             $cart = auth()->user()->cart;
             if($cart->isNotEmpty()){
                 $currency = Settings::first()->currencySymbol;
-                $cart->totalPrice = $this->totalCartPrice($cart).$currency;
                 $cart->currency = $currency;
 
                 return $cart;
@@ -65,14 +64,5 @@ class NavComposer
         }
 
         return false;
-    }
-
-    public function totalCartPrice($cart){
-        $sum = 0;
-        foreach($cart as $product){
-            $sum += $product->currentPrice * $product->pivot->quantity;
-        }
-
-        return number_format($sum, 2, '.', ' ');
     }
 }

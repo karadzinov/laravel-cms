@@ -38,6 +38,9 @@
 			$('#nav-cart-total').text(formatMoney(total));
 		}
 
+		countNavCartItems();
+		navCartTotal();
+
 		function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = " ") {
 		  try {
 		    decimalCount = Math.abs(decimalCount);
@@ -144,14 +147,22 @@
 					flashMessage('success', response.message);
 					remove.remove();
 					countTotal();
-
-
+					countTotal();
+					removeFromNavCart(product);
 				},
 				error: function(error){
 					flashMessage('danger', response.message);
 				}
 			});
 		});
+
+		function removeFromNavCart(id){
+			const x = $('*[data-nav-cart-product="' + id + '"]');
+
+			$(x).remove();
+			countNavCartItems();
+					navCartTotal();
+		}
 
 		$('.add-to-cart').on('click', function(){
 			const product_id = $(this).data('product');
