@@ -108,6 +108,7 @@ return [
     'settings-languages-available'=> 'Language available',
     'settings-theme'        => 'Theme',
     'settings-currency'     => 'Currency',
+    'delivery-countries'    => 'Delivery Countries',
     'attention'             => 'Attention',
     'currency-explination'  => 'Please write here the difference between currencies and it will update all products prices automaticly. If you leave it blank you should take care of changing prices of each individual product manually',
     'settings-phone-number'     => 'Phone number',

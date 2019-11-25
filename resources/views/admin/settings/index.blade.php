@@ -76,6 +76,11 @@
                         {!! Form::text('currency', $currency->name,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
                     </div>
 
+                    {!! Form::label('countries', trans('forms.delivery-countries'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                    <div class="col-md-12"  style="font-size: 14px">
+                        {!! Form::text('countries', $countries,  array('class' => 'form-control','style'=>'font-size:14px; line-height:18px;' , 'readonly')) !!}
+                    </div>
+
                     <div class="col-md-12">
                         <label for="theme-selector" style='margin-top: 8px;margin-bottom:0px;'>{{ trans('forms.settings-theme')}}</label>
                         {!! Form::text('theme', $theme->name,  array('class' => 'form-control','style'=>'margin-top: 8px;margin-bottom:0px;' , 'readonly')) !!}

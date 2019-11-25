@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Models\{Currency, Language, Settings, Theme};
+use App\Models\{Country, Currency, Language, Settings, Theme};
 use App\Http\Requests\Settings\{StoreSettnigsRequest, UpdateSettingsRequest};
 
 class SettingsController extends Controller
@@ -26,8 +26,10 @@ class SettingsController extends Controller
         $currency = $settings->currency()->select('name')
                             ->first();
         $theme = Theme::where('active', '=', 1)->first();
+        $countries = Country::active()->pluck('name', 'id')->toArray();
+        $countries = implode(', ', $countries);
 
-        return view('admin.settings.index', compact('settings', /*'avalilableLanguages',*/ 'currency', 'theme'));
+        return view('admin.settings.index', compact('settings', 'countries', 'currency', 'theme'));
 
     }
 
@@ -86,12 +88,14 @@ class SettingsController extends Controller
     {
         $settings = Settings::firstOrFail();
         $languages = Language::pluck('name', 'id');
-        
+        $countries = Country::pluck('name', 'id')->toArray();
+        $activeCountries = Country::active()->pluck('id')->toArray();
+
         $currencies = Currency::pluck('name', 'id');
         $currency = $settings->currency()->select('id', 'name')->first();
         $themes = Theme::all();
 
-        return view('admin.settings.edit', compact('settings', 'languages'/*, 'avalilableLanguages'*/, 'currencies', 'currency', 'themes'));
+        return view('admin.settings.edit', compact('settings', 'languages', 'countries', 'activeCountries', 'currencies', 'currency', 'themes'));
  
     }
 
@@ -110,8 +114,12 @@ class SettingsController extends Controller
             
             $this->updateProductsPrices($difference);
         }
+
         $currency = $this->updateCurrency($input['currency'], $settings);
         unset($input['currency']);
+
+        $countries = $this->updateCountries($request->get('countries'));
+        unset($input['countries']);
 
         $theme = $this->updateTheme($request->get('theme'));
 
@@ -125,6 +133,33 @@ class SettingsController extends Controller
 
         return redirect('admin/meta/settings')
                 ->with($formStatusMessage);
+    }
+
+    public function updateCountries($countries){
+        if($countries){
+            $actives = Country::active()->get();
+
+            $activesArray = $actives->pluck('name', 'id')->toArray();
+            $activeIds = $actives->pluck('id')->toArray();
+            foreach($countries as $country){
+                if(in_array($country, $activeIds)){
+                    unset($activesArray[$country]);
+                    continue;
+                }
+                Country::findOrFail($country)->update(['active'=>1]);
+            }
+            
+            if(count($activesArray)){
+                foreach($activesArray as $id => $name){
+                    $actives->where('id', '=', $id)->first()->update(['active'=>0]);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+        
     }
 
     public function updateProductsPrices($difference){

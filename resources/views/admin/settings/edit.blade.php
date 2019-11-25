@@ -127,6 +127,12 @@
                         </div>
                         <div class="col-md-12" id="currency-exchanger"></div>
                         <div class="col-md-12">
+                            {!! Form::label('countries', trans('admin.delivery-countries') , array('class' => 'control-label')); !!}
+                            {{Form::select('countries[]', 
+                                $countries, $activeCountries,
+                                array('id'=>'countries', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                        </div>
+                        <div class="col-md-12">
                             <label for="theme-selector">{{trans('forms.settings-theme')}}</label>
                             <select id="theme-selector" name="theme">
                              @foreach($themes as $theme)
@@ -307,6 +313,10 @@
                 }
             });
 
+        });
+
+        $("#countries").select2({
+            tags: true
         });
 
         $("#languages").select2();

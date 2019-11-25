@@ -80,6 +80,7 @@ array (
   'ammount'       => 'Price ammount',
   'order-number'  => 'Order Number',
   'transaction-id'=> 'Transaction Id',
+  'delivery-countries'=> 'Delivery Countries',
   'id'            => 'Id',
   'google' => [
       'visitors-and-pages-title' => 'Number of visits and page views for the previous month',

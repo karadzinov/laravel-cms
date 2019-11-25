@@ -32,6 +32,8 @@ class UpdateSettingsRequest extends FormRequest
             'logo'                  => 'max:255',
             'slogan'                => 'max:255',
             'meta_image'            => 'max:255',
+            'currency'              => 'required',
+            'countries'             => 'required',
             'meta_title'            => 'max:255',
             'instagram'             => 'max:255',
             'twitter'               => 'max:255',
