@@ -8,7 +8,7 @@ use App\Helpers\TwoCheckout\Twocheckout;
 use App\Http\Requests\Purchases\CheckoutRequest;
 use App\Helpers\TwoCheckout\Twocheckout\Twocheckout_Charge;
 use App\Helpers\TwoCheckout\Twocheckout\Api\Twocheckout_Error;
-use App\Models\{Product, Purchase, Settings, ShippingInformation, User};
+use App\Models\{Country, Product, Purchase, Settings, ShippingInformation, User};
 
 class PurchasesController extends Controller
 {
@@ -274,8 +274,9 @@ class PurchasesController extends Controller
     	$product = Product::findOrFail($request->get('product_id'));
     	$currency = Settings::first()->currencySymbol;
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
+        $countries = Country::active()->pluck('name', 'code');
 
-    	$data = compact('product', 'currency', 'quantity', 'metadata');
+    	$data = compact('product', 'currency', 'countries', 'quantity', 'metadata');
 
 		return view($this->path . 'purchases/checkout', $data);
     }
@@ -294,7 +295,8 @@ class PurchasesController extends Controller
     	
     	$cart = auth()->user()->cart;
     	$currency = Settings::first()->currencySymbol;
+    	$countries = Country::active()->pluck('name', 'code');
 
-    	return view($this->path.'purchases/checkout', compact('cart', 'currency'));
+    	return view($this->path.'purchases/checkout', compact('cart', 'countries', 'currency'));
     }
 }

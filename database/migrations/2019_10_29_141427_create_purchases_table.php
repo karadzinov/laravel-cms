@@ -19,7 +19,7 @@ class CreatePurchasesTable extends Migration
             $table->boolean('completed')->default(0);
             $table->string('phone');
             $table->string('home_address');
-            $table->string('country', 5);
+            $table->string('country');
             $table->string('city');
             $table->string('zip');
             $table->string('currency')->nullable();
