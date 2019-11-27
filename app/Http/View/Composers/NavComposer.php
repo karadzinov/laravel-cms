@@ -2,26 +2,27 @@
 
 namespace App\Http\View\Composers;
 
-use App\Models\Language;
 use Illuminate\View\View;
-use App\Models\{Category, Page};
+use App\Scopes\TranslationScope;
+use App\Models\{Category, Language, Page, Settings};
 
 class NavComposer
 {
     protected $categories;
     protected $pages;
+    protected $cart;
 
     public function __construct()
     {
-        $categories = Category::where('parent_id','=',NULL)->get();
+        $categories = Category::withoutGlobalScope(TranslationScope::class)->where('parent_id','=',NULL)->withDepth()->get();
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();
-                        
-        $pages = $this->preparePagesForNav();
+        
         $this->categories = $categories;
-        $this->pages = $pages;
+        $this->pages = $this->preparePagesForNav();
         $this->languages = $languages;
+        $this->cart = $this->cart();
     }
 
     /**
@@ -36,6 +37,7 @@ class NavComposer
             'categories' => $this->categories,
             'pages' => $this->pages,
             'languages' => $this->languages,
+            'cart' => $this->cart,
         ]);
     }
 
@@ -47,5 +49,18 @@ class NavComposer
         }
 
         return $pages;
+    }
+
+    public function cart(){
+        
+        if(auth()->user()){
+            $cart = auth()->user()->cart;
+            if($cart->isNotEmpty()){
+               
+                return $cart;
+            }
+        }
+
+        return false;
     }
 }

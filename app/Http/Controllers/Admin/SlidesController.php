@@ -21,7 +21,7 @@ class SlidesController extends Controller
      */
     public function index()
     {
-    	$slides = Slide::orderBy('active', 'DESC')->orderBy('position')->get();
+    	$slides = Slide::orderBy('active', 'DESC')->orderBy('position')->paginate(25);
 
         return view('admin/slides/index', compact('slides'));
     }

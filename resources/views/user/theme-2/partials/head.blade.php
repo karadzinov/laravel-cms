@@ -18,7 +18,7 @@
 <meta property="og:description" content="{{$metadata->description ?? $settings->description}}">
 <meta property="og:type" content="website">
 <!-- Twitter Card Tags -->
-<meta name="twitter:card" content="{{$metadata->image ??asset('images/settings/medium/'. $settings->logo)}}">
+<meta name="twitter:card" content="{{$metadata->image ?? asset('images/settings/medium/'. $settings->logo)}}">
 <meta name="twitter:title" content="{{$metadata->title ?? $settings->title}}">
 <meta name="twitter:description" content="{{$metadata->description ?? $metadata->description ?? $settings->description}}">
 <meta name="twitter:image:src" content="{{$metadata->image ?? asset('images/settings/medium/'. $settings->logo)}}">

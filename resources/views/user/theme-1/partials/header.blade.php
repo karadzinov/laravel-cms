@@ -57,20 +57,42 @@
 					<!-- header top dropdowns start -->
 					<!-- ================ -->
 					<div class="header-top-dropdown text-right">
-						<div class="btn-group dropdown">
-							<button type="button" class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-lock pr-10"></i> {{trans('general.header.logout')}}</button>
-							<ul class="dropdown-menu dropdown-menu-right dropdown-animation">
-								<li>
-									<a class="btn btn-default" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                        {{trans('general.header.logout')}}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-								</li>
-							</ul>
+						@auth
+							<div class="btn-group dropdown">
+								<button type="button" class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-lock pr-10"></i> {{trans('general.profile')}}</button>
+								<ul class="dropdown-menu dropdown-menu-right dropdown-animation">
+									<li>
+										<a class="btn btn-default" href="{{route('wishlist.index')}}">
+											<i class="fa fa-heart"></i> {{trans('general.my-wishlist')}}
+										</a>
+									</li>
+									<li>
+										<a class="btn btn-default" href="{{route('purchases.index')}}">
+											<i class="fa fa-bank"></i> {{trans('general.my-purchases')}}
+										</a>
+									</li>
+									<li>
+										<a class="btn btn-default" href="{{route('products.myReviews')}}">
+											<i class="fa fa-pencil"></i> {{trans('general.my-reviews')}}
+										</a>
+									</li>
+									<li>
+										<a class="btn btn-default" href="{{ route('logout') }}" onclick="event.preventDefault();
+	                                                         document.getElementById('logout-form').submit();">
+	                                        <i class="fa fa-sign-out"></i> {{trans('general.header.logout')}}
+	                                    </a>
+	                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+	                                        @csrf
+	                                    </form>
+									</li>
+								</ul>
+							</div>
+						@else
+						<div class="btn-group" role="group" aria-label="...">
+						  <a class="btn btn-default" href="{{ route('login') }}">{{trans('auth.login')}}</a>
+						  <a class="btn btn-default" href="{{ route('register') }}">{{trans('auth.register')}}</a>
 						</div>
+						@endauth
 					</div>
 					<!--  header top dropdowns end -->
 				</div>
@@ -79,4 +101,4 @@
 		</div>
 	</div>
 </div>
-<!-- header-top end -->
+<!-- header-top end

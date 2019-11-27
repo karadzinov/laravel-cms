@@ -32,6 +32,8 @@ class UpdateSettingsRequest extends FormRequest
             'logo'                  => 'max:255',
             'slogan'                => 'max:255',
             'meta_image'            => 'max:255',
+            'currency'              => 'required',
+            'countries'             => 'required',
             'meta_title'            => 'max:255',
             'instagram'             => 'max:255',
             'twitter'               => 'max:255',
@@ -41,7 +43,6 @@ class UpdateSettingsRequest extends FormRequest
             'android_app'           => 'max:255',
             'lat'                   => '',
             'lng'                   => '',
-            'languages'             => 'required',
         ];
     }
 
@@ -55,7 +56,6 @@ class UpdateSettingsRequest extends FormRequest
             'main_url.required'     => trans('settings.mainURLRequired'),
             'lat'                   => '', //'Latitude required',
             'lng'                   => '', //'Longtitude required',
-            'languages'             => 'You need to specify at least one language',
         ];
     }
 }

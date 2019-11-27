@@ -87,6 +87,9 @@
 				    </table>
 				</div>
             @endif
+        	<div class="text-center">
+       			{!!$faqs->links()!!}
+           	</div>
         </div>
     </div>
     @include('modals.modal-delete')

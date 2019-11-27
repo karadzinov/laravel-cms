@@ -23,7 +23,7 @@ class PostCategoryRequest extends FormRequest {
 	{
 		return [
             'name' => 'required|'.Rule::unique('categories')->ignore($this->id),
-            'parent_id' => 'required', //'exists:categories,id',
+            'parent_id' => 'required',
             'image' => 'image',
 		];
 	}

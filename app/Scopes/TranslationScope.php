@@ -2,10 +2,9 @@
 
 namespace App\Scopes;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Language;
+use Illuminate\Support\Facades\{App, Cache, Cookie};
+use Illuminate\Database\Eloquent\{Builder, Model, Scope};
 
 class TranslationScope implements Scope
 {
@@ -18,6 +17,17 @@ class TranslationScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        //in case someone deletes the language, the site will be unacessible for users that have the cookie set to that deleted language
+        $languages = Cache::get('locales') ?? [config('app.locale')];
+
+        $locale = Cookie::get('locale') ?? [config('app.locale')];
+        if(!in_array($locale, $languages)){
+            $locale = $languages[0];
+            $minutes = 60 * 24 * 60;
+            Cookie::queue(Cookie::make('locale', $locale, $minutes));
+            App::setLocale($locale);
+        }
+
         $builder->where('language', '=', App::getLocale());
     }
 }

@@ -14,7 +14,7 @@ class PartnersController extends Controller
 {
     public function index(){
     	
-    	$partners = Partner::all();
+    	$partners = Partner::latest()->paginate(25);
 
     	return view('admin/partners/index', compact('partners'));
     }

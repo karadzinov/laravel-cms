@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     /**
      * Build Post Relationships for pivot table users_posts.
      *
@@ -151,5 +156,26 @@ class User extends Authenticatable
         }
 
         return Gravatar::get($this->email);
+    }
+
+    public function purchases(){
+        
+        return $this->hasMany(Purchase::class, 'user_id', 'id');
+    }
+
+    public function cart(){
+        
+        return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')
+        ->withPivot('quantity');
+    }
+
+    public function wishlist(){
+        
+        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
+    }
+
+    public function reviews(){
+        
+        return $this->hasMany(Review::class, 'user_id', 'id');
     }
 }

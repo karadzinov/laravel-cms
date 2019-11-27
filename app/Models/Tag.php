@@ -12,13 +12,24 @@ class Tag extends Model
     
 	protected $guarded = [];
 	
-    public function posts(){
-    	
-    	return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
-    }
-
     public function getShowRouteAttribute(){
     	
     	return route('tagPosts', [$this->slug]);
+    }
+
+    /**
+     * Get all of the posts that are assigned this tag.
+     */
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'taggable');
+    }
+
+    /**
+     * Get all of the products that are assigned this tag.
+     */
+    public function products()
+    {
+        return $this->morphedByMany(Product::class, 'taggable');
     }
 }

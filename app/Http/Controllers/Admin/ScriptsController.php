@@ -11,7 +11,7 @@ class ScriptsController extends Controller
 {
     public function index(){
 
-    	$scripts = Script::all();
+    	$scripts = Script::latest()->paginate(25);
     	
     	return view('admin.scripts-pages/index', compact('scripts'));
     }

@@ -83,6 +83,9 @@
 				    </table>
 				</div>
             @endif
+            <div class="text-center">
+            	{!!$scripts->links()!!}
+            </div>
 		</div>
 
     </div>    

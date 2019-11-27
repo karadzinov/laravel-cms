@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call([
+            CountriesTableSeeder::class,
+            CurrenciesTableSeeder::class,
             LanguagesTableSeeder::class,
             ConversationTableSeeder::class,
             ConversationUserTableSeeder::class,
@@ -31,10 +33,10 @@ class DatabaseSeeder extends Seeder
             PagesTableSeeder::class,
             PostsTableSeeder::class,
             TagsTableSeeder::class,
-            PostTagTableSeeder::class,
             ScriptsTableSeeder::class,
             SettingsTableSeeder::class,
             AboutTableSeeder::class,
+            ProductsTableSeeder::class,
         ]);
 
         Model::reguard();

@@ -6,9 +6,24 @@
 		@include('google/google-analytics')
 		@include($path . 'partials/head')
 		@yield('optionalHead')
+		<link rel="stylesheet" href="{{asset('assets/theme-2/css/layout-shop.css')}}">
 		<style>
-			.social-whatsapp:hover { background-color: #00E676 !important; }
-			.social-whatsapp { background-color: #3B5998; }
+			#content{
+				min-height: 100vh
+			}
+			.in-wishlist{
+				color: #DC3545
+			}
+			.mt-100{
+				margin-top: 100px !important;
+			}
+			.half-width{
+				max-width: 50%;
+			}
+			#mainSearchResponse{
+				z-index: 1;
+				width: 100%;
+			}
 		</style>
 	</head>
 	<!--
@@ -38,9 +53,12 @@
 
 		<!-- wrapper -->
 		<div id="wrapper">
-			@include($path . 'partials/nav')
+			<div id="content">
+				@include($path . 'partials/nav')
+				@include($path . 'partials/flash-messages')
 
-			@yield('content')
+				@yield('content')
+			</div>
 			
 			@include($path . 'partials/footer')
 		</div>
@@ -63,5 +81,12 @@
 			{!!$script ->code!!}
 		@endforeach
 		@yield('optionalScripts')
+
+		<script>
+			$(document).ready(function(){
+				
+				
+			});
+		</script>
 	</body>
 </html>

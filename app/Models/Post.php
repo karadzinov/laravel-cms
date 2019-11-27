@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Helpers\RssFeeds\Item;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Helpers\{HasYoutubeVideos, ImagesPaths, ModelIsTranslatable};
+use App\Models\Helpers\{HasYoutubeVideos, ImagesPaths, ModelIsTranslatable, Taggable};
 
 class Post extends Model
 {
-    use ImagesPaths, HasYoutubeVideos, ModelIsTranslatable;
+    use ImagesPaths, HasYoutubeVideos, ModelIsTranslatable, Taggable;
     
     protected $table = 'posts';
     protected $dates = ['created_at', 'updated_at'];
@@ -27,11 +27,6 @@ class Post extends Model
     public function users(){
         
         return $this->belongsToMany(User::class, 'users_posts', 'post_id', 'user_id');
-    }
-
-    public function tags(){
-        
-        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
     public function makeItem(){

@@ -57,6 +57,11 @@
 						</form>
 					</div> 
 				</li>
+				@if($cart)
+					@include($path.'partials/nav-cart')
+				@else
+					<li id="cart-placeholder"></li>
+				@endif
 				<!-- /SEARCH -->
 				@if($languages->count()>1)
 					<li class="nav-item dropdown language-switcher">
@@ -107,11 +112,11 @@
 						<li>
 							<a href="/home">{{trans('general.navigation.home')}}</a>
 						</li>
-						<li class="dropdown {{-- active --}}"><!-- POSTS -->
+						<li class="dropdown"><!-- POSTS -->
 							<a class="dropdown-toggle" href="{{route('posts.index')}}">
 								{{trans('general.navigation.posts')}}
 							</a>
-							@include($path . 'partials/categories/tree')
+							@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'posts')->first()->children])
 						</li>
 						<li class="dropdown"><!-- PAGES -->
 							<a class="dropdown-toggle" href="{{route('pages.index')}}">
@@ -126,6 +131,12 @@
 									</li>
 								@endforeach
 							</ul>
+						</li>
+						<li class="dropdown"><!-- products -->
+							<a class="dropdown-toggle" href="{{route('products.index')}}">
+								{{trans('general.navigation.products')}}
+							</a>
+							@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'products')->first()->children])
 						</li>
 						<li>
 							<a href="{{route('contact')}}">
@@ -147,9 +158,68 @@
 								<a href="{{route('admin.home')}}">{{trans('general.go-to-admin')}}</a>
 							</li>
 						@endrole
-						<li>
-							<a href="/changeTheme">Theme</a>
-						</li>
+						@auth
+							<li class="dropdown resp-active"><!-- BLOG and SHOP -->
+								<a class="dropdown-toggle" href="#">
+									Profile
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<h4>
+											<a href="{{route('wishlist.index')}}">
+												<i class="fa fa-heart"></i> 
+												{{trans('general.my-wishlist')}}
+											</a>
+										</h4>
+									</li>
+									<li>
+										<h4>
+											<a href="{{route('purchases.index')}}">
+												<i class="fa fa-bank"></i> 
+												{{trans('general.my-purchases')}}
+											</a>
+										</h4>
+									</li>
+									<li>
+										<h4>
+											<a href="{{route('products.myReviews')}}">
+												<i class="fa fa-pencil"></i> 
+												{{trans('general.my-reviews')}}
+											</a>
+										</h4>
+									</li>
+									<li>
+										<h4>
+											<a href="{{ route('logout') }}" onclick="event.preventDefault();
+		                                                         document.getElementById('logout-form').submit();">
+		                                        <i class="fa fa-sign-out"></i> 
+		                                        {{trans('general.header.logout')}}
+		                                    </a>
+		                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		                                        @csrf
+		                                    </form>
+										</h4>
+									</li>
+								</ul>
+							</li>
+						@else
+							<li class="dropdown resp-active"><!-- BLOG and SHOP -->
+								<a class="dropdown-toggle" href="#">
+									{{trans('auth.login')}} &amp; {{trans('auth.register')}}
+								</a>
+								<ul class="dropdown-menu">
+
+									<!-- BLOG -->
+									<li>
+										<h4><a href="{{route('login')}}"><i class="fa fa-sign-in"></i>  {{trans('auth.login')}}</a></h4>
+									</li>
+									<!-- SHOP -->
+									<li>
+										<h4><a href="{{route('login')}}"><i class="fa fa-registered"></i>  {{trans('auth.register')}}</a></h4>
+									</li>
+								</ul>
+							</li>
+						@endauth
 					</ul>
 
 				</nav>

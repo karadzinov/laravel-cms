@@ -79,6 +79,9 @@
 					    </table>
 					</div>
 	            @endif
+	            <div class="text-center">
+	            	{!!$testimonials->links()!!}
+	            </div>
 	        </div>
 	    </div>
 	    @include('modals/modal-delete')

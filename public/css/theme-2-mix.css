@@ -29578,3 +29578,31 @@ i.ico-hover:hover {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
     box-shadow: 0px 3px 10px rgba(0,0,0,.25);
 }
+
+.social-whatsapp:hover { background-color: #00E676 !important; }
+.social-whatsapp { background-color: #3B5998; }
+.my-alert{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	-webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -ms-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+     opacity: 0;
+}
+body.grain-grey #header li.quick-cart .quick-cart-box{
+	background: #f1f2f7
+}
+#header.translucent li.quick-cart .quick-cart-box:hover{
+	background: #f1f2f7
+}
+
+.flash-alerts{
+	max-width: 300px;
+	position: fixed;
+	z-index: 1001;
+	bottom: 0;
+	right: 0;
+}

@@ -45,6 +45,20 @@
                 <span class="menu-text"> {{trans('sidebar.posts')}} </span>
             </a>
         </li>
+        <li class="{{Request::is('admin/products/*') ? 'active' : null}}">
+            <a href="{{ route('admin.products.index')}}" class="menu">
+                <i class="menu-icon fa fa-money"></i>
+                <span class="menu-text"> {{trans('sidebar.products')}} </span>
+            </a>
+        </li>
+
+        <li class="{{Request::is('admin/purchases/*') ? 'active' : null}}">
+            <a href="{{ route('admin.purchases.index')}}" class="menu">
+                <i class="menu-icon fa fa-shopping-cart"></i>
+                <span class="menu-text"> {{trans('sidebar.purchases')}} </span>
+            </a>
+        </li>
+
         <li class="{{ Request::is('admin/node/category*') ? 'active' : null }}">
             <a href="{{route('admin.category.index')}}" class="menu">
                 <i class="menu-icon fa fa-list-ol"></i>

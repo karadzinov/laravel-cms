@@ -1,4 +1,5 @@
 <?php
+use App\Helpers\TwoCheckout\Twocheckout;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,23 +21,26 @@ Route::get('/changeTheme', function(){
        $active->active = 0;
        $active->save();
 
-       return redirect()->back(); 
+       return redirect(url()->previous()); 
     } catch (\Exception $e) {
         dd($e);
     }
 });
 
 Route::get('test', function(){
-dd('test')  ;
+    $s = App\Models\Settings::first()->currency->symbol;
+    dd($s);
+    $a = "4.23631";
+
+    dd(floatval($a));
 });
-
-
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
 //Rss Feed Routes
 Route::get('feed', 'RssFeedController@index')->name('feed');
+// Public Routes
 
 // Authentication Routes
 Auth::routes();
@@ -118,7 +122,45 @@ Route::group(['as'=>'faq.'], function(){
     Route::get('/faqs', 'FrontEndController@faqs')->name('index');
 });
 
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "purchases", 'as'=>'purchases.'], function () {
+    Route::get('/my-purchases', 'PurchasesController@index')->name('index');
+    Route::post('/store', 'PurchasesController@store')->name('store');
+    Route::get('/show/{id}', 'PurchasesController@show')->name('show');
+    Route::get('/edit/{purchase}', 'PurchasesController@edit')->name('edit');
+    Route::put('/update/{purchase}', 'PurchasesController@update')->name('update');
+    Route::get('/purchase', 'PurchasesController@checkoutCart')->name('checkoutCart');
+    
+    Route::get('/buy-now', 'PurchasesController@buyNow')->name('buyNow');
+    Route::get('/payment/{purchase}', 'PurchasesController@payment')->name('payment')->middleware('purchaseOwnership');
+    Route::post('/charge', 'PurchasesController@charge')->name('charge');
+    Route::get('/completed', 'PurchasesController@completed')->name('completed');
+});
+
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "cart", 'as'=>'cart.'], function () {
+    Route::get('/my-cart', 'CartsController@cart')->name('cart');
+    Route::post('/add-to-cart', 'CartsController@addToCart')->name('addToCart');
+    Route::post('/change-quantity', 'CartsController@changeQuantity')->name('changeQuantity');
+    Route::delete('/delete-from-cart', 'CartsController@deleteFromCart')->name('deleteFromCart');
+});
+
+Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "wishlist", 'as'=>'wishlist.'], function () {
+    Route::get('/index', 'WishlistsController@index')->name('index');
+Route::post('/add-to-wishlist', 'WishlistsController@add')->name('add');
+    Route::post('/delete-from-wishlist', 'WishlistsController@remove')->name('remove');
+});
+
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');
+
+//products
+Route::group(['prefix'=>'products', 'as'=>'products.'], function(){
+    Route::get('/', 'ProductsController@index')->name('index');
+    Route::get('/my-reviews', 'ProductsController@myReviews')->name('myReviews');
+    Route::get('/edit-review/{id}', 'ProductsController@editReview')->name('editReview');
+    Route::patch('/update-review/{id}', 'ProductsController@updateReview')->name('updateReview');
+    Route::delete('/delete-review/{id}', 'ProductsController@deleteReview')->name('deleteReview');
+    Route::post('/store-review', 'ProductsController@storeReview')->name('storeReview');
+    Route::get('/{slug}', 'ProductsController@show')->name('show');
+});
 
 Route::group(['as'=>'posts.'], function(){
     Route::get('/posts', 'FrontEndController@posts')->name('index');

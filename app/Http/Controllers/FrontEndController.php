@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App;
 use Exception;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Settings, Tag, Testimonial};
+use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Tag, Testimonial, User};
 
 class FrontEndController extends Controller
 {
@@ -27,16 +28,84 @@ class FrontEndController extends Controller
     		return view($this->path . 'pages/show', compact('page', 'metadata'));
     	}
         
-        $category = Category::where('slug', '=', $slug)->with('descendants')->firstOrFail();
+        $category = Category::where('slug', '=', $slug)->with('parent', 'children')->firstOrFail();
+        $postsCategory = Category::where('parent_id', '=', NULL)->where('name', '=', 'posts')->first();
+
+        $type = $this->checkCategoryType($category, $postsCategory);
+        if($type === 'posts'){
+            $data = $this->preparePostsData($category);
+        }else{
+            $data = $this->prepareProductsData($category);
+        }
+        
+		return view($this->path . 'categories/' . $type, $data);
+    }
+
+    public function preparePostsData($category){
         $posts = $this->getAllCategoryPosts($category);
-    	$slider = $posts->where('image', '!=', null)->take(4);
+        $slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
-		return view($this->path . 'categories/index', compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'facebook', 'metadata'));
+        return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'metadata');
+    }
+
+    public function prepareProductsData($category){
+
+        $bestSellers = \DB::table('product_purchase')
+                    ->leftJoin('products','products.id','=','product_purchase.product_id')
+                    ->selectRaw('products.*, sum(product_purchase.quantity) total')
+                    ->groupBy('product_purchase.product_id')
+                    ->orderBy('total','desc')
+                    ->take(3)
+                    ->get();
+
+        $topRated = \DB::table('reviews')
+                    ->leftJoin('products','products.id','=','reviews.product_id')
+                    ->selectRaw('products.*, count(reviews.rating) count, avg(reviews.rating) avg')
+                    ->groupBy('products.id')
+                    ->orderBy('avg','desc')
+                    ->take(5)
+                    ->get();
+        $products = $this->getAllCategoryProducts($category);
+        $cart = collect([]);
+        $wishlist = collect([]);
+        $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
+        $productsCategories = Category::with('descendants')->where('name', '=', 'products')->first()->descendants;
+
+        if($productsCategories->count() < 5){
+            $categories = $productsCategories;
+        }else{
+            $categories = $productsCategories->random(5);
+        }
+       
+        if(auth()->user()){
+           $user = User::where('id', '=', auth()->user()->id)
+                    ->first();
+           $cart = $user->cart()->get();
+           $wishlist = $user->wishlist()->get();
+
+        }
+
+        return compact('category', 'products', 'cart', 'wishlist', 'bestSellers', 'topRated', 'metadata', 'categories');
+        
+    }
+
+    public function checkCategoryType($category, $postsCategory){
+
+            if($category->parent_id == $postsCategory->id){
+
+                return 'posts';
+            }
+            $parent = $category->parent;
+            if($parent && $parent->hasParent()){
+                $this->checkCategoryType($category->parent, $postsCategory);
+            }
+
+            return 'products';
+
     }
 
     public function getAllCategoryPosts(Category $category){
@@ -56,16 +125,32 @@ class FrontEndController extends Controller
         return $posts;
     }
 
+    public function getAllCategoryProducts(Category $category){
+            
+        $products = $category->products()->latest()->paginate(5);
+
+        foreach($category->descendants as $child){
+          $itsproducts = $child->products()->latest()->paginate(5);
+
+          if($itsproducts->isNotEmpty()){
+            foreach($itsproducts as $product){
+                $products->push($product);
+            }
+          } 
+        }
+
+        return $products;
+    }
+
     public function posts(){
     	$posts = Post::latest()->where('workflow', '=', 'posted')->paginate(8);
     	$slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata(trans('general.navigation.posts'));
 
-    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
+    	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'metadata'));
     }
 
     public function postsShow($categorySlug, $slug){
@@ -74,10 +159,9 @@ class FrontEndController extends Controller
     	$categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
         $popular = Post::inRandomOrder()->take(3)->get();
-        $facebook = Settings::first()->facebook;
         $metadata = new Metadata($post->title, $post->subtitle, $post->thumbnailPath);
 
-    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'facebook', 'metadata'));
+    	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'metadata'));
     }
 
     public function pages(){
@@ -104,30 +188,45 @@ class FrontEndController extends Controller
     }
 
     public function tagPosts($slug){
-        $tag = Tag::where('slug', '=',$slug)->firstOrFail();
-        $posts = $tag->posts()->get();
-        $tag = $tag->name;
-        $metadata = new Metadata($tag);
+        $tag = Tag::with('posts', 'products')->where('slug', '=',$slug)->firstOrFail();
+        $metadata = new Metadata('#'.$tag->name);
+        $activeTab = 'posts';
+        if(strpos(url()->previous(), 'products')!==false){
+            $activeTab = 'products';
+        }
+        $data = compact('tag', 'activeTab', 'metadata');
 
-        return view($this->path . 'posts/tags', compact('posts', 'tag'));
+        if($tag->products->isNotEmpty()){
+            $cart = collect([]);
+            $wishlist = collect([]);
+            if(auth()->user()){
+               $user = User::where('id', '=', auth()->user()->id)
+                        ->first();
+               $cart = $user->cart()->get();
+               $wishlist = $user->wishlist()->get();
+
+            }
+            $data['cart'] = $cart;
+            $data['wishlist'] = $wishlist;
+        }
+
+        return view($this->path . 'posts/tags', $data);
     }
 
     public function contact(){
         
-        $settings = Settings::first();
         $metadata = new Metadata(trans('general.navigation.contact'));
 
-       return view($this->path . 'contact', compact('settings', 'metadata'));
+       return view($this->path . 'contact', compact('metadata'));
     }
 
     public function about(){
         
        $about        = About::first();
-       $settings     = Settings::first();
        $testimonials = Testimonial::all();
        $metadata = new Metadata(trans('general.navigation.about'));
        
-       return view($this->path . 'about', compact('about', 'settings', 'testimonials', 'metadata'));
+       return view($this->path . 'about', compact('about', 'testimonials', 'metadata'));
     }
 
     public function switchLanguage(Request $request){
@@ -143,6 +242,5 @@ class FrontEndController extends Controller
             
             return redirect()->back()->with('error', trans('admin.ops'));
         }
-
     }
 }

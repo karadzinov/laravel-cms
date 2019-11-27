@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\{Currency, Language};
+use Illuminate\Support\Facades\Cache;
 
 class SettingsTableSeeder extends Seeder
 {
@@ -11,13 +13,17 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        $currency = Currency::where('name', '=', 'USD')->first()->id;
+        $language = Language::where('active', '=', '1')->first()->code;
+        Cache::forever('locales',[$language]);
         $settings = array(
           array(
+            'currency_id' => $currency,
+            'language' => $language,
             'main_url' => 'http://cms.test',
             'title' => 'CMS',
             'email' => 'cms@cms.com',
-            'address' => 'Israel',
+            'address' => 'Exemple Address',
             'phone_number' => '0012 34/567-891',
             'logo' => 'Logo_logo_lg.png',
             'slogan' => 'Company Slogan',

@@ -69,7 +69,7 @@
 										<a href="{{route('posts.index')}}" class="dropdown-toggle" data-toggle="dropdown">
 											{{trans('general.navigation.posts')}}
 										</a>
-										@include($path . 'partials/categories/tree')
+										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'posts')->first()->children])
 									</li>
 									<li class="dropdown ">
 										<a href="{{route('pages.index')}}" class="dropdown-toggle" data-toggle="dropdown">
@@ -84,6 +84,12 @@
 												</li>
 											@endforeach
 										</ul>
+									</li>
+									<li class="dropdown ">
+										<a href="{{route('products.index')}}" class="dropdown-toggle" data-toggle="dropdown">
+											{{trans('general.navigation.products')}}
+										</a>
+										@include($path . 'partials/categories/tree', ['categories'=>$categories->where('name', '=', 'products')->first()->children])
 									</li>
 									<li>
 										<a href="{{route('contact')}}">{{trans('general.navigation.contact')}}</a>
@@ -119,6 +125,11 @@
 										</ul>
 
 									</div>
+									@if($cart)
+										@include($path.'partials/nav-cart')
+									@else
+										<div class="btn-group" id="cart-placeholder"></div>
+									@endif
 									@if(count($languages)>1)
 										<div class="btn-group dropdown">
 											<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" title="">

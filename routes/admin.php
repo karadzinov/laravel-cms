@@ -191,3 +191,18 @@ Route::group(["prefix" => "translations", "as"=>"translations.", 'middleware' =>
     Route::post('addRemoveLanguages', 'TranslationsController@addRemoveLanguages')->name('addRemoveLanguages');
     // Route::delete('delete/{language}', 'TranslationsController@delete')->name('delete');
 });
+
+Route::group(["prefix" => "products", "as"=>"products.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'ProductsController@index')->name('index');
+    Route::get('show/{product}', 'ProductsController@show')->name('show');
+    Route::get('create', 'ProductsController@create')->name('create');
+    Route::post('store', 'ProductsController@store')->name('store');
+    Route::get('edit/{product}', 'ProductsController@edit')->name('edit');
+    Route::put('update/{product}', 'ProductsController@update')->name('update');
+    Route::delete('delete/{product}', 'ProductsController@delete')->name('delete');
+});
+
+Route::group(["prefix" => "purchases", "as"=>"purchases.", 'middleware' => ['auth', 'activated', 'role:admin', 'activity']], function(){
+    Route::get('index', 'PurchasesController@index')->name('index');
+    Route::get('show/{purchase}', 'PurchasesController@show')->name('show');
+});

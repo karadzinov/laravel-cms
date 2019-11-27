@@ -17,7 +17,7 @@
         <div class="widget-header bordered-bottom bordered-blue">
             <span class="widget-caption">
                 <i class="fa fa-gear"></i> 
-                {!! trans('settings.edit-settings') !!}
+                {!! trans('settings.edit-settings') . ' (' . $settings->language .')'!!}
             </span>
             <div class="pull-right">
                 @if ($settings)
@@ -115,17 +115,25 @@
                                 </span>
                             @endif
                         </div>
-                        <div class="col-md-12"  style="font-size: 14px">
 
+                        <div class="col-md-12"  style="font-size: 14px">
                             <div class="form-group">
-                                {!! Form::label('languages', trans('forms.settings-languages-available') , array('class' => 'control-label')); !!}
-                                {{Form::select('languages[]', 
-                                    $languages, $avalilableLanguages,
-                                    array('id'=>'languages', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                                {!! Form::label('currency', trans('forms.settings-currency') , array('class' => 'control-label')); !!}
+                                <br>
+                                {{Form::select('currency', 
+                                    $currencies, $currency->id,
+                                    array('id'=>'currency', 'class'=>'form-control'))}}
                             </div>
                         </div>
+                        <div class="col-md-12" id="currency-exchanger"></div>
                         <div class="col-md-12">
-                            <label for="theme-selector">THEME</label>
+                            {!! Form::label('countries', trans('admin.delivery-countries') , array('class' => 'control-label')); !!}
+                            {{Form::select('countries[]', 
+                                $countries, $activeCountries,
+                                array('id'=>'countries', 'class'=>'form-control', 'multiple'=>'multiple'))}}
+                        </div>
+                        <div class="col-md-12">
+                            <label for="theme-selector">{{trans('forms.settings-theme')}}</label>
                             <select id="theme-selector" name="theme">
                              @foreach($themes as $theme)
                                 <option value="{{$theme->id}}" @if($theme->active) selected @endif>
@@ -307,8 +315,36 @@
 
         });
 
+        $("#countries").select2({
+            tags: true
+        });
+
         $("#languages").select2();
         $("#theme-selector").select2();
+        $('#currency').on('change', function(){
+            const root = $('#currency-exchanger');
+            const currencyValue = $('#currency').val();
+            if(currencyValue != '{{$currency->id}}'){
+                const chosenCurrency = $('#currency option[value='+currencyValue+']').text()
+                
+                root.html('');
+                root.append(`
+                    <small><span class="bg-warning">{{trans('forms.attention')}}!</span> {{trans('forms.currency-explination')}}.</small>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <input type="text" readonly="" value="1 {{$currency->name}} is worth" class="form-control">
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <input type="number" step=any name="currency_exchanger" class="form-control" placeholder="00,000 ${chosenCurrency}">
+                        </div>
+                    </div>
+                    </br>
+                `);
+                root.slideDown();
+            }else{
+                root.html('');
+            }
+        })
     </script>
 
     </script>

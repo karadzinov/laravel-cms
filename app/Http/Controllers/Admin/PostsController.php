@@ -7,12 +7,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\Taggable;
 use App\Models\{Category, Post, Tag, User};
 use App\Http\Requests\Posts\StorePostRequest;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class PostsController extends Controller
 {
+    use Taggable;
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->paginate(25);
         return view('admin/posts/index', compact('posts'));
     }
     /**
@@ -30,11 +31,28 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'posts')->first();
+        $categories = $this->getTree($postsCateory);
+      
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
 
         return view('admin/posts/create', compact('categories', 'users', 'tags'));
+    }
+
+    public function getTree($node, $tree=[]){
+        if($node->hasChildren()){
+            
+            foreach($node->children as $child){
+                $tree[$child->id] = $child->name;
+                
+                if($child->hasChildren()){
+                    $tree = $this->getTree($child, $tree);
+                }
+            }
+        }
+
+        return $tree;
     }
     /**
      * Store a newly created resource in storage.
@@ -80,32 +98,6 @@ class PostsController extends Controller
                 ->with('success', trans('posts.success.created'));
     }
 
-    public function updateTags($post, $tags){
-        
-        $alreadyExistingTags = Tag::all();
-        $postTags = $post->tags()->pluck('id')->toArray();
-        $difference = array_merge(array_diff($postTags, $tags), array_diff($tags, $postTags));
-        
-        foreach($difference as $differentTag){
-            if(in_array($differentTag, $postTags)){
-                $post->tags()->detach($differentTag);
-            }else{
-                $newTag = $alreadyExistingTags->find($differentTag);
-                if(!$newTag){
-                    $slug = Str::slug(strip_tags($differentTag));
-                    $newTag = Tag::create(['language'=>App::getLocale(), 'name'=>$differentTag, 'slug' => $slug]);
-                }
-
-                try {
-                    $post->tags()->attach($newTag->id);
-                } catch (Exception $e) {
-                   continue;
-                }
-            }
-        }
-
-        return;
-    }
     /**
      * Display the specified resource.
      *
@@ -128,7 +120,9 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($post);
 
-        $categories = Category::pluck('name', 'id')->toArray();
+        $postsCateory = Category::with('children')->where('name', '=', 'posts')->first();
+        $categories = $this->getTree($postsCateory);
+
         $users = User::pluck('name', 'id')->toArray();
         $tags = Tag::pluck('name', 'id')->toArray();
         
@@ -210,20 +204,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Finds assignedTags ids.
-     */
-    public function assignedTags(Post $post){
-        if($post->tags->isNotEmpty()){
-            $assignedTags = $post->tags()->get()->pluck('id')->toArray();
-
-            return $assignedTags;
-        }else{
-
-            return false;
-        }
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -253,7 +233,7 @@ class PostsController extends Controller
             }
             $image = $request->file('image');
             $slugname = Str::slug(strip_tags($request->title));
-            $imageName = $slugname . '.' . $image->getClientOriginalExtension();;
+            $imageName = $slugname . '.' . $image->getClientOriginalExtension();
             $paths = $this->makePaths();
             File::makeDirectory($paths->original, $mode = 0755, true, true);
             File::makeDirectory($paths->thumbnail, $mode = 0755, true, true);
