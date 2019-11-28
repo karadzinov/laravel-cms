@@ -94,7 +94,7 @@
 									</a>
 								</h4>
 								<small class="text-muted">{{$product->category->name}}</small>
-								<img src="{{$product->thumbnail}}" alt="" height="60" />
+								<img data-src="{{$product->thumbnail}}" class="lazy" alt="" height="60" />
 								<p>{{$product->created_at->format('M d, Y')}}</p>
 								<a href="{{$product->showRoute}}" class="text-warning fsize12">{{trans('general.read-more')}}</a>
 							</div><!-- /item -->
@@ -138,7 +138,7 @@
 									</a>
 								</h4>
 								<small class="text-muted">{{$post->category->name}}</small>
-								<img src="{{$post->thumbnailPath}}" alt="" height="60" />
+								<img data-src="{{$post->thumbnailPath}}" class="lazy" alt="" height="60" />
 								<p>{{$post->created_at->format('M d, Y')}}- {{trans('general.written-by')}} {{$post->author->name}}</p>
 								<a href="{{$post->showRoute}}" class="text-warning fsize12">{{trans('general.read-more')}}</a>
 							</div><!-- /item -->
@@ -181,7 +181,7 @@
 										{{$page->title}}
 									</a>
 								</h4>
-								<img src="{{$page->thumbnailPath . $page->images[0]->name}}" alt="" height="60" />
+								<img data-src="{{$page->thumbnailPath . $page->images[0]->name}}" class="lazy" alt="" height="60" />
 								<p>{{$page->subtitle}}</p>
 								<a href="{{$page->showRoute}}" class="text-warning fsize12">
 									{{trans('general.read-more')}}

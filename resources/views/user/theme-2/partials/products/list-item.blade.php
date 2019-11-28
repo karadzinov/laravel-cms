@@ -6,7 +6,7 @@
 		<div class="thumbnail">
 			<!-- product image(s) -->
 			<a class="shop-item-image" href="{{$product->showRoute}}">
-				<img class="product-thumbnail" src="{{$product->medium}}" alt="{{$product->name}}" />
+				<img class="product-thumbnail lazy" data-src="{{$product->medium}}" alt="{{$product->name}}" />
 			</a>
 			<!-- /product image(s) -->
 

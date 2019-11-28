@@ -246,7 +246,7 @@
 					@foreach($categories as $category)
 						<div class="col-sm-4 testimonial homepageCategories">
 							<figure class="float-left">
-								<img class="rounded" src="{{$category->thumbnailPath}}" alt="">
+								<img class="rounded lazy" data-src="{{$category->thumbnailPath}}" alt="">
 							</figure>
 							<div class="testimonial-content">
 			                    <a href="{{$category->showRoute}}" class="text-muted">
@@ -364,7 +364,7 @@
 					@foreach($partners as $partner)
 						<div title='{{$partner->name}}'>
 							<a href="{{$partner->link}}" target="_blank">
-								<img class="img-fluid" src="{{$partner->thumbnailPath}}" alt="">
+								<img class="img-fluid lazy" data-src="{{$partner->thumbnailPath}}" alt="">
 							</a>
 						</div>
 					@endforeach
@@ -388,7 +388,7 @@
 									<div class="spinner"></div>
 
 											<figure>
-												<img class="testimonialImage" src="{{$testimonial->thumbnailPath}}" alt="img">
+												<img class="testimonialImage lazy" data-src="{{$testimonial->thumbnailPath}}" alt="img">
 											</figure>
 
 										<div class="info">
@@ -427,7 +427,7 @@
 						<div class="col-sm-6 col-md-3 text-center">
 							<div class="thumbnail">
 								<a href="{{$post->showRoute}}">
-									<img class="homepage-post-image img-fluid grayscale-hover-color" src="{{$post->thumbnailPath}}" alt="" />
+									<img class="homepage-post-image img-fluid grayscale-hover-color lazy" data-src="{{$post->thumbnailPath}}" alt="" />
 								</a>
 							</div>
 							<h4 class="mt-6 uppercase text-muted">{{$post->title}}</h4>

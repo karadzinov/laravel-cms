@@ -58,7 +58,7 @@
 
 				<!-- IMAGE -->
 				<figure class="mb-20">
-					<img class="post-image img-fluid" src="{{$post->thumbnailPath}}" alt="">
+					<img class="post-image img-fluid lazy" data-src="{{$post->thumbnailPath}}" alt="">
 				</figure>
 
 				<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>

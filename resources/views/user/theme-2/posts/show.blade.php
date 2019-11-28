@@ -73,7 +73,7 @@
 
 					<!-- IMAGE -->
 					<figure class="mb-20">
-						<img class="img-fluid" src="{{$post->mediumPath}}" alt="img" />
+						<img class="img-fluid lazy" data-src="{{$post->mediumPath}}" alt="img" />
 					</figure>
 					<!-- /IMAGE -->
 

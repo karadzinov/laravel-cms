@@ -54,7 +54,7 @@
 								
 								Extra: add .image-bw class to force black and white!
 							-->
-							<img class="img-fluid" src="{{$product->originalPath . $product->main_image}}" width="1200" height="1500" alt="This is the product title" />
+							<img class="img-fluid lazy" data-src="{{$product->originalPath . $product->main_image}}" width="1200" height="1500" alt="This is the product title" />
 						</figure>
 
 					</div>
@@ -105,7 +105,7 @@
 						<div class="masonry-gallery columns-2 clearfix lightbox" data-img-big="3" data-plugin-options='{"delegate": "a", "gallery": {"enabled": true}}'>
 							@foreach($product->images as $image)
 								<a class="image-hover" href="{{$product->originalPath.$image->name}}">
-									<img src="{{$product->thumbnailPath.$image->name}}" alt="...">
+									<img data-src="{{$product->thumbnailPath.$image->name}}" class="lazy" alt="...">
 								</a>
 							@endforeach
 						</div>
@@ -225,7 +225,7 @@
 						<div class="block mb-60">
 
 							<span class="user-avatar"><!-- user-avatar -->
-								<img class="float-left media-object" src="{{$review->user->image}}" width="64" height="64" alt="">
+								<img class="float-left media-object" data-src="{{$review->user->image}}" class="lazy" width="64" height="64" alt="">
 							</span>
 
 							<div class="media-body">

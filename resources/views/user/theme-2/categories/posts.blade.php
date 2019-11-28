@@ -64,7 +64,7 @@
 								@elseif($post->image)
 									<!-- IMAGE -->
 									<figure class="mb-20">
-										<img class="img-fluid post-with-image" src="{{$post->mediumPath}}" alt="">
+										<img class="img-fluid post-with-image lazy" data-src="{{$post->mediumPath}}" alt="">
 									</figure>
 								@endif
 								<h2><a href="{{$post->showRoute}}">{{$post->title}}</a></h2>

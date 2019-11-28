@@ -36,7 +36,7 @@
 								<div class="thumbnail">
 									<!-- product image(s) -->
 									<a class="shop-item-image" href="{{$product->showRoute}}">
-										<img class="product-image" src="{{$product->medium}}" alt="product">
+										<img class="product-image lazy" data-src="{{$product->medium}}" alt="product">
 									</a>
 									<!-- /product image(s) -->
 

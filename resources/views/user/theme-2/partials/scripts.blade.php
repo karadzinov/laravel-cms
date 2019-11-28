@@ -2,6 +2,13 @@
 <script>var plugin_path = '{{asset('assets/theme-2/plugins/')}}/';</script>
 
 <script src="{{mix('js/theme-2-mix.js')}}"></script>
+<script src="{{ asset('assets/common/js/lazyload/dist/lazyload.min.js') }}"></script>
+<script>
+	var lazyLoadInstance = new LazyLoad({
+	    elements_selector: ".lazy"
+	    // ... more custom settings?
+	});
+</script>
 <script src="{{asset('assets/theme-2/js/custom.js')}}"></script>
 
 @if(config('settings.googleMapsAPIStatus'))

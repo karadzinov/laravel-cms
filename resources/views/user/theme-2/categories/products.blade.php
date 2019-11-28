@@ -69,7 +69,7 @@
 										<li class="clearfix"><!-- item -->
 											<div class="thumbnail featured clearfix float-left mr-10">
 												<a href="{{route('products.show', $top->slug)}}">
-													<img src="{{asset('images/products/thumbnails/'.$top->main_image)}}" width="80" height="80" alt="featured item">
+													<img data-src="{{asset('images/products/thumbnails/'.$top->main_image)}}" class="lazy" width="80" height="80" alt="featured item">
 												</a>
 											</div>
 
@@ -103,7 +103,7 @@
 											<li class="clearfix"><!-- item -->
 												<div class="thumbnail featured clearfix float-left">
 													<a href="{{route('products.show', $bestSeller->slug)}}">
-														<img src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" width="80" height="80" alt="featured item">
+														<img data-src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" class="lazy" width="80" height="80" alt="featured item">
 													</a>
 												</div>
 

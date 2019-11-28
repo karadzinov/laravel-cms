@@ -47,7 +47,7 @@
 					<div class="owl-carousel buttons-autohide controlls-over m-0 box-shadow-1" data-plugin-options='{"items": 1, "autoHeight": true, "navigation": true, "pagination": true, "transitionStyle":"fade", "progressBar":"true"}'>
 						@forelse($about->images as $image)
 							<div class="about-page-gallery">
-								<img class="img-fluid" src="{{$about->mediumPath . $image->name}}" alt="">
+								<img class="img-fluid lazy" data-src="{{$about->mediumPath . $image->name}}" alt="">
 							</div>
 						@empty
 						@endforelse
