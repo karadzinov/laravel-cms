@@ -64,7 +64,7 @@
 											<div class="item @if($loop->iteration==1) active @endif">
 												<div class="listing-item">
 													<div class="overlay-container">
-														<img class="bestseller-img" src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" alt="product">
+														<img class="bestseller-img lazy" data-src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" alt="product">
 														@if($bestSeller->reduction)
 															<span class="badge">-{{$bestSeller->reduction}}%</span>
 														@endif
@@ -94,7 +94,7 @@
 									<div class="media margin-clear">
 										<div class="media-left">
 											<div class="overlay-container">
-												<img class="media-object" src="{{asset('images/products/thumbnails/'.$top->main_image)}}" alt="thumb">
+												<img class="media-object lazy" data-src="{{asset('images/products/thumbnails/'.$top->main_image)}}" alt="thumb">
 												<a href="{{route('products.show', $top->slug)}}" class="overlay-link small"><i class="fa fa-link"></i></a>
 											</div>
 										</div>

@@ -44,7 +44,7 @@ trait HasYoutubeVideos{
 	
     public function getVideoPreviewAttribute(){
         
-        $iframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'.$this->videoId.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        $iframe = '<iframe width="560" height="315" class="lazy" data-src="https://www.youtube.com/embed/'.$this->videoId.'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 
         return $iframe;
     }

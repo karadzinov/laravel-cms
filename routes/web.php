@@ -28,11 +28,7 @@ Route::get('/changeTheme', function(){
 });
 
 Route::get('test', function(){
-    $s = App\Models\Settings::first()->currency->symbol;
-    dd($s);
-    $a = "4.23631";
-
-    dd(floatval($a));
+   dd(trans('products.success.created'));
 });
 
 // Homepage Route

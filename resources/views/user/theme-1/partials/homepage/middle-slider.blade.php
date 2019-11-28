@@ -17,7 +17,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-6">
-								<img src="{{$about->mediumPath . $image->name}}" class="about-images" alt="">
+								<img data-src="{{$about->mediumPath . $image->name}}" class="about-images lazy" alt="">
 							</div>
 							<div class="col-md-6">
 								<p>{{substr(strip_tags($about->why_us), 0, 1400) }}</p>
@@ -33,8 +33,7 @@
 								<p><a href="page-services.html" class="btn btn-default-transparent btn-animated">{{trans('general.learn_more')}} <i class="fa fa-arrow-right pl-10"></i></a></p>
 							</div>
 							<div class="col-md-6">
-								{{-- <img src="{{asset('assets/images/section-image-2.png')}}" alt=""> --}}
-								<img src="{{$about->mediumPath . $image->name}}" class="about-images" alt="">
+								<img data-src="{{$about->mediumPath . $image->name}}" class="about-images lazy" alt="">
 							</div>
 						</div>
 					</div>

@@ -140,7 +140,7 @@ class ProductsController extends UsesSlider
             $this->updateTags($product, $tags);
         }
 
-        return redirect()->route('admin.products.index')->with('success', 'products.success.updated');
+        return redirect()->route('admin.products.index')->with('success', trans('products.success.updated'));
     }
 
 	public function delete($product){

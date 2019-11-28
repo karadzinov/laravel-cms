@@ -11,49 +11,14 @@
 			</div>
 			<div class="col-md-6">
 				<br>
-				{{-- @if($about->video)
-					{!!$about->videoPreview!!}
-				@else --}}
-					<div class="overlay-container overlay-visible">
-						<img class="about-slider-image" src="{{asset('images/about/medium/'.$about->image)}}" alt="">
-						<a href="{{route('about')}}" class="overlay-link"><i class="fa fa-link"></i></a>
-						<div class="overlay-bottom hidden-xs">
-							<div class="text">{{$settings->slogan}}
-							</div>
+				<div class="overlay-container overlay-visible">
+					<img class="about-slider-image lazy" data-src="{{asset('images/about/medium/'.$about->image)}}" alt="">
+					<a href="{{route('about')}}" class="overlay-link"><i class="fa fa-link"></i></a>
+					<div class="overlay-bottom hidden-xs">
+						<div class="text">{{$settings->slogan}}
 						</div>
 					</div>
-				{{-- @endif --}}
-				{{-- <div role="tabpanel">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs style-1" role="tablist">
-						<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="icon-heart pr-10"></i>{{trans('general.we_love')}}</a></li>
-						<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">{{trans('general.what')}}</a></li>
-						<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">{{trans('general.why_us')}}</a></li>
-					</ul>
-
-					<!-- Tab panes -->
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="home">
-							<div class="overlay-container overlay-visible">
-								<img src="{{asset('images/about/medium/'.$about->image)}}" alt="">
-								<a href="{{route('about')}}" class="overlay-link"><i class="fa fa-link"></i></a>
-								<div class="overlay-bottom hidden-xs">
-									<div class="text">{{$settings->slogan}}
-									</div>
-								</div>
-							</div>										
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="profile">
-							<div class="embed-responsive embed-responsive-16by9">
-								{!!$about->videoPreview!!}
-							</div>
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="messages">
-							{{substr(strip_tags($about->why_us), 0, 850)}} ...
-							<br><a href="{{route('about')}}">{{trans('general.read-more')}}</a>
-						</div>
-					</div>
-				</div>		 --}}			
+				</div>
 			</div>
 		</div>
 	</div>

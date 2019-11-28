@@ -65,7 +65,7 @@
 						@foreach($categories as $category)
 							<div class="col-md-4 ">
 								<div class="pv-30 ph-20 feature-box bordered shadow text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
-									<span class="icon circle"> <img class="img-circle" src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
+									<span class="icon circle"> <img class="img-circle lazy" data-src="{{asset('images/categories/thumbnails/').'/'.$category->image}}" alt=""> </span>
 									<h3>{{$category->name}}</h3>
 									<div class="separator clearfix"></div>
 									<p>{{ substr($category->description, 0, 200) }}...</p>
@@ -136,7 +136,7 @@
 					@foreach($posts as $post)
 						<div class="image-box shadow text-center">
 							<div class="overlay-container">
-								<img class="post-exemple-item" src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
+								<img class="post-exemple-item lazy" data-src="{{asset('images/posts/originals/'.$post->image)}}" alt="">
 								<div class="overlay-top">
 									<div class="text">
 										<h3><a href="{{$post->showRoute}}">{{$post->title}}</a></h3>
@@ -165,7 +165,7 @@
 							@endphp
 							@foreach($partners as $partner)
 								<div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="{{$effectDelay}}">
-								<a href="{{$partner->link}}"><img src="{{$partner->thumbnailPath}}" alt=""></a>
+								<a href="{{$partner->link}}"><img data-src="{{$partner->thumbnailPath}}" alt="" class="lazy"></a>
 							</div>
 							@php
 								$effectDelay += 200;

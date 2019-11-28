@@ -16,7 +16,7 @@
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
 								<div class="overlay-container overlayContainerImages">
-									<img src="{{$page->thumbnailPath . $page->images()->first()->name}}" alt="">
+									<img data-src="{{$page->thumbnailPath . $page->images()->first()->name}}" class="lazy" alt="">
 									<a class="overlay-link" href="{{$page->showRoute}}"><i class="fa fa-link"></i></a>
 								</div>
 							</div>
@@ -26,7 +26,7 @@
 							@foreach($page->images as $image)
 								<div class="item">
 									<div class="overlay-container overlayContainerImages">
-										<img src="{{$page->thumbnailPath . $image->name}}" alt="">
+										<img data-src="{{$page->thumbnailPath . $image->name}}" class="lazy" alt="">
 										<a class="overlay-link" href="{{$page->showRoute}}"><i class="fa fa-link"></i></a>
 									</div>
 								</div>
