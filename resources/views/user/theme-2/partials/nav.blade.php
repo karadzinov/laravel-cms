@@ -108,9 +108,6 @@
 						</li>
 					-->
 					<ul id="topMain" class="nav nav-pills nav-main uppercase">
-						<li>
-							<a href="/home">{{trans('general.navigation.home')}}</a>
-						</li>
 						<li class="dropdown"><!-- POSTS -->
 							<a class="dropdown-toggle" href="{{route('posts.index')}}">
 								{{trans('general.navigation.posts')}}
