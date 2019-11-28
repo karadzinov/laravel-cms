@@ -67,6 +67,7 @@ mix.styles([
          'public/assets/theme-1/plugins/jquery.browser.js',
          // 'public/assets/plugins/SmoothScroll.js',
          'public/assets/theme-1/js/template.js',
+         'public/assets/common/js/lazyload/dist/lazyload.min.js',
          'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/theme-1/js/custom.js',
          ], 'public/js/theme-1-mix.js')
@@ -93,6 +94,7 @@ mix.styles([
          "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.tools.min.js",
          "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js",
          "public/assets/theme-2/js/view/demo.revolution_slider.js",
+         "public/assets/common/js/lazyload/dist/lazyload.min.js",
          // scripts
          "public/assets/theme-2/js/scripts.js",
          // custom

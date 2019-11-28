@@ -25,15 +25,17 @@ class WishlistsController extends Controller
            $user = User::find(auth()->user()->id);
            if($user->wishlist->contains($product)){
            		return response()->json([
-			        "status"=>"already-added",
-			        "message"=>trans('general.already-added')
+			        "status" =>"already-added",
+			        "message"=>trans('general.already-added'),
+              "button" => trans('general.remove-from-wishlist')
 			    ]); 
            }
            $user->wishlist()->save($product);
 
            return response()->json([
-               "status"=>"success",
-               "message"=>trans('general.added-to-wishlist')
+               "status" =>"success",
+               "message"=>trans('general.added-to-wishlist'),
+               "button" => trans('general.remove-from-wishlist')
            ]);
 
        } catch (Exception $e) {
@@ -53,7 +55,9 @@ class WishlistsController extends Controller
 
            return response()->json([
                "status"=>"success",
-               "message"=>trans('general.succcessfully-deleted')
+               "message"=>trans('general.succcessfully-deleted'),
+               "button" => trans('general.add-to-wishlist')
+
            ]);
 
        } catch (Exception $e) {

@@ -141,8 +141,8 @@ Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "cart", 
 
 Route::group(['middleware' => ['auth', 'web', 'activated'], "prefix" => "wishlist", 'as'=>'wishlist.'], function () {
     Route::get('/index', 'WishlistsController@index')->name('index');
-Route::post('/add-to-wishlist', 'WishlistsController@add')->name('add');
-    Route::post('/delete-from-wishlist', 'WishlistsController@remove')->name('remove');
+Route::post('/add', 'WishlistsController@add')->name('add');
+    Route::post('/delete', 'WishlistsController@remove')->name('remove');
 });
 
 Route::get('tags/{slug}', "FrontEndController@tagPosts")->name('tagPosts');

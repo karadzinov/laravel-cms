@@ -1,7 +1,6 @@
 <!-- JavaScript files placed at the end of the document so the pages load faster -->
 <!-- ================================================== -->
 <script src="{{mix('js/theme-1-mix.js')}}"></script>
-<script src="{{ asset('assets/common/js/lazyload/dist/lazyload.min.js') }}"></script>
 <script src="{{asset('assets/theme-1/js/custom.js')}}"></script>
 
 <script>

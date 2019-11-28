@@ -87,15 +87,27 @@
 
 			<div class="tab-content">
 				<div class="tab-pane @if($activeTab === 'products') in active @endif" id="products">
-					<ul class="shop-item-list row list-inline m-0">
+					@if($tag->products->isNotEmpty())
+						<ul class="shop-item-list row list-inline m-0">
 
-						@foreach($tag->products as $product)
-							@include($path.'/partials/products/list-item')
-						@endforeach
-					</ul>
+							@foreach($tag->products as $product)
+								@include($path.'/partials/products/list-item')
+							@endforeach
+						</ul>
+					@else
+						<p>
+							{{ trans('general.no-products-for-tag') }}
+						</p>
+					@endif
 				</div>
 				<div class="tab-pane @if($activeTab === 'posts') in active @endif" id="posts">
-					@include($path . 'partials/posts/posts-list', ['posts'=>$tag->posts])
+					@if($tag->posts->isNotEmpty())
+						@include($path . 'partials/posts/posts-list', ['posts'=>$tag->posts])
+					@else
+						<p>
+							{{ trans('general.no-products-for-tag') }}
+						</p>
+					@endif
 				</div>
 			</div>
 		</div>

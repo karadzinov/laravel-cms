@@ -1,12 +1,12 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 /*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */
 !function (e, t) {
   "use strict";
 
-  "object" == (typeof module === "undefined" ? "undefined" : _typeof(module)) && "object" == _typeof(module.exports) ? module.exports = e.document ? t(e, !0) : function (e) {
+  "object" == (typeof module === "undefined" ? "undefined" : _typeof2(module)) && "object" == _typeof2(module.exports) ? module.exports = e.document ? t(e, !0) : function (e) {
     if (!e.document) throw new Error("jQuery requires a window with a document");
     return t(e);
   } : t(e);
@@ -48,7 +48,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   }
 
   function x(e) {
-    return null == e ? e + "" : "object" == _typeof(e) || "function" == typeof e ? l[c.call(e)] || "object" : _typeof(e);
+    return null == e ? e + "" : "object" == _typeof2(e) || "function" == typeof e ? l[c.call(e)] || "object" : _typeof2(e);
   }
 
   var b = "3.3.1",
@@ -111,7 +111,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         u = arguments.length,
         l = !1;
 
-    for ("boolean" == typeof a && (l = a, a = arguments[s] || {}, s++), "object" == _typeof(a) || g(a) || (a = {}), s === u && (a = this, s--); s < u; s++) {
+    for ("boolean" == typeof a && (l = a, a = arguments[s] || {}, s++), "object" == _typeof2(a) || g(a) || (a = {}), s === u && (a = this, s--); s < u; s++) {
       if (null != (e = arguments[s])) for (t in e) {
         n = a[t], a !== (r = e[t]) && (l && r && (w.isPlainObject(r) || (i = Array.isArray(r))) ? (i ? (i = !1, o = n && Array.isArray(n) ? n : []) : o = n && w.isPlainObject(n) ? n : {}, a[t] = w.extend(l, o, r)) : void 0 !== r && (a[t] = r));
       }
@@ -1484,7 +1484,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
                 if (!(t < o)) {
                   if ((e = r.apply(s, u)) === n.promise()) throw new TypeError("Thenable self-resolution");
-                  l = e && ("object" == _typeof(e) || "function" == typeof e) && e.then, g(l) ? i ? l.call(e, a(o, n, I, i), a(o, n, W, i)) : (o++, l.call(e, a(o, n, I, i), a(o, n, W, i), a(o, n, I, n.notifyWith))) : (r !== I && (s = void 0, u = [e]), (i || n.resolveWith)(s, u));
+                  l = e && ("object" == _typeof2(e) || "function" == typeof e) && e.then, g(l) ? i ? l.call(e, a(o, n, I, i), a(o, n, W, i)) : (o++, l.call(e, a(o, n, I, i), a(o, n, W, i), a(o, n, I, n.notifyWith))) : (r !== I && (s = void 0, u = [e]), (i || n.resolveWith)(s, u));
                 }
               },
                   c = i ? l : function () {
@@ -1706,7 +1706,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         return i;
       }
 
-      return "object" == _typeof(e) ? this.each(function () {
+      return "object" == _typeof2(e) ? this.each(function () {
         K.set(this, e);
       }) : z(this, function (t) {
         var n;
@@ -1952,7 +1952,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   function De(e, t, n, r, i, o) {
     var a, s;
 
-    if ("object" == _typeof(t)) {
+    if ("object" == _typeof2(t)) {
       "string" != typeof n && (r = r || n, n = void 0);
 
       for (s in t) {
@@ -2232,7 +2232,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var r, i;
       if (e && e.preventDefault && e.handleObj) return r = e.handleObj, w(e.delegateTarget).off(r.namespace ? r.origType + "." + r.namespace : r.origType, r.selector, r.handler), this;
 
-      if ("object" == _typeof(e)) {
+      if ("object" == _typeof2(e)) {
         for (i in e) {
           this.off(i, t, e[i]);
         }
@@ -2612,7 +2612,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             u = Xe.test(t),
             l = e.style;
         if (u || (t = Je(s)), a = w.cssHooks[t] || w.cssHooks[s], void 0 === n) return a && "get" in a && void 0 !== (i = a.get(e, !1, r)) ? i : l[t];
-        "string" == (o = _typeof(n)) && (i = ie.exec(n)) && i[1] && (n = ue(e, t, i), o = "number"), null != n && n === n && ("number" === o && (n += i && i[3] || (w.cssNumber[s] ? "" : "px")), h.clearCloneStyle || "" !== n || 0 !== t.indexOf("background") || (l[t] = "inherit"), a && "set" in a && void 0 === (n = a.set(e, n, r)) || (u ? l.setProperty(t, n) : l[t] = n));
+        "string" == (o = _typeof2(n)) && (i = ie.exec(n)) && i[1] && (n = ue(e, t, i), o = "number"), null != n && n === n && ("number" === o && (n += i && i[3] || (w.cssNumber[s] ? "" : "px")), h.clearCloneStyle || "" !== n || 0 !== t.indexOf("background") || (l[t] = "inherit"), a && "set" in a && void 0 === (n = a.set(e, n, r)) || (u ? l.setProperty(t, n) : l[t] = n));
       }
     },
     css: function css(e, t, n, r) {
@@ -2900,7 +2900,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       t ? pt.prefilters.unshift(e) : pt.prefilters.push(e);
     }
   }), w.speed = function (e, t, n) {
-    var r = e && "object" == _typeof(e) ? w.extend({}, e) : {
+    var r = e && "object" == _typeof2(e) ? w.extend({}, e) : {
       complete: n || !n && t || g(e) && e,
       duration: e,
       easing: n && t || t && !g(t) && t
@@ -3182,7 +3182,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return this;
     },
     toggleClass: function toggleClass(e, t) {
-      var n = _typeof(e),
+      var n = _typeof2(e),
           r = "string" === n || Array.isArray(e);
 
       return "boolean" == typeof t && r ? t ? this.addClass(e) : this.removeClass(e) : g(e) ? this.each(function (n) {
@@ -3301,7 +3301,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           m = f.call(t, "type") ? t.type : t,
           x = f.call(t, "namespace") ? t.namespace.split(".") : [];
 
-      if (s = h = u = i = i || r, 3 !== i.nodeType && 8 !== i.nodeType && !wt.test(m + w.event.triggered) && (m.indexOf(".") > -1 && (m = (x = m.split(".")).shift(), x.sort()), c = m.indexOf(":") < 0 && "on" + m, t = t[w.expando] ? t : new w.Event(m, "object" == _typeof(t) && t), t.isTrigger = o ? 2 : 3, t.namespace = x.join("."), t.rnamespace = t.namespace ? new RegExp("(^|\\.)" + x.join("\\.(?:.*\\.|)") + "(\\.|$)") : null, t.result = void 0, t.target || (t.target = i), n = null == n ? [t] : w.makeArray(n, [t]), d = w.event.special[m] || {}, o || !d.trigger || !1 !== d.trigger.apply(i, n))) {
+      if (s = h = u = i = i || r, 3 !== i.nodeType && 8 !== i.nodeType && !wt.test(m + w.event.triggered) && (m.indexOf(".") > -1 && (m = (x = m.split(".")).shift(), x.sort()), c = m.indexOf(":") < 0 && "on" + m, t = t[w.expando] ? t : new w.Event(m, "object" == _typeof2(t) && t), t.isTrigger = o ? 2 : 3, t.namespace = x.join("."), t.rnamespace = t.namespace ? new RegExp("(^|\\.)" + x.join("\\.(?:.*\\.|)") + "(\\.|$)") : null, t.result = void 0, t.target || (t.target = i), n = null == n ? [t] : w.makeArray(n, [t]), d = w.event.special[m] || {}, o || !d.trigger || !1 !== d.trigger.apply(i, n))) {
         if (!o && !d.noBubble && !y(i)) {
           for (l = d.delegateType || m, wt.test(l + m) || (s = s.parentNode); s; s = s.parentNode) {
             v.push(s), u = s;
@@ -3382,7 +3382,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   function jt(e, t, n, r) {
     var i;
     if (Array.isArray(t)) w.each(t, function (t, i) {
-      n || St.test(e) ? r(e, i) : jt(e + "[" + ("object" == _typeof(i) && null != i ? t : "") + "]", i, n, r);
+      n || St.test(e) ? r(e, i) : jt(e + "[" + ("object" == _typeof2(i) && null != i ? t : "") + "]", i, n, r);
     });else if (n || "object" !== x(t)) r(e, t);else for (i in t) {
       jt(e + "[" + i + "]", t[i], n, r);
     }
@@ -3596,7 +3596,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     ajaxPrefilter: Ft(It),
     ajaxTransport: Ft(Wt),
     ajax: function ajax(t, n) {
-      "object" == _typeof(t) && (n = t, t = void 0), n = n || {};
+      "object" == _typeof2(t) && (n = t, t = void 0), n = n || {};
       var i,
           o,
           a,
@@ -3884,7 +3884,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         o,
         a = this,
         s = e.indexOf(" ");
-    return s > -1 && (r = vt(e.slice(s)), e = e.slice(0, s)), g(t) ? (n = t, t = void 0) : t && "object" == _typeof(t) && (i = "POST"), a.length > 0 && w.ajax({
+    return s > -1 && (r = vt(e.slice(s)), e = e.slice(0, s)), g(t) ? (n = t, t = void 0) : t && "object" == _typeof2(t) && (i = "POST"), a.length > 0 && w.ajax({
       url: e,
       type: i || "GET",
       dataType: "html",
@@ -4202,7 +4202,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         f.error("Method " + G + " does not exist on jQuery.swipe");
       }
     } else {
-      if (!E && (_typeof(G) === "object" || !G)) {
+      if (!E && (_typeof2(G) === "object" || !G)) {
         return w.apply(this, arguments);
       }
     }
@@ -5206,7 +5206,7 @@ if (window.tplogs == true) try {
       var t = Object.prototype.toString,
           e = t.call([]);
       return function (i) {
-        return null != i && (i instanceof Array || "object" == _typeof(i) && !!i.push && t.call(i) === e);
+        return null != i && (i instanceof Array || "object" == _typeof2(i) && !!i.push && t.call(i) === e);
       };
     }(),
         c = {},
@@ -5788,7 +5788,7 @@ if (window.tplogs == true) try {
         }
 
         if (o) {
-          if (h = t || o, _ = t !== r && "all" !== r && t !== o && ("object" != _typeof(t) || !t._tempKill), i && (I.onOverwrite || this.vars.onOverwrite)) {
+          if (h = t || o, _ = t !== r && "all" !== r && t !== o && ("object" != _typeof2(t) || !t._tempKill), i && (I.onOverwrite || this.vars.onOverwrite)) {
             for (n in h) {
               o[n] && (u || (u = []), u.push(n));
             }
@@ -5858,7 +5858,7 @@ if (window.tplogs == true) try {
 
       return s;
     }, I.killTweensOf = I.killDelayedCallsTo = function (t, e, i) {
-      "object" == _typeof(e) && (i = e, e = !1);
+      "object" == _typeof2(e) && (i = e, e = !1);
 
       for (var s = I.getTweensOf(t, e), r = s.length; --r > -1;) {
         s[r]._kill(i, t);
@@ -6849,7 +6849,7 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
       e = e || {}, this.p = e.prefix ? V(t) || t : t, o[t] = o[this.p] = this, this.format = e.formatter || he(e.defaultValue, e.color, e.collapsible, e.multi), e.parser && (this.parse = e.parser), this.clrs = e.color, this.multi = e.multi, this.keyword = e.keyword, this.dflt = e.defaultValue, this.pr = e.priority || 0;
     },
         me = E._registerComplexSpecialProp = function (t, e, i) {
-      "object" != _typeof(e) && (e = {
+      "object" != _typeof2(e) && (e = {
         parser: i
       });
       var r,
@@ -7155,7 +7155,7 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
             x = l,
             T = {};
 
-        if ("string" == typeof x.transform && xe) f = X.style, f[xe] = x.transform, f.display = "block", f.position = "absolute", z.body.appendChild(X), h = Ae(X, null, !1), z.body.removeChild(X);else if ("object" == _typeof(x)) {
+        if ("string" == typeof x.transform && xe) f = X.style, f[xe] = x.transform, f.display = "block", f.position = "absolute", z.body.appendChild(X), h = Ae(X, null, !1), z.body.removeChild(X);else if ("object" == _typeof2(x)) {
           if (h = {
             scaleX: re(null != x.scaleX ? x.scaleX : x.scale, m.scaleX),
             scaleY: re(null != x.scaleY ? x.scaleY : x.scale, m.scaleY),
@@ -7166,7 +7166,7 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
             xPercent: re(x.xPercent, m.xPercent),
             yPercent: re(x.yPercent, m.yPercent),
             perspective: re(x.transformPerspective, m.perspective)
-          }, d = x.directionalRotation, null != d) if ("object" == _typeof(d)) for (f in d) {
+          }, d = x.directionalRotation, null != d) if ("object" == _typeof2(d)) for (f in d) {
             x[f] = d[f];
           } else x.rotation = d;
           "string" == typeof x.x && -1 !== x.x.indexOf("%") && (h.x = 0, h.xPercent = re(x.x, m.xPercent)), "string" == typeof x.y && -1 !== x.y.indexOf("%") && (h.y = 0, h.yPercent = re(x.y, m.yPercent)), h.rotation = se("rotation" in x ? x.rotation : "shortRotation" in x ? x.shortRotation + "_short" : "rotationZ" in x ? x.rotationZ : m.rotation, m.rotation, "rotation", T), be && (h.rotationX = se("rotationX" in x ? x.rotationX : "shortRotationX" in x ? x.shortRotationX + "_short" : m.rotationX || 0, m.rotationX, "rotationX", T), h.rotationY = se("rotationY" in x ? x.rotationY : "shortRotationY" in x ? x.shortRotationY + "_short" : m.rotationY || 0, m.rotationY, "rotationY", T)), h.skewX = null == x.skewX ? m.skewX : se(x.skewX, m.skewX), h.skewY = null == x.skewY ? m.skewY : se(x.skewY, m.skewY), (u = h.skewY - m.skewY) && (h.skewX += u, h.rotation += u);
@@ -11334,7 +11334,7 @@ function revslider_showDoubleJqueryError(e) {
                   n.attr("id", y);
                   var u;
                   var a = setInterval(function () {
-                    if (YT != t) if (_typeof(YT.Player) != t && typeof YT.Player != "undefined") {
+                    if (YT != t) if (_typeof2(YT.Player) != t && typeof YT.Player != "undefined") {
                       u = new YT.Player(y, {
                         events: {
                           onStateChange: O,
@@ -11409,7 +11409,7 @@ function revslider_showDoubleJqueryError(e) {
                 var u = h.find("iframe")[0];
                 var m = setInterval(function () {
                   if ($f != t) {
-                    if (_typeof($f(y).api) != t && typeof $f(y).api != "undefined") {
+                    if (_typeof2($f(y).api) != t && typeof $f(y).api != "undefined") {
                       $f(u).addEvent("ready", function () {
                         _(y, z);
                       });
@@ -13368,6 +13368,306 @@ jQuery(document).ready(function () {
   }
 }); //ready
 
+function _toConsumableArray(t) {
+  return _arrayWithoutHoles(t) || _iterableToArray(t) || _nonIterableSpread();
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+function _iterableToArray(t) {
+  if (Symbol.iterator in Object(t) || "[object Arguments]" === Object.prototype.toString.call(t)) return Array.from(t);
+}
+
+function _arrayWithoutHoles(t) {
+  if (Array.isArray(t)) {
+    for (var e = 0, n = new Array(t.length); e < t.length; e++) {
+      n[e] = t[e];
+    }
+
+    return n;
+  }
+}
+
+function _extends() {
+  return (_extends = Object.assign || function (t) {
+    for (var e = 1; e < arguments.length; e++) {
+      var n = arguments[e];
+
+      for (var r in n) {
+        Object.prototype.hasOwnProperty.call(n, r) && (t[r] = n[r]);
+      }
+    }
+
+    return t;
+  }).apply(this, arguments);
+}
+
+function _typeof(t) {
+  return (_typeof = "function" == typeof Symbol && "symbol" == _typeof2(Symbol.iterator) ? function (t) {
+    return _typeof2(t);
+  } : function (t) {
+    return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : _typeof2(t);
+  })(t);
+}
+
+!function (t, e) {
+  "object" === ("undefined" == typeof exports ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : t.LazyLoad = e();
+}(this, function () {
+  "use strict";
+
+  var t = "undefined" != typeof window,
+      e = t && !("onscroll" in window) || "undefined" != typeof navigator && /(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent),
+      n = t && "IntersectionObserver" in window,
+      r = t && "classList" in document.createElement("p"),
+      o = {
+    elements_selector: "img",
+    container: e || t ? document : null,
+    threshold: 300,
+    thresholds: null,
+    data_src: "src",
+    data_srcset: "srcset",
+    data_sizes: "sizes",
+    data_bg: "bg",
+    data_poster: "poster",
+    class_loading: "loading",
+    class_loaded: "loaded",
+    class_error: "error",
+    load_delay: 0,
+    auto_unobserve: !0,
+    callback_enter: null,
+    callback_exit: null,
+    callback_reveal: null,
+    callback_loaded: null,
+    callback_error: null,
+    callback_finish: null,
+    use_native: !1
+  },
+      a = function a(t, e) {
+    var n,
+        r = new t(e);
+
+    try {
+      n = new CustomEvent("LazyLoad::Initialized", {
+        detail: {
+          instance: r
+        }
+      });
+    } catch (t) {
+      (n = document.createEvent("CustomEvent")).initCustomEvent("LazyLoad::Initialized", !1, !1, {
+        instance: r
+      });
+    }
+
+    window.dispatchEvent(n);
+  };
+
+  var i = function i(t, e) {
+    return t.getAttribute("data-" + e);
+  },
+      s = function s(t, e, n) {
+    var r = "data-" + e;
+    null !== n ? t.setAttribute(r, n) : t.removeAttribute(r);
+  },
+      c = function c(t) {
+    return "true" === i(t, "was-processed");
+  },
+      l = function l(t, e) {
+    return s(t, "ll-timeout", e);
+  },
+      u = function u(t) {
+    return i(t, "ll-timeout");
+  },
+      d = function d(t, e, n, r) {
+    t && (void 0 === r ? void 0 === n ? t(e) : t(e, n) : t(e, n, r));
+  },
+      f = function f(t, e) {
+    t._loadingCount += e, 0 === t._elements.length && 0 === t._loadingCount && d(t._settings.callback_finish, t);
+  },
+      _ = function _(t) {
+    for (var e, n = [], r = 0; e = t.children[r]; r += 1) {
+      "SOURCE" === e.tagName && n.push(e);
+    }
+
+    return n;
+  },
+      v = function v(t, e, n) {
+    n && t.setAttribute(e, n);
+  },
+      b = function b(t, e) {
+    v(t, "sizes", i(t, e.data_sizes)), v(t, "srcset", i(t, e.data_srcset)), v(t, "src", i(t, e.data_src));
+  },
+      m = {
+    IMG: function IMG(t, e) {
+      var n = t.parentNode;
+      n && "PICTURE" === n.tagName && _(n).forEach(function (t) {
+        b(t, e);
+      });
+      b(t, e);
+    },
+    IFRAME: function IFRAME(t, e) {
+      v(t, "src", i(t, e.data_src));
+    },
+    VIDEO: function VIDEO(t, e) {
+      _(t).forEach(function (t) {
+        v(t, "src", i(t, e.data_src));
+      }), v(t, "poster", i(t, e.data_poster)), v(t, "src", i(t, e.data_src)), t.load();
+    }
+  },
+      p = function p(t, e) {
+    var n,
+        r,
+        o = e._settings,
+        a = t.tagName,
+        s = m[a];
+    if (s) return s(t, o), f(e, 1), void (e._elements = (n = e._elements, r = t, n.filter(function (t) {
+      return t !== r;
+    })));
+    !function (t, e) {
+      var n = i(t, e.data_src),
+          r = i(t, e.data_bg);
+      n && (t.style.backgroundImage = 'url("'.concat(n, '")')), r && (t.style.backgroundImage = r);
+    }(t, o);
+  },
+      g = function g(t, e) {
+    r ? t.classList.add(e) : t.className += (t.className ? " " : "") + e;
+  },
+      y = function y(t, e) {
+    r ? t.classList.remove(e) : t.className = t.className.replace(new RegExp("(^|\\s+)" + e + "(\\s+|$)"), " ").replace(/^\s+/, "").replace(/\s+$/, "");
+  },
+      h = function h(t, e, n) {
+    t.addEventListener(e, n);
+  },
+      E = function E(t, e, n) {
+    t.removeEventListener(e, n);
+  },
+      w = function w(t, e, n) {
+    E(t, "load", e), E(t, "loadeddata", e), E(t, "error", n);
+  },
+      A = function A(t, e, n) {
+    var r = n._settings,
+        o = e ? r.class_loaded : r.class_error,
+        a = e ? r.callback_loaded : r.callback_error,
+        i = t.target;
+    y(i, r.class_loading), g(i, o), d(a, i, n), f(n, -1);
+  },
+      I = function I(t, e) {
+    var n = function n(o) {
+      A(o, !0, e), w(t, n, r);
+    },
+        r = function r(o) {
+      A(o, !1, e), w(t, n, r);
+    };
+
+    !function (t, e, n) {
+      h(t, "load", e), h(t, "loadeddata", e), h(t, "error", n);
+    }(t, n, r);
+  },
+      k = ["IMG", "IFRAME", "VIDEO"],
+      L = function L(t, e) {
+    var n = e._observer;
+    S(t, e), n && e._settings.auto_unobserve && n.unobserve(t);
+  },
+      O = function O(t) {
+    var e = u(t);
+    e && (clearTimeout(e), l(t, null));
+  },
+      x = function x(t, e) {
+    var n = e._settings.load_delay,
+        r = u(t);
+    r || (r = setTimeout(function () {
+      L(t, e), O(t);
+    }, n), l(t, r));
+  },
+      S = function S(t, e, n) {
+    var r = e._settings;
+    !n && c(t) || (k.indexOf(t.tagName) > -1 && (I(t, e), g(t, r.class_loading)), p(t, e), function (t) {
+      s(t, "was-processed", "true");
+    }(t), d(r.callback_reveal, t, e), d(r.callback_set, t, e));
+  },
+      z = function z(t) {
+    return !!n && (t._observer = new IntersectionObserver(function (e) {
+      e.forEach(function (e) {
+        return function (t) {
+          return t.isIntersecting || t.intersectionRatio > 0;
+        }(e) ? function (t, e, n) {
+          var r = n._settings;
+          d(r.callback_enter, t, e, n), r.load_delay ? x(t, n) : L(t, n);
+        }(e.target, e, t) : function (t, e, n) {
+          var r = n._settings;
+          d(r.callback_exit, t, e, n), r.load_delay && O(t);
+        }(e.target, e, t);
+      });
+    }, {
+      root: (e = t._settings).container === document ? null : e.container,
+      rootMargin: e.thresholds || e.threshold + "px"
+    }), !0);
+    var e;
+  },
+      C = ["IMG", "IFRAME"],
+      N = function N(t, e) {
+    return function (t) {
+      return t.filter(function (t) {
+        return !c(t);
+      });
+    }((n = t || function (t) {
+      return t.container.querySelectorAll(t.elements_selector);
+    }(e), Array.prototype.slice.call(n)));
+    var n;
+  },
+      M = function M(t) {
+    var e = t._settings;
+    _toConsumableArray(e.container.querySelectorAll("." + e.class_error)).forEach(function (t) {
+      y(t, e.class_error), function (t) {
+        s(t, "was-processed", null);
+      }(t);
+    }), t.update();
+  },
+      R = function R(e, n) {
+    var r;
+    this._settings = function (t) {
+      return _extends({}, o, t);
+    }(e), this._loadingCount = 0, z(this), this.update(n), r = this, t && window.addEventListener("online", function (t) {
+      M(r);
+    });
+  };
+
+  return R.prototype = {
+    update: function update(t) {
+      var n,
+          r = this,
+          o = this._settings;
+      (this._elements = N(t, o), !e && this._observer) ? (function (t) {
+        return t.use_native && "loading" in HTMLImageElement.prototype;
+      }(o) && ((n = this)._elements.forEach(function (t) {
+        -1 !== C.indexOf(t.tagName) && (t.setAttribute("loading", "lazy"), S(t, n));
+      }), this._elements = N(t, o)), this._elements.forEach(function (t) {
+        r._observer.observe(t);
+      })) : this.loadAll();
+    },
+    destroy: function destroy() {
+      var t = this;
+      this._observer && (this._elements.forEach(function (e) {
+        t._observer.unobserve(e);
+      }), this._observer = null), this._elements = null, this._settings = null;
+    },
+    load: function load(t, e) {
+      S(t, this, e);
+    },
+    loadAll: function loadAll() {
+      var t = this;
+
+      this._elements.forEach(function (e) {
+        L(e, t);
+      });
+    }
+  }, t && function (t, e) {
+    if (e) if (e.length) for (var n, r = 0; n = e[r]; r += 1) {
+      a(t, n);
+    } else a(t, e);
+  }(R, window.lazyLoadOptions), R;
+});
 /** ********************************************** **
 	@Author			Dorin Grigoras
 	@Website		www.stepofweb.com
@@ -15756,7 +16056,7 @@ function _loadPopperBS4() {
         }
       }
     }, Z;
-  }, "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : e.Popper = t();
+  }, "object" == (typeof exports === "undefined" ? "undefined" : _typeof2(exports)) && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : e.Popper = t();
 }
 
 Number.prototype.formatMoney = function (e, t, n) {
@@ -16263,7 +16563,7 @@ Number.prototype.formatMoney = function (e, t, n) {
   }();
 }.call(this), function (e, t, n) {
   function r(e, t) {
-    return _typeof(e) === t;
+    return _typeof2(e) === t;
   }
 
   function i(e) {
@@ -16283,7 +16583,7 @@ Number.prototype.formatMoney = function (e, t, n) {
   }
 
   function o(e, t) {
-    if ("object" == _typeof(e)) for (var n in e) {
+    if ("object" == _typeof2(e)) for (var n in e) {
       _(e, n) && o(n, e[n]);
     } else {
       var r = (e = e.toLowerCase()).split("."),
@@ -16511,7 +16811,7 @@ Number.prototype.formatMoney = function (e, t, n) {
         "string" != typeof n && (n = n.join(" ")), "string" != typeof e && (e = e.join(" ")), h.elements = n + " " + e, a(t);
       }
     };
-    e.html5 = h, a(t), "object" == (typeof module === "undefined" ? "undefined" : _typeof(module)) && module.exports && (module.exports = h);
+    e.html5 = h, a(t), "object" == (typeof module === "undefined" ? "undefined" : _typeof2(module)) && module.exports && (module.exports = h);
   }(void 0 !== e ? e : this, t);
   var Q = "Moz O ms Webkit",
       b = y._config.usePrefixes ? Q.toLowerCase().split(" ") : [];
