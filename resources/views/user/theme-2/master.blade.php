@@ -81,12 +81,5 @@
 			{!!$script ->code!!}
 		@endforeach
 		@yield('optionalScripts')
-
-		<script>
-			$(document).ready(function(){
-				
-				
-			});
-		</script>
 	</body>
 </html>

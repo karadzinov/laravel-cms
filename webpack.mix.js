@@ -70,7 +70,7 @@ mix.styles([
          'public/assets/theme-1/js/template.js',
          'public/assets/common/js/lazyload/dist/lazyload.min.js',
          'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
-         // 'public/assets/theme-1/js/custom.js',
+         'public/assets/theme-1/js/custom.js',
          ], 'public/js/theme-1-mix.js')
    //theme-2
    .styles([
@@ -99,7 +99,7 @@ mix.styles([
          // scripts
          "public/assets/theme-2/js/scripts.js",
          // custom
-         // "public/assets/theme-2/js/custom.js",
+         "public/assets/theme-2/js/custom.js",
          ], 'public/js/theme-2-mix.js')
    //vue.js
    .js('resources/assets/js/app.js', 'public/js')
