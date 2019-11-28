@@ -14,7 +14,7 @@ class NavComposer
 
     public function __construct()
     {
-        $categories = Category::withoutGlobalScope(TranslationScope::class)->where('parent_id','=',NULL)->withDepth()->get();
+        $categories = Category::withoutGlobalScope(TranslationScope::class)->with('children', 'children.children')->where('parent_id','=',NULL)->withDepth()->get();
         $languages = Language::where('active','=','1')
                         ->select('code','native')
                         ->get();

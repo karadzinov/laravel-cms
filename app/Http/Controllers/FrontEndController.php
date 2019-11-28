@@ -14,7 +14,7 @@ class FrontEndController extends Controller
 {
     public function categoriesAndPages($slug){
     	
-    	$page = Page::where('slug', '=', $slug)->first();
+    	$page = Page::where('slug', '=', $slug)->with('images')->first();
 
     	if($page){
             try {
@@ -42,6 +42,7 @@ class FrontEndController extends Controller
     }
 
     public function preparePostsData($category){
+        
         $posts = $this->getAllCategoryPosts($category);
         $slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
@@ -82,8 +83,7 @@ class FrontEndController extends Controller
         }
        
         if(auth()->user()){
-           $user = User::where('id', '=', auth()->user()->id)
-                    ->first();
+           $user = auth()->user();
            $cart = $user->cart()->get();
            $wishlist = $user->wishlist()->get();
 
@@ -108,12 +108,12 @@ class FrontEndController extends Controller
 
     }
 
-    public function getAllCategoryPosts(Category $category){
+public function getAllCategoryPosts(Category $category){
             
-        $posts = $category->posts()->latest()->where('workflow', '=', 'posted')->paginate(5);
+        $posts = $category->posts()->with('author', 'tags')->latest()->where('workflow', '=', 'posted')->paginate(5);
 
         foreach($category->descendants as $child){
-          $itsPosts = $child->posts()->latest()->where('workflow', '=', 'posted')->paginate(5);
+          $itsPosts = $child->posts()->with('author')->latest()->where('workflow', '=', 'posted')->paginate(5);
 
           if($itsPosts->isNotEmpty()){
             foreach($itsPosts as $post){
@@ -127,7 +127,7 @@ class FrontEndController extends Controller
 
     public function getAllCategoryProducts(Category $category){
             
-        $products = $category->products()->latest()->paginate(5);
+        $products = $category->products()->with('reviews')->latest()->paginate(5);
 
         foreach($category->descendants as $child){
           $itsproducts = $child->products()->latest()->paginate(5);
@@ -143,7 +143,7 @@ class FrontEndController extends Controller
     }
 
     public function posts(){
-    	$posts = Post::latest()->where('workflow', '=', 'posted')->paginate(8);
+    	$posts = Post::latest()->where('workflow', '=', 'posted')->with('category', 'author')->paginate(8);
     	$slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
@@ -166,7 +166,7 @@ class FrontEndController extends Controller
 
     public function pages(){
     	
-    	$pages = Page::paginate(8);
+    	$pages = Page::with('images')->paginate(8);
         $metadata = new Metadata(trans('general.navigation.pages'));
 
     	return view($this->path . 'pages/index', compact('pages', 'metadata'));

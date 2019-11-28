@@ -18,8 +18,7 @@ class ProductsController extends Controller
         $cart = collect([]);
         $wishlist = collect([]);
         if(auth()->user()){
-           $user = User::where('id', '=', auth()->user()->id)
-                    ->first();
+           $user = auth()->user();
            $cart = $user->cart()->get();
            $wishlist = $user->wishlist()->get();
 
@@ -33,7 +32,7 @@ class ProductsController extends Controller
 
     public function show($slug){
 
-    	$product = Product::with('reviews', 'reviews.user')->where('slug', '=', $slug)->first();
+    	$product = Product::with('reviews', 'reviews.user', 'images', 'tags')->where('slug', '=', $slug)->first();
         $canWriteReview = !$product->reviews()->pluck('user_id')->contains(auth()->user()->id);
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
         
