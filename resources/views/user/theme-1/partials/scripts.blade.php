@@ -3,13 +3,6 @@
 <script src="{{mix('js/theme-1-mix.js')}}"></script>
 <script src="{{asset('assets/theme-1/js/custom.js')}}"></script>
 
-<script>
-	var lazyLoadInstance = new LazyLoad({
-	    elements_selector: ".lazy"
-	    // ... more custom settings?
-	});
-</script>
-
 
 
 @if(config('settings.googleMapsAPIStatus'))

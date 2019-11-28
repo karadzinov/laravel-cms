@@ -36,6 +36,7 @@ mix.styles([
          // 'public/assets/admin/js/chat.js',//
          // 'public/assets/admin/js/admin-custom.js',//
 			], 'public/js/admin-mix.js')
+  
    //theme-1
    .styles([
          'public/assets/common/bootstrap/css/bootstrap.css',
@@ -69,7 +70,7 @@ mix.styles([
          'public/assets/theme-1/js/template.js',
          'public/assets/common/js/lazyload/dist/lazyload.min.js',
          'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
-         'public/assets/theme-1/js/custom.js',
+         // 'public/assets/theme-1/js/custom.js',
          ], 'public/js/theme-1-mix.js')
    //theme-2
    .styles([

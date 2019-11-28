@@ -10,6 +10,7 @@
 	<!-- main-container start -->
 	<!-- ================ -->
 	<section class="main-container">
+		<input type="hidden" id="currency-symbol" value="{{ $settings->currencySymbol }}">
 
 		<div class="container">
 			<div class="row">
@@ -71,8 +72,8 @@
 										<span id="items-count"></span> 
 										{{trans('general.items')}}
 									</td>
-									<td class="total-amount" id="total-amount">
-										{{ $settings->currencySymbol }}
+									<td class="total-amount">
+										<span  id="total-amount"></span>{{ $settings->currencySymbol }}
 									</td>
 								</tr>
 							</tbody>
@@ -113,24 +114,24 @@
 		// 	const items = $('.cart-item').length;
 		// 	$('#items-count').text(items);
 		// }
-		$(document).ready(function(){
-			function countTotal(){
-			let prices = $('.product-times-quantity');
-				let totalPrice = 0;
-				for(let i = 0; i< prices.length; i++){
-					totalPrice += cleanPrice($(prices[i]).text());
-				}
-				totalPrice= formatMoney(totalPrice.toFixed(2).toString());
-				$('#total-amount').text(totalPrice + '{{ $settings->currencySymbol }}')
+		// $(document).ready(function(){
+		// 	function countTotal(){
+		// 	let prices = $('.product-times-quantity');
+		// 		let totalPrice = 0;
+		// 		for(let i = 0; i< prices.length; i++){
+		// 			totalPrice += cleanPrice($(prices[i]).text());
+		// 		}
+		// 		totalPrice= formatMoney(totalPrice.toFixed(2).toString());
+		// 		$('#total-amount').text(totalPrice + '{{ $settings->currencySymbol }}')
 
-			}
+		// 	}
 
-			function countCartItems(){
-				const items = $('.cart-item').length;
-				$('#items-count').text(items);
-			}
-			countTotal();
-			countCartItems();
-		})
+		// 	function countCartItems(){
+		// 		const items = $('.cart-item').length;
+		// 		$('#items-count').text(items);
+		// 	}
+		// 	countTotal();
+		// 	countCartItems();
+		// })
 	</script>
 @endsection

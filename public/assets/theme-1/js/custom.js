@@ -1,7 +1,10 @@
-
-
+var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+    // ... more custom settings?
+});
 
 $(document).ready( function() {
+	//previous scripts
 	$(document).on('change', '.btn-file :file', function() {
 		var input = $(this),
 		numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -19,8 +22,6 @@ $(document).ready( function() {
 			}
 		});
 	});
-
-
 
 	$('#deleteproduct').click(function(e) {
 		e.preventDefault();
@@ -63,12 +64,9 @@ $(document).ready( function() {
 	});
 
 
-});
 
 
 
-
-$(document).ready( function() {
 	$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 		
 		var input = $(this).parents('.input-group').find(':text'),
@@ -177,14 +175,267 @@ $(document).ready( function() {
     	return results;
     }
 
-});
-function flashMessage(type="warning", message){
 
-	message = `
-	<div class="alert alert-${type} flash-alerts" role="alert">
-		${message}
-	</div>`;
-	$('body').prepend(message);
-	setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-}
+    // nav cart
+    function countNavCartItems(){
+    	const items = $('.nav-cart-item').length;
+    	$('.nav-cart-count').text(items);
+    }
+    function navCartTotal(){
+    	const products = $('.nav-cart-price');
+    	let total = 0;
+    	for(let i = 0; i<products.length; i++){
+    		total += cleanPrice($(products[i]).text());
+    	}
+
+    	$('#nav-cart-total').text(formatMoney(total));
+    }
+    if(!$('#cart-placeholder').length){
+    	countNavCartItems();
+    	navCartTotal();
+    }
+
+    function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = " ") {
+      try {
+        decimalCount = Math.abs(decimalCount);
+        decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+        const negativeSign = amount < 0 ? "-" : "";
+
+        let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+        let j = (i.length > 3) ? i.length % 3 : 0;
+
+        return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+      } catch (e) {
+        console.log(e)
+      }
+    };
+
+    function cleanPrice(price){
+
+    	return Number(price.replace(' ', '').replace(',',''))
+    }
+
+    function countCartItems(){
+    	const items = $('.cart-item').length;
+    	$('#items-count').text(items);
+    }
+
+    
+    $('.add-to-cart').on('click', function(){
+    	const product_id = $(this).data('product');
+    	let element = $(this);
+
+    	 $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+    	$.ajax({
+
+    	   type:'POST',
+    	   url:'/cart/add-to-cart',
+    	   data:{
+    	   		product_id
+    	   },
+    	    success:function(response){
+    	    	
+    	   	 	if(response.status === "already-added"){
+    	   	 		flashMessage("success", response.message);
+    	   	 		
+    	   	 		return;
+    	   	 	}else if(response.status==='new'){
+    	   	 		$('#cart-placeholder').replaceWith(response.view);
+    	   	 		flashMessage("success", response.message);
+    	   	 		countNavCartItems();
+    	   	 		navCartTotal();
+    	   	 		return;
+    	   	 	}else if(response.status === 'failed'){
+                    flashMessage("danger", response.message);
+                    return;
+                }
+    	   	 	$('.quick-cart-wrapper').prepend(response.view);
+    	   	 	flashMessage("success", response.message);
+    	   	 	element.html(response.message + " <i class='fa fa-check'></i>");
+    	   	 	countNavCartItems();
+    	   	 	navCartTotal();
+    	    },
+    	    error:function(response){
+    	    	
+    	    		flashMessage("danger", response.message);
+    	    }
+
+    	});
+    });
+    
+    //wishlist
+    $(document).on('click', '.add-to-wishlist', function(){
+    	const product = $(this).data('product');
+    	const button = $(this);
+    	$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+    	$.ajax({
+
+    	   type:'POST',
+    	   url:'/wishlist/add',
+    	   data:{
+    	   		product_id: product
+    	   },
+    	   success:function(response){
+    	   	
+    	   	if(response.status === "already-added"){
+    	   		flashMessage("success", response.message);
+    	   		return;
+    	   	}
+    	   	
+    	   	flashMessage("success", response.message);
+    	   	button.toggleClass('add-to-wishlist remove-from-wishlist');
+    	   	button.html("<i class='fa fa-heart in-wishlist'></i>");
+    	   	button.prop('title', response.button);
+    	   },
+    	   error:function(response){
+    	   		flashMessage("danger", response.message);
+    	   }
+
+    	});
+    });
+
+    $(document).on('click', '.remove-from-wishlist', function(){
+    	const product = $(this).data('product');
+    	const button = $(this);
+    	$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+    	$.ajax({
+
+    	   	type:'POST',
+    	   	url:'/wishlist/delete',
+    	   	data:{
+    	   		product_id: product
+    	   	},
+    	   	success:function(response){
+    	   		flashMessage("success", response.message);
+    		   	button.toggleClass('add-to-wishlist remove-from-wishlist');
+    	   		button.html("<i class='fa fa-heart-o'></i>");
+    	   		button.prop('title', response.button);
+
+    	   	},
+    	   	error:function(response){
+    	   		flashMessage("danger", response.message);
+    	   }
+
+    	});
+
+    	setTimeout(function(){
+    		$('.my-alert').fadeOut('slow');
+    	}, 4000);
+    });
+
+	function countTotal(){
+		let prices = $('.product-times-quantity');
+		let totalPrice = 0;
+		for(let i = 0; i< prices.length; i++){
+			totalPrice += cleanPrice($(prices[i]).text());
+		}
+		totalPrice= formatMoney(totalPrice.toFixed(2).toString());
+		$('#total-amount').text(totalPrice)
+
+	}
+
+	$('.product-quantity').on('change', function(){
+		
+		changeQuantity($(this));
+	});
+
+	function changeQuantity(obj){
+		const productId = obj.data('product');
+		let quantity = obj.val();
+		$.ajaxSetup({
+			    headers:
+				    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+		});
+		$.ajax({
+			type: 'POST',
+			url: '/cart/change-quantity',
+			data:{
+				product_id: productId,
+				quantity: quantity,
+			},
+			success: function (response){
+				if(response.status === "success"){
+
+					flashMessage('success', response.message);
+				}else if(response.status === "warning"){
+					
+					flashMessage('warning', response.message);
+					obj.val(response.quantity)
+					quantity = response.quantity;
+				}
+				
+				//update price
+				const currnetPrice = $('#product-'+productId+'-price').text();
+				let totalPriceForProduct = $('#product-'+productId+'-total');
+				totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
+				
+				countTotal();
+			},
+			error: function(error){
+				flashMessage('danger', error.message);
+			}
+
+		});
+	}
+
+	$('.remove-from-cart').on('click', function(){
+		const product = $(this).data('product');
+
+		$.ajaxSetup({
+			headers:
+				    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+		});
+		$.ajax({
+			type: 'DELETE',
+			url: '/cart/delete-from-cart',
+			data:{
+				product_id: product
+			},
+			success: function(response){
+				flashMessage('success', response.message);
+				countTotal();
+				removeFromNavCart(product);
+			},
+			error: function(error){
+				flashMessage('danger', error.message);
+			}
+		});
+	});
+
+	function removeFromNavCart(id){
+		const x = $('*[data-nav-cart-product="' + id + '"]');
+
+		$(x).remove();
+		countNavCartItems();
+		navCartTotal();
+	}
+
+	if($('.product-times-quantity').length){
+		countTotal();
+		countCartItems();
+	}
+
+	function flashMessage(type="warning", message){
+
+		message = `
+		<div class="alert alert-${type} flash-alerts" role="alert">
+			${message}
+		</div>`;
+		$('body').prepend(message);
+		setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
+	}
+});
 

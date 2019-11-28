@@ -7,9 +7,10 @@
 	</style>
 @endsection
 @section('content')
-		<!-- main-container start -->
+	<!-- main-container start -->
 	<!-- ================ -->
 	<section class="main-container">
+		<input type="hidden" id="currency-symbol" value="{{ $settings->currencySymbol }}">
 
 		<div class="container">
 			<div class="row">
@@ -91,95 +92,95 @@
 	<script>
 		$(document).ready(function(){
 
-			function countTotal(){
-				let prices = $('.product-times-quantity');
-				let totalPrice = 0;
-				for(let i = 0; i< prices.length; i++){
-					totalPrice += cleanPrice($(prices[i]).text());
-				}
-				totalPrice= formatMoney(totalPrice.toFixed(2).toString());
-				$('#total-amount').text(totalPrice + '{{$settings->currencySymbol}}')
+			// function countTotal(){
+			// 	let prices = $('.product-times-quantity');
+			// 	let totalPrice = 0;
+			// 	for(let i = 0; i< prices.length; i++){
+			// 		totalPrice += cleanPrice($(prices[i]).text());
+			// 	}
+			// 	totalPrice= formatMoney(totalPrice.toFixed(2).toString());
+			// 	$('#total-amount').text(totalPrice + '{{$settings->currencySymbol}}')
 
-			}
+			// }
 
-			$('.product-quantity').on('change', function(){
+			// $('.product-quantity').on('change', function(){
 				
-				changeQuantity($(this));
-			});
+			// 	changeQuantity($(this));
+			// });
 
-			function changeQuantity(obj){
-				const productId = obj.data('product');
-				let quantity = obj.val();
-				$.ajaxSetup({
-   				    headers:
-  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-				});
-				$.ajax({
-					type: 'POST',
-					url: '{{route('cart.changeQuantity')}}',
-					data:{
-						product_id: productId,
-						quantity: quantity,
-					},
-					success: function (response){
-						if(response.status === "success"){
+			// function changeQuantity(obj){
+			// 	const productId = obj.data('product');
+			// 	let quantity = obj.val();
+			// 	$.ajaxSetup({
+   // 				    headers:
+  	// 				    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+			// 	});
+			// 	$.ajax({
+			// 		type: 'POST',
+			// 		url: '{{route('cart.changeQuantity')}}',
+			// 		data:{
+			// 			product_id: productId,
+			// 			quantity: quantity,
+			// 		},
+			// 		success: function (response){
+			// 			if(response.status === "success"){
 
-							flashMessage('success', response.message);
-						}else if(response.status === "warning"){
+			// 				flashMessage('success', response.message);
+			// 			}else if(response.status === "warning"){
 							
-							flashMessage('warning', response.message);
-							obj.val(response.quantity)
-							quantity = response.quantity;
-						}
+			// 				flashMessage('warning', response.message);
+			// 				obj.val(response.quantity)
+			// 				quantity = response.quantity;
+			// 			}
 						
-						//update price
-						const currnetPrice = $('#product-'+productId+'-price').text();
-						let totalPriceForProduct = $('#product-'+productId+'-total');
-						totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
+			// 			//update price
+			// 			const currnetPrice = $('#product-'+productId+'-price').text();
+			// 			let totalPriceForProduct = $('#product-'+productId+'-total');
+			// 			totalPriceForProduct.html(formatMoney((cleanPrice(currnetPrice)*cleanPrice(quantity)).toFixed(2)));
 						
-						countTotal();
-					},
-					error: function(error){
-						flashMessage('danger', error.message);
-					}
+			// 			countTotal();
+			// 		},
+			// 		error: function(error){
+			// 			flashMessage('danger', error.message);
+			// 		}
 
-				});
-			}
+			// 	});
+			// }
 
-			$('.remove-from-cart').on('click', function(){
-				const product = $(this).data('product');
+			// $('.remove-from-cart').on('click', function(){
+			// 	const product = $(this).data('product');
 
-				$.ajaxSetup({
-					headers:
-  					    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-				});
-				$.ajax({
-					type: 'DELETE',
-					url: '{{route('cart.deleteFromCart')}}',
-					data:{
-						product_id: product
-					},
-					success: function(response){
-						flashMessage('success', response.message);
-						countTotal();
-						removeFromNavCart(product);
-					},
-					error: function(error){
-						flashMessage('danger', response.message);
-					}
-				});
-			});
+			// 	$.ajaxSetup({
+			// 		headers:
+  	// 				    { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+			// 	});
+			// 	$.ajax({
+			// 		type: 'DELETE',
+			// 		url: '{{route('cart.deleteFromCart')}}',
+			// 		data:{
+			// 			product_id: product
+			// 		},
+			// 		success: function(response){
+			// 			flashMessage('success', response.message);
+			// 			countTotal();
+			// 			removeFromNavCart(product);
+			// 		},
+			// 		error: function(error){
+			// 			flashMessage('danger', response.message);
+			// 		}
+			// 	});
+			// });
 
-			function removeFromNavCart(id){
-				const x = $('*[data-nav-cart-product="' + id + '"]');
+			// function removeFromNavCart(id){
+			// 	const x = $('*[data-nav-cart-product="' + id + '"]');
 
-				$(x).remove();
-				countNavCartItems();
-				navCartTotal();
-			}
+			// 	$(x).remove();
+			// 	countNavCartItems();
+			// 	navCartTotal();
+			// }
 
-			countTotal();
-			countCartItems();
+			// countTotal();
+			// countCartItems();
 		});
 	</script>
 @endsection

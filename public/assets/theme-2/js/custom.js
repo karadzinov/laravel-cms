@@ -99,6 +99,8 @@ $(document).ready(function(){
     	return results;
     }
 
+
+    // cart
     function countNavCartItems(){
         const items = $('.nav-cart-item').length;
         $('.nav-cart-count').text(items);
@@ -113,8 +115,10 @@ $(document).ready(function(){
         $('#nav-cart-total').text(formatMoney(total));
     }
 
-    countNavCartItems();
-    navCartTotal();
+    if($('.nav-cart-item').length){
+        countNavCartItems();
+        navCartTotal();
+    }
 
     function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = " ") {
       try {
@@ -285,6 +289,8 @@ $(document).ready(function(){
         });
     });
 
+
+    // wishlist
     $(document).on('click', '.add-to-wishlist', function(){
         const product = $(this).data('product');
         const button = $(this);
@@ -352,13 +358,13 @@ $(document).ready(function(){
         $('.my-alert').fadeOut('slow');
     }, 4000);
 
-});
-function flashMessage(type="warning", message){
+    function flashMessage(type="warning", message){
 
-    message = `
-    <div class="alert alert-${type} flash-alerts" role="alert">
-        ${message}
-    </div>`;
-    $('body').prepend(message);
-    setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
-}
+        message = `
+        <div class="alert alert-${type} flash-alerts" role="alert">
+            ${message}
+        </div>`;
+        $('body').prepend(message);
+        setTimeout(function(){ $('.flash-alerts').fadeOut('slow'); }, 3000);
+    }
+});
