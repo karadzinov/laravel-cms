@@ -9,13 +9,13 @@
 				<div class="form-group">
 					<label for="billingFirstName" class="col-md-2 control-label">{{trans('general.first-name')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="first_name" class="form-control" id="billingFirstName" value="{{$purchase->user->first_name ?? auth()->user()->first_name}}" disabled="">
+						<input type="text" name="first_name" class="form-control" id="billingFirstName" value="{{$purchase->user->first_name ?? old('first_name') ?? auth()->user()->first_name}}" @if((isset($purchase) && $purchase->user->first_name) || auth()->user()->first_name) readonly="" @endif>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="billingLastName" class="col-md-2 control-label">{{trans('general.last-name')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="text" name="last_name" class="form-control" id="billingLastName" value="{{auth()->user()->last_name}}" disabled="">
+						<input type="text" name="last_name" class="form-control" id="billingLastName" value="{{$purchase->user->last_name ?? old('last_name') ?? auth()->user()->last_name}}" @if((isset($purchase) && $purchase->user->last_name) || auth()->user()->last_name) readonly="" @endif>
 					</div>
 				</div>
 				<div class="form-group">
@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label for="billingemail" class="col-md-2 control-label">{{trans('general.email')}}<small class="text-default">*</small></label>
 					<div class="col-md-10">
-						<input type="email" name="email" class="form-control" id="billingemail" value="{{auth()->user()->email}}" disabled="">
+						<input type="email" name="email" class="form-control" id="billingemail" value="@if($checkEmail) {{auth()->user()->email}} @else {{ old('email') }} @endif" @if($checkEmail) readonly="" @endif>
 					</div>
 				</div>
 			</div>
