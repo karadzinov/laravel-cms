@@ -10,6 +10,7 @@ use Spatie\Sitemap\SitemapGenerator;
 class GenerateSitemap extends Command
 {
     protected $baseUrl;
+    protected $path;
     protected $firstPriority;
     protected $secondPriority;
     protected $thirdPriority;
@@ -31,15 +32,28 @@ class GenerateSitemap extends Command
     {
         parent::__construct();
         $this->baseUrl = config('app.url');
-        
+        $this->path = public_path('sitemap.xml');
         //add routes without / in the begining
-        $firstPriority = ['',];
-        $secondPriority = [];
+        $firstPriority = ['', 'home',];
+        $secondPriority = ['posts', 'products', 'contact', 'about', 'faqs'];
         $thirdPriority = ['login', 'register',];
+        $ignore = [
+            "password/reset",
+            "social/redirect/bitbucket",
+            "social/redirect/facebook",
+            "social/redirect/github",
+            "social/redirect/gitlab",
+            "social/redirect/google",
+            "social/redirect/instagram",
+            "social/redirect/linkedin",
+            "social/redirect/twitter",
+            "social/redirect/youtube",
+        ];
 
         $this->firstPriority = $this->makeUrls($firstPriority);
         $this->secondPriority = $this->makeUrls($secondPriority);
         $this->thirdPriority = $this->makeUrls($thirdPriority);
+        $this->ignore = $this->makeUrls($ignore);
     }
 
     /**
@@ -49,28 +63,31 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        SitemapGenerator::create(config('app.url'))
+        
+        SitemapGenerator::create($this->baseUrl)
             ->hasCrawled(function (Url $url) {
                if (in_array($url->url, $this->firstPriority)) {
                    $url->setPriority(1)
                        ->setLastModificationDate(Carbon::yesterday())
-                               ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY);
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY);
                }elseif(in_array($url->url, $this->secondPriority)){
                     $url->setPriority(0.9)
                        ->setLastModificationDate(Carbon::yesterday())
-                               ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);                  
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);                  
                }elseif(in_array($url->url, $this->thirdPriority)){
                     $url->setPriority(0.8)
                         ->setLastModificationDate(Carbon::yesterday())
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);        
-               }else{
+               }elseif(in_array($url->url, $this->ignore)){
+                    return;     
+               }
+               else{
                     $url->setPriority(0.7)
                         ->setLastModificationDate(Carbon::yesterday())
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);  
                }
                return $url;
-           })
-        ->writeToFile(public_path('sitemap.xml'));
+           })->writeToFile($this->path);
 
         echo 'Sitemap generated.' . PHP_EOL;
     }
@@ -78,7 +95,7 @@ class GenerateSitemap extends Command
     private function makeUrls($urls){
             
         foreach($urls as $index=>$url){
-            $urls[$index] = $this->baseUrl . $url;
+            $urls[$index] = $this->baseUrl . '/' . $url;
         }
         return $urls;
     }
