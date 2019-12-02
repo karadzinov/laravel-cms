@@ -67,13 +67,13 @@
 									<div class="form-group">
 										<label for="billingFirstName" class="col-md-2 control-label">{{trans('general.first-name')}}<small class="text-default">*</small></label>
 										<div class="col-md-10">
-											<input type="text" readonly="true" name="first_name" class="form-control" id="billingFirstName" value="{{$purchase->user->first_name ?? auth()->user()->first_name}}" disabled="">
+											<input type="text" readonly="true" name="first_name" class="form-control" id="billingFirstName" value="{{$purchase->first_name}}" disabled="">
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="billingLastName" class="col-md-2 control-label">{{trans('general.last-name')}}<small class="text-default">*</small></label>
 										<div class="col-md-10">
-											<input type="text" readonly="true" name="last_name" class="form-control" id="billingLastName" value="{{auth()->user()->last_name}}" disabled="">
+											<input type="text" readonly="true" name="last_name" class="form-control" id="billingLastName" value="{{$purchase->last_name}}" disabled="">
 										</div>
 									</div>
 									<div class="form-group">
@@ -85,7 +85,7 @@
 									<div class="form-group">
 										<label for="billingemail" class="col-md-2 control-label">{{trans('general.email')}}<small class="text-default">*</small></label>
 										<div class="col-md-10">
-											<input type="email" name="email" class="form-control" id="billingemail" value="{{auth()->user()->email}}" disabled="">
+											<input type="email" name="email" class="form-control" id="billingemail" value="{{$purchase->email}}" disabled="">
 										</div>
 									</div>
 								</div>

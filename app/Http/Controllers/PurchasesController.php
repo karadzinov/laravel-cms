@@ -124,13 +124,13 @@ class PurchasesController extends Controller
 		        "currency"   => $currency,
 		        "total"      => $purchase->total,
 		        "billingAddr" => array(
-		            "name" => auth()->user()->name,
+		            "name" => $purchase->first_name . ' ' . $purchase->last_name,
 		            "addrLine1" => $purchase->home_address,
 		            "city" => $purchase->city,
 		            "state" => $purchase->country,
 		            "zipCode" => $purchase->zip,
 		            "country" => $purchase->country,
-		            "email" => auth()->user()->email,
+		            "email" => $purchase->email,
 		            "phoneNumber" => $purchase->phone
 		        )
 		    ));
@@ -226,6 +226,9 @@ class PurchasesController extends Controller
 
 		$purchase = new Purchase();
 		$purchase->user_id = auth()->user()->id;
+		$purchase->first_name = $request->get('first_name');
+		$purchase->last_name = $request->get('last_name');
+		$purchase->email = $request->get('email');
 		$purchase->completed = false;
 		$purchase->phone = $request->get('phone');
 		$purchase->home_address = $request->get('home_address');
