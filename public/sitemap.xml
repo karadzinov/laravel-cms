@@ -1,69 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>http://cms.test/</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
+        <loc>http://cms.com/</loc>
+        <lastmod>2019-12-01T00:00:00+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>http://cms.test/login</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
+        <loc>http://cms.com/login</loc>
+        <lastmod>2019-12-01T00:00:00+00:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>http://cms.test/password/reset</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/register</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
+        <loc>http://cms.com/register</loc>
+        <lastmod>2019-12-01T00:00:00+00:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/37signals</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/facebook</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/github</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/google</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/instagram</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/twitch</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>http://cms.test/social/redirect/youtube</loc>
-        <lastmod>2019-06-05T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
     </url>
 </urlset>
