@@ -45,7 +45,7 @@
 				<!-- blogpost start -->
 				<article class="blogpost shadow light-gray-bg bordered">
 					<div class="overlay-container overlayContainerImages">
-						<img src="{{$post->mediumPath}}" alt="">
+						<img data-src="{{$post->mediumPath}}" class="lazy" alt="">
 						<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
 					</div>
 					<header>

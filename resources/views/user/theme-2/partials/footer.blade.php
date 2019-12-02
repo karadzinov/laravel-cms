@@ -5,10 +5,7 @@
 		<div class="row">
 			
 			<div class="col-md-3">
-				<!-- Footer Logo -->
-				{{-- <img class="footer-logo" src="{{asset('assets/theme-2/images/_smarty/logo-footer.png')}}" alt="" /> --}}
-
-				<img class="footer-logo" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="" />
+				<img class="footer-logo lazy" data-src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="" />
 
 				<!-- Short Description -->
 				<p>{{$settings->slogan}}</p>

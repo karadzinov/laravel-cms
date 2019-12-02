@@ -8,7 +8,7 @@
 					<div class="col-md-8 col-md-offset-2">
 						<div class="testimonial text-center">
 							<div class="testimonial-image">
-								<img src="{{$testimonial->thumbnailPath}}" alt="{{$testimonial->name}}" title="{{$testimonial->name}}" class="img-circle">
+								<img data-src="{{$testimonial->thumbnailPath}}" alt="{{$testimonial->name}}" title="{{$testimonial->name}}" class="img-circle lazy">
 							</div>
 							<h3>{{$testimonial->title}}</h3>
 							<div class="separator"></div>

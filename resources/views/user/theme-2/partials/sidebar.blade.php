@@ -60,7 +60,7 @@
 				<div class="row tab-post"><!-- post -->
 					<div class="col-md-3 col-sm-3 col-3">
 						<a href="blog-sidebar-left.html">
-							<img src="{{$popularPost->thumbnailPath}}" width="50" alt="" />
+							<img data-src="{{$popularPost->thumbnailPath}}" class="lazy" width="50" alt="" />
 						</a>
 					</div>
 					<div class="col-md-9 col-sm-9 col-9">
@@ -81,7 +81,7 @@
 				<div class="row tab-post"><!-- post -->
 					<div class="col-md-3 col-sm-3 col-3">
 						<a href="blog-sidebar-left.html">
-							<img src="{{$recentPost->thumbnailPath}}" width="50" alt="" />
+							<img data-src="{{$recentPost->thumbnailPath}}" class="lazy" width="50" alt="" />
 						</a>
 					</div>
 					<div class="col-md-9 col-sm-9 col-9">

@@ -32,8 +32,8 @@
 								<p class="text-right small"><strong>{{trans('general.purchase')}} #{{$purchase->id}}</strong> <br> {{$purchase->updated_at->format('d M Y')}}</p>
 								<h5 class="text-right">{{trans('general.client')}}</h5>
 								<p class="text-right small">
-									<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->user->first_name . ' ' . $purchase->user->last_name}}</span> <br>
-									<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->user->email}}</span> <br>
+									<strong>{{trans('general.name')}}:</strong> <span>{{$purchase->first_name . ' ' . $purchase->last_name}}</span> <br>
+									<strong>{{trans('general.email')}}:</strong> <span>{{$purchase->email}}</span> <br>
 									<strong>{{trans('general.address')}}:</strong> {{$purchase->home_address . ' ' . $purchase->zip . ' '. $purchase->city .  ' ' . $purchase->country}} <br>
 									<strong>{{trans('general.phone')}}:</strong> {{$purchase->phone}} <br>
 								</p>

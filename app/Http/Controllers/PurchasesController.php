@@ -51,12 +51,15 @@ class PurchasesController extends Controller
 
     public function edit($purchase){
     	$purchase = Purchase::with('products')->findOrFail($purchase);
+    	$checkEmail = !preg_match('/^missing.*\.example\.org$/', auth()->user()->email);
+        $countries = Country::active()->pluck('name', 'code');
+
     	if($purchase->completed){
     		return redirect()->back();
     	}
         $metadata = new Metadata(trans('general.edit-purchase'));
 
-    	return view($this->path . 'purchases/edit', compact('purchase', 'metadata'));
+    	return view($this->path . 'purchases/edit', compact('purchase', 'metadata', 'checkEmail', 'countries'));
     }
 
     public function update(Request $request, $purchase){
@@ -121,13 +124,13 @@ class PurchasesController extends Controller
 		        "currency"   => $currency,
 		        "total"      => $purchase->total,
 		        "billingAddr" => array(
-		            "name" => auth()->user()->name,
+		            "name" => $purchase->first_name . ' ' . $purchase->last_name,
 		            "addrLine1" => $purchase->home_address,
 		            "city" => $purchase->city,
 		            "state" => $purchase->country,
 		            "zipCode" => $purchase->zip,
 		            "country" => $purchase->country,
-		            "email" => auth()->user()->email,
+		            "email" => $purchase->email,
 		            "phoneNumber" => $purchase->phone
 		        )
 		    ));
@@ -223,6 +226,9 @@ class PurchasesController extends Controller
 
 		$purchase = new Purchase();
 		$purchase->user_id = auth()->user()->id;
+		$purchase->first_name = $request->get('first_name');
+		$purchase->last_name = $request->get('last_name');
+		$purchase->email = $request->get('email');
 		$purchase->completed = false;
 		$purchase->phone = $request->get('phone');
 		$purchase->home_address = $request->get('home_address');
@@ -268,8 +274,9 @@ class PurchasesController extends Controller
     	$product = Product::findOrFail($request->get('product_id'));
         $metadata = new Metadata($product->name, $product->short_description, $product->thumbnail);
         $countries = Country::active()->pluck('name', 'code');
+    	$checkEmail = !preg_match('/^missing.*\.example\.org$/', auth()->user()->email);
 
-    	$data = compact('product', 'countries', 'quantity', 'metadata');
+    	$data = compact('product', 'countries', 'quantity', 'metadata', 'checkEmail');
 
 		return view($this->path . 'purchases/checkout', $data);
     }
@@ -288,7 +295,8 @@ class PurchasesController extends Controller
     	
     	$cart = auth()->user()->cart;
     	$countries = Country::active()->pluck('name', 'code');
-
-    	return view($this->path.'purchases/checkout', compact('cart', 'countries'));
+    	$checkEmail = !preg_match('/^missing.*\.example\.org$/', auth()->user()->email);
+    	
+    	return view($this->path.'purchases/checkout', compact('cart', 'countries', 'checkEmail'));
     }
 }

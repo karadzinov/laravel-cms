@@ -14,7 +14,7 @@
 				<div class="row grid-space-0">
 					<div class="col-sm-6 col-md-4 col-lg-3">
 						<div class="overlay-container">
-							<img src="{{$review->product->medium}}" alt="">
+							<img data-src="{{$review->product->medium}}" class="lazy" alt="">
 						</div>
 					</div>
 					<div class="col-sm-6 col-md-8 col-lg-9">

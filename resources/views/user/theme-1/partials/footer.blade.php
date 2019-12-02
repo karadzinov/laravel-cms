@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="footer-content">
-							<div class="logo-footer"><img class="logo_image" id="logo-footer" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="Logo"></div>
+							<div class="logo-footer"><img class="logo_image lazy" id="logo-footer" data-src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="Logo"></div>
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat... 
 								<a href="#">
@@ -38,7 +38,7 @@
 								<div class="media margin-clear">
 									<div class="media-left">
 										<div class="overlay-container">
-											<img class="media-object" src="{{$post->thumbnailPath}}" alt="{{$post->title}}">
+											<img class="media-object lazy" data-src="{{$post->thumbnailPath}}" alt="{{$post->title}}">
 											<a href="{{$post->showRoute}}" class="overlay-link small"><i class="fa fa-link"></i></a>
 										</div>
 									</div>
@@ -62,7 +62,7 @@
 								@foreach($images as $image)
 									<div class="col-xs-4 col-md-6 footerImages">
 										<div class="overlay-container mb-10">
-											<img src="{{asset('images/pages/thumbnails/' . $image->name)}}" alt="">
+											<img data-src="{{asset('images/pages/thumbnails/' . $image->name)}}" class="lazy" alt="">
 											<a href="{{route('pages.index')}}" class="overlay-link small">
 												<i class="fa fa-link"></i>
 											</a>

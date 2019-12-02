@@ -99,6 +99,8 @@ array (
   'recent'            => 'Recent',
   'categories'        => 'Categories',
   'tags'              => 'Tags',
+  'no-posts-for-tag'  => 'No posts for this tag',
+  'no-products-for-tag'=> 'No products for this tag',
   'share'             => 'Share',
   'previous-post'     => 'Previous Post',
   'nex-post'          => 'Next Post',

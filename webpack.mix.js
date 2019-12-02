@@ -36,6 +36,7 @@ mix.styles([
          // 'public/assets/admin/js/chat.js',//
          // 'public/assets/admin/js/admin-custom.js',//
 			], 'public/js/admin-mix.js')
+  
    //theme-1
    .styles([
          'public/assets/common/bootstrap/css/bootstrap.css',
@@ -67,6 +68,7 @@ mix.styles([
          'public/assets/theme-1/plugins/jquery.browser.js',
          // 'public/assets/plugins/SmoothScroll.js',
          'public/assets/theme-1/js/template.js',
+         'public/assets/common/js/lazyload/dist/lazyload.min.js',
          'public/assets/common/js/jquery-throttle-debounce-master/jquery.ba-throttle-debounce.min.js',
          'public/assets/theme-1/js/custom.js',
          ], 'public/js/theme-1-mix.js')
@@ -93,10 +95,11 @@ mix.styles([
          "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.tools.min.js",
          "public/assets/theme-2/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js",
          "public/assets/theme-2/js/view/demo.revolution_slider.js",
+         "public/assets/common/js/lazyload/dist/lazyload.min.js",
          // scripts
          "public/assets/theme-2/js/scripts.js",
          // custom
-         // "public/assets/theme-2/js/custom.js",
+         "public/assets/theme-2/js/custom.js",
          ], 'public/js/theme-2-mix.js')
    //vue.js
    .js('resources/assets/js/app.js', 'public/js')

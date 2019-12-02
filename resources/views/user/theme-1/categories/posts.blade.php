@@ -82,7 +82,7 @@
 								<!-- blogpost start -->
 								<article class="blogpost">
 									<div class="overlay-container">
-										<img class="categories-image" src="{{$post->mediumPath}}" alt="">
+										<img class="categories-image lazy" data-src="{{$post->mediumPath}}" alt="">
 										<a class="overlay-link" href="{{$post->showRoute}}"><i class="fa fa-link"></i></a>
 									</div>
 									<header>
@@ -193,7 +193,7 @@
 										<div class="item @if($loop->iteration == 1) active @endif">
 											<div class="image-box shadow bordered text-center mb-20">
 												<div class="overlay-container">
-													<img class="sidebar-image" src="{{$popularPost->thumbnailPath}}" alt="">
+													<img class="sidebar-image lazy" data-src="{{$popularPost->thumbnailPath}}" alt="">
 													<a href="{{$popularPost->showRoute}}" class="overlay-link">
 														<i class="fa fa-link"></i>
 													</a>
@@ -211,7 +211,7 @@
 								@foreach($recent as $recentPost)
 									<div class="media-left">
 										<div class="overlay-container">
-											<img class="media-object" src="{{$recentPost->thumbnailPath}}" alt="blog-thumb">
+											<img class="media-object lazy" data-src="{{$recentPost->thumbnailPath}}" alt="blog-thumb">
 											<a href="{{$recentPost->showRoute}}" class="overlay-link small"><i class="fa fa-link"></i></a>
 										</div>
 									</div>

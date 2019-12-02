@@ -67,7 +67,7 @@
 					@if($page->images->isNotEmpty())
 						<div class="shadow bordered">
 							<div class="overlay-container">
-								<img id="mainImage" src="{{$page->originalPath . $page->images()->first()->name}}" alt="">
+								<img id="mainImage" data-src="{{$page->originalPath . $page->images()->first()->name}}" alt="" class="lazy">
 								<a href="{{$page->originalPath . $page->images->first()->name}}" class="overlay-link popup-img">
 									<i class="fa fa-plus"></i>
 								</a>
@@ -81,7 +81,7 @@
 							@foreach($page->images as $image)
 								<div class="col-xs-3">
 									<div class="overlay-container">
-										<img class="bottomImage" src="{{$page->thumbnailPath . $image->name}}" alt="">
+										<img class="bottomImage lazy" data-src="{{$page->thumbnailPath . $image->name}}" alt="">
 										<a href="{{$page->originalPath . $image->name}}" class="overlay-link small popup-img">
 											<i class="fa fa-plus"></i>
 										</a>

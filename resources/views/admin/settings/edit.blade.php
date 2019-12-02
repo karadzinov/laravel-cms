@@ -95,7 +95,7 @@
                             @endif
                         </div>
                         
-                        {!! Form::label('logo', trans('forms.settings-logo'), array('class' => 'col-md-3 control-label','style'=>'margin-top: 8px;margin-bottom:0px;')); !!}
+                        <label for="logo" class="col-md-12 control-label" style="margin-top: 8px;margin-bottom:0px;">{!! trans('forms.settings-logo') !!}</label>
                         <div class="col-md-12"  style="font-size: 14px">
                             <img src="/images/settings/thumbnails/{{$settings->logo}}" style="max-width: 200px">
                             {!! Form::file('logo', null,['class'=>'form-control']) !!}

@@ -102,7 +102,7 @@ return [
     'settings-email-ph'     => 'Email address', 
     'settings-address'      => 'Address:',
     'settings-address-ph'   => 'Address',
-    'settings-logo'         => 'Logo image:',
+    'settings-logo'         => 'Logo image <br> (optimal for Theme 1: 150x35px, for Theme 2: 125x80px)',
     'settings-logo-ph'      => 'Logo image',
     'settings-company-slogan'=> 'Company slogan',
     'settings-languages-available'=> 'Language available',

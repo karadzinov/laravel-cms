@@ -2,7 +2,7 @@
 	@foreach($categories as $category)
 		@if($category->children->isNotEmpty())
 			<li class="dropdown">
-				<a class="dropdown-toggle" href="@if($category->posts->isNotEmpty()) {{$category->showRoute}} @else javascript:void(0) @endif">{{$category->name}}</a>
+				<a class="dropdown-toggle" href="{{ $category->showRoute}}">{{$category->name}}</a>
 				@include($path . 'partials/categories/tree', ['categories'=> $category->children])
 			</li>
 

@@ -85,7 +85,6 @@
 
 			<!-- Logo -->
 			<a class="logo float-left" href="{{route('public.home')}}">
-				{{-- <img src="{{asset('assets/theme-2/images/_smarty/logo_light.png')}}" alt="" /> --}}
 				<img class="nav-logo" src="{{asset('images/settings/thumbnails/'.$settings->logo)}}" alt="" />
 			</a>
 
@@ -109,9 +108,6 @@
 						</li>
 					-->
 					<ul id="topMain" class="nav nav-pills nav-main uppercase">
-						<li>
-							<a href="/home">{{trans('general.navigation.home')}}</a>
-						</li>
 						<li class="dropdown"><!-- POSTS -->
 							<a class="dropdown-toggle" href="{{route('posts.index')}}">
 								{{trans('general.navigation.posts')}}

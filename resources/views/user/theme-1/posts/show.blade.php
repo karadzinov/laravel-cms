@@ -75,7 +75,7 @@
 							</div>
 						</header>
 						<div class="blogpost-content">
-							<img id="mainImage" src="{{$post->originalPath}}" alt="">
+							<img id="mainImage" data-src="{{$post->originalPath}}" class="lazy" alt="">
 							<br>
 							<p>
 								{!!$post->main_text!!}

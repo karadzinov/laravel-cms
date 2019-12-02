@@ -15,7 +15,7 @@
 				<div class="row mb-3">
 					<div class="col-sm-6 col-md-4 col-lg-3">
 						<div class="overlay-container">
-							<img class="product-image" src="{{$product->thumbnail}}" alt="">
+							<img class="product-image lazy" data-src="{{$product->thumbnail}}" alt="">
 							<a class="overlay-link" href="{{$product->showRoute}}"><i class="fa fa-plus"></i></a>
 							@if($product->reduction)
 								<span class="badge">-{{$product->reduction}} %</span>

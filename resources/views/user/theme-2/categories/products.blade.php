@@ -31,28 +31,34 @@
 				<!-- RIGHT -->
 				<div class="col-lg-9 col-md-9">
 
-					<!-- LIST OPTIONS -->
-					<div class="clearfix shop-list-options mb-20">
+					@if($category->products->isNotEmpty())
+						<!-- LIST OPTIONS -->
+						<div class="clearfix shop-list-options mb-20">
 
-						{{$products->links()}}
+							{{$products->links()}}
 
-					</div>
-					<!-- /LIST OPTIONS -->
+						</div>
+						<!-- /LIST OPTIONS -->
 
 
-					<ul class="shop-item-list row list-inline m-0">
-						@foreach($products as $product)
-							@include($path.'/partials/products/list-item')
-						@endforeach
-					</ul>
+						<ul class="shop-item-list row list-inline m-0">
+							@foreach($products as $product)
+								@include($path.'/partials/products/list-item')
+							@endforeach
+						</ul>
 
-					<hr />
+						<hr />
 
-					<!-- Pagination Default -->
-					<div class="text-center">
-						{{$products->links()}}
-					</div>
-					<!-- /Pagination Default -->
+						<!-- Pagination Default -->
+						<div class="text-center">
+							{{$products->links()}}
+						</div>
+						<!-- /Pagination Default -->
+					@else
+						<p>
+							{{trans('general.no-results')}}
+						</p>
+					@endif
 
 				</div>
 
@@ -69,7 +75,7 @@
 										<li class="clearfix"><!-- item -->
 											<div class="thumbnail featured clearfix float-left mr-10">
 												<a href="{{route('products.show', $top->slug)}}">
-													<img src="{{asset('images/products/thumbnails/'.$top->main_image)}}" width="80" height="80" alt="featured item">
+													<img data-src="{{asset('images/products/thumbnails/'.$top->main_image)}}" class="lazy" width="80" height="80" alt="featured item">
 												</a>
 											</div>
 
@@ -103,7 +109,7 @@
 											<li class="clearfix"><!-- item -->
 												<div class="thumbnail featured clearfix float-left">
 													<a href="{{route('products.show', $bestSeller->slug)}}">
-														<img src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" width="80" height="80" alt="featured item">
+														<img data-src="{{asset('images/products/thumbnails/'.$bestSeller->main_image)}}" class="lazy" width="80" height="80" alt="featured item">
 													</a>
 												</div>
 

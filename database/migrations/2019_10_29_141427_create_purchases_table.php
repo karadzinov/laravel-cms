@@ -17,6 +17,9 @@ class CreatePurchasesTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->boolean('completed')->default(0);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
             $table->string('phone');
             $table->string('home_address');
             $table->string('country');

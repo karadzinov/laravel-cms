@@ -59,13 +59,13 @@
 								<div class="tab-pane active" id="pill-1">
 									<div class="owl-carousel content-slider-with-large-controls">
 										<div class="overlay-container overlay-visible">
-											<img class="product-cover-image" src="{{$product->originalPath . $product->main_image}}" alt="">
+											<img class="product-cover-image lazy" data-src="{{$product->originalPath . $product->main_image}}" alt="">
 											<a href="{{$product->originalPath . $product->main_image}}" class="popup-img overlay-link" title="{{$product->name}}"><i class="icon-plus-1"></i></a>
 										</div>
 										@if($product->images->isNotEmpty())
 											@foreach($product->images as $image)
 												<div class="overlay-container overlay-visible">
-													<img class="product-cover-image" src="{{$product->originalPath . $image->name}}" alt="">
+													<img class="product-cover-image lazy" data-src="{{$product->originalPath . $image->name}}" alt="">
 													<a href="{{$product->originalPath . $image->name}}" class="popup-img overlay-link" title="{{$product->name}}"><i class="icon-plus-1"></i></a>
 												</div>
 											@endforeach
@@ -215,7 +215,7 @@
 									<!-- comment start -->
 									<div class="comment clearfix">
 										<div class="comment-avatar">
-											<img class="img-circle" src="{{$review->user->image}}" alt="avatar">
+											<img class="img-circle lazy" data-src="{{$review->user->image}}" alt="avatar">
 										</div>
 										<header>
 											<h3>{{$review->user->name}}</h3>
@@ -298,7 +298,7 @@
 							<div class="media margin-clear">
 								<div class="media-left">
 									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-5.jpg')}}" alt="blog-thumb">
+										<img class="media-object lazy" data-src="{{asset('assets/theme-1/images/product-5.jpg')}}" alt="blog-thumb">
 										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
 									</div>
 								</div>
@@ -318,7 +318,7 @@
 							<div class="media margin-clear">
 								<div class="media-left">
 									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-6.jpg')}}" alt="blog-thumb">
+										<img class="media-object lazy" data-src="{{asset('assets/theme-1/images/product-6.jpg')}}" alt="blog-thumb">
 										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
 									</div>
 								</div>
@@ -338,7 +338,7 @@
 							<div class="media margin-clear">
 								<div class="media-left">
 									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-7.jpg')}}" alt="blog-thumb">
+										<img class="media-object lazy" data-src="{{asset('assets/theme-1/images/product-7.jpg')}}" alt="blog-thumb">
 										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
 									</div>
 								</div>
@@ -358,7 +358,7 @@
 							<div class="media margin-clear">
 								<div class="media-left">
 									<div class="overlay-container">
-										<img class="media-object" src="{{asset('assets/theme-1/images/product-8.jpg')}}" alt="blog-thumb">
+										<img class="media-object lazy" data-src="{{asset('assets/theme-1/images/product-8.jpg')}}" alt="blog-thumb">
 										<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
 									</div>
 								</div>

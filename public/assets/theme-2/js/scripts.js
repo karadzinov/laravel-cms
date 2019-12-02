@@ -3,7 +3,7 @@
 	@Website		www.stepofweb.com
 *************************************************** **/
 function Init(e) {
-    1 != e && (_afterResize(), _slider_full(), _topNav(), _megaNavHorizontal(), _sideNav(), _stickyFooter(), _infiniteScroll()), _owl_carousel(), _flexslider(), _lightbox(), _mixitup(), _animate(), _onepageNav(), _scrollTo(!1, 0), _parallax(), _video(), _youtubeBG(), _toggle(), _placeholder(), _wrotate(), _lazyload(), _misc(), _countDown(), _masonryGallery(), _toastr(!1, !1, !1, !1), _charts(), _select2(), _form(), _pickers(), _editors(), _pajinate(), _zoom(), _autosuggest(), _stepper(), _slimScroll(), _modalAutoLoad(), _bgimage(), _stickyKit(), _cookie_alert(), _widget_flickr(), _widget_twitter(), _widget_facebook(), _widget_dribbble(), _widget_media(), jQuery("[data-toggle=tooltip]").tooltip(), jQuery("[data-toggle=popover]").popover()
+    1 != e && (_afterResize(), _slider_full(), _topNav(), _megaNavHorizontal(), _sideNav(), _stickyFooter(), _infiniteScroll()), _owl_carousel(), _flexslider(), _lightbox(), _mixitup(), _animate(), _onepageNav(), _scrollTo(!1, 0), _parallax(), _video(), _youtubeBG(), _toggle(), _placeholder(), _wrotate(), /*_lazyload(),*/ _misc(), _countDown(), _masonryGallery(), _toastr(!1, !1, !1, !1), _charts(), _select2(), _form(), _pickers(), _editors(), _pajinate(), _zoom(), _autosuggest(), _stepper(), _slimScroll(), _modalAutoLoad(), _bgimage(), _stickyKit(), _cookie_alert(), _widget_flickr(), _widget_twitter(), _widget_facebook(), _widget_dribbble(), _widget_media(), jQuery("[data-toggle=tooltip]").tooltip(), jQuery("[data-toggle=popover]").popover()
 }
 
 function _afterResize() {
@@ -677,18 +677,18 @@ function _wrotate() {
     })
 }
 
-function _lazyload() {
-    var e = jQuery("img.lazy");
-    e.length > 0 && loadScript(plugin_path + "lazyload/jquery.lazyload.min.js", function() {
-        jQuery().lazyload && e.each(function() {
-            var e = jQuery(this),
-                t = e.attr("data-effect") || "fadeIn";
-            e.lazyload({
-                effect: t
-            })
-        })
-    })
-}
+// function _lazyload() {
+//     var e = jQuery("img.lazy");
+//     e.length > 0 && loadScript(plugin_path + "lazyload/jquery.lazyload.min.js", function() {
+//         jQuery().lazyload && e.each(function() {
+//             var e = jQuery(this),
+//                 t = e.attr("data-effect") || "fadeIn";
+//             e.lazyload({
+//                 effect: t
+//             })
+//         })
+//     })
+// }
 
 function _misc() {
     if (jQuery("#portfolio").length > 0 && jQuery("#portfolio .item-box .owl-carousel").each(function() {

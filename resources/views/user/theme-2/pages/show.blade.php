@@ -24,7 +24,7 @@
 					<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
 						@foreach($page->images as $image)
 							<a class="lightbox slider-image-container" href="{{$page->mediumPath . $image->name}}" data-plugin-options='{"type":"image"}'>
-								<img class="img-fluid" src="{{$page->originalPath . $image->name}}" alt="" />
+								<img class="img-fluid lazy" data-src="{{$page->originalPath . $image->name}}" alt="" />
 							</a>
 						@endforeach
 					</div>
