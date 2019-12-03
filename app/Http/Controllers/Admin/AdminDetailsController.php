@@ -17,7 +17,7 @@ class AdminDetailsController extends Controller
 
     public function home(){
         $data = [];
-        if(env('ANALYTICS_VIEW_ID')){
+        if(config('analytics.view_id')){
             
             $totalVisitors = Analytics::fetchTotalVisitorsAndPageViews(Period::months(1));
             $mostVisitedPages =  Analytics::fetchMostVisitedPages(Period::months(1), 10);
