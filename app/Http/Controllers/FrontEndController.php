@@ -237,7 +237,7 @@ public function getAllCategoryPosts(Category $category){
             $minutes = 60 * 24 * 60;
             Cookie::queue(Cookie::make('locale', $locale, $minutes));
 
-            return redirect()->back();
+            return redirect()->route('public.home');
         } catch (Exception $e) {
             
             return redirect()->back()->with('error', trans('admin.ops'));
