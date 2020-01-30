@@ -259,5 +259,6 @@ array (
   'stars'             => 'Stars',
   'send-review'       => 'Send Review',
   'successfully-added-review' => 'Successfully Added Review',
+  'ops'               => 'Oops! Something went wrong please refresh the page and try again.',
 )
 ;
