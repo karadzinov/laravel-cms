@@ -14,7 +14,7 @@
                 <h1 class="mb-20 fs-40 mt-80">500</h1>
                 <p class="fs-20 font-lato text-muted">
                     <h2>{{trans('general.ops')}}</h2>
-                    <p>{{trnas('general.errors.500-internal-error')}}</p>
+                    <p>{{trans('general.errors.500-internal-error')}}</p>
                 </p>
 
                 <div style="max-width:500px; margin:auto;">
