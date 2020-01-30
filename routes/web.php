@@ -1,5 +1,4 @@
 <?php
-use App\Helpers\TwoCheckout\Twocheckout;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,10 +24,6 @@ Route::get('/changeTheme', function(){
     } catch (\Exception $e) {
         dd($e);
     }
-});
-
-Route::get('test', function(){
-   dd(trans('products.success.created'));
 });
 
 // Homepage Route
