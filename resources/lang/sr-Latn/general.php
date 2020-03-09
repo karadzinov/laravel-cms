@@ -34,7 +34,7 @@ array (
     'contact' => 'Kontakt',
     'about' => 'O nama',
     'faq' => 'Česta pitanja',
-    'toggle-theme'    => 'Promeni temu',
+    'toggle-theme'    => 'Tema',
     'change_language' => 'Promeni jezik',
     'quantity-short' => 'Kol.',
     'product' => 'Proizvod',
