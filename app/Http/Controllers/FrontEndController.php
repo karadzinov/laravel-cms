@@ -48,7 +48,7 @@ class FrontEndController extends Controller
         $slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = $this->topRatedPosts(3);
+        $popular = Post::inRandomOrder()->take(3)->get()
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
         return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'metadata');
@@ -158,7 +158,7 @@ public function getAllCategoryPosts(Category $category){
     	$slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = $this->topRatedPosts(3);
+        $popular = Post::inRandomOrder()->take(3)->get()
         $metadata = new Metadata(trans('general.navigation.posts'));
 
     	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'metadata'));
@@ -169,7 +169,7 @@ public function getAllCategoryPosts(Category $category){
     	$post = Post::where('slug', '=', $slug)->firstOrFail();
     	$categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = $this->topRatedPosts(3);
+        $popular = Post::inRandomOrder()->take(3)->get()
         $metadata = new Metadata($post->title, $post->subtitle, $post->thumbnailPath);
 
     	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'metadata'));
