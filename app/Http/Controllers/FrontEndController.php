@@ -7,6 +7,7 @@ use Exception;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Tag, Testimonial, Theme, User};
 
@@ -47,7 +48,7 @@ class FrontEndController extends Controller
         $slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = Post::inRandomOrder()->take(3)->get();
+        $popular = $this->topRatedPosts(3);
         $metadata = new Metadata($category->name, $category->description, $category->thumbnailPath);
 
         return compact('category', 'posts', 'slider', 'categories', 'recent', 'popular', 'metadata');
@@ -55,21 +56,18 @@ class FrontEndController extends Controller
 
     public function prepareProductsData($category){
 
-        $bestSellers = \DB::table('product_purchase')
+        $bestSellers = Cache::remember('best-selling-products', 60*60*24, function(){
+            return \DB::table('product_purchase')
                     ->leftJoin('products','products.id','=','product_purchase.product_id')
                     ->selectRaw('products.*, sum(product_purchase.quantity) total')
                     ->groupBy('product_purchase.product_id')
                     ->orderBy('total','desc')
                     ->take(3)
                     ->get();
+        });
 
-        $topRated = \DB::table('reviews')
-                    ->leftJoin('products','products.id','=','reviews.product_id')
-                    ->selectRaw('products.*, count(reviews.rating) count, avg(reviews.rating) avg')
-                    ->groupBy('products.id')
-                    ->orderBy('avg','desc')
-                    ->take(5)
-                    ->get();
+        $topRated = $this->topRatedPosts();
+
         $products = $this->getAllCategoryProducts($category);
         $cart = collect([]);
         $wishlist = collect([]);
@@ -91,6 +89,19 @@ class FrontEndController extends Controller
 
         return compact('category', 'products', 'cart', 'wishlist', 'bestSellers', 'topRated', 'metadata', 'categories');
         
+    }
+
+    public function topRatedPosts($quantity = 5){
+        
+        return Cache::remember('top-rated-products', 60*60*24, function(){
+            return \DB::table('reviews')
+                    ->leftJoin('products','products.id','=','reviews.product_id')
+                    ->selectRaw('products.*, count(reviews.rating) count, avg(reviews.rating) avg')
+                    ->groupBy('products.id')
+                    ->orderBy('avg','desc')
+                    ->take($quantity)
+                    ->get();
+        });
     }
 
     public function checkCategoryType($category, $postsCategory){
@@ -147,7 +158,7 @@ public function getAllCategoryPosts(Category $category){
     	$slider = $posts->where('image', '!=', null)->take(4);
         $categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = Post::inRandomOrder()->take(3)->get();
+        $popular = $this->topRatedPosts(3);
         $metadata = new Metadata(trans('general.navigation.posts'));
 
     	return view($this->path . 'posts/index', compact('posts', 'slider', 'categories', 'popular', 'recent', 'metadata'));
@@ -158,7 +169,7 @@ public function getAllCategoryPosts(Category $category){
     	$post = Post::where('slug', '=', $slug)->firstOrFail();
     	$categories = Category::has('posts')->inRandomOrder()->take(6)->get();
         $recent = Post::latest()->where('workflow', '=', 'posted')->take(3)->get();
-        $popular = Post::inRandomOrder()->take(3)->get();
+        $popular = $this->topRatedPosts(3);
         $metadata = new Metadata($post->title, $post->subtitle, $post->thumbnailPath);
 
     	return view($this->path . 'posts/show', compact('post', 'categories', 'popular', 'recent', 'metadata'));
