@@ -73,7 +73,7 @@
 													<h3><a href="{{route('products.show', $bestSeller->slug)}}">{{$bestSeller->name}}</a></h3>
 													<span class="price">
 														@if($bestSeller->reduction)
-															<del>{{$product->price.$settings->currencySymbol}}</del> 
+															<del>{{$bestSeller->price.$settings->currencySymbol}}</del> 
 															{{$bestSeller->price - ($bestSeller->price*$bestSeller->reduction/100).$settings->currencySymbol}}
 														@else
 															{{$bestSeller->price}}
@@ -105,7 +105,7 @@
 											</p>
 											<p class="price">
 												@if($top->reduction)
-													<del>{{$product->price.$settings->currencySymbol}}</del> 
+													<del>{{$top->price.$settings->currencySymbol}}</del> 
 													{{$top->price - ($top->price*$top->reduction/100).$settings->currencySymbol}}
 												@else
 													{{$top->price}}
