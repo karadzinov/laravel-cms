@@ -8,7 +8,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Helpers\Metadata\Metadata;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Tag, Testimonial, User};
+use App\Models\{About, Category, Faq, FaqCategory, Language, Page, Post, Tag, Testimonial, Theme, User};
 
 class FrontEndController extends Controller
 {
@@ -242,5 +242,17 @@ public function getAllCategoryPosts(Category $category){
             
             return redirect()->back()->with('error', trans('admin.ops'));
         }
+    }
+
+    public function toggleTheme(){
+        
+           $active = Theme::where('active', '=', 1)->first();
+           $newActive = Theme::where('id', '!=', $active->id)->first();
+           $newActive->active = 1;
+           $newActive->save();
+           $active->active = 0;
+           $active->save();
+
+           return redirect()->route('public.home'); 
     }
 }

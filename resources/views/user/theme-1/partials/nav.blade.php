@@ -103,6 +103,12 @@
 											{{trans('general.navigation.faq')}}
 										</a>
 									</li>
+									<li>
+										<a href="{{route('toggleTheme')}}">
+											{{-- <i class="fa fa-question-circle"></i> --}}
+											{{trans('general.navigation.toggle-theme')}}
+										</a>
+									</li>
 								</ul>
 								<!-- main-menu end -->
 								

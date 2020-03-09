@@ -34,6 +34,7 @@ array (
       'contact' => 'Contact',
       'about'   => 'About',
       'faq'     => 'FAQ',
+      'toggle-theme'    => 'Toggle Theme',
       'change_language' => 'Change language',
       'quantity-short'  => 'QTY',
       'product' => 'Product',

@@ -149,6 +149,11 @@
 								{{trans('general.navigation.faq')}}
 							</a>
 						</li>
+						<li>
+							<a href="{{route('toggleTheme')}}">
+								{{trans('general.navigation.toggle-theme')}}
+							</a>
+						</li>
 						@role('admin')
 							<li>
 								<a href="{{route('admin.home')}}">{{trans('general.go-to-admin')}}</a>

@@ -11,21 +11,6 @@
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
-Route::get('/changeTheme', function(){
-    try {
-       $active = App\Models\Theme::where('active', '=', 1)->first();
-       $newActive = App\Models\Theme::where('id', '!=', $active->id)->first();
-       $newActive->active = 1;
-       $newActive->save();
-       $active->active = 0;
-       $active->save();
-
-       return redirect(url()->previous()); 
-    } catch (\Exception $e) {
-        dd($e);
-    }
-});
-
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
@@ -161,6 +146,7 @@ Route::group(['as'=>'posts.'], function(){
 Route::get('contact', 'FrontEndController@contact')->name('contact');
 Route::get('about', 'FrontEndController@about')->name('about');
 
+Route::get('/toogle-theme', 'FrontEndController@toggleTheme')->name('toggleTheme');
 Route::post('switch-language', 'FrontEndController@switchLanguage')->name('switchLanguage');
 
 Route::group(['as'=>'pages.'], function(){
