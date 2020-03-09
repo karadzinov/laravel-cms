@@ -93,7 +93,7 @@ class FrontEndController extends Controller
 
     public function topRatedPosts($quantity = 5){
         
-        return Cache::remember('top-rated-products', 60*60*24, function(){
+        return Cache::remember('top-rated-products', 60*60*24, function() use ($quantity){
             return \DB::table('reviews')
                     ->leftJoin('products','products.id','=','reviews.product_id')
                     ->selectRaw('products.*, count(reviews.rating) count, avg(reviews.rating) avg')
